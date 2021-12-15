@@ -254,3 +254,13 @@ define_sanity_output.txt
 # Running OpenDream locally
 tgstation.json
 rust_g64.dll
+/tools/LinuxOneShot/SetupProgram/obj/*
+/tools/LinuxOneShot/SetupProgram/bin/*
+/tools/LinuxOneShot/SetupProgram/.vs
+/tools/LinuxOneShot/Database
+/tools/LinuxOneShot/TGS_Config
+/tools/LinuxOneShot/TGS_Instances
+/tools/LinuxOneShot/TGS_Logs
+
+# cirrstation specific
+/cirr/unversioned
