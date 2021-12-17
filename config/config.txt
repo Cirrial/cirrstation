@@ -1,7 +1,7 @@
 # You can use the "$include" directive to split your configs however you want
 
 $include game_options.txt
-$include dbconfig.txt
+$include cirrdbconfig.txt
 $include comms.txt
 $include logging.txt
 $include resources.txt
