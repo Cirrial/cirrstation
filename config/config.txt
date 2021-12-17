@@ -39,7 +39,7 @@ ROUND_END_COUNTDOWN 90
 ## Comment this out if you want to use the SQL based admin system, the legacy system uses admins.txt.
 ## You need to set up your database to use the SQL based system.
 ## This flag is automatically enabled if SQL_ENABLED isn't
-#ADMIN_LEGACY_SYSTEM
+ADMIN_LEGACY_SYSTEM
 
 ##Uncomment this to stop any admins loaded by the legacy system from having their rank edited by the permissions panel
 #PROTECT_LEGACY_ADMINS
@@ -81,6 +81,7 @@ ENABLE_LOCALHOST_RANK
 #USE_LOW_LIVING_HOUR_INTERN
 ## If USE_LOW_LIVING_HOUR_INTERN is unhashed, players under this number of living hours have [Intern] added to their ID card. If this isn't set, uses USE_EXP_RESTRICTIONS_HEADS_HOURS instead. If that isn't set, it finally defaults to a hardcoded fallback of 15 hours.
 #USE_LOW_LIVING_HOUR_INTERN_HOURS 50
+
 
 ##Log camera pictures - Must have picture logging enabled
 PICTURE_LOGGING_CAMERA
