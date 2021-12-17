@@ -199,8 +199,4 @@ Temporary Items
 
 # cirrstation specific
 /cirr/unversioned
-
-# certain config files should not be in version control, i scream into the uncaring void
-config/admins.txt
-config/config.txt
-config/dbconfig.txt
+/config/cirrdbconfig.txt
