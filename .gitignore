@@ -264,3 +264,4 @@ rust_g64.dll
 
 # cirrstation specific
 /cirr/unversioned
+/config/cirrdbconfig.txt
