@@ -10,6 +10,7 @@
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
 	suicide_cry = "FOR NANOTRASEN!!"
+	count_against_dynamic_roll_chance = FALSE
 	var/datum/team/ert/ert_team
 	var/leader = FALSE
 	var/datum/outfit/outfit = /datum/outfit/centcom/ert/security
@@ -208,6 +209,18 @@
 /datum/antagonist/ert/create_team(datum/team/ert/new_team)
 	if(istype(new_team))
 		ert_team = new_team
+
+/datum/antagonist/ert/bounty_armor
+	role = "Armored Bounty Hunter"
+	outfit = /datum/outfit/bountyarmor/ert
+
+/datum/antagonist/ert/bounty_hook
+	role = "Hookgun Bounty Hunter"
+	outfit = /datum/outfit/bountyarmor/ert
+
+/datum/antagonist/ert/bounty_synth
+	role = "Synthetic Bounty Hunter"
+	outfit = /datum/outfit/bountysynth/ert
 
 /datum/antagonist/ert/proc/forge_objectives()
 	if(ert_team)

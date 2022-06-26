@@ -44,35 +44,38 @@
 	if(can_hack_open)
 		. += "The service panel is currently <b>[panel_open ? "unscrewed" : "screwed shut"]</b>."
 
-/obj/item/storage/secure/attackby(obj/item/weapon, mob/user, params)
+/obj/item/storage/secure/tool_act(mob/living/user, obj/item/tool)
 	if(can_hack_open && SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED))
-		if (weapon.tool_behaviour == TOOL_SCREWDRIVER)
-			if (weapon.use_tool(src, user, 20))
-				panel_open = !panel_open
-				to_chat(user, span_notice("You [panel_open ? "open" : "close"] the service panel."))
-			return
-		if (weapon.tool_behaviour == TOOL_WIRECUTTER)
-			to_chat(user, span_danger("[src] is protected from this sort of tampering, yet it appears the internal memory wires can still be <b>pulsed</b>."))
-			return
-		if (weapon.tool_behaviour == TOOL_MULTITOOL)
-			if(lock_hacking)
-				to_chat(user, span_danger("This safe is already being hacked."))
-				return
-			if(panel_open == TRUE)
-				to_chat(user, span_danger("Now attempting to reset internal memory, please hold."))
-				lock_hacking = TRUE
-				if (weapon.use_tool(src, user, 400))
-					to_chat(user, span_danger("Internal memory reset - lock has been disengaged."))
-					lock_set = FALSE
+		return ..()
+	else
+		return FALSE
 
-				lock_hacking = FALSE
-				return
+/obj/item/storage/secure/wirecutter_act(mob/living/user, obj/item/tool)
+	to_chat(user, span_danger("[src] is protected from this sort of tampering, yet it appears the internal memory wires can still be <b>pulsed</b>."))
+	return
 
-			to_chat(user, span_warning("You must <b>unscrew</b> the service panel before you can pulse the wiring!"))
-			return
+/obj/item/storage/secure/screwdriver_act(mob/living/user, obj/item/tool)
+	if(tool.use_tool(src, user, 20))
+		panel_open = !panel_open
+		to_chat(user, span_notice("You [panel_open ? "open" : "close"] the service panel."))
+		return TRUE
 
-	// -> storage/attackby() what with handle insertion, etc
-	return ..()
+/obj/item/storage/secure/multitool_act(mob/living/user, obj/item/tool)
+	. = TRUE
+	if(lock_hacking)
+		to_chat(user, span_danger("This safe is already being hacked."))
+		return
+	if(panel_open == TRUE)
+		to_chat(user, span_danger("Now attempting to reset internal memory, please hold."))
+		lock_hacking = TRUE
+		if (tool.use_tool(src, user, 400))
+			to_chat(user, span_danger("Internal memory reset - lock has been disengaged."))
+			lock_set = FALSE
+
+		lock_hacking = FALSE
+		return
+
+	to_chat(user, span_warning("You must <b>unscrew</b> the service panel before you can pulse the wiring!"))
 
 /obj/item/storage/secure/attack_self(mob/user)
 	var/locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
@@ -130,7 +133,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/briefcase_righthand.dmi'
 	desc = "A large briefcase with a digital locking system."
 	force = 8
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	throw_speed = 2
 	throw_range = 4
 	w_class = WEIGHT_CLASS_BULKY
@@ -153,8 +156,7 @@
 
 /obj/item/storage/secure/briefcase/syndie/PopulateContents()
 	..()
-	var/datum/component/storage/storage_space = GetComponent(/datum/component/storage)
-	for(var/i in 1 to storage_space.max_items - 2)
+	for(var/iterator in 1 to 5)
 		new /obj/item/stack/spacecash/c1000(src)
 
 ///Secure Safe
@@ -206,7 +208,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe, 32)
 It is made out of the same material as the station's Black Box and is designed to resist all conventional weaponry. \
 There appears to be a small amount of surface corrosion. It doesn't look like it could withstand much of an explosion."
 	can_hack_open = FALSE
-	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 70, BIO = 100, FIRE = 80, ACID = 70)
+	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 70, BIO = 0, FIRE = 80, ACID = 70)
 	max_integrity = 300
 	color = "#ffdd33"
 

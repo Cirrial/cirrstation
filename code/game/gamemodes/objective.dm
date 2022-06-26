@@ -166,8 +166,8 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	clothes_req = FALSE
 	nonabstract_req = TRUE
 	phase_allowed = TRUE
-	antimagic_allowed = TRUE
-	invocation_type = "none"
+	antimagic_flags = NONE
+	invocation_type = INVOCATION_NONE
 
 /obj/effect/proc_holder/spell/self/special_equipment_fallback/cast(list/targets, mob/user)
 	var/datum/mind/mind = user.mind
@@ -282,7 +282,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 
 /datum/objective/protect/check_completion()
-	var/obj/item/organ/brain/brain_target
+	var/obj/item/organ/internal/brain/brain_target
 	if(human_check)
 		brain_target = target.current?.getorganslot(ORGAN_SLOT_BRAIN)
 	//Protect will always suceed when someone suicides
@@ -652,7 +652,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 
 /datum/objective/capture/check_completion()//Basically runs through all the mobs in the area to determine how much they are worth.
 	var/captured_amount = 0
-	var/area/centcom/holding/A = GLOB.areas_by_type[/area/centcom/holding]
+	var/area/centcom/central_command_areas/holding/A = GLOB.areas_by_type[/area/centcom/central_command_areas/holding]
 	for(var/mob/living/carbon/human/M in A)//Humans.
 		if(ismonkey(M))
 			captured_amount+=0.1
@@ -846,7 +846,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		for(var/obj/I in all_items) //Check for wanted items
 			if(is_type_in_typecache(I, wanted_items))
 				stolen_count++
-	return stolen_count >= 5
+	return stolen_count >= amount
 
 /datum/objective/steal_n_of_type/summon_guns
 	name = "steal guns"

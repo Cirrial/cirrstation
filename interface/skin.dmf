@@ -39,7 +39,7 @@ menu "menu"
 		command = ".quit"
 		category = "&File"
 		saved-params = "is-checked"
-	elem
+	elem "help-menu"
 		name = "&Help"
 		command = ""
 		saved-params = "is-checked"
@@ -50,7 +50,7 @@ menu "menu"
 		saved-params = "is-checked"
 	elem
 		name = "&Hotkeys"
-		command = "hotkeys-help"
+		command = "Hotkeys-Help"
 		category = "&Help"
 		saved-params = "is-checked"
 
@@ -65,7 +65,7 @@ window "mainwindow"
 		is-default = true
 		saved-params = "pos;size;is-minimized;is-maximized"
 		statusbar = false
-		icon = 'icons\\tg_32.png'
+		icon = 'icons\\ui_icons\\common\\tg_32.png'
 		macro = "default"
 		menu = "menu"
 	elem "split"
@@ -337,5 +337,24 @@ window "statwindow"
 		anchor1 = 0,0
 		anchor2 = 100,100
 		is-visible = false
+		saved-params = ""
+
+window "tgui_say"
+	elem "tgui_say"
+		type = MAIN
+		pos = 848,500
+		size = 231x30
+		anchor1 = 50,50
+		anchor2 = 50,50
+		is-visible = false
+		saved-params = ""
+		statusbar = false
+		can-minimize = false
+	elem "browser"
+		type = BROWSER
+		pos = 0,0
+		size = 231x30
+		anchor1 = 0,0
+		anchor2 = 0,0
 		saved-params = ""
 

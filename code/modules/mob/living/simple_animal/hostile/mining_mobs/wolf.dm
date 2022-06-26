@@ -11,7 +11,7 @@
 	friendly_verb_simple = "howl at"
 	speak_emote = list("howls")
 	speed = 5
-	move_to_delay = 2.5
+	move_to_delay = 5
 	maxHealth = 130
 	health = 130
 	obj_damage = 15
@@ -57,7 +57,6 @@
 	. = ..()
 	if(!. || target)
 		return
-	adjustHealth(-0.0125 * maxHealth * delta_time)
 	retreat_message_said = FALSE
 
 /obj/item/crusher_trophy/wolf_ear

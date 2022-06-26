@@ -15,7 +15,7 @@
 	combat_mode = TRUE
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_plas" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	move_to_delay = 5
+	move_to_delay = 10
 	health = 125
 	maxHealth = 125
 	melee_damage_lower = 15
@@ -39,7 +39,7 @@
 	light_range = 6
 	light_on = FALSE
 	var/mode = MINEDRONE_COLLECT
-	var/obj/item/gun/energy/kinetic_accelerator/minebot/stored_gun
+	var/obj/item/gun/energy/recharge/kinetic_accelerator/minebot/stored_gun
 
 /mob/living/simple_animal/hostile/mining_drone/Initialize(mapload)
 	. = ..()
@@ -308,7 +308,7 @@
 	sentience_type = SENTIENCE_MINEBOT
 	var/base_health_add = 5 //sentient minebots are penalized for beign sentient; they have their stats reset to normal plus these values
 	var/base_damage_add = 1 //this thus disables other minebot upgrades
-	var/base_speed_add = 0.5
+	var/base_speed_add = 1
 	var/base_cooldown_add = 10 //base cooldown isn't reset to normal, it's just added on, since it's not practical to disable the cooldown module
 
 /obj/item/slimepotion/slime/sentience/mining/after_success(mob/living/user, mob/living/simple_animal/simple_mob)
@@ -319,7 +319,7 @@
 	minebot.melee_damage_lower = initial(minebot.melee_damage_lower) + base_damage_add
 	minebot.melee_damage_upper = initial(minebot.melee_damage_upper) + base_damage_add
 	minebot.move_to_delay = initial(minebot.move_to_delay) + base_speed_add
-	minebot.stored_gun?.overheat_time += base_cooldown_add
+	minebot.stored_gun?.recharge_time += base_cooldown_add
 
 #undef MINEDRONE_COLLECT
 #undef MINEDRONE_ATTACK

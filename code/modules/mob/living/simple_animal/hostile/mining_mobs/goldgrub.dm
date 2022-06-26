@@ -11,7 +11,7 @@
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	vision_range = 2
 	aggro_vision_range = 9
-	move_to_delay = 2.5
+	move_to_delay = 5
 	friendly_verb_continuous = "harmlessly rolls into"
 	friendly_verb_simple = "harmlessly roll into"
 	maxHealth = 45
@@ -72,7 +72,7 @@
 	if(G.stat == DEAD)
 		return
 	var/turf/T = get_turf(G)
-	if (!istype(T, /turf/open/floor/plating/asteroid) || !do_after(G, 30, target = T))
+	if (!istype(T, /turf/open/misc/asteroid) || !do_after(G, 30, target = T))
 		to_chat(G, span_warning("You can only burrow in and out of mining turfs and must stay still!"))
 		return
 	if (get_dist(G, T) != 0)

@@ -11,7 +11,7 @@
 	friendly_verb_simple = "stare down"
 	speak_emote = list("roars")
 	speed = 12
-	move_to_delay = 6
+	move_to_delay = 12
 	ranged = TRUE
 	ranged_cooldown_time = 5 SECONDS
 	maxHealth = 300
@@ -45,12 +45,6 @@
 	var/turf/target_fire_turf = get_ranged_target_turf_direct(src, target, fire_range)
 	var/list/burn_turfs = get_line(src, target_fire_turf) - get_turf(src)
 	dragon_fire_line(src, burn_turfs, frozen = TRUE)
-
-/mob/living/simple_animal/hostile/asteroid/ice_whelp/Life(delta_time = SSMOBS_DT, times_fired)
-	. = ..()
-	if(!. || target)
-		return
-	adjustHealth(-0.0125 * maxHealth * delta_time)
 
 /mob/living/simple_animal/hostile/asteroid/ice_whelp/death(gibbed)
 	move_force = MOVE_FORCE_DEFAULT

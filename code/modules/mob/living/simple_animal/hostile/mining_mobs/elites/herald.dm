@@ -34,7 +34,7 @@
 	attack_sound = 'sound/magic/clockwork/ratvar_attack.ogg'
 	throw_message = "doesn't affect the purity of"
 	speed = 2
-	move_to_delay = 5
+	move_to_delay = 10
 	mouse_opacity = MOUSE_OPACITY_ICON
 	deathsound = 'sound/magic/demon_dies.ogg'
 	deathmessage = "begins to shudder as it becomes transparent..."
@@ -231,16 +231,14 @@
 	color = rgb(255,255,102)
 
 /obj/projectile/herald/on_hit(atom/target, blocked = FALSE)
+	if(ismob(target) && ismob(firer))
+		var/mob/living/mob_target = target
+		if(mob_target.faction_check_mob(firer))
+			nodamage = TRUE
 	. = ..()
 	if(ismineralturf(target))
-		var/turf/closed/mineral/M = target
-		M.gets_drilled()
-		return
-	else if(isliving(target))
-		var/mob/living/L = target
-		var/mob/living/F = firer
-		if(F != null && istype(F, /mob/living/simple_animal/hostile/asteroid/elite) && F.faction_check_mob(L))
-			L.heal_overall_damage(damage)
+		var/turf/closed/mineral/rock_target = target
+		rock_target.gets_drilled()
 
 /obj/projectile/herald/teleshot/on_hit(atom/target, blocked = FALSE)
 	. = ..()

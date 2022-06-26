@@ -83,7 +83,7 @@
 					return
 				else // not next to perp
 					var/turf/olddist = get_dist(src, target)
-					SSmove_manager.move_to(src, target, 1, 2)
+					SSmove_manager.move_to(src, target, 1, 4)
 					if((get_dist(src, target)) >= (olddist))
 						frustration++
 					else
@@ -130,8 +130,9 @@
 			continue
 
 /mob/living/simple_animal/bot/secbot/grievous/explode()
-	..()
 	var/atom/Tsec = drop_location()
 	//Parent is dropping the weapon, so let's drop 3 more to make up for it.
-	for(var/IS = 0 to 3)
+	for(var/dropped_weapons = 0 to 3)
 		drop_part(weapon, Tsec)
+
+	return ..()
