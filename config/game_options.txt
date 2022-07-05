@@ -208,7 +208,7 @@ MINIMAL_ACCESS_THRESHOLD 20
 #JOBS_HAVE_MINIMAL_ACCESS
 
 ## Uncomment to give assistants maint access.
-#ASSISTANTS_HAVE_MAINT_ACCESS
+ASSISTANTS_HAVE_MAINT_ACCESS
 
 ## Uncoment to give security maint access. Note that if you deactivate JOBS_HAVE_MINIMAL_ACCESS security already gets maint from that.
 #SECURITY_HAS_MAINT_ACCESS
@@ -244,24 +244,6 @@ NEAR_DEATH_EXPERIENCE
 ## Set to 0/commented out for "off", silicons will just start with Asimov.
 ## Set to 1 for "custom", silicons will start with the custom laws defined in silicon_laws.txt. (If silicon_laws.txt is empty, the AI will spawn with asimov and Custom boards will auto-delete.)
 ## Set to 2 for "random", silicons will start with a random lawset picked from random laws specified below.
-## Set to 3 for "weighted random", using values in "silicon_weights.txt", a law will be selected, with weights specified in that file.
-## Set to 4 for "specified", silicons will start with an existing lawset. (If no specified lawset is identified, the AI will spawn with asimov.)
-
-
-DEFAULT_LAWS 0
-
-## SILICON ASIMOV SUPERIORITY OVERRIDE ###
-## This makes "Asimov Superiority" show up as a perk for humans in the character creation menu even if asimov is not the default lawset, such as when used with asimov++
-## Uncomment this out to make "Asimov Superiority" show up as a perk for humans
-# SILICON_ASIMOV_SUPERIORITY_OVERRIDE
-
-## SPECIFIED LAWS ##
-## ------------------------------------------------------------------------------------------
-## These control what lawset the AI will use, edit the specified law to an *existing* lawset to make it the default.
-## See datums\ai_laws.dm for the full law lists
-## IE, SPECIFIED_LAWS asimovpp, SPECIFIED_LAWS robocop, SPECIFIED_LAWS antimov
-
-SPECIFIED_LAWS asimovpp
 
 ## RANDOM LAWS ##
 ## ------------------------------------------------------------------------------------------
