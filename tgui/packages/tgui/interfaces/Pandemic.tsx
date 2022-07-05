@@ -1,13 +1,14 @@
-import { useBackend, useSharedState } from '../backend';
+import { BooleanLike } from '../../common/react';
+import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Collapsible, Input, LabeledList, NoticeBox, ProgressBar, Section, Stack, Tabs, Tooltip } from '../components';
 import { Window } from '../layouts';
 
 type PandemicContext = {
   beaker?: Beaker;
   blood?: Blood;
-  has_beaker: number;
-  has_blood: number;
-  is_ready: number;
+  has_beaker: BooleanLike;
+  has_blood: BooleanLike;
+  is_ready: BooleanLike;
   resistances?: Resistance[];
   viruses?: Virus[];
 };
@@ -29,9 +30,9 @@ type Resistance = {
 
 type Virus = {
   name: string;
-  can_rename: number;
-  is_adv: number;
-  symptoms: Symptom[];
+  can_rename: BooleanLike;
+  is_adv: BooleanLike;
+  symptoms?: Symptom[];
   resistance: number;
   stealth: number;
   stage_speed: number;
@@ -64,7 +65,7 @@ type Symptom = {
   stage_speed: number;
   transmission: number;
   level: number;
-  neutered: number;
+  neutered: BooleanLike;
   threshold_desc: Threshold[];
 };
 
@@ -85,7 +86,7 @@ type ThresholdDisplayProps = {
   thresholds: Threshold[];
 };
 
-export const Pandemic = (_, context) => {
+export const Pandemic = (props, context) => {
   const { data } = useBackend<PandemicContext>(context);
   const { has_beaker, has_blood } = data;
 
@@ -108,7 +109,7 @@ export const Pandemic = (_, context) => {
 };
 
 /** Displays loaded container info, if it exists */
-const BeakerDisplay = (_, context) => {
+const BeakerDisplay = (props, context) => {
   const { act, data } = useBackend<PandemicContext>(context);
   const { has_beaker, beaker, has_blood } = data;
   const cant_empty = !has_beaker || !beaker?.volume;
@@ -164,7 +165,7 @@ const BeakerDisplay = (_, context) => {
 };
 
 /** Displays info about the blood type, beaker capacity - volume */
-const BeakerInfoDisplay = (_, context) => {
+const BeakerInfoDisplay = (props, context) => {
   const { data } = useBackend<PandemicContext>(context);
   const { beaker, blood } = data;
   if (!beaker || !blood) {
@@ -205,7 +206,7 @@ const BeakerInfoDisplay = (_, context) => {
 };
 
 /** If antibodies are present, returns buttons to create vaccines */
-const AntibodyInfoDisplay = (_, context) => {
+const AntibodyInfoDisplay = (props, context) => {
   const { act, data } = useBackend<PandemicContext>(context);
   const { is_ready, resistances = [] } = data;
   if (!resistances) {
@@ -227,7 +228,8 @@ const AntibodyInfoDisplay = (_, context) => {
                 onClick={() =>
                   act('create_vaccine_bottle', {
                     index: resistance.id,
-                  })}>
+                  })
+                }>
                 {`${resistance.name}`}
               </Button>
             );
@@ -238,17 +240,17 @@ const AntibodyInfoDisplay = (_, context) => {
 };
 
 /** Displays info for the loaded blood, if any */
-const SpecimenDisplay = (_, context) => {
+const SpecimenDisplay = (props, context) => {
   const { act, data } = useBackend<PandemicContext>(context);
-  const [tab, setTab] = useSharedState(context, 'tab', 0);
+  const [tab, setTab] = useLocalState(context, 'tab', 0);
   const { is_ready, viruses = [] } = data;
-  if (!viruses?.length) {
-    return <NoticeBox>No viruses detected</NoticeBox>;
-  }
   const virus = viruses[tab];
   const setTabHandler = (index: number) => {
     setTab(index);
   };
+  if (!viruses?.length || !virus) {
+    return <NoticeBox>Nothing detected.</NoticeBox>;
+  }
 
   return (
     <Section
@@ -270,7 +272,8 @@ const SpecimenDisplay = (_, context) => {
               onClick={() =>
                 act('create_culture_bottle', {
                   index: virus.index,
-                })}
+                })
+              }
             />
           </Stack.Item>
         </Stack>
@@ -280,8 +283,7 @@ const SpecimenDisplay = (_, context) => {
           <VirusDisplay virus={virus} />
         </Stack.Item>
         <Stack.Item>
-          {virus.symptoms
-          && <SymptomDisplay symptoms={virus.symptoms} />}
+          {virus?.symptoms && <SymptomDisplay symptoms={virus.symptoms} />}
         </Stack.Item>
       </Stack>
     </Section>
@@ -295,9 +297,6 @@ const VirusTabs = (props: TabsProps, context) => {
   const { data } = useBackend<PandemicContext>(context);
   const { tab, tabHandler } = props;
   const { viruses = [] } = data;
-  if (!viruses) {
-    return <NoticeBox>No viruses detected</NoticeBox>;
-  }
 
   return (
     <Tabs>
@@ -350,11 +349,12 @@ const VirusTextInfo = (props: VirusInfoProps, context) => {
           <Input
             placeholder="Input a name"
             value={virus.name === 'Unknown' ? '' : virus.name}
-            onChange={(e, value) =>
+            onChange={(_, value) =>
               act('rename_disease', {
                 index: virus.index,
                 name: value,
-              })}
+              })
+            }
           />
         ) : (
           <Box color="bad">{virus.name}</Box>
@@ -418,7 +418,7 @@ const VirusTraitInfo = (props: VirusInfoProps) => {
  */
 const SymptomDisplay = (props: SymptomDisplayProps) => {
   const { symptoms = [] } = props;
-  if (!symptoms.length) {
+  if (!symptoms || !symptoms.length) {
     return <NoticeBox>No symptoms detected.</NoticeBox>;
   }
 

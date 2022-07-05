@@ -7,7 +7,6 @@
 
 /datum/dynamic_ruleset/roundstart/traitor
 	name = "Traitors"
-	persistent = TRUE
 	antag_flag = ROLE_TRAITOR
 	antag_datum = /datum/antagonist/traitor
 	minimum_required_age = 0
@@ -28,13 +27,11 @@
 	cost = 8 // Avoid raising traitor threat above this, as it is the default low cost ruleset.
 	scaling_cost = 9
 	requirements = list(8,8,8,8,8,8,8,8,8,8)
-	antag_cap = list("denominator" = 24)
+	antag_cap = list("denominator" = 38)
 	var/autotraitor_cooldown = (15 MINUTES)
-	COOLDOWN_DECLARE(autotraitor_cooldown_check)
 
 /datum/dynamic_ruleset/roundstart/traitor/pre_execute(population)
 	. = ..()
-	COOLDOWN_START(src, autotraitor_cooldown_check, autotraitor_cooldown)
 	var/num_traitors = get_antag_cap(population) * (scaled_times + 1)
 	for (var/i = 1 to num_traitors)
 		if(candidates.len <= 0)
@@ -45,12 +42,6 @@
 		M.mind.restricted_roles = restricted_roles
 		GLOB.pre_setup_antags += M.mind
 	return TRUE
-
-/datum/dynamic_ruleset/roundstart/traitor/rule_process()
-	if (COOLDOWN_FINISHED(src, autotraitor_cooldown_check))
-		COOLDOWN_START(src, autotraitor_cooldown_check, autotraitor_cooldown)
-		log_game("DYNAMIC: Checking if we can turn someone into a traitor.")
-		mode.picking_specific_rule(/datum/dynamic_ruleset/midround/autotraitor)
 
 //////////////////////////////////////////////
 //                                          //
@@ -207,7 +198,7 @@
 
 //////////////////////////////////////////////
 //                                          //
-//              ELDRITCH CULT               //
+//                 HERETICS                 //
 //                                          //
 //////////////////////////////////////////////
 
@@ -486,6 +477,7 @@
 		JOB_HEAD_OF_PERSONNEL,
 		JOB_HEAD_OF_SECURITY,
 		JOB_PRISONER,
+		JOB_QUARTERMASTER,
 		JOB_RESEARCH_DIRECTOR,
 		JOB_SECURITY_OFFICER,
 		JOB_WARDEN,
@@ -723,10 +715,11 @@
 	)
 	required_candidates = 1
 	weight = 3
-	cost = 6 //very cheap cost for the round
-	scaling_cost = 9
+	cost = 4 //very cheap cost for the round
+	scaling_cost = 0
 	requirements = list(8,8,8,8,8,8,8,8,8,8)
-	antag_cap = list("denominator" = 24)
+	antag_cap = list("denominator" = 24, "offset" = 2)
+	flags = LONE_RULESET
 
 /datum/dynamic_ruleset/roundstart/thieves/pre_execute(population)
 	. = ..()
@@ -754,7 +747,7 @@
 	required_candidates = 0
 	weight = 0 //admin only (and for good reason)
 	cost = 0
-	flags = LONE_RULESET
+	flags = LONE_RULESET | ONLY_RULESET
 
 /datum/dynamic_ruleset/roundstart/nations/execute()
 	. = ..()

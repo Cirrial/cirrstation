@@ -116,8 +116,10 @@
 	var/medipen_type = /obj/item/reagent_containers/hypospray/medipen
 
 /obj/item/storage/box/survival/PopulateContents()
-	if(!isplasmaman(loc))
+	if(!isnull(mask_type))
 		new mask_type(src)
+
+	if(!isplasmaman(loc))
 		new internal_type(src)
 	else
 		new /obj/item/tank/internals/plasmaman/belt(src)
@@ -451,9 +453,9 @@
 
 /obj/item/storage/box/donkpockets
 	name = "box of donk-pockets"
-	desc = "<B>Instructions:</B> <I>Heat in microwave. Product will cool if not eaten within seven minutes.</I>"
+	desc = "<B>Instructions:</B> <I>Heat in microwave. Product will stay perpetually warmed with cutting edge Donk Co. technology.</I>"
 	icon_state = "donkpocketbox"
-	illustration=null
+	illustration = null
 	var/donktype = /obj/item/food/donkpocket
 
 /obj/item/storage/box/donkpockets/PopulateContents()
@@ -549,15 +551,7 @@
 
 /obj/item/storage/box/pdas/PopulateContents()
 	for(var/i in 1 to 4)
-		new /obj/item/pda(src)
-	new /obj/item/cartridge/head(src)
-
-	var/newcart = pick( /obj/item/cartridge/engineering,
-						/obj/item/cartridge/security,
-						/obj/item/cartridge/medical,
-						/obj/item/cartridge/signal/ordnance,
-						/obj/item/cartridge/quartermaster)
-	new newcart(src)
+		new /obj/item/modular_computer/tablet/pda(src)
 
 /obj/item/storage/box/silver_ids
 	name = "box of spare silver IDs"
@@ -591,9 +585,8 @@
 	illustration = "pda"
 
 /obj/item/storage/box/seccarts/PopulateContents()
-	new /obj/item/cartridge/detective(src)
 	for(var/i in 1 to 6)
-		new /obj/item/cartridge/security(src)
+		new /obj/item/computer_hardware/hard_drive/portable/security(src)
 
 /obj/item/storage/box/firingpins
 	name = "box of standard firing pins"
@@ -709,7 +702,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
 	pickup_sound = 'sound/items/handling/matchbox_pickup.ogg'
-	custom_price = PAYCHECK_ASSISTANT * 0.4
+	custom_price = PAYCHECK_CREW * 0.4
 	base_icon_state = "matchbox"
 	illustration = null
 
@@ -821,8 +814,12 @@
 /obj/item/storage/box/hug/attack_self(mob/user)
 	..()
 	user.changeNext_move(CLICK_CD_MELEE)
-	playsound(loc, "rustle", 50, TRUE, -5)
+	playsound(loc, SFX_RUSTLE, 50, TRUE, -5)
 	user.visible_message(span_notice("[user] hugs \the [src]."),span_notice("You hug \the [src]."))
+
+/obj/item/storage/box/hug/black
+	icon_state = "hugbox_black"
+	illustration = "heart_black"
 
 /////clown box & honkbot assembly
 /obj/item/storage/box/clown
@@ -861,7 +858,18 @@
 
 // Clown survival box
 /obj/item/storage/box/hug/survival/PopulateContents()
-	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/reagent_containers/hypospray/medipen(src)
+
+	if(!isplasmaman(loc))
+		new /obj/item/tank/internals/emergency_oxygen(src)
+	else
+		new /obj/item/tank/internals/plasmaman/belt(src)
+
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		new /obj/item/flashlight/flare(src)
+		new /obj/item/radio/off(src)
+
+/obj/item/storage/box/hug/black/survival/PopulateContents()
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
 	if(!isplasmaman(loc))
@@ -916,7 +924,7 @@
 /obj/item/storage/box/beanbag
 	name = "box of beanbags"
 	desc = "A box full of beanbag shells."
-	icon_state = "rubbershot_box"
+	icon_state = "beanbagshot_box"
 	illustration = null
 
 /obj/item/storage/box/beanbag/PopulateContents()
@@ -1098,10 +1106,15 @@
 		/obj/item/stock_parts/matter_bin/bluespace = 3)
 	generate_items_inside(items_inside,src)
 
+/obj/item/storage/box/syndie_kit/space_dragon/PopulateContents()
+	new /obj/item/dna_probe/carp_scanner(src)
+	new /obj/item/clothing/suit/hooded/carp_costume/spaceproof/old(src)
+	new /obj/item/clothing/mask/gas/carp(src)
+
 /obj/item/storage/box/dishdrive
 	name = "DIY Dish Drive Kit"
 	desc = "Contains everything you need to build your own Dish Drive!"
-	custom_premium_price = PAYCHECK_EASY * 3
+	custom_premium_price = PAYCHECK_CREW * 3
 
 /obj/item/storage/box/dishdrive/PopulateContents()
 	var/static/items_inside = list(
@@ -1150,7 +1163,7 @@
 /obj/item/storage/box/debugtools/PopulateContents()
 	var/static/items_inside = list(
 		/obj/item/flashlight/emp/debug=1,\
-		/obj/item/pda=1,\
+		/obj/item/modular_computer/tablet/pda=1,\
 		/obj/item/modular_computer/tablet/preset/advanced=1,\
 		/obj/item/geiger_counter=1,\
 		/obj/item/construction/rcd/combat/admin=1,\
@@ -1224,7 +1237,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	illustration = null
 	foldable = null
-	custom_price = PAYCHECK_EASY
+	custom_price = PAYCHECK_CREW
 
 /obj/item/storage/box/gum/ComponentInitialize()
 	. = ..()
@@ -1240,7 +1253,7 @@
 	name = "nicotine gum packet"
 	desc = "Designed to help with nicotine addiction and oral fixation all at once without destroying your lungs in the process. Mint flavored!"
 	icon_state = "bubblegum_nicotine"
-	custom_premium_price = PAYCHECK_EASY * 1.5
+	custom_premium_price = PAYCHECK_CREW * 1.5
 
 /obj/item/storage/box/gum/nicotine/PopulateContents()
 	for(var/i in 1 to 4)
@@ -1250,8 +1263,8 @@
 	name = "HP+ gum packet"
 	desc = "A seemingly homemade packaging with an odd smell. It has a weird drawing of a smiling face sticking out its tongue."
 	icon_state = "bubblegum_happiness"
-	custom_price = PAYCHECK_HARD * 3
-	custom_premium_price = PAYCHECK_HARD * 3
+	custom_price = PAYCHECK_COMMAND * 3
+	custom_premium_price = PAYCHECK_COMMAND * 3
 
 /obj/item/storage/box/gum/happiness/Initialize(mapload)
 	. = ..()
@@ -1603,6 +1616,20 @@
 	new /obj/item/knife/hunting(src)
 	new /obj/item/storage/box/papersack/meat(src)
 
+/obj/item/storage/box/hero/mothpioneer
+	name = "Mothic Fleet Pioneer - 2100's."
+	desc = "Some claim that the fleet engineers are directly responsible for most modern advancement in spacefaring design. Although the exact details of their past contributions are somewhat fuzzy, their ingenuity remains unmatched and unquestioned to this day."
+
+/obj/item/storage/box/hero/mothpioneer/PopulateContents()
+	new /obj/item/clothing/suit/mothcoat/original(src)
+	new /obj/item/clothing/head/mothcap(src)
+	new /obj/item/flashlight/lantern(src)
+	new /obj/item/screwdriver(src)
+	new /obj/item/wrench(src)
+	new /obj/item/crowbar(src)
+	new /obj/item/stack/sheet/iron/fifty(src)
+	new /obj/item/stack/sheet/glass/fifty(src)
+
 /obj/item/storage/box/holy/clock
 	name = "Forgotten kit"
 
@@ -1670,3 +1697,84 @@
 							  /obj/item/food/sustenance_bar/wonka = 1))
 		new randomFood(src)
 	new /obj/item/storage/box/gum/wake_up(src)
+
+/obj/item/storage/box/tiziran_goods
+	name = "Tiziran Farm-Fresh Pack"
+	desc = "A box containing an assortment of fresh Tiziran goods- perfect for making the foods of the Lizard Empire."
+	icon_state = "lizard_package"
+	illustration = null
+
+/obj/item/storage/box/tiziran_goods/PopulateContents()
+	for(var/i in 1 to 12)
+		var/randomFood = pick_weight(list(/obj/item/food/grown/korta_nut = 10,
+										  /obj/item/food/rootroll = 5,
+										  /obj/item/food/root_flatbread = 5,
+										  /obj/item/food/spaghetti/nizaya = 5,
+										  /obj/item/food/moonfish_caviar = 5,
+										  /obj/item/food/liver_pate = 5,
+										  /obj/item/food/lizard_dumplings = 5,
+										  /obj/item/food/grown/korta_nut/sweet = 2,
+										  /obj/item/food/grown/ash_flora/seraka = 2,
+										  /obj/item/food/bread/root = 2))
+		new randomFood(src)
+
+/obj/item/storage/box/tiziran_cans
+	name = "Tiziran Canned Goods Pack"
+	desc = "A box containing an assortment of canned Tiziran goods- to be eaten as is, or used in cooking."
+	icon_state = "lizard_package"
+	illustration = null
+
+/obj/item/storage/box/tiziran_cans/PopulateContents()
+	for(var/i in 1 to 8)
+		var/randomFood = pick_weight(list(/obj/item/food/desert_snails = 5,
+										  /obj/item/food/larvae = 5,
+										  /obj/item/food/canned_jellyfish = 5))
+		new randomFood(src)
+
+/obj/item/storage/box/tiziran_meats
+	name = "Tiziran Meatmarket Pack"
+	desc = "A box containing an assortment of fresh-frozen Tiziran meats and fish- the keys to lizard cooking."
+	icon_state = "lizard_package"
+	illustration = null
+
+/obj/item/storage/box/tiziran_meats/PopulateContents()
+	for(var/i in 1 to 10)
+		var/randomFood = pick_weight(list(/obj/item/food/meat/slab = 5,
+										  /obj/item/food/fishmeat/moonfish = 5,
+										  /obj/item/food/fishmeat/armorfish = 5,
+										  /obj/item/food/fishmeat/gunner_jellyfish = 5))
+		new randomFood(src)
+
+/obj/item/storage/box/mothic_goods
+	name = "Mothic Farm-Fresh Pack"
+	desc = "A box containing an assortment of Mothic cooking supplies."
+	icon_state = "moth_package"
+	illustration = null
+
+/obj/item/storage/box/mothic_goods/PopulateContents()
+	for(var/i in 1 to 12)
+		var/randomFood = pick_weight(list(/obj/item/food/grown/toechtauese = 10,
+										  /obj/item/reagent_containers/food/condiment/cornmeal = 5,
+										  /obj/item/reagent_containers/food/condiment/yoghurt = 5,
+										  /obj/item/reagent_containers/food/condiment/quality_oil = 5,
+										  /obj/item/food/cheese/mozzarella = 5,
+										  /obj/item/food/cheese/firm_cheese = 5,
+										  /obj/item/food/cheese/wheel = 5,
+										  /obj/item/food/cheese/cheese_curds = 5,
+										  /obj/item/food/cheese/curd_cheese = 5))
+		new randomFood(src)
+
+/obj/item/storage/box/mothic_cans_sauces
+	name = "Mothic Pantry Pack"
+	desc = "A box containing an assortment of Mothic canned goods and premade sauces."
+	icon_state = "moth_package"
+	illustration = null
+
+/obj/item/storage/box/mothic_cans_sauces/PopulateContents()
+	for(var/i in 1 to 8)
+		var/randomFood = pick_weight(list(/obj/item/food/tomato_sauce = 5,
+										  /obj/item/food/bechamel_sauce = 5,
+										  /obj/item/food/pesto = 5,
+										  /obj/item/food/canned/tomatoes = 5,
+										  /obj/item/food/canned/pine_nuts = 5))
+		new randomFood(src)

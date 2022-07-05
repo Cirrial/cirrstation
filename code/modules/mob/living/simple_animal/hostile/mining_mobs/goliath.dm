@@ -10,7 +10,7 @@
 	icon_gib = "syndicate_gib"
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	mouse_opacity = MOUSE_OPACITY_ICON
-	move_to_delay = 20
+	move_to_delay = 40
 	ranged = 1
 	ranged_cooldown_time = 120
 	friendly_verb_continuous = "wails at"
@@ -118,7 +118,6 @@
 		user.visible_message(span_notice("You manage to put [O] on [src], you can now ride [p_them()]."))
 		qdel(O)
 		saddled = TRUE
-		can_buckle = TRUE
 		buckle_lying = 0
 		add_overlay("goliath_saddled")
 		AddElement(/datum/element/ridable, /datum/component/riding/creature/goliath)
@@ -183,6 +182,7 @@
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Goliath_tentacle_spawn"
 	layer = BELOW_MOB_LAYER
+	plane = GAME_PLANE
 	var/mob/living/spawner
 
 /obj/effect/temp_visual/goliath_tentacle/Initialize(mapload, mob/living/new_spawner)

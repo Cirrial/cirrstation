@@ -18,6 +18,7 @@
 	desc = "Yarr."
 	icon_state = "pirate"
 	inhand_icon_state = "pirate"
+	body_parts_covered = CHEST|GROIN|ARMS
 	allowed = list(/obj/item/melee/energy/sword/pirate, /obj/item/clothing/glasses/eyepatch, /obj/item/reagent_containers/food/drinks/bottle/rum)
 	species_exception = list(/datum/species/golem)
 
@@ -25,6 +26,7 @@
 	armor = list(MELEE = 30, BULLET = 50, LASER = 30,ENERGY = 40, BOMB = 30, BIO = 30, FIRE = 60, ACID = 75)
 	strip_delay = 40
 	equip_delay_other = 20
+	species_exception = null
 
 /obj/item/clothing/suit/pirate/captain
 	name = "pirate captain coat"
@@ -36,6 +38,7 @@
 	armor = list(MELEE = 30, BULLET = 50, LASER = 30,ENERGY = 40, BOMB = 30, BIO = 30, FIRE = 60, ACID = 75)
 	strip_delay = 40
 	equip_delay_other = 20
+	species_exception = null
 
 /obj/item/clothing/suit/cyborg_suit
 	name = "cyborg suit"
@@ -51,6 +54,7 @@
 	desc = "this pretty much looks ridiculous" //Needs no fixing
 	icon_state = "justice"
 	inhand_icon_state = "justice"
+	body_parts_covered = CHEST|GROIN|ARMS|LEGS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	armor = list(MELEE = 35, BULLET = 30, LASER = 30, ENERGY = 40, BOMB = 25, BIO = 0, FIRE = 50, ACID = 50)
 
@@ -320,7 +324,7 @@
 	body_parts_covered = HEAD
 	clothing_flags = THICKMATERIAL
 	flags_inv = HIDEHAIR|HIDEEARS
-	dynamic_hair_suffix = ""
+
 
 /obj/item/clothing/suit/hooded/bloated_human //OH MY GOD WHAT HAVE YOU DONE!?!?!?
 	name = "bloated human suit"
@@ -470,6 +474,7 @@
 	icon_state = "MajimaJacket"
 	inhand_icon_state = "MajimaJacket"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/suit/dutch
 	name = "dutch's jacket"
@@ -478,6 +483,7 @@
 	inhand_icon_state = "DutchJacket"
 	body_parts_covered = ARMS
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/suit/driscoll
 	name = "driscoll poncho"
@@ -485,6 +491,7 @@
 	icon_state = "driscoll_suit"
 	inhand_icon_state = "driscoll_suit"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/suit/irs
 	name = "internal revenue service jacket"
@@ -492,6 +499,7 @@
 	icon_state = "irs_suit"
 	inhand_icon_state = "irs_suit"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/suit/osi
 	name = "\improper O.S.I. body armor"
@@ -499,6 +507,7 @@
 	icon_state = "osi_suit"
 	inhand_icon_state = "osi_suit"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/suit/tmc
 	name = "\improper Lost M.C. cut"
@@ -506,6 +515,7 @@
 	icon_state = "tmc_suit"
 	inhand_icon_state = "tmc_suit"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/suit/pg
 	name = "powder ganger jacket"
@@ -513,6 +523,7 @@
 	icon_state = "pg_suit"
 	inhand_icon_state = "pg_suit"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/suit/deckers
 	name = "decker hoodie"
@@ -520,6 +531,7 @@
 	icon_state = "decker_suit"
 	inhand_icon_state = "decker_suit"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/suit/morningstar
 	name = "morningstar coat"
@@ -527,6 +539,7 @@
 	icon_state = "morningstar_suit"
 	inhand_icon_state = "morningstar_suit"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/suit/saints
 	name = "Third Street Saints fur coat"
@@ -534,6 +547,9 @@
 	icon_state = "saints_suit"
 	inhand_icon_state = "saints_suit"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	cold_protection = CHEST|GROIN|LEGS|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/suit/phantom
 	name = "phantom thief coat"
@@ -541,6 +557,7 @@
 	icon_state = "phantom_suit"
 	inhand_icon_state = "phantom_suit"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/suit/allies
 	name = "allies body armor"
@@ -548,6 +565,7 @@
 	icon_state = "allies_armor"
 	inhand_icon_state = "allies_armor"
 	body_parts_covered = CHEST|GROIN
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/suit/soviet
 	name = "soviet armored coat"

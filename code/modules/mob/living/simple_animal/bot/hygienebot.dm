@@ -6,7 +6,7 @@
 	icon_state = "hygienebot"
 	base_icon_state = "hygienebot"
 	pass_flags = PASSMOB | PASSFLAPS | PASSTABLE
-	layer = ABOVE_MOB_LAYER
+	layer = MOB_UPPER_LAYER
 	density = FALSE
 	anchored = FALSE
 	health = 100
@@ -22,8 +22,8 @@
 
 	///The human target the bot is trying to wash.
 	var/mob/living/carbon/human/target
-	///The mob's current speed, which varies based on how long the bot chases it's target. Measured in deciseconds
-	var/currentspeed = 2.5
+	///The mob's current speed, which varies based on how long the bot chases it's target.
+	var/currentspeed = 5
 	///Is the bot currently washing it's target/everything else that crosses it?
 	var/washing = FALSE
 	///Have the target evaded the bot for long enough that it will swear at it like kirk did to kahn?
@@ -50,13 +50,12 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/mob/living/simple_animal/bot/hygienebot/explode()
-	visible_message(span_boldannounce("[src] blows apart in a foamy explosion!"))
-	do_sparks(3, TRUE, src)
-	bot_mode_flags &= ~BOT_MODE_ON
-	new /obj/effect/particle_effect/foam(loc)
+	ADD_TRAIT(src, TRAIT_SPRAY_PAINTABLE, INNATE_TRAIT)
 
-	..()
+/mob/living/simple_animal/bot/hygienebot/explode()
+	new /obj/effect/particle_effect/fluid/foam(loc)
+
+	return ..()
 
 /mob/living/simple_animal/bot/hygienebot/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
@@ -95,6 +94,8 @@
 	if(washing)
 		do_wash(loc)
 		for(var/AM in loc)
+			if (AM == src)
+				continue
 			do_wash(AM)
 		if(isopenturf(loc) && !(bot_cover_flags & BOT_COVER_EMAGGED))
 			var/turf/open/tile = loc
@@ -109,16 +110,16 @@
 
 		if(BOT_HUNT) // hunting for stinkman
 			if(bot_cover_flags & BOT_COVER_EMAGGED) //lol fuck em up
-				currentspeed = 1.5
+				currentspeed = 3.5
 				start_washing()
 				mad = TRUE
 			else
 				switch(frustration)
 					if(0 to 4)
-						currentspeed = 2.5
+						currentspeed = 5
 						mad = FALSE
 					if(5 to INFINITY)
-						currentspeed = 1
+						currentspeed = 2.5
 						mad = TRUE
 			if(target && !check_purity(target))
 				if(target.loc == loc && isturf(target.loc)) //LADIES AND GENTLEMAN WE GOTEM PREPARE TO DUMP
@@ -210,7 +211,7 @@
 	for(var/X in list(ITEM_SLOT_HEAD, ITEM_SLOT_MASK, ITEM_SLOT_ICLOTHING, ITEM_SLOT_OCLOTHING, ITEM_SLOT_FEET))
 
 		var/obj/item/I = L.get_item_by_slot(X)
-		if(I && HAS_BLOOD_DNA(I))
+		if(I && GET_ATOM_BLOOD_DNA_LENGTH(I))
 			return FALSE
 	return TRUE
 

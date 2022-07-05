@@ -28,7 +28,7 @@
 	status_flags = CANPUSH
 	minbodytemp = 0
 	unsuitable_heat_damage = 20
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	unique_name = 1
 	gold_core_spawnable = NO_SPAWN
@@ -83,7 +83,7 @@
 	ranged = 1
 	retreat_distance = 5
 	minimum_distance = 5
-	move_to_delay = 2
+	move_to_delay = 4
 	butcher_results = list(/obj/item/food/meat/slab/xeno = 4,
 							/obj/item/stack/sheet/animalhide/xeno = 1)
 	projectiletype = /obj/projectile/neurotox
@@ -132,7 +132,7 @@
 	icon_dead = "alienq_dead"
 	health_doll_icon = "alienq"
 	bubble_icon = "alienroyal"
-	move_to_delay = 2
+	move_to_delay = 4
 	maxHealth = 400
 	health = 400
 	butcher_results = list(/obj/item/food/meat/slab/xeno = 10,

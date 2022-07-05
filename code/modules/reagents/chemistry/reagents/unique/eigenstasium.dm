@@ -45,7 +45,7 @@
 	//This looks rediculous, but expose is usually called from the donor reagents datum - we want to edit the post exposure version present in the mob.
 	var/mob/living/carbon/carby = living_mob
 	//But because carbon mobs have stomachs we have to search in there because we're ingested
-	var/obj/item/organ/stomach/stomach = carby.getorganslot(ORGAN_SLOT_STOMACH)
+	var/obj/item/organ/internal/stomach/stomach = carby.getorganslot(ORGAN_SLOT_STOMACH)
 	var/datum/reagent/eigenstate/eigen
 	if(stomach)
 		eigen = stomach.reagents.has_reagent(/datum/reagent/eigenstate)
@@ -95,11 +95,11 @@
 
 /datum/reagent/eigenstate/overdose_start(mob/living/living_mob) //Overdose, makes you teleport randomly
 	to_chat(living_mob, span_userdanger("You feel like your perspective is being ripped apart as you begin flitting in and out of reality!"))
-	living_mob.Jitter(20)
+	living_mob.set_timed_status_effect(40 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	metabolization_rate += 0.5 //So you're not stuck forever teleporting.
 	if(iscarbon(living_mob))
 		var/mob/living/carbon/carbon_mob = living_mob
-		carbon_mob.apply_status_effect(STATUS_EFFECT_EIGEN)
+		carbon_mob.apply_status_effect(/datum/status_effect/eigenstasium)
 	return ..()
 
 /datum/reagent/eigenstate/overdose_process(mob/living/living_mob) //Overdose, makes you teleport randomly
