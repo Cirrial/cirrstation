@@ -265,13 +265,13 @@
 		properties["severity"] += round((properties["transmittable"] / 8), 1)
 		properties["severity"] = round((properties["severity"] / 2), 1)
 		properties["severity"] *= (symptoms.len / VIRUS_SYMPTOM_LIMIT) //fewer symptoms, less severity
-		properties["severity"] = clamp(properties["severity"], 1, 7)
+		properties["severity"] = round(clamp(properties["severity"], 1, 7), 1)
 
 // Assign the properties that are in the list.
 /datum/disease/advance/proc/assign_properties()
 
 	if(properties?.len)
-		if(properties["stealth"] >= 2)
+		if(properties["stealth"] >= properties["severity"] && properties["severity"] > 0)
 			visibility_flags |= HIDDEN_SCANNER
 		else
 			visibility_flags &= ~HIDDEN_SCANNER
@@ -287,7 +287,7 @@
 
 		spreading_modifier = max(CEILING(0.4 * properties["transmittable"], 1), 1)
 		cure_chance = clamp(7.5 - (0.5 * properties["resistance"]), 1, 10) // can be between 1 and 10
-		stage_prob = max(0.5 * properties["stage_rate"], 1)
+		stage_prob = max(0.3 * properties["stage_rate"], 1)
 		set_severity(round(properties["severity"]), 1)
 		generate_cure(properties)
 	else
@@ -298,22 +298,22 @@
 /datum/disease/advance/proc/set_spread(spread_id)
 	switch(spread_id)
 		if(DISEASE_SPREAD_NON_CONTAGIOUS)
-			spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
+			update_spread_flags(DISEASE_SPREAD_NON_CONTAGIOUS)
 			spread_text = "None"
 		if(DISEASE_SPREAD_SPECIAL)
-			spread_flags = DISEASE_SPREAD_SPECIAL
+			update_spread_flags(DISEASE_SPREAD_SPECIAL)
 			spread_text = "None"
 		if(DISEASE_SPREAD_BLOOD)
-			spread_flags = DISEASE_SPREAD_BLOOD
+			update_spread_flags(DISEASE_SPREAD_BLOOD)
 			spread_text = "Blood"
 		if(DISEASE_SPREAD_CONTACT_FLUIDS)
-			spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS
+			update_spread_flags(DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS)
 			spread_text = "Fluids"
 		if(DISEASE_SPREAD_CONTACT_SKIN)
-			spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN
+			update_spread_flags(DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN)
 			spread_text = "Skin contact"
 		if(DISEASE_SPREAD_AIRBORNE)
-			spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_AIRBORNE
+			update_spread_flags(DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_AIRBORNE)
 			spread_text = "Respiration"
 
 /datum/disease/advance/proc/set_severity(level_sev)
@@ -402,10 +402,8 @@
 
 // Add a symptom, if it is over the limit we take a random symptom away and add the new one.
 /datum/disease/advance/proc/AddSymptom(datum/symptom/S)
-
 	if(HasSymptom(S))
 		return
-
 	if(symptoms.len >= VIRUS_SYMPTOM_LIMIT)
 		RemoveSymptom(pick(symptoms))
 	symptoms += S

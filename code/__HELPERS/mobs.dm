@@ -28,6 +28,20 @@
 		else
 			return COLOR_BLACK
 
+/proc/random_hair_color()
+	var/static/list/natural_hair_colors = list(
+		"#111111", "#362925", "#3B3831", "#41250C", "#412922",
+		"#544C49", "#583322", "#593029", "#703b30", "#714721",
+		"#744729", "#74482a", "#7b746e", "#855832", "#863019",
+		"#8c4734", "#9F550E", "#A29A96", "#A4381C", "#B17B41",
+		"#C0BAB7", "#EFE5E4", "#F7F3F1", "#FFF2D6", "#a15537",
+		"#a17e61", "#b38b67", "#ba673c", "#c89f73", "#d9b380",
+		"#dbc9b8", "#e1621d", "#e17d17", "#e1af93", "#f1cc8f",
+		"#fbe7a1",
+	)
+
+	return pick(natural_hair_colors)
+
 /proc/random_underwear(gender)
 	if(length(SSaccessories.underwear_list) == 0)
 		CRASH("No underwear to choose from!")
@@ -194,7 +208,7 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 	var/atom/target_loc = target?.loc
 
 	var/drifting = FALSE
-	if(GLOB.move_manager.processing_on(user, SSspacedrift))
+	if(!isnull(user.drift_handler))
 		drifting = TRUE
 
 	var/holding = user.get_active_held_item()
@@ -223,7 +237,7 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 		if(!QDELETED(progbar))
 			progbar.update(world.time - starttime)
 
-		if(drifting && !GLOB.move_manager.processing_on(user, SSspacedrift))
+		if(drifting && isnull(user.drift_handler))
 			drifting = FALSE
 			user_loc = user.loc
 
@@ -331,6 +345,9 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 /proc/deadchat_broadcast(message, source=null, mob/follow_target=null, turf/turf_target=null, speaker_key=null, message_type=DEADCHAT_REGULAR, admin_only=FALSE)
 	message = span_deadsay("[source][span_linkify(message)]")
 
+	if(admin_only)
+		message += span_deadsay(" (This is viewable to admins only).")
+
 	for(var/mob/M in GLOB.player_list)
 		var/chat_toggles = TOGGLES_DEFAULT_CHAT
 		var/toggles = TOGGLES_DEFAULT
@@ -341,10 +358,8 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 			toggles = prefs.toggles
 			ignoring = prefs.ignoring
 		if(admin_only)
-			if (!M.client?.holder)
-				return
-			else
-				message += span_deadsay(" (This is viewable to admins only).")
+			if(!M.client?.holder)
+				continue
 		var/override = FALSE
 		if(M.client?.holder && (chat_toggles & CHAT_DEAD))
 			override = TRUE
@@ -474,17 +489,21 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 		. += borg
 
 //Returns a list of AI's
-/proc/active_ais(check_mind=FALSE, z = null)
+/proc/active_ais(check_mind = FALSE, z = null, skip_syndicate = FALSE, only_syndicate = FALSE)
 	. = list()
 	for(var/mob/living/silicon/ai/ai as anything in GLOB.ai_list)
 		if(ai.stat == DEAD)
 			continue
 		if(ai.control_disabled)
 			continue
-		if(check_mind)
-			if(!ai.mind)
-				continue
-		if(z && !(z == ai.z) && (!is_station_level(z) || !is_station_level(ai.z))) //if a Z level was specified, AND the AI is not on the same level, AND either is off the station...
+		var/syndie_ai = istype(ai, /mob/living/silicon/ai/weak_syndie)
+		if(skip_syndicate && syndie_ai)
+			continue
+		if(only_syndicate && !syndie_ai)
+			continue
+		if(check_mind && !ai.mind)
+			continue
+		if(!isnull(z) && z != ai.z && (!is_station_level(z) || !is_station_level(ai.z))) //if a Z level was specified, AND the AI is not on the same level, AND either is off the station...
 			continue
 		. += ai
 
@@ -507,8 +526,8 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 			. = pick(borgs)
 	return .
 
-/proc/select_active_ai(mob/user, z = null)
-	var/list/ais = active_ais(FALSE, z)
+/proc/select_active_ai(mob/user, z = null, skip_syndicate, only_syndicate)
+	var/list/ais = active_ais(FALSE, z, skip_syndicate, only_syndicate)
 	if(ais.len)
 		if(user)
 			. = input(user,"AI signals detected:", "AI Selection", ais[1]) in sort_list(ais)
@@ -522,8 +541,8 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
  * When passed the difference between two temperatures returns the amount of change to temperature to apply.
  * The change rate should be kept at a low value tween 0.16 and 0.02 for optimal results.
  * vars:
- * * temp_diff (required) The differance between two temperatures
- * * change_rate (optional)(Default: 0.06) The rate of range multiplyer
+ * * temp_diff (required) The difference between two temperatures
+ * * change_rate (optional)(Default: 0.06) The rate of range multiplier
  */
 /proc/get_temp_change_amount(temp_diff, change_rate = 0.06)
 	if(temp_diff < 0)
@@ -542,7 +561,7 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 	var/list/sortmob = sort_names(GLOB.mob_list)
 	for(var/mob/living/silicon/ai/mob_to_sort in sortmob)
 		moblist += mob_to_sort
-	for(var/mob/camera/mob_to_sort in sortmob)
+	for(var/mob/eye/mob_to_sort in sortmob)
 		moblist += mob_to_sort
 	for(var/mob/living/silicon/pai/mob_to_sort in sortmob)
 		moblist += mob_to_sort
@@ -578,6 +597,12 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 		if(mob.ckey == key)
 			return mob
 
+/// Returns a string for the specified body zone. If we have a bodypart in this zone, refers to its plaintext_zone instead.
+/mob/living/proc/parse_zone_with_bodypart(zone)
+	var/obj/item/bodypart/part = get_bodypart(zone)
+
+	return part?.plaintext_zone || parse_zone(zone)
+
 ///Return a string for the specified body zone. Should be used for parsing non-instantiated bodyparts, otherwise use [/obj/item/bodypart/var/plaintext_zone]
 /proc/parse_zone(zone)
 	switch(zone)
@@ -606,7 +631,7 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 		else
 			return zone
 
-///Takes a zone and returns it's "parent" zone, if it has one.
+///Takes a zone and returns its "parent" zone, if it has one.
 /proc/deprecise_zone(precise_zone)
 	switch(precise_zone)
 		if(BODY_ZONE_PRECISE_GROIN)
@@ -625,6 +650,51 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 			return BODY_ZONE_R_LEG
 		else
 			return precise_zone
+
+///Returns a list of strings for a given slot flag.
+/proc/parse_slot_flags(slot_flags)
+	var/list/slot_strings = list()
+	if(slot_flags & ITEM_SLOT_BACK)
+		slot_strings += "back"
+	if(slot_flags & ITEM_SLOT_MASK)
+		slot_strings += "mask"
+	if(slot_flags & ITEM_SLOT_NECK)
+		slot_strings += "neck"
+	if(slot_flags & ITEM_SLOT_HANDCUFFED)
+		slot_strings += "handcuff"
+	if(slot_flags & ITEM_SLOT_LEGCUFFED)
+		slot_strings += "legcuff"
+	if(slot_flags & ITEM_SLOT_BELT)
+		slot_strings += "belt"
+	if(slot_flags & ITEM_SLOT_ID)
+		slot_strings += "id"
+	if(slot_flags & ITEM_SLOT_EARS)
+		slot_strings += "ear"
+	if(slot_flags & ITEM_SLOT_EYES)
+		slot_strings += "glasses"
+	if(slot_flags & ITEM_SLOT_GLOVES)
+		slot_strings += "glove"
+	if(slot_flags & ITEM_SLOT_HEAD)
+		slot_strings += "head"
+	if(slot_flags & ITEM_SLOT_FEET)
+		slot_strings += "shoe"
+	if(slot_flags & ITEM_SLOT_OCLOTHING)
+		slot_strings += "oversuit"
+	if(slot_flags & ITEM_SLOT_ICLOTHING)
+		slot_strings += "undersuit"
+	if(slot_flags & ITEM_SLOT_SUITSTORE)
+		slot_strings += "suit storage"
+	if(slot_flags & (ITEM_SLOT_LPOCKET|ITEM_SLOT_RPOCKET))
+		slot_strings += "pocket"
+	if(slot_flags & ITEM_SLOT_HANDS)
+		slot_strings += "hand"
+	if(slot_flags & ITEM_SLOT_DEX_STORAGE)
+		slot_strings += "dextrous storage"
+	if(slot_flags & ITEM_SLOT_BACKPACK)
+		slot_strings += "backpack"
+	if(slot_flags & ITEM_SLOT_BELTPACK)
+		slot_strings += "belt" // ?
+	return slot_strings
 
 ///Returns the direction that the initiator and the target are facing
 /proc/check_target_facings(mob/living/initiator, mob/living/target)
@@ -649,7 +719,7 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 		mob_occupant = occupant
 
 	else if(isorgan(occupant))
-		var/obj/item/organ/internal/brain/brain = occupant
+		var/obj/item/organ/brain/brain = occupant
 		mob_occupant = brain.brainmob
 
 	return mob_occupant
@@ -670,7 +740,10 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 			newname = requesting_client?.prefs?.read_preference(preference_type)
 		else
 			var/datum/preference/preference = GLOB.preference_entries[preference_type]
-			newname = preference.create_informed_default_value(requesting_client.prefs)
+			if (requesting_client?.prefs)
+				newname = preference.create_informed_default_value(requesting_client.prefs)
+			else
+				newname = preference.create_default_value()
 
 		for(var/mob/living/checked_mob in GLOB.player_list)
 			if(checked_mob == src)

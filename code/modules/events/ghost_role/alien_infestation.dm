@@ -64,14 +64,14 @@
 
 	var/list/candidates = SSpolling.poll_ghost_candidates(check_jobban = ROLE_ALIEN, role = ROLE_ALIEN, alert_pic = /mob/living/carbon/alien/larva, role_name_text = role_name)
 
-	if(!candidates.len)
+	if(!length(candidates))
 		return NOT_ENOUGH_PLAYERS
 
 	while(spawncount > 0 && vents.len && candidates.len)
 		var/obj/vent = pick_n_take(vents)
 		var/mob/dead/observer/selected = pick_n_take(candidates)
 		var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
-		new_xeno.key = selected.key
+		new_xeno.PossessByPlayer(selected.key)
 		new_xeno.move_into_vent(vent)
 
 		spawncount--

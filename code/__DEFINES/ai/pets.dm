@@ -19,6 +19,8 @@
 #define BB_BABIES_CHILD_TYPES "BB_babies_child"
 ///Current partner target
 #define BB_BABIES_TARGET "BB_babies_target"
+///Timeout for finding partners when theres too many of us in 1 location
+#define BB_PARTNER_SEARCH_TIMEOUT "BB_partner_search_timeout"
 
 ///Finding adult mob
 ///key holds the adult we found
@@ -67,7 +69,7 @@
 
 //virtual pet keys
 ///the last PDA message we must relay
-#define BB_LAST_RECIEVED_MESSAGE "last_recieved_message"
+#define BB_LAST_RECEIVED_MESSAGE "last_received_message"
 ///our current virtual pet level
 #define BB_VIRTUAL_PET_LEVEL "virtual_pet_level"
 ///the target we will play with

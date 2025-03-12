@@ -6,7 +6,7 @@
 		/datum/reagent/fuel = 20,
 		/obj/item/stack/cable_coil = 15,
 		/obj/item/assembly/timer = 1,
-		/obj/item/pipe/quaternary/pipe = 1,
+		/obj/item/pipe = 1,
 	)
 	time = 6 SECONDS
 	category = CAT_CHEMISTRY
@@ -120,6 +120,20 @@
 	)
 	category = CAT_CHEMISTRY
 
+
+/datum/crafting_recipe/chem_separator
+	name = "chemical separator"
+	result = /obj/structure/chem_separator
+	tool_behaviors = list(TOOL_WELDER)
+	time = 5 SECONDS
+	reqs = list(
+		/obj/item/stack/sheet/mineral/wood = 1,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/burner = 1,
+		/obj/item/thermometer = 1,
+	)
+	category = CAT_CHEMISTRY
+
 /datum/crafting_recipe/improvised_chem_heater
 	name = "Improvised chem heater"
 	result = /obj/machinery/space_heater/improvised_chem_heater
@@ -136,7 +150,9 @@
 	category = CAT_CHEMISTRY
 
 /datum/crafting_recipe/improvised_chem_heater/on_craft_completion(mob/user, atom/result)
-	var/obj/item/stock_parts/cell/cell = locate(/obj/item/stock_parts/cell) in range(1)
+	if(!istype(user))
+		return
+	var/obj/item/stock_parts/power_store/cell/cell = locate(/obj/item/stock_parts/power_store/cell) in range(1)
 	if(!cell)
 		return
 	var/obj/machinery/space_heater/improvised_chem_heater/heater = result

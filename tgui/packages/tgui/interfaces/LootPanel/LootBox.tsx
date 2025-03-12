@@ -1,9 +1,14 @@
-import { capitalizeAll, capitalizeFirst } from 'common/string';
+import { Button, Stack } from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
+import { capitalizeFirst } from 'tgui-core/string';
 
 import { useBackend } from '../../backend';
-import { Tooltip } from '../../components';
 import { IconDisplay } from './IconDisplay';
 import { SearchGroup, SearchItem } from './types';
+
+type Data = {
+  is_blind: BooleanLike;
+};
 
 type Props =
   | {
@@ -14,7 +19,8 @@ type Props =
     };
 
 export function LootBox(props: Props) {
-  const { act } = useBackend();
+  const { act, data } = useBackend<Data>();
+  const { is_blind } = data;
 
   let amount = 0;
   let item: SearchItem;
@@ -25,36 +31,48 @@ export function LootBox(props: Props) {
     item = props.item;
   }
 
-  const name = !item.name
-    ? '???'
-    : capitalizeFirst(item.name.split(' ')[0]).slice(0, 5);
+  const name = !item.name ? '???' : capitalizeFirst(item.name);
 
-  return (
-    <Tooltip content={capitalizeAll(item.name)}>
-      <div className="SearchItem">
-        <div
-          className="SearchItem--box"
-          onClick={(event) =>
-            act('grab', {
-              ctrl: event.ctrlKey,
-              ref: item.ref,
-              shift: event.shiftKey,
-            })
-          }
-          onContextMenu={(event) => {
-            event.preventDefault();
-            act('grab', {
-              middle: true,
-              ref: item.ref,
-              shift: true,
-            });
-          }}
+  const content = (
+    <Button
+      p={0}
+      fluid
+      color="transparent"
+      onClick={(event) =>
+        act('grab', {
+          alt: event.altKey,
+          ctrl: event.ctrlKey,
+          ref: item.ref,
+          shift: event.shiftKey,
+        })
+      }
+      onContextMenu={(event) => {
+        event.preventDefault();
+        act('grab', {
+          right: true,
+          ref: item.ref,
+        });
+      }}
+    >
+      <Stack>
+        <Stack.Item mb={-1} minWidth={'36px'} minHeight={'42px'}>
+          <IconDisplay item={item} size={{ height: 3, width: 3 }} />
+        </Stack.Item>
+        <Stack.Item
+          lineHeight="34px"
+          overflow="hidden"
+          style={{ textOverflow: 'ellipsis' }}
         >
-          <IconDisplay item={item} />
-          {amount > 1 && <div className="SearchItem--amount">{amount}</div>}
-        </div>
-        <span className="SearchItem--text">{name}</span>
-      </div>
-    </Tooltip>
+          {!is_blind && name}
+        </Stack.Item>
+        <Stack.Item lineHeight="34px" pr={1}>
+          {amount > 1 && 'x' + amount}
+        </Stack.Item>
+      </Stack>
+    </Button>
   );
+
+  if (is_blind) return content;
+
+  return content;
 }

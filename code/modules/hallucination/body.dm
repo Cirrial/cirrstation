@@ -10,7 +10,7 @@
 	/// Whether we apply the floating anim to the body
 	var/body_floats = FALSE
 	/// The layer this body will be drawn on, in case we want to bypass lighting
-	var/body_layer = TURF_LAYER
+	var/body_layer = LOW_FLOOR_LAYER
 	/// if TRUE, spawns the body under the hallucinator instead of somewhere in view
 	var/spawn_under_hallucinator = FALSE
 
@@ -52,6 +52,7 @@
 /// Makes the image of the body to show at the location passed.
 /datum/hallucination/body/proc/make_body_image(turf/location)
 	var/image/created_image = image(body_image_file, location, body_image_state, body_layer)
+	SET_PLANE_EXPLICIT(created_image, GAME_PLANE, location)
 	if(body_floats)
 		DO_FLOATING_ANIM(created_image)
 	return created_image

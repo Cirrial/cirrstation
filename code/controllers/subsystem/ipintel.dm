@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(ipintel)
 	/// Cache for previously queried IP addresses and those stored in the database
 	var/list/datum/ip_intel/cached_queries = list()
 	/// The store for rate limiting
-	var/list/rate_limit_minute
+	var/rate_limit_minute
 
 /// The ip intel for a given address
 /datum/ip_intel
@@ -106,7 +106,7 @@ SUBSYSTEM_DEF(ipintel)
 	intel.result = data["result"]
 	if(istext(intel.result))
 		intel.result = text2num(intel.result)
-	intel.date = SQLtime()
+	intel.date = ISOtime()
 	intel.address = address
 	cached_queries[address] = intel
 	add_intel_to_database(intel)

@@ -1,9 +1,5 @@
 import { filter, sortBy } from 'common/collections';
-import { BooleanLike, classes } from 'common/react';
-import { createSearch } from 'common/string';
 import { useState } from 'react';
-
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -15,9 +11,14 @@ import {
   Stack,
   Tabs,
   Tooltip,
-} from '../components';
+  VirtualList,
+} from 'tgui-core/components';
+import { BooleanLike, classes } from 'tgui-core/react';
+import { createSearch } from 'tgui-core/string';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { Food } from './PreferencesMenu/data';
+import { Food } from './PreferencesMenu/types';
 
 const TYPE_ICONS = {
   'Can Make': 'utensils',
@@ -104,10 +105,15 @@ enum TABS {
 type AtomData = {
   name: string;
   is_reagent: BooleanLike;
+  icon: string;
 };
 
 type Atoms = {
   [key: number]: number;
+};
+
+type Icons = {
+  [key: number]: string;
 };
 
 type Material = {
@@ -117,7 +123,7 @@ type Material = {
 
 type Recipe = {
   ref: string;
-  icon: string;
+  id: number;
   name: string;
   desc: string;
   category: string;
@@ -131,6 +137,7 @@ type Recipe = {
   structures: string[];
   steps: string[];
   foodtypes: string[];
+  has_food_effect: BooleanLike;
 };
 
 type Diet = {
@@ -150,11 +157,20 @@ type Data = {
   // Static
   diet: Diet;
   atom_data: AtomData[];
+  icon_data: Icons;
   recipes: Recipe[];
   categories: string[];
   material_occurences: Material[];
   foodtypes: string[];
   complexity: number;
+};
+
+const findIcon = (atom_id: number, data: Data): string => {
+  let icon: string = data.icon_data[atom_id];
+  if (!icon) {
+    icon = (data.mode ? 'cooking32x32' : 'crafting32x32') + ' a' + atom_id;
+  }
+  return icon;
 };
 
 export const PersonalCrafting = (props) => {
@@ -248,6 +264,7 @@ export const PersonalCrafting = (props) => {
                 <Stack.Item>
                   <Input
                     autoFocus
+                    expensive
                     placeholder={
                       'Search in ' +
                       data.recipes.length +
@@ -314,8 +331,8 @@ export const PersonalCrafting = (props) => {
                     </Tabs.Tab>
                   </Tabs>
                 </Stack.Item>
-                <Stack.Item grow m={-1}>
-                  <Box height={'100%'} p={1} style={{ overflowY: 'auto' }}>
+                <Stack.Item grow m={-1} style={{ overflowY: 'auto' }}>
+                  <Box height={'100%'} p={1}>
                     <Tabs vertical>
                       {tabMode === TABS.foodtype &&
                         mode === MODE.cooking &&
@@ -496,32 +513,36 @@ export const PersonalCrafting = (props) => {
               style={{ overflowY: 'auto' }}
             >
               {recipes.length > 0 ? (
-                recipes
-                  .slice(0, displayLimit)
-                  .map((item) =>
-                    display_compact ? (
-                      <RecipeContentCompact
-                        key={item.ref}
-                        item={item}
-                        craftable={
-                          !item.non_craftable && Boolean(craftability[item.ref])
-                        }
-                        busy={busy}
-                        mode={mode}
-                      />
-                    ) : (
-                      <RecipeContent
-                        key={item.ref}
-                        item={item}
-                        craftable={
-                          !item.non_craftable && Boolean(craftability[item.ref])
-                        }
-                        busy={busy}
-                        mode={mode}
-                        diet={diet}
-                      />
-                    ),
-                  )
+                <VirtualList>
+                  {recipes
+                    .slice(0, displayLimit)
+                    .map((item) =>
+                      display_compact ? (
+                        <RecipeContentCompact
+                          key={item.ref}
+                          item={item}
+                          craftable={
+                            !item.non_craftable &&
+                            Boolean(craftability[item.ref])
+                          }
+                          busy={busy}
+                          mode={mode}
+                        />
+                      ) : (
+                        <RecipeContent
+                          key={item.ref}
+                          item={item}
+                          craftable={
+                            !item.non_craftable &&
+                            Boolean(craftability[item.ref])
+                          }
+                          busy={busy}
+                          mode={mode}
+                          diet={diet}
+                        />
+                      ),
+                    )}
+                </VirtualList>
               ) : (
                 <NoticeBox m={1} p={1}>
                   No recipes found.
@@ -547,10 +568,12 @@ export const PersonalCrafting = (props) => {
 };
 
 const MaterialContent = (props) => {
-  const { atom_id, occurences } = props;
   const { data } = useBackend<Data>();
+
+  const { atom_id, occurences } = props;
   const name = data.atom_data[atom_id - 1].name;
-  const mode = data.mode;
+  const icon = findIcon(atom_id, data);
+
   return (
     <Stack>
       <Stack.Item>
@@ -559,10 +582,7 @@ const MaterialContent = (props) => {
           inline
           ml={-1.5}
           mr={-0.5}
-          className={classes([
-            mode ? 'cooking32x32' : 'crafting32x32',
-            'a' + atom_id,
-          ])}
+          className={icon}
         />
       </Stack.Item>
       <Stack.Item
@@ -627,7 +647,7 @@ const RecipeContentCompact = ({ item, craftable, busy, mode }) => {
     <Section>
       <Stack my={-0.75}>
         <Stack.Item>
-          <Box className={item.icon} />
+          <Box className={findIcon(item.id, data)} />
         </Stack.Item>
         <Stack.Item grow>
           <Stack>
@@ -756,7 +776,7 @@ const RecipeContentCompact = ({ item, craftable, busy, mode }) => {
 };
 
 const RecipeContent = ({ item, craftable, busy, mode, diet }) => {
-  const { act } = useBackend<Data>();
+  const { act, data } = useBackend<Data>();
   return (
     <Section>
       <Stack>
@@ -767,17 +787,23 @@ const RecipeContent = ({ item, craftable, busy, mode, diet }) => {
                 transform: 'scale(1.5)',
               }}
               m={'16px'}
-              className={item.icon}
+              className={findIcon(item.id, data)}
             />
           </Box>
         </Stack.Item>
         <Stack.Item grow>
           <Stack>
             <Stack.Item grow={5}>
-              <Box mb={0.5} bold style={{ textTransform: 'capitalize' }}>
+              <Box mb={1} bold style={{ textTransform: 'capitalize' }}>
                 {item.name}
               </Box>
               {item.desc && <Box color={'gray'}>{item.desc}</Box>}
+              {!!item.has_food_effect && (
+                <Box my={2} color={'pink'}>
+                  <Icon name="wand-magic-sparkles" mr={1} />
+                  Special effect on consumption.
+                </Box>
+              )}
               <Box style={{ textTransform: 'capitalize' }}>
                 {item.reqs && (
                   <Box>
@@ -929,9 +955,8 @@ const RecipeContent = ({ item, craftable, busy, mode, diet }) => {
 
 const AtomContent = ({ atom_id, amount }) => {
   const { data } = useBackend<Data>();
-  const name = data.atom_data[atom_id - 1]?.name;
-  const is_reagent = data.atom_data[atom_id - 1]?.is_reagent;
-  const mode = data.mode;
+  const atom: AtomData = data.atom_data[atom_id - 1];
+
   return (
     <Box my={1}>
       <Box
@@ -939,14 +964,11 @@ const AtomContent = ({ atom_id, amount }) => {
         inline
         my={-1}
         mr={0.5}
-        className={classes([
-          mode ? 'cooking32x32' : 'crafting32x32',
-          'a' + atom_id,
-        ])}
+        className={findIcon(atom_id, data)}
       />
       <Box inline verticalAlign="middle">
-        {name}
-        {is_reagent ? `\xa0${amount}u` : amount > 1 && `\xa0${amount}x`}
+        {atom.name}
+        {atom.is_reagent ? `\xa0${amount}u` : amount > 1 && `\xa0${amount}x`}
       </Box>
     </Box>
   ) as any;

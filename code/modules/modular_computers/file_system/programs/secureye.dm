@@ -13,6 +13,7 @@
 	size = 5
 	tgui_id = "NtosSecurEye"
 	program_icon = "eye"
+	always_update_ui = TRUE
 
 	///Boolean on whether or not the app will make noise when flipping around the channels.
 	var/spying = FALSE
@@ -127,15 +128,7 @@
 	data["network"] = network
 	data["mapRef"] = cam_screen.assigned_map
 	data["can_spy"] = !!spying
-	var/list/cameras = get_camera_list(network)
-	data["cameras"] = list()
-	for(var/i in cameras)
-		var/obj/machinery/camera/C = cameras[i]
-		data["cameras"] += list(list(
-			name = C.c_tag,
-			ref = REF(C),
-		))
-
+	data["cameras"] = GLOB.cameranet.get_available_cameras_data(network)
 	return data
 
 /datum/computer_file/program/secureye/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
@@ -150,7 +143,7 @@
 			else
 				camera_ref = null
 			if(!spying)
-				playsound(computer, get_sfx(SFX_TERMINAL_TYPE), 25, FALSE)
+				playsound(computer, SFX_TERMINAL_TYPE, 25, FALSE)
 			if(isnull(camera_ref))
 				return TRUE
 			if(internal_tracker)
@@ -198,7 +191,7 @@
 		camera_ref = null
 		last_camera_turf = null
 		if(!spying)
-			playsound(computer, 'sound/machines/terminal_off.ogg', 25, FALSE)
+			playsound(computer, 'sound/machines/terminal/terminal_off.ogg', 25, FALSE)
 
 /datum/computer_file/program/secureye/proc/update_active_camera_screen()
 	var/obj/machinery/camera/active_camera = camera_ref?.resolve()
@@ -209,7 +202,7 @@
 
 	var/list/visible_turfs = list()
 
-	// Get the camera's turf to correctly gather what's visible from it's turf, in case it's located in a moving object (borgs / mechs)
+	// Get the camera's turf to correctly gather what's visible from its turf, in case it's located in a moving object (borgs / mechs)
 	var/new_cam_turf = get_turf(active_camera)
 
 	// If we're not forcing an update for some reason and the cameras are in the same location,
