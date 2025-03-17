@@ -262,6 +262,12 @@ rust_g64.dll
 /tools/LinuxOneShot/TGS_Instances
 /tools/LinuxOneShot/TGS_Logs
 
-# cirrstation specific
-/cirr/unversioned
+# JavaScript tools
+**/node_modules
+
+# Screenshot tests
+/artifacts
+
+# troutstation specific
+/troutstation/unversioned
 /config/cirrdbconfig.txt
