@@ -6583,5 +6583,6 @@
 #include "interface\fonts\spess_font.dm"
 #include "interface\fonts\tiny_unicode.dm"
 #include "interface\fonts\vcr_osd_mono.dm"
+#include "troutstation\code\modules\events\supermatter_surge.dm"
 #include "troutstation\code\modules\mob\living\basic\space_fauna\slugcat\slugcat.dm"
 // END_INCLUDE
