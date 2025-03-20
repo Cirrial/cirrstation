@@ -6,6 +6,15 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	payday_modifier = 1.0
 
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/anteater,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/anteater,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/anteater,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/anteater,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/anteater,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/anteater,
+	)
+
 
 /datum/species/anteater/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
@@ -110,6 +119,11 @@
 
 /datum/species/anteater/get_species_description()
 	return "todo"
+
+/datum/species/anteater/get_species_lore()
+	return list(
+		"Shawn please add details."
+	)
 
 /datum/species/anteater/create_pref_unique_perks()
 	var/list/to_add = list()

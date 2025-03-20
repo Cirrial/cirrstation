@@ -6571,4 +6571,5 @@
 #include "troutstation\code\modules\events\supermatter_surge.dm"
 #include "troutstation\code\modules\mob\living\basic\space_fauna\slugcat\slugcat.dm"
 #include "troutstation\code\modules\mob\living\carbon\human\species_types\anteater.dm"
+#include "troutstation\code\modules\surgery\bodyparts\species_parts\anteater_bodyparts.dm"
 // END_INCLUDE
