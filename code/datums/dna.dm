@@ -248,6 +248,8 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		L[DNA_POD_HAIR_BLOCK] = construct_block(SSaccessories.pod_hair_list.Find(features["pod_hair"]), length(SSaccessories.pod_hair_list))
 	if(features["fish_tail"])
 		L[DNA_FISH_TAIL_BLOCK] = construct_block(SSaccessories.tails_list_fish.Find(features["fish_tail"]), length(SSaccessories.tails_list_fish))
+	if(features["anteater_snout"]) // Troutstation edit
+		L[DNA_ANTEATER_SNOUT_BLOCK] = construct_block(SSaccessories.anteater_snouts_list.Find(features["anteater_snout"]), length(SSaccessories.anteater_snouts_list))
 
 	for(var/blocknum in 1 to DNA_FEATURE_BLOCKS)
 		. += L[blocknum] || random_string(GET_UI_BLOCK_LEN(blocknum), GLOB.hex_characters)

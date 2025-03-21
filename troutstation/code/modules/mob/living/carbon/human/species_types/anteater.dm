@@ -3,6 +3,10 @@
 	plural_form = "Anteaters"
 	id = SPECIES_ANTEATER
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID
+
+	mutant_organs = list(
+		/obj/item/organ/anteater_snout = "Big",
+	)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	payday_modifier = 1.0
 
