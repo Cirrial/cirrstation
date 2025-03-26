@@ -1,0 +1,1 @@
+#define ORGAN_SLOT_EXTERNAL_ANTEATER_SNOUT "anteater_snout"
