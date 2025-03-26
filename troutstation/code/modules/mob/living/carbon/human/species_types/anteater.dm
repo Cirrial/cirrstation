@@ -151,13 +151,15 @@
 		They have a long snout and a large tail, and are known for their ability to eat space ants."
 
 /datum/species/anteater/get_species_description()
-	return "!! WARNING: SPECIES UNDER CONSTRUCTION! !! \
+	return "(EARLY ACCESS PREVIEW) \n\
 		Local to this sector of space, the anteaters helped with the financing of the \
 		construction of the station in exchange for a presence in NT operations here."
 
 /datum/species/anteater/get_species_lore()
 	return list(
-		"Shawn please add details."
+		"(no lore here yet :C)",
+
+		"Allen please add details."
 	)
 
 /datum/species/anteater/create_pref_unique_perks()
@@ -167,13 +169,13 @@
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = FA_ICON_BUG,
 			SPECIES_PERK_NAME = "Ant Eater",
-			SPECIES_PERK_DESC = "You can eat space ants with no ill effect. Neat party trick!",
+			SPECIES_PERK_DESC = "You can eat space ants with no ill effect. Using an empty hand on space ants will let you eat them.",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
 			SPECIES_PERK_ICON = FA_ICON_SCALE_BALANCED,
-			SPECIES_PERK_NAME = "Sluggish Speed",
-			SPECIES_PERK_DESC = "Your speed is less affected by speed buffs or debuffs. You're slower than others but less slowed than they can be.",
+			SPECIES_PERK_NAME = "Stoic Speed",
+			SPECIES_PERK_DESC = "Your speed is less affected by speed buffs or debuffs. You're slower than others, but you'll lose less speed overall.",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
@@ -185,7 +187,7 @@
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = FA_ICON_HOURGLASS_HALF,
 			SPECIES_PERK_NAME = "Slow Metabolism",
-			SPECIES_PERK_DESC = "You don't process reagents as fast as other species, and healing chemicals are less effective on you.",
+			SPECIES_PERK_DESC = "You don't process reagents quite as fast as other species.",
 		)
 	)
 	return to_add

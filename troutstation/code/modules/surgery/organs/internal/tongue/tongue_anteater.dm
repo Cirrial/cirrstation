@@ -1,11 +1,11 @@
 /obj/item/organ/tongue/anteater
 	name = "anteater tongue"
-	desc = "It's either an anteater tongue or someone didn't can their bait tightly."
+	desc = "It's either an anteater tongue, or someone didn't can their bait tightly enough."
 	icon = 'troutstation/icons/obj/medical/organs/organs.dmi'
 	icon_state = "anteater_tongue"
 	say_mod = "trills"
 	liked_foodtypes = BUGS | FRUIT | MEAT
-	disliked_foodtypes = GRAIN | VEGETABLES | GROSS | CLOTH | RAW
+	disliked_foodtypes = VEGETABLES | GROSS | CLOTH | RAW
 	toxic_foodtypes = TOXIC
 
 /obj/item/organ/tongue/anteater/get_possible_languages()
