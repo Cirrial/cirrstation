@@ -491,6 +491,7 @@ GLOBAL_LIST_INIT(english_to_zombie, list())
 		/datum/language/uncommon,
 		/datum/language/draconic, // Both hiss?
 		/datum/language/monkey,
+		/datum/language/myrtongue, // Troutstation edit: have you SEEN xenomorph tongues
 	)
 
 /obj/item/organ/tongue/alien/modify_speech(datum/source, list/speech_args)
