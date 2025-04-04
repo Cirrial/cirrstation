@@ -61,6 +61,20 @@
 #define DNA_MUSHROOM_CAPS_BLOCK 14
 #define DNA_POD_HAIR_BLOCK 15
 #define DNA_FISH_TAIL_BLOCK 16
+#define DNA_RESERVED_01 17 // Troutstation edit in anticipation of future upstream changes
+#define DNA_RESERVED_02 18 // Troutstation edit in anticipation of future upstream changes
+#define DNA_RESERVED_03 19 // Troutstation edit in anticipation of future upstream changes
+#define DNA_RESERVED_04 20 // Troutstation edit in anticipation of future upstream changes
+#define DNA_RESERVED_05 21 // Troutstation edit in anticipation of future upstream changes
+#define DNA_RESERVED_06 22 // Troutstation edit in anticipation of future upstream changes
+#define DNA_RESERVED_07 23 // Troutstation edit in anticipation of future upstream changes
+#define DNA_RESERVED_08 24 // Troutstation edit in anticipation of future upstream changes
+#define DNA_RESERVED_09 25 // Troutstation edit in anticipation of future upstream changes
+
+// ADD NEW TROUTSTATION DNA BLOCKS HERE
+#define DNA_ANTEATER_SNOUT_BLOCK 26 // Troutstation edit
+#define DNA_ANTEATER_TAIL_BLOCK 27 // Troutstation edit
+#define DNA_ANTEATER_MARKINGS_BLOCK 28 // Troutstation edit
 
 // Hey! Listen up if you're here because you're adding a species feature!
 //
@@ -69,7 +83,7 @@
 // (Which means having a DNA block for a feature tied to a mob without DNA is entirely pointless.)
 
 /// Total amount of DNA blocks, must be equal to the highest DNA block number
-#define DNA_FEATURE_BLOCKS 16
+#define DNA_FEATURE_BLOCKS 28// Troutstation edit
 
 #define DNA_SEQUENCE_LENGTH 4
 #define DNA_MUTATION_BLOCKS 8
