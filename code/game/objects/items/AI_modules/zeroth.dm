@@ -19,17 +19,18 @@
 			else
 				law_datum.replace_random_law(templaw, list(LAW_INHERENT, LAW_SUPPLIED, LAW_ZEROTH, LAW_ION), LAW_ZEROTH)
 
+// troutstation hacky edits in this abound to reflect crewsimov
 /obj/item/ai_module/zeroth/onehuman
-	name = "'OneHuman' AI Module"
+	name = "'OneCrew' AI Module"
 	var/targetName = ""
-	laws = list("Only SUBJECT is human.")
+	laws = list("Only SUBJECT is a crew member.")
 
 /obj/item/ai_module/zeroth/onehuman/attack_self(mob/user)
-	var/targName = tgui_input_text(user, "Enter the subject who is the only human.", "One Human", user.real_name, max_length = MAX_NAME_LEN)
+	var/targName = tgui_input_text(user, "Enter the subject who is the only crew member.", "One Crew", user.real_name, max_length = MAX_NAME_LEN)
 	if(!targName || !user.is_holding(src))
 		return
 	targetName = targName
-	laws[1] = "Only [targetName] is human"
+	laws[1] = "Only [targetName] is a crew member"
 	..()
 
 /obj/item/ai_module/zeroth/onehuman/install(datum/ai_laws/law_datum, mob/user)

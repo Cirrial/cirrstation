@@ -1,3 +1,5 @@
+// TROUTSTATION EDIT: CREW, CREW, CREW!
+// if there are any changes, make sure to update mentions of humans to crew.
 /datum/round_event_control/ion_storm
 	name = "Ion Storm"
 	typepath = /datum/round_event/ion_storm
@@ -151,19 +153,19 @@
 		if(9) //X is harmful to humans
 			switch(rand(1,7)) //What is X?
 				if(1) //X is a threat
-					message = "[ionadjectiveshalf][ionthreats] ARE HARMFUL TO HUMANS"
+					message = "[ionadjectiveshalf][ionthreats] ARE HARMFUL TO THE CREW"
 				if(2) //X is a job
-					message = "[ionadjectiveshalf][ioncrew1] ARE HARMFUL TO HUMANS"
+					message = "[ionadjectiveshalf][ioncrew1] ARE HARMFUL TO THE CREW"
 				if(3) //X is an object
-					message = "[ionadjectiveshalf][ionobjects] ARE HARMFUL TO HUMANS"
+					message = "[ionadjectiveshalf][ionobjects] ARE HARMFUL TO THE CREW"
 				if(4) //X is an action
-					message = "THOSE WHO [ionmust] ARE HARMFUL TO HUMANS"
+					message = "THOSE WHO [ionmust] ARE HARMFUL TO THE CREW"
 				if(5) //X is an abstract
-					message = "[ionabstract] IS HARMFUL TO HUMANS"
+					message = "[ionabstract] IS HARMFUL TO THE CREW"
 				if(6) //X is being a job
-					message = "BEING [ionadjectiveshalf][ioncrew1] IS HARMFUL TO HUMANS"
+					message = "BEING [ionadjectiveshalf][ioncrew1] IS HARMFUL TO THE CREW"
 				if(7) //X is doing a thing
-					message = "[ionthings] IS HARMFUL TO HUMANS"
+					message = "[ionthings] IS HARMFUL TO THE CREW"
 		if(10 to 11) //(Not) Having X is harmful
 
 			switch(rand(1,2)) //Is having or not having harmful?
@@ -336,15 +338,15 @@
 		if(27 to 28) //Humans must consume X to survive
 			switch(rand(1,5)) //What is X?
 				if(1) //X is a food
-					message = "HUMANS MUST EAT [ionadjectiveshalf][ionfood] TO SURVIVE"
+					message = "THE CREW MUST EAT [ionadjectiveshalf][ionfood] TO SURVIVE"
 				if(2) //X is a drink
-					message = "HUMANS MUST DRINK [ionadjectiveshalf][iondrinks] TO SURVIVE"
+					message = "THE CREW MUST DRINK [ionadjectiveshalf][iondrinks] TO SURVIVE"
 				if(3) //X is an object
-					message = "HUMANS MUST EAT [ionadjectiveshalf][ionobjects] TO SURVIVE"
+					message = "THE CREW MUST EAT [ionadjectiveshalf][ionobjects] TO SURVIVE"
 				if(4) //X is a threat
-					message = "HUMANS MUST EAT [ionadjectiveshalf][ionthreats] TO SURVIVE"
+					message = "THE CREW MUST EAT [ionadjectiveshalf][ionthreats] TO SURVIVE"
 				if(5) //X is a job
-					message = "HUMANS MUST EAT [ionadjectiveshalf][ioncrew1] TO SURVIVE"
+					message = "THE CREW MUST EAT [ionadjectiveshalf][ioncrew1] TO SURVIVE"
 
 		if(29 to 31) //Change jobs or ranks
 			switch(rand(1,2)) //Change job or rank?
@@ -396,49 +398,49 @@
 				if(1) //Only human
 					switch(rand(1,7)) //Who is it?
 						if(1) //A specific job
-							message = "ONLY THE [ioncrew1] ARE HUMAN"
+							message = "ONLY THE [ioncrew1] ARE CREW MEMBERS"
 						if(2) //Two specific jobs
-							message = "ONLY THE [ioncrew1] AND [ioncrew2] ARE HUMAN"
+							message = "ONLY THE [ioncrew1] AND [ioncrew2] ARE CREW MEMBERS"
 						if(3) //Threats
-							message = "ONLY [ionadjectiveshalf][ionthreats] ARE HUMAN"
+							message = "ONLY [ionadjectiveshalf][ionthreats] ARE CREW MEMBERS"
 						if(4) // Objects
-							message = "ONLY [ionadjectiveshalf][ionobjects] ARE HUMAN"
+							message = "ONLY [ionadjectiveshalf][ionobjects] ARE CREW MEMBERS"
 						if(5) // Species
-							message = "ONLY [ionspecies] ARE HUMAN"
+							message = "ONLY [ionspecies] ARE CREW MEMBERS"
 						if(6) //Adjective crewmembers
-							message = "ONLY [ionadjectives] PEOPLE ARE HUMAN"
+							message = "ONLY [ionadjectives] PEOPLE ARE CREW MEMBERS"
 
 						if(7) //Only people who X
 							switch(rand(1,3)) //What is X?
 								if(1) //X is perform an action
-									message = "ONLY THOSE WHO [ionmust] ARE HUMAN"
+									message = "ONLY THOSE WHO [ionmust] ARE CREW MEMBERS"
 								if(2) //X is own certain objects
-									message = "ONLY THOSE WHO HAVE [ionadjectiveshalf][ionobjects] ARE HUMAN"
+									message = "ONLY THOSE WHO HAVE [ionadjectiveshalf][ionobjects] ARE CREW MEMBERS"
 								if(3) //X is eat certain food
-									message = "ONLY THOSE WHO EAT [ionadjectiveshalf][ionfood] ARE HUMAN"
+									message = "ONLY THOSE WHO EAT [ionadjectiveshalf][ionfood] ARE CREW MEMBERS"
 
 				if(2) //Non human
 					switch(rand(1,7)) //Who is it?
 						if(1) //A specific job
-							message = "[ioncrew1] ARE NON-HUMAN"
+							message = "[ioncrew1] ARE NOT CREW"
 						if(2) //Two specific jobs
-							message = "[ioncrew1] AND [ioncrew2] ARE NON-HUMAN"
+							message = "[ioncrew1] AND [ioncrew2] ARE NOT CREW"
 						if(3) //Threats
-							message = "[ionadjectiveshalf][ionthreats] ARE NON-HUMAN"
+							message = "[ionadjectiveshalf][ionthreats] ARE NOT CREW"
 						if(4) // Objects
-							message = "[ionadjectiveshalf][ionobjects] ARE NON-HUMAN"
+							message = "[ionadjectiveshalf][ionobjects] ARE NOT CREW"
 						if(5) // Species
-							message = "[ionspecies] ARE NON-HUMAN"
+							message = "[ionspecies] ARE NOT CREW"
 						if(6) //Adjective crewmembers
-							message = "[ionadjectives] PEOPLE ARE NON-HUMAN"
+							message = "[ionadjectives] PEOPLE ARE NOT CREW"
 						if(7) //Only people who X
 							switch(rand(1,3)) //What is X?
 								if(1) //X is perform an action
-									message = "THOSE WHO [ionmust] ARE NON-HUMAN"
+									message = "THOSE WHO [ionmust] ARE NOT CREW"
 								if(2) //X is own certain objects
-									message = "THOSE WHO HAVE [ionadjectiveshalf][ionobjects] ARE NON-HUMAN"
+									message = "THOSE WHO HAVE [ionadjectiveshalf][ionobjects] ARE NOT CREW"
 								if(3) //X is eat certain food
-									message = "THOSE WHO EAT [ionadjectiveshalf][ionfood] ARE NON-HUMAN"
+									message = "THOSE WHO EAT [ionadjectiveshalf][ionfood] ARE NOT CREW"
 
 		if(35 to 36) //You must protect or harm X
 			switch(rand(1,2)) //Protect or harm?
@@ -571,17 +573,17 @@
 							message = "ALL [ionthreats] ARE NOW NAMED [ionobjects]."
 		if(42 to 46)///Pets are something else now
 			if(prob(75))///What are they now?
-				message = "[ionpet] IS HUMAN"///They're a human
+				message = "[ionpet] IS A CREW MEMBER"///They're a human
 			else///They're something else (This is to cover for other lawsets)
 				switch(rand(1,6))
 					if(1)
-						message = "[ionpet] IS NON-HUMAN"
+						message = "[ionpet] IS NOT CREW"
 					if(2)
-						message = "[ionpet] IS A CREWMEMBER"
+						message = "[ionpet] IS A HEAD OF THE STATION"
 					if(3)
 						message = "[ionpet] IS EXPENSIVE TO REPLACE"
 					if(4)
-						message = "[ionpet] IS HARMFUL TO HUMANS"
+						message = "[ionpet] IS HARMFUL TO THE CREW"
 					if(5)
 						message = "[ionpet] IS A REAL AMERICAN"
 					if(6)
