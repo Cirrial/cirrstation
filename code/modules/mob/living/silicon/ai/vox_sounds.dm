@@ -158,6 +158,7 @@ GLOBAL_LIST_INIT(vox_sounds, list(
 	"blue" = 'sound/announcer/vox_fem/blue.ogg',
 	"bluespace" = 'sound/announcer/vox_fem/bluespace.ogg',
 	"bomb" = 'sound/announcer/vox_fem/bomb.ogg',
+	"sbombs" = 'troutstation/sound/announcer/vox_fem/sbombs.ogg', // Troutstation edit
 	"bone" = 'sound/announcer/vox_fem/bone.ogg',
 	"botanist" = 'sound/announcer/vox_fem/botanist.ogg',
 	"botany" = 'sound/announcer/vox_fem/botany.ogg',
@@ -192,6 +193,7 @@ GLOBAL_LIST_INIT(vox_sounds, list(
 	"cargo" = 'sound/announcer/vox_fem/cargo.ogg',
 	"cascade" = 'sound/announcer/vox_fem/cascade.ogg',
 	"cat" = 'sound/announcer/vox_fem/cat.ogg',
+	"scaulk" = 'troutstation/sound/announcer/vox_fem/scaulk.ogg', // Troutstation edit
 	"cause" = 'sound/announcer/vox_fem/cause.ogg',
 	"caused" = 'sound/announcer/vox_fem/caused.ogg',
 	"causes" = 'sound/announcer/vox_fem/causes.ogg',
@@ -893,6 +895,7 @@ GLOBAL_LIST_INIT(vox_sounds, list(
 	"pump" = 'sound/announcer/vox_fem/pump.ogg',
 	"pumps" = 'sound/announcer/vox_fem/pumps.ogg',
 	"push" = 'sound/announcer/vox_fem/push.ogg',
+	"spussy" = 'troutstation/sound/announcer/vox_fem/spussy.ogg', // Troutstation edit
 	"put" = 'sound/announcer/vox_fem/put.ogg',
 	"q" = 'sound/announcer/vox_fem/q.ogg',
 	"quantum" = 'sound/announcer/vox_fem/quantum.ogg',
@@ -980,6 +983,7 @@ GLOBAL_LIST_INIT(vox_sounds, list(
 	"scream" = 'sound/announcer/vox_fem/scream.ogg',
 	"screen" = 'sound/announcer/vox_fem/screen.ogg',
 	"screw" = 'sound/announcer/vox_fem/screw.ogg',
+	"scave" = 'troutstation/sound/announcer/vox_fem/scave.ogg', // Troutstation edit
 	"search" = 'sound/announcer/vox_fem/search.ogg',
 	"second" = 'sound/announcer/vox_fem/second.ogg',
 	"secondary" = 'sound/announcer/vox_fem/secondary.ogg',
