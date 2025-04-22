@@ -31,6 +31,7 @@
 				/obj/item/seeds/toechtauese = 3,
 				/obj/item/seeds/tomato = 3,
 				/obj/item/seeds/watermelon = 3,
+				/obj/item/seeds/coconut = 3, // Troutstation edit
 			),
 		),
 

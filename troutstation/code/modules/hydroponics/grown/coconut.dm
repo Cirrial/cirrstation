@@ -28,9 +28,9 @@
 	icon_state = "coconut"
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 1
-	throw_range = 5
-	force = 3
-	throwforce = 6
+	throw_range = 6
+	force = 2
+	throwforce = 4
 	var/strike_sound = 'troutstation/sound/effects/bowling_strike.ogg'
 
 /obj/item/grown/coconut/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -41,10 +41,14 @@
 			var/zone = throwingdatum.target_zone
 			if(zone == BODY_ZONE_HEAD)
 				visible_message(span_warning("[victim] was hit on the head by a coconut!"))
+				victim.Stun(2 SECONDS)
+				victim.Knockdown(2 SECONDS)
 			if(zone == BODY_ZONE_L_LEG || zone == BODY_ZONE_R_LEG)
 				visible_message(span_warning("STRIKE!!"))
 				playsound(src, strike_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE, vary = sound_vary)
-			victim.Stun(2 SECONDS)
+				victim.Stun(2 SECONDS)
+				victim.Knockdown(2 SECONDS)
+			victim.Stun(1 SECONDS)
 	else if(isliving(hit_atom))
 		var/mob/living/target = hit_atom
 		target.Stun(2 SECONDS)
@@ -58,6 +62,7 @@
 
 /obj/item/grown/coconut/proc/crack_coconut(atom/location)
 	var/obj/item/food/cracked_coconut/cracked_coconut = new /obj/item/food/cracked_coconut(location)
+
 	qdel(src)
 	return cracked_coconut
 
@@ -66,6 +71,12 @@
 	desc = "This coconut has been split asunder..."
 	icon = 'troutstation/icons/obj/service/hydroponics/harvest.dmi'
 	icon_state = "cracked_coconut"
+	food_reagents = list(
+		/datum/reagent/water = 2,
+		/datum/reagent/consumable/nutriment/vitamin = 0.6,
+		/datum/reagent/consumable/nutriment = 2,
+	)
+	w_class = WEIGHT_CLASS_NORMAL
 	eat_time = 15 SECONDS
 	foodtypes = FRUIT
 	tastes = list("coconut" = 1)

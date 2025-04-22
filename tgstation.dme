@@ -6628,6 +6628,8 @@
 #include "troutstation\code\game\objects\items\plushes.dm"
 #include "troutstation\code\game\objects\items\food\io.dm"
 #include "troutstation\code\game\objects\items\food\misc.dm"
+#include "troutstation\code\game\objects\machinery\computer\orders\order_items\order_veggies.dm"
+#include "troutstation\code\modules\cargo\bounties\botany.dm"
 #include "troutstation\code\modules\client\preferences\species_features\anteater.dm"
 #include "troutstation\code\modules\food_and_drink\recipes\drinks\drinks_non-alcoholic.dm"
 #include "troutstation\code\modules\food_and_drink\recipes\tablecraft\recipes_io.dm"
