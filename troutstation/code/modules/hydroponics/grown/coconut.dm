@@ -62,7 +62,7 @@
 
 /obj/item/grown/coconut/proc/crack_coconut(atom/location)
 	var/obj/item/food/cracked_coconut/cracked_coconut = new /obj/item/food/cracked_coconut(location)
-
+	cracked_coconut.transform = src.transform
 	qdel(src)
 	return cracked_coconut
 
@@ -87,6 +87,7 @@
 	desc = "Thinly shredded coconut."
 	icon = 'troutstation/icons/obj/food/io_foods.dmi'
 	icon_state = "desiccated_coconut"
+	w_class = WEIGHT_CLASS_TINY
 	foodtypes = FRUIT
 	tastes = list("coconut" = 1)
 
