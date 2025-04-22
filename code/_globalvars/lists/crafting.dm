@@ -20,6 +20,7 @@ GLOBAL_LIST_INIT(crafting_category_food, list(
 	CAT_SPAGHETTI,
 	CAT_ICE,
 	CAT_DRINK,
+	CAT_IO, // Troutstation edit
 ))
 
 GLOBAL_LIST_INIT(crafting_category, list(

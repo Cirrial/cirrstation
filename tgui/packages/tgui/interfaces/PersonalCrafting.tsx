@@ -89,6 +89,7 @@ const CATEGORY_ICONS_COOKING = {
   Seafood: 'fish',
   Soups: 'mug-hot',
   Spaghettis: 'wheat-awn',
+  Io: 'globe', // Troutstation edit
 } as const;
 
 enum MODE {
