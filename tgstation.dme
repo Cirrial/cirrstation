@@ -6624,6 +6624,7 @@
 #include "interface\fonts\vcr_osd_mono.dm"
 #include "troutstation\code\datums\sprite_accessories.dm"
 #include "troutstation\code\datums\bodypart_overlays\markings_bodypart_overlay.dm"
+#include "troutstation\code\datums\elements\food\processable_callback.dm"
 #include "troutstation\code\game\objects\effects\decals\cleanable\misc.dm"
 #include "troutstation\code\game\objects\items\plushes.dm"
 #include "troutstation\code\game\objects\items\food\io.dm"
