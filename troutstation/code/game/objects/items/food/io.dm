@@ -82,7 +82,7 @@
 /obj/item/food/democracy_sausage/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/love_food_buff, /datum/status_effect/food/speech/io)
-  
+
 /obj/item/food/lamington
 	name = "lamington"
 	desc = "A dessert delight from Io, a square of sponge cake coated with chocolate sauce and rolled in coconut."
@@ -127,7 +127,7 @@
 /obj/item/food/lamington_slice/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/love_food_buff, /datum/status_effect/food/speech/io)
-  
+
 
 /obj/item/food/JC_lamington
 	name = "jam and cream lamington"
