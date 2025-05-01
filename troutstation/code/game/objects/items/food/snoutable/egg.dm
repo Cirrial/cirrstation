@@ -5,8 +5,8 @@
 	AddComponent(/datum/component/snoutable, FALSE)
 
 /obj/item/food/eggsausage/make_snoutable()
-	AddComponent(/datum/component/snoutable, TRUE,
-	"You alternate between egg and sausage as you slurp pieces up.",
+	AddComponent(/datum/component/snoutable, TRUE, \
+	"You alternate between egg and sausage as you slurp pieces up.", \
 	"alternately slurps up the egg and sausage.")
 
 /obj/item/food/omelette/make_snoutable()
