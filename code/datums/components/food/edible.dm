@@ -430,10 +430,17 @@ Behavior that's still missing from this component that original food items had t
 			message_to_nearby_audience = span_notice("[eater] hungrily [eatverb]s \the [parent], gobbling it down!")
 			message_to_consumer = span_notice("You hungrily [eatverb] \the [parent], gobbling it down!")
 
-		//if we're blind, we want to feel how hungrily we ate that food
-		message_to_blind_consumer = message_to_consumer
-		eater.show_message(message_to_consumer, MSG_VISUAL, message_to_blind_consumer)
-		eater.visible_message(message_to_nearby_audience, ignored_mobs = eater)
+		// Troutstation edit start
+		if(HAS_TRAIT(eater, TRAIT_TINY_SNOUT)
+			var/datum/component/snoutable/snoutable = parent.GetComponent(/datum/component/snoutable)
+			if(snoutable)
+				snoutable.announce_snout_eating(eater, parent)
+		else
+			//if we're blind, we want to feel how hungrily we ate that food
+			message_to_blind_consumer = message_to_consumer
+			eater.show_message(message_to_consumer, MSG_VISUAL, message_to_blind_consumer)
+			eater.visible_message(message_to_nearby_audience, ignored_mobs = eater)
+		// Troutstation edit end
 
 	else //If you're feeding it to someone else.
 		if(isbrain(eater))
@@ -530,6 +537,17 @@ Behavior that's still missing from this component that original food items had t
 		return FALSE
 
 	var/atom/food = parent
+
+	// Troutstation edit start
+	if(HAS_TRAIT(eater, TRAIT_TINY_SNOUT))
+		var/datum/component/snoutable/snoutable = food.GetComponent(/datum/component/snoutable)
+		if(isnull(snoutable))
+			if(eater == feeder)
+				eater.balloon_alert(eater, "won't fit in your snout!")
+			else
+				feeder.balloon_alert(feeder, "won't fit in [eater.p_their()] snout!")
+			return FALSE
+	// Troutstation edit end
 
 	if(food.flags_1 & HOLOGRAM_1)
 		if(eater == feeder)

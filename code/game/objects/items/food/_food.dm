@@ -127,7 +127,7 @@
 /// This proc handles making the food snoutable, allowing it to be eaten by anteater snouts (or other tiny snouts if they end up existing).
 //// Overwrite this to actually make food snoutable, by default it isn't
 /obj/item/food/proc/make_snoutable()
-	AddElement(/datum/element/snoutable)
+	return
 
 /obj/item/food/CheckParts(list/parts, datum/crafting_recipe/food/current_recipe)
 	. = ..()
