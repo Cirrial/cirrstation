@@ -1,7 +1,7 @@
 /obj/item/food/breadslice/make_snoutable()
 	AddComponent(/datum/component/snoutable, TRUE, \
-	"You start tearing %FOOD apart awkwardly and shoving bits of bread into your snout.", \
-	"tears %FOOD apart awkwardly and stuffs bits of it into %PRONOUN_their snout.")
+	"You start tearing %FOOD apart, awkwardly shoving bits of bread into your snout.", \
+	"tears %FOOD apart, awkwardly stuffing bits of it into %PRONOUN_their snout.")
 
 /obj/item/food/butterbiscuit/make_snoutable()
 	AddComponent(/datum/component/snoutable, TRUE, \
