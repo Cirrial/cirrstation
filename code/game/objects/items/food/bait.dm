@@ -25,6 +25,10 @@
 	bait_quality = TRAIT_BASIC_QUALITY_BAIT
 	rod_overlay_icon_state = "worm_overlay"
 
+// Troutstation edit
+/obj/item/food/bait/worm/make_snoutable()
+	AddElement(/datum/element/snoutable, TRUE, FALSE, "You slurp the worm up.")
+
 /obj/item/food/bait/worm/premium
 	name = "extra slimy worm"
 	desc = "This worm looks very sophisticated."
@@ -45,6 +49,10 @@
 /obj/item/food/bait/natural/Initialize(mapload)
 	. = ..()
 	REMOVE_TRAIT(src, bait_quality, INNATE_TRAIT)
+
+// Troutstation edit
+/obj/item/food/bait/natural/make_snoutable()
+	AddElement(/datum/element/snoutable, TRUE, FALSE, "You slurp the bait up.")
 
 /obj/item/food/bait/doughball
 	name = "doughball"
@@ -77,6 +85,10 @@
 	bait_quality = TRAIT_GREAT_QUALITY_BAIT
 	show_on_wiki = TRUE
 
+// Troutstation edit
+/obj/item/food/bait/doughball/synthetic/super/make_snoutable()
+	AddElement(/datum/element/snoutable)
+
 /**
  * Bound to the tech fishing rod, from which cannot be removed,
  * Bait-related preferences and traits, both negative and positive,
@@ -90,3 +102,6 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_BAIT_UNCONSUMABLE, INNATE_TRAIT)
 
+// Troutstation edit
+/obj/item/food/bait/doughball/synthetic/unconsumable/make_snoutable()
+	AddElement(/datum/element/snoutable)
