@@ -16,10 +16,10 @@
 	AddComponent(/datum/component/snoutable, FALSE)
 
 /obj/item/food/poutine/make_snoutable()
-	AddComponent(/datum/component/snoutable, FALSE\)
+	AddComponent(/datum/component/snoutable, FALSE)
 
 /obj/item/food/baba_ghanoush/make_snoutable()
-	AddComponent(/datum/component/snoutable, FALSE\)
+	AddComponent(/datum/component/snoutable, FALSE)
 
 /obj/item/food/falafel/make_snoutable()
 	AddComponent(/datum/component/snoutable, FALSE)
