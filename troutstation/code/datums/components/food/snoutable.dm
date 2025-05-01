@@ -4,10 +4,10 @@
 	/// Does this food item get eaten really conspicuously? If so, it should be announced to everyone around
 	var/conspicuously_eating = FALSE
 	/// Message shown to the eater when they eat this item
-	var/default_eater_message = "You stuff \the %FOOD into your snout."
+	var/default_eater_message = "You slurp up %FOOD into your snout."
 	var/eater_message
 	/// Message shown to those around the eater when they eat this item if it's visibly eaten
-	var/default_eating_message = "stuffs \the %FOOD into %PRONOUN_their snout."
+	var/default_eating_message = "stuffs %FOOD into %PRONOUN_their snout."
 	var/eating_message
 
 /datum/component/snoutable/Initialize(
@@ -30,8 +30,8 @@
 
 /// Announce to the eater (and maybe others) that they're eating a thing they're struggling with.
 /datum/component/snoutable/proc/announce_snout_eating(mob/living/carbon/source, atom/food)
-	var/eater_desc_message = REPLACE_PRONOUNS(replacetext(eater_message, "%FOOD", "[food]"), source)
-	var/eating_desc_message = "[source] [REPLACE_PRONOUNS(replacetext(eating_message, "%FOOD", "[food]"), source)]"
+	var/eater_desc_message = REPLACE_PRONOUNS(replacetext(eater_message, "%FOOD", "\the [food]"), source)
+	var/eating_desc_message = "[source] [REPLACE_PRONOUNS(replacetext(eating_message, "%FOOD", "\the [food]"), source)]"
 
 	if(conspicuously_eating)
 		source.visible_message(span_notice(eating_desc_message),

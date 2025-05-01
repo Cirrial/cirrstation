@@ -431,7 +431,7 @@ Behavior that's still missing from this component that original food items had t
 			message_to_consumer = span_notice("You hungrily [eatverb] \the [parent], gobbling it down!")
 
 		// Troutstation edit start
-		if(HAS_TRAIT(eater, TRAIT_TINY_SNOUT)
+		if(HAS_TRAIT(eater, TRAIT_TINY_SNOUT))
 			var/datum/component/snoutable/snoutable = parent.GetComponent(/datum/component/snoutable)
 			if(snoutable)
 				snoutable.announce_snout_eating(eater, parent)
