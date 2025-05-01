@@ -416,6 +416,7 @@
 #include "code\__DEFINES\traits\macros.dm"
 #include "code\__DEFINES\traits\sources.dm"
 #include "code\__DEFINES\~troutstation\crafting.dm"
+#include "code\__DEFINES\~troutstation\declarations.dm"
 #include "code\__DEFINES\~troutstation\DNA.dm"
 #include "code\__DEFINES\~troutstation\is_helpers.dm"
 #include "code\__DEFINES\~troutstation\mobs.dm"

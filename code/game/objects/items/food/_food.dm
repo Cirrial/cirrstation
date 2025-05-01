@@ -68,6 +68,7 @@
 	make_germ_sensitive(mapload)
 	make_bakeable()
 	make_microwaveable()
+	make_snoutable() // Troutstation edit
 	ADD_TRAIT(src, TRAIT_FISHING_BAIT, INNATE_TRAIT)
 
 ///This proc adds the edible component, overwrite this if you for some reason want to change some specific args like callbacks.
@@ -122,6 +123,11 @@
 	AddComponent(/datum/component/germ_sensitive, mapload)
 	if(!preserved_food)
 		AddComponent(/datum/component/decomposition, mapload, decomp_req_handle, decomp_flags = foodtypes, decomp_result = decomp_type, ant_attracting = ant_attracting, custom_time = decomposition_time, stink_particles = decomposition_particles)
+
+/// This proc handles making the food snoutable, allowing it to be eaten by anteater snouts (or other tiny snouts if they end up existing).
+//// Overwrite this to actually make food snoutable, by default it isn't
+/obj/item/food/proc/make_snoutable()
+	AddElement(/datum/element/snoutable)
 
 /obj/item/food/CheckParts(list/parts, datum/crafting_recipe/food/current_recipe)
 	. = ..()
