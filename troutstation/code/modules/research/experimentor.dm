@@ -12,7 +12,7 @@
 /datum/relic_trans/touch
 	desc = "A(n) (un)willing participant's touch."
 /datum/relic_trans/harm
-	desc = "Robusting it."
+	desc = "Give it a good thwack."
 	var/mob/hit_user = null
 /datum/relic_trans/harm/check_cond(...)
 	if (args.len > 0 && istype(args.Copy(0), /mob))
@@ -99,7 +99,7 @@
 
 /datum/relic_node/no_effect
 /datum/relic_node/no_effect/reaction_power(mob/user)
-		to_chat(user, span_notice("[parent_relic] siezes up, and seems to do nothing..."))
+		to_chat(user, span_notice("[parent_relic] seizes up, and seems to do nothing..."))
 		return
 
 /datum/relic_node/reagent
@@ -298,7 +298,7 @@
 
 	if (force == parent_relic.force)
 		if (damtype == parent_relic.damtype)
-			to_chat(user, span_notice("[parent_relic] siezes up, and seems to do nothing..."))
+			to_chat(user, span_notice("[parent_relic] seizes up, and seems to do nothing..."))
 			return
 	else
 		if (force > 0)
@@ -387,7 +387,7 @@
 	delta_energy = rand(5, 50)
 
 /datum/relic_node/rad_pulse/reaction_power(mob/user)
-	to_chat(user, span_warning("[parent_relic] siezes up, and seems to be warm to the touch..."))
+	to_chat(user, span_warning("[parent_relic] seizes up, and seems to be warm to the touch..."))
 	var/turf/local_turf = get_turf(parent_relic)
 	var/datum/gas_mixture/turf_gasmix = local_turf.return_air()
 	turf_gasmix.temperature += delta_energy / turf_gasmix.heat_capacity()
@@ -422,7 +422,7 @@
 	//Minimum possible cooldown.
 	min_cooldown = 1 SECONDS
 	//Max possible cooldown.
-	max_cooldown = 8 SECONDS
+	max_cooldown = 12 SECONDS
 	var/node_limit = 0
 	var/list/relic_nodes = list()
 	var/datum/relic_node/current_node
@@ -442,7 +442,8 @@
 		/datum/relic_node/outgas,
 		/datum/relic_node/sound,
 		/datum/relic_node/rad_pulse,
-		/datum/relic_node/teleport
+		/datum/relic_node/teleport,
+		/datum/relic_node/dimensional_shift
 	)
 
 	var/static/list/relic_trans_types = list(
@@ -493,7 +494,7 @@
 		current_node.check_trans(user, /datum/relic_trans/fire)
 	if (istype(item, /obj/item/reagent_containers))
 		var/obj/item/reagent_containers/container = item
-		container.reagents.trans_to(container.amount_per_transfer_from_this)
+		container.reagents.remove_all(container.amount_per_transfer_from_this)
 		balloon_alert(user, "[container.amount_per_transfer_from_this] units splashed on [src]")
 		current_node.check_trans(user, /datum/relic_trans/reagent)
 
