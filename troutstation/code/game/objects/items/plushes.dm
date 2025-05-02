@@ -7,3 +7,4 @@
 	attack_verb_continuous = list("squeaks at", "strikes", "bashes")
 	attack_verb_simple = list("squeak at", "strike", "bash")
 	squeak_override = list('troutstation/sound/items/toy_squeak/mrdSqueak.ogg' = 1)
+	gender = FEMALE

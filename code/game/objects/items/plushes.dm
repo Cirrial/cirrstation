@@ -8,6 +8,7 @@
 	attack_verb_simple = list("thump", "whomp", "bump")
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
+	floor_placeable = TRUE
 	var/list/squeak_override //Weighted list; If you want your plush to have different squeak sounds use this
 	var/stuffed = TRUE //If the plushie has stuffing in it
 	var/obj/item/grenade/grenade //You can remove the stuffing from a plushie and add a grenade to it for *nefarious uses*
@@ -18,7 +19,12 @@
 	var/obj/item/toy/plush/plush_child
 	var/obj/item/toy/plush/paternal_parent //who initiated creation
 	var/obj/item/toy/plush/maternal_parent //who owns, see love()
-	var/static/list/breeding_blacklist = typecacheof(/obj/item/toy/plush/carpplushie/dehy_carp) // you cannot have sexual relations with this plush
+	var/static/list/breeding_blacklist // you cannot have sexual relations with this plush
+	// Troutstation edit
+	var/static/list/breeding_blacklist_parent_types = list(
+		/obj/item/toy/plush/carpplushie/dehy_carp,
+		/obj/item/toy/plush/maddie
+	)
 	var/list/scorned = list() //who the plush hates
 	var/list/scorned_by = list() //who hates the plush, to remove external references on Destroy()
 	var/heartbroken = FALSE
@@ -43,6 +49,10 @@
 
 /obj/item/toy/plush/Initialize(mapload)
 	. = ..()
+	// Troutstation edit start
+	if(length(breeding_blacklist) == 0)
+		create_breeding_blacklist()
+	// Troutstation edit end
 	AddComponent(/datum/component/squeak, squeak_override)
 	AddElement(/datum/element/bed_tuckable, mapload, 6, -5, 90)
 	AddElement(/datum/element/toy_talk)
@@ -61,6 +71,14 @@
 	parent_message = list("\n[src] can't remember what sleep is.")
 
 	normal_desc = desc
+
+// Troutstation edit start
+/obj/item/toy/plush/proc/create_breeding_blacklist()
+	breeding_blacklist = list()
+	for(var/obj/item/toy/plush/plush_type as anything in breeding_blacklist_parent_types)
+		for(var/obj/item/toy/plush/plush_subtype as anything in typesof(plush_type))
+			breeding_blacklist[plush_subtype] = TRUE
+// Troutstation edit end
 
 /obj/item/toy/plush/Destroy()
 	QDEL_NULL(grenade)

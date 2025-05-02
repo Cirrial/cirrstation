@@ -1,0 +1,57 @@
+name: Feature Request
+description: Create a request for a new feature or change to an existing feature.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # **Please read the following guidelines. Follow all instructions or else your issue is subject to closure.**
+
+        Please give a detailed description of the feature you would like to see added or changed.
+        If you are requesting a new feature, please include as much detail as possible about how you envision it working and any relevant examples.
+        If you are requesting a change to an existing feature, please include the current behavior and how you would like it to be changed.
+  - type: input
+    id: feature-name
+    attributes:
+      label: "Feature Name:"
+      description: |
+        A short name for the feature you are requesting. This will be used to identify the feature in the issue tracker.
+        Please keep it short and descriptive.
+      placeholder: "Feature Name"
+    validations:
+      required: true
+  - type: textarea
+    id: feature-summary
+    attributes:
+      label: "Feature Summary:"
+      description: |
+        A brief summary of the feature you are requesting. This should include a description of the feature and how it would work.
+        Please keep it short and to the point.
+        If you are requesting a change to an existing feature, please include the current behavior and how you would like it to be changed.
+      placeholder: |
+        "I think we should add X feature to Y."
+    validations:
+      required: true
+  - type: textarea
+    id: why-feature
+    attributes:
+      label: "Why This Feature Is Good For The Game:"
+      description: |
+        An explanation of why you think this feature is a good idea and how it would benefit the game.
+      placeholder: |
+        "This feature would help with X."
+    validations:
+      required: true
+  - type: textarea
+    id: cant-make-pr
+    attributes:
+      label: "I Am Not Making This By Myself Because:"
+      description: |
+        If you are not able to make a pull request for this feature, please explain why.
+        This is not a requirement, but it helps us understand your situation and may help us prioritize the feature.
+        Alternatively, if you want to contribute but don't have all the required skills to do so,
+        please explain what you can provide to let whoever works on this feature know what you can help with.
+        For example, if you can do art but not code, please say so.
+      placeholder: |
+        "I don't know how to code."
+    validations:
+      required: false
