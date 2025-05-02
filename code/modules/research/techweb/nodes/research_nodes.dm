@@ -17,6 +17,7 @@
 		"portadrive_basic",
 		"portadrive_advanced",
 		"portadrive_super",
+		"relic_pinpointer",
 	)
 
 /datum/techweb_node/bluespace_theory

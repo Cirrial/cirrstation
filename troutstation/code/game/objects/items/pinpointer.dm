@@ -26,6 +26,8 @@
 	if (target && istype(target, /obj/item/relic))
 		var/obj/item/relic/target_relic = target
 		target_relic.current_node.check_trans(null, /datum/relic_trans/tracked)
+		if (istype(target_relic.current_node, /datum/relic_node/emp))
+			target = null
 	return (target && istype(target, /obj/item/relic) && trackable(target))
 
 /obj/item/pinpointer/relic/pre_attack(atom/O, mob/user, list/modifiers)
@@ -41,6 +43,7 @@
 		return
 	var/obj/item/relic/R = target
 	. += "[R] is currently in an activation state ID of [R.current_node.node_id]."
+	. += "[R.current_node.desc]"
 	. += "Potential fruitful stimuli to the relic includes:"
 	for (var/datum/relic_trans/i as anything in R.current_node.relic_transes)
 		. += "- [i.desc]"
@@ -69,7 +72,3 @@
 	category = list(RND_CATEGORY_INITIAL,
 					RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_SCIENCE)
 	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
-
-/obj/machinery/vending/wardrobe/science_wardrobe/Initialize(mapload)
-	products.Add(/obj/item/pinpointer/relic = 10)
-	. = ..()

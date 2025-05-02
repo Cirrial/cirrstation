@@ -51,6 +51,7 @@
 	var/node_id
 	var/list/datum/relic_trans/relic_transes = list()
 	var/obj/item/relic/parent_relic
+	var/desc = ""
 
 /datum/relic_node/proc/on_generate()
 	return
@@ -98,11 +99,13 @@
 	. = ..()
 
 /datum/relic_node/no_effect
+	desc = "This node didn't seem to do anything..."
 /datum/relic_node/no_effect/reaction_power(mob/user)
 		to_chat(user, span_notice("[parent_relic] seizes up, and seems to do nothing..."))
 		return
 
 /datum/relic_node/reagent
+	desc = "This node made it release a foam!"
 	var/datum/reagent/reagent
 	var/method
 	var/units
@@ -130,6 +133,7 @@
 	return
 
 /datum/relic_node/item
+	desc = "This node made it create some items!"
 	var/obj/item/item_type
 	var/count
 /datum/relic_node/item/on_generate()
@@ -145,6 +149,7 @@
 	return
 
 /datum/relic_node/animal
+	desc = "This node made it release some animals!"
 	var/mob/living/basic/animal_type
 	var/count
 /datum/relic_node/animal/on_generate()
@@ -160,6 +165,7 @@
 	return
 
 /datum/relic_node/vacuum
+	desc = "This node made it absorb some gasses from the room!"
 	var/amount
 /datum/relic_node/vacuum/on_generate()
 	amount = rand(1, 700)
@@ -176,6 +182,7 @@
 	return
 
 /datum/relic_node/outgas
+	desc = "This node made it release some gasses into the air!"
 	var/amount
 	var/datum/gas/gas_type
 /datum/relic_node/outgas/on_generate()
@@ -192,6 +199,7 @@
 	return
 
 /datum/relic_node/explode
+	desc = "This node made it explode!!"
 	var/light_impact_range
 	var/flame_range
 	var/flash_range
@@ -214,6 +222,7 @@
 	return
 
 /datum/relic_node/emp
+	desc = "This node made it emit an EMP pulse."
 	var/strong_range
 	var/weak_range
 
@@ -234,6 +243,7 @@
 	return
 
 /datum/relic_node/charge
+	desc = "This node made it charge nearby devices!"
 	var/amount
 	var/range
 	var/stunner
@@ -286,6 +296,7 @@
 				to_chat(target, span_danger("You feel surged!"))
 
 /datum/relic_node/harm
+	desc = "This node made it change its implements..."
 	var/force
 	var/damtype
 
@@ -335,6 +346,7 @@
 	return
 
 /datum/relic_node/sound
+	desc = "This node made it make a sound.."
 	var/mood_effect = 0
 	var/range = 0
 	var/lowlow_sound
@@ -380,6 +392,7 @@
 	return
 
 /datum/relic_node/rad_pulse
+	desc = "This node made it emit radiation!!"
 	var/range
 	var/delta_energy
 /datum/relic_node/rad_pulse/on_generate()
@@ -395,6 +408,7 @@
 	radiation_pulse(source = parent_relic, max_range = range, threshold = RAD_MEDIUM_INSULATION)
 
 /datum/relic_node/teleport
+	desc = "This node made it teleport somewhere else!!"
 /datum/relic_node/teleport/reaction_power(mob/user)
 	for(var/mob/living/m in oview(parent_relic, 3))
 		to_chat(m, span_notice("[parent_relic] vanishes into thin air!"))
@@ -403,6 +417,7 @@
 		to_chat(m, span_notice("[parent_relic] appears out of nowhere!"))
 
 /datum/relic_node/dimensional_shift
+	desc = "This node made it the tiles change dimensional orientation..."
 	var/new_theme_path
 
 /datum/relic_node/dimensional_shift/on_generate()
@@ -647,4 +662,6 @@
 	name = "Spare Relic Dodads"
 	desc = "We have zero clue what these do, and frankly they're piling up. Could you take some off our hands?"
 	cost = CARGO_CRATE_VALUE * 7
-	contains = list(/obj/item/relic = 3, /obj/item/pinpointer/relic = 2)
+	contains = list(/obj/item/relic = 3, /obj/item/pinpointer/relic = 1)
+	crate_name = "Spare Relics Crate"
+	crate_type = /obj/structure/closet/crate/science
