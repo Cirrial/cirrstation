@@ -549,7 +549,7 @@
 	. = ..()
 	if (speaker == src || get_dist(src, speaker) > canhear_range || message_mods[MODE_RELAY])
 		return .
-	to_chat(speaker, span_warning("DEBUG: [src] is listening to [speaker]...."))
+	// to_chat(speaker, span_warning("DEBUG: [src] is listening to [speaker]...."))
 	current_node.check_trans(null, /datum/relic_trans/hear)
 	return .
 
