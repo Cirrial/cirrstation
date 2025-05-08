@@ -275,6 +275,7 @@ GLOBAL_VAR_INIT(roaches_deployed, FALSE)
 		/obj/item/storage/backpack/duffelbag/science = 3,
 		/obj/item/storage/backpack/messenger/science = 3,
 		/obj/item/radio/headset/headset_sci = 3,
+		/obj/item/pinpointer/relic = 3 // Troutstation edit
 	)
 	refill_canister = /obj/item/vending_refill/wardrobe/science_wardrobe
 	payment_department = ACCOUNT_SCI

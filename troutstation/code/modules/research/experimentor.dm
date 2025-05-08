@@ -474,7 +474,7 @@
 		/datum/relic_trans/irradiate= 1,
 		/datum/relic_trans/explode	= 1,
 		/datum/relic_trans/tracked	= 1,
-		/datum/relic_trans/hear		= 1 // For some reason, this item's Hear doesn't get procced by anything.
+		/datum/relic_trans/hear		= 1
 	)
 
 /obj/item/relic/Initialize()
@@ -545,6 +545,7 @@
 	current_node.check_trans(null, /datum/relic_trans/irradiate)
 	return
 
+
 /obj/item/relic/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range)
 	. = ..()
 	if (speaker == src || get_dist(src, speaker) > canhear_range || message_mods[MODE_RELAY])
@@ -564,7 +565,6 @@
 	node_limit = rand(3, 15)
 	for (var/_i in 0 to node_limit)
 		var/relic_type = pick_weight(relic_reactions)
-
 		var/datum/relic_node/new_relic_node = new relic_type
 		new_relic_node.parent_relic = src
 		new_relic_node.node_id = _i
@@ -653,6 +653,10 @@
 	current_node.check_trans(null, /datum/relic_trans/explode)
 	return
 
+/obj/item/relic/Destroy(force)
+	for (var/each as anything in relic_nodes)
+		QDEL_NULL(each)
+	. = ..()
 
 /obj/item/relic/reveal()
 	if(activated) //no rerolling

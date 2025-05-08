@@ -79,7 +79,8 @@
 		/mob/living/basic/cockroach,
 		/mob/living/basic/spider/maintenance,
 		/mob/living/basic/mouse,
-		/mob/living/basic/slugcat, // cirrstation/troutstation edit, taken from monkestation
+		/mob/living/basic/snail,
+		/mob/living/basic/slugcat, // troutstation edit, taken from monkestation
 	)
 	return pick(mob_list)
 
