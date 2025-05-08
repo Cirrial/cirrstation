@@ -243,6 +243,18 @@ Behavior that's still missing from this component that original food items had t
 		var/list/types = bitfield_to_list(foodtypes, FOOD_FLAGS)
 		examine_list += span_notice("It is [LOWER_TEXT(english_list(types))].")
 
+	// Troutstation edit begin
+	if(HAS_TRAIT(user, TRAIT_TINY_SNOUT))
+		if(food_flags & FOOD_TINY_SNOUT_EDIBLE)
+			examine_list += span_nicegreen("It will fit into your snout!")
+		else
+			examine_list += span_warning("It's too big for your snout.")
+	else if(food_flags & FOOD_TINY_SNOUT_EDIBLE)
+		var/obj/item/organ/liver/liver = user.get_organ_slot(ORGAN_SLOT_LIVER)
+		if(liver && HAS_TRAIT(liver, TRAIT_CULINARY_METABOLISM)) // goddamn liver traits
+			examine_list += span_notice("It will fit into a narrow snout, which is great for anteaters.")
+	// Troutstation edit end
+
 	var/quality = get_perceived_food_quality(user)
 	if(quality > 0)
 		var/quality_label = GLOB.food_quality_description[quality]
@@ -397,6 +409,7 @@ Behavior that's still missing from this component that original food items had t
 		var/message_to_nearby_audience = ""
 		var/message_to_consumer = ""
 		var/message_to_blind_consumer = ""
+		var/message_to_blind_nearby_audience = "" // Troutstation edit
 
 		if(junkiness && eater.satiety < -150 && eater.nutrition > NUTRITION_LEVEL_STARVING + 50 && !HAS_TRAIT(eater, TRAIT_VORACIOUS) && !HAS_TRAIT(eater, TRAIT_GLUTTON))
 			to_chat(eater, span_warning("You don't feel like eating any more junk food at the moment!"))
@@ -432,14 +445,20 @@ Behavior that's still missing from this component that original food items had t
 
 		// Troutstation edit start
 		if(HAS_TRAIT(eater, TRAIT_TINY_SNOUT))
-			var/datum/component/snoutable/snoutable = parent.GetComponent(/datum/component/snoutable)
-			if(snoutable)
-				snoutable.announce_snout_eating(eater, parent)
+			var/snout_broadcast_category = "[owner.snout_eat_message_category][SNOUT_EAT_MESSAGE_BROADCAST_SUFFIX]"
+			message_to_consumer = pick_list_replacements(SNOUT_EAT_MESSAGE_FILE, owner.snout_eat_message_category)
+			message_to_consumer = REPLACE_PRONOUNS(replacetext(message_to_consumer, "%FOOD", "\the [food]"), eater)
+			message_to_nearby_audience = pick_list_replacements(SNOUT_EAT_MESSAGE_FILE, snout_broadcast_category)"
+			message_to_nearby_audience = REPLACE_PRONOUNS(replacetext(message_to_nearby_audience, "%FOOD", "\the [food]"), eater)
+			if(!(snout_broadcast_category in SNOUT_EAT_QUIETLY_LIST))
+				message_to_blind_nearby_audience = "You hear an anteater struggling with food."
+
+		//if we're blind, we want to feel how hungrily we ate that food
+		message_to_blind_consumer = message_to_consumer
+		eater.show_message(message_to_consumer, MSG_VISUAL, message_to_blind_consumer)
+		if(message_to_blind_nearby_audience)
+			eater.visible_message(message_to_nearby_audience, ignored_mobs = eater, blind_message = message_to_blind_nearby_audience)
 		else
-			//if we're blind, we want to feel how hungrily we ate that food
-			message_to_blind_consumer = message_to_consumer
-			eater.show_message(message_to_consumer, MSG_VISUAL, message_to_blind_consumer)
-			eater.visible_message(message_to_nearby_audience, ignored_mobs = eater)
 		// Troutstation edit end
 
 	else //If you're feeding it to someone else.
@@ -540,8 +559,7 @@ Behavior that's still missing from this component that original food items had t
 
 	// Troutstation edit start
 	if(HAS_TRAIT(eater, TRAIT_TINY_SNOUT))
-		var/datum/component/snoutable/snoutable = food.GetComponent(/datum/component/snoutable)
-		if(isnull(snoutable))
+		if(!(food_flags & FOOD_TINY_SNOUT_EDIBLE))
 			if(eater == feeder)
 				eater.balloon_alert(eater, "won't fit in your snout!")
 			else
