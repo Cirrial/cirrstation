@@ -1,3 +1,8 @@
+//Pinpointer for relics
+#define SCAN_SINGLE 1 // Scan for a specific relic
+#define SCAN_SWEEP 2 // Scan for nearest relic
+#define SCAN_COUNT 3 // end index
+
 /obj/item/pinpointer/relic
 	name = "relic pinpointer"
 	desc = "A handheld tracking device that points to a tagged relic."
@@ -5,6 +10,7 @@
 	worn_icon_state = "pinpointer_black"
 	custom_price = PAYCHECK_CREW * 6
 	custom_premium_price = PAYCHECK_CREW * 6
+	var/scan_type = SCAN_SWEEP
 
 /obj/item/pinpointer/relic/proc/trackable(obj/item/relic/R)
 	var/turf/here = get_turf(src)
@@ -23,32 +29,50 @@
 	update_appearance()
 
 /obj/item/pinpointer/relic/scan_for_target()
-	if (target && istype(target, /obj/item/relic))
-		var/obj/item/relic/target_relic = target
-		target_relic.current_node.check_trans(null, /datum/relic_trans/tracked)
-		if (istype(target_relic.current_node, /datum/relic_node/emp))
-			target = null
+	switch(scan_type)
+		if (SCAN_SINGLE)
+			if (target && istype(target, /obj/item/relic))
+				var/obj/item/relic/target_relic = target
+				target_relic.current_node.check_trans(null, /datum/relic_trans/tracked)
+				if (istype(target_relic.current_node, /datum/relic_node/emp))
+					target = null
+		else
+			var/turf/here = get_turf(src)
+			if (here && /obj/item/relic::existing_relics.len > 0)
+				var/obj/item/relic/target_relic = /obj/item/relic::existing_relics[0]
+				var/dist_to_beat = get_dist(here, get_turf(target_relic))
+				for (var/obj/item/relic/relic_inst as anything in /obj/item/relic::existing_relics)
+					if (target_relic == relic_inst)
+						continue
+					var/turf/there = get_turf(relic_inst)
+					var/new_dist = get_dist(here, there)
+					if (new_dist < dist_to_beat)
+						dist_to_beat = new_dist
+						target_relic = relic_inst
+				target_relic.current_node.check_trans(null, /datum/relic_trans/tracked)
+				if (istype(target_relic.current_node, /datum/relic_node/emp))
+					target = null
+				else
+					target = target_relic
+
+
 	return (target && istype(target, /obj/item/relic) && trackable(target))
 
 /obj/item/pinpointer/relic/pre_attack(atom/O, mob/user, list/modifiers)
 	if (istype(O, /obj/item/relic))
+		scan_type = SCAN_SINGLE
 		target = O
-		user.visible_message(span_notice("The pinpointer starts tracking [O]."))
+		balloon_alert(user, "The pinpointer starts tracking [O].")
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 	return ..()
 
-/obj/item/pinpointer/relic/examine(mob/m)
-	. = ..()
-	if (!istype(target, /obj/item/relic))
-		return
-	var/obj/item/relic/R = target
-	. += "[R] is currently in an activation state ID of [R.current_node.node_id]."
-	. += "[R.current_node.desc]"
-	. += "Potential fruitful stimuli to the relic includes:"
-	for (var/datum/relic_trans/i as anything in R.current_node.relic_transes)
-		. += "- [i.desc]"
-	return
-
+/obj/item/pinpointer/relic/pre_attack_secondary(atom/target, mob/living/user, list/modifiers)
+	scan_type = SCAN_SWEEP
+	if (target == src)
+		target = null
+		balloon_alert(user, "The pinpointer starts tracking the nearest relic.")
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+	return ..()
 
 /datum/crafting_recipe/relic_pinpointer
 	name = "Relic Pinpointer"
@@ -67,7 +91,7 @@
 	desc = "Makes a device to keep track of relics."
 	id = "relic_pinpointer"
 	build_type = PROTOLATHE | AWAY_LATHE | AUTOLATHE
-	materials = list(/datum/material/iron = SHEET_MATERIAL_AMOUNT*5, /datum/material/glass = SHEET_MATERIAL_AMOUNT*2)
+	materials = list(/datum/material/iron = SHEET_MATERIAL_AMOUNT, /datum/material/glass = SMALL_MATERIAL_AMOUNT)
 	build_path = /obj/item/pinpointer/relic
 	category = list(RND_CATEGORY_INITIAL,
 					RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_SCIENCE)

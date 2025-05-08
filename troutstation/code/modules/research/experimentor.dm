@@ -433,50 +433,53 @@
 
 
 /obj/item/relic
-	desc = "What mysteries could this hold? Maybe Research & Development knows to discover its uses..."
+	desc = "What mysteries could this hold? Maybe Research & Development knows how to analyze it...."
 	//Minimum possible cooldown.
 	min_cooldown = 1 SECONDS
 	//Max possible cooldown.
 	max_cooldown = 12 SECONDS
+	w_class = 3
+	var/canhear_range = 5
 	var/node_limit = 0
 	var/list/relic_nodes = list()
 	var/datum/relic_node/current_node
 	var/reacting_when_off_cooldown = FALSE //has a pending reaction
-	w_class = 3
+	var/static/list/existing_relics = list()
 
 	var/static/list/relic_reactions = list(
-		/datum/relic_node/no_effect,
-		/datum/relic_node/reagent,
-		/datum/relic_node/item,
-		/datum/relic_node/animal,
-		/datum/relic_node/emp,
-		/datum/relic_node/charge,
-		/datum/relic_node/explode,
-		/datum/relic_node/harm,
-		/datum/relic_node/vacuum,
-		/datum/relic_node/outgas,
-		/datum/relic_node/sound,
-		/datum/relic_node/rad_pulse,
-		/datum/relic_node/teleport,
-		/datum/relic_node/dimensional_shift
+		/datum/relic_node/no_effect = 1,
+		/datum/relic_node/reagent 	= 1,
+		/datum/relic_node/item		= 1,
+		/datum/relic_node/animal	= 1,
+		/datum/relic_node/emp		= 1,
+		/datum/relic_node/charge	= 1,
+		/datum/relic_node/explode	= 1,
+		/datum/relic_node/harm		= 1,
+		/datum/relic_node/vacuum	= 1,
+		/datum/relic_node/outgas	= 1,
+		/datum/relic_node/sound		= 1,
+		/datum/relic_node/rad_pulse	= 1,
+		/datum/relic_node/teleport	= 1,
+		/datum/relic_node/dimensional_shift = 1
 	)
 
 	var/static/list/relic_trans_types = list(
-		/datum/relic_trans/none,
-		/datum/relic_trans/touch,
-		/datum/relic_trans/harm,
-		/datum/relic_trans/fire,
-		/datum/relic_trans/reagent,
-		/datum/relic_trans/paint,
+		/datum/relic_trans/none		= 1,
+		/datum/relic_trans/touch	= 1,
+		/datum/relic_trans/harm		= 1,
+		/datum/relic_trans/fire		= 1,
+		/datum/relic_trans/reagent	= 1,
+		/datum/relic_trans/paint	= 1,
 		// /datum/relic_trans/vacuum, // Requires adding a tick, not gonna do that.
-		/datum/relic_trans/irradiate,
-		/datum/relic_trans/explode,
-		/datum/relic_trans/tracked
-		// /datum/relic_trans/hear // For some reason, this item's Hear doesn't get procced by anything.
+		/datum/relic_trans/irradiate= 1,
+		/datum/relic_trans/explode	= 1,
+		/datum/relic_trans/tracked	= 1,
+		/datum/relic_trans/hear		= 1 // For some reason, this item's Hear doesn't get procced by anything.
 	)
 
 /obj/item/relic/Initialize()
 	. = ..()
+	existing_relics.Add(src)
 	RegisterSignal(src, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emped))
 	RegisterSignal(src, COMSIG_ATOM_FIRE_ACT, PROC_REF(on_fired))
 	RegisterSignal(src, COMSIG_ITEM_HIT_REACT, PROC_REF(on_hit_react))
@@ -484,6 +487,12 @@
 	RegisterSignal(src, COMSIG_ATOM_AFTER_EXPOSE_REAGENTS, PROC_REF(on_exposure))
 	RegisterSignal(src, COMSIG_ATOM_ITEM_INTERACTION, PROC_REF(on_clicked))
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_IRRADIATED), PROC_REF(on_radiated))
+
+/obj/item/relic/Destroy(force)
+	existing_relics.Remove(src)
+	for (var/each as anything in relic_nodes)
+		QDEL_NULL(each)
+	. = ..()
 
 /obj/item/relic/random_themed_appearance() // TODO: rewrite the original so adding shit is easier
 	. = ..()
@@ -536,23 +545,26 @@
 	current_node.check_trans(null, /datum/relic_trans/irradiate)
 	return
 
-/obj/item/relic/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range=0)
-	if (speaker == src)
-		return ..()
-	// to_chat(speaker, span_warning("DEBUG: [src] is listening to [speaker]...."))
+/obj/item/relic/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range)
+	. = ..()
+	if (speaker == src || get_dist(src, speaker) > canhear_range || message_mods[MODE_RELAY])
+		return .
+	to_chat(speaker, span_warning("DEBUG: [src] is listening to [speaker]...."))
 	current_node.check_trans(null, /datum/relic_trans/hear)
-	return ..()
+	return .
 
 // Rules:
 // - Creates 3-15 nodes
 // - Each node has 2-4 connections
 // - Orphaned nodes are given a connection (this can break limits)
 /obj/item/relic/proc/generate()
+	become_hearing_sensitive(INNATE_TRAIT)
 	var/list/datum/relic_node/not_orphaned = list()
 	// Generate nodes up to limit
 	node_limit = rand(3, 15)
 	for (var/_i in 0 to node_limit)
-		var/relic_type = pick(relic_reactions)
+		var/relic_type = pick_weight(relic_reactions)
+
 		var/datum/relic_node/new_relic_node = new relic_type
 		new_relic_node.parent_relic = src
 		new_relic_node.node_id = _i
@@ -564,7 +576,7 @@
 	// Add connections between nodes
 	for (var/datum/relic_node/it as anything in relic_nodes)
 		for (var/i in 2 to 4)
-			var/relic_trans_type = pick(relic_trans_types)
+			var/relic_trans_type = pick_weight(relic_trans_types)
 			var/datum/relic_trans/new_relic_trans = new relic_trans_type
 			do
 				new_relic_trans.next_node = pick(relic_nodes)
@@ -611,7 +623,7 @@
 
 /obj/item/relic/attack_self(mob/user)
 	if(!activated)
-		to_chat(user, span_notice("What mysteries could this hold? Maybe Research & Development knows how to discover its uses..."))
+		to_chat(user, span_notice("[desc]"))
 		return //..()
 
 	var/mob/living/living_user = user
@@ -625,7 +637,7 @@
 
 /obj/item/relic/attack(mob/M, mob/user)
 	if(!activated)
-		to_chat(user, span_notice("What mysteries could this hold? Maybe Research & Development knows how to discover its uses..."))
+		to_chat(user, span_notice("[desc]"))
 		return ..()
 
 	var/mob/living/living_user = user
@@ -642,11 +654,6 @@
 	return
 
 
-/obj/item/relic/Destroy(force)
-	for (var/each as anything in relic_nodes)
-		QDEL_NULL(each)
-	. = ..()
-
 /obj/item/relic/reveal()
 	if(activated) //no rerolling
 		return
@@ -661,7 +668,7 @@
 /datum/supply_pack/imports/relicorder
 	name = "Spare Relic Dodads"
 	desc = "We have zero clue what these do, and frankly they're piling up. Could you take some off our hands?"
-	cost = CARGO_CRATE_VALUE * 7
-	contains = list(/obj/item/relic = 3, /obj/item/pinpointer/relic = 1)
+	cost = CARGO_CRATE_VALUE * 8
+	contains = list(/obj/item/relic = 3, /obj/item/pinpointer/relic = 1, /obj/item/relicanalyzer = 1)
 	crate_name = "Spare Relics Crate"
 	crate_type = /obj/structure/closet/crate/science

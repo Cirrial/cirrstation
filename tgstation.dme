@@ -6640,6 +6640,7 @@
 #include "troutstation\code\game\objects\effects\decals\cleanable\misc.dm"
 #include "troutstation\code\game\objects\items\pinpointer.dm"
 #include "troutstation\code\game\objects\items\plushes.dm"
+#include "troutstation\code\game\objects\items\devices\scanners\relic_analyzer.dm"
 #include "troutstation\code\game\objects\items\food\io.dm"
 #include "troutstation\code\game\objects\items\food\misc.dm"
 #include "troutstation\code\game\objects\machinery\computer\orders\order_items\order_veggies.dm"
