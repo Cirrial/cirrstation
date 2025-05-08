@@ -75,7 +75,7 @@
 	// Give time for other reactions to happen before procing none
 	if (HAS_TRAIT(src, TRAIT_IRRADIATED))
 		addtimer(CALLBACK(src, PROC_REF(check_trans), null, /datum/relic_trans/irradiate), parent_relic.cooldown_timer + 0.1 SECONDS)
-	addtimer(CALLBACK(src, PROC_REF(check_trans), user, /datum/relic_trans/none), parent_relic.cooldown_timer + 1.0 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(check_trans), user, /datum/relic_trans/none), parent_relic.cooldown_timer + 5.0 SECONDS)
 
 
 /datum/relic_node/proc/check_trans(mob/user, react_type, ...)
@@ -185,9 +185,11 @@
 	desc = "This node made it release some gasses into the air!"
 	var/amount
 	var/datum/gas/gas_type
+
 /datum/relic_node/outgas/on_generate()
 	amount = rand(1, 80)
 	gas_type = pick(subtypesof(/datum/gas/))
+
 /datum/relic_node/outgas/reaction_power(mob/user)
 	to_chat(user, span_warning("[parent_relic] releases [gas_type.name] into the air!"))
 	playsound(parent_relic, 'sound/effects/smoke.ogg', 50, TRUE, -3)
@@ -431,6 +433,47 @@
 		shifter.apply_theme(shiftee, show_effect = TRUE)
 	return
 
+/datum/relic_node/blood
+	desc = "This node made the relic feast on flesh!"
+	var/amount = 0
+
+/datum/relic_node/blood/on_generate()
+	amount = rand(100, 400)
+
+/datum/relic_node/blood/reaction_power(mob/user)
+	new /obj/effect/decal/cleanable/blood/old(get_turf(src))
+	for(var/mob/living/m in oview(parent_relic, 1))
+		new /obj/effect/decal/cleanable/blood/old(get_turf(m))
+		if (istype(m, /mob/living/carbon/))
+			var/mob/living/carbon/c = m
+			if (prob(80)) // Just blood.. blood..
+				c.blood_volume -= amount
+				to_chat(c, span_warning("[parent_relic] lashes out!"))
+			else if (prob(95)) // Steal a non-brain organ
+				var/obj/item/organ/remove_organ = pick(GLOB.bioscrambler_valid_organs)
+				if (c.organs_slot.Find(remove_organ.slot))
+					c.organs_slot[remove_organ.slot].mob_remove(c)
+					to_chat(c, span_boldwarning("[parent_relic] demands something more, and you feel a little hollow."))
+				else
+					to_chat(c, span_warning("[parent_relic] demands something more, but you do not have what it wants."))
+			else // get a gift :)
+				to_chat(c, span_boldwarning("[parent_relic] offers a gift, and you feel your insides change to accept!"))
+				var/gland_type = subtypesof(/obj/item/organ/heart/gland)
+				var/obj/item/organ/heart/gland/new_gland = new gland_type()
+				if (new_gland)
+					new_gland.replace_into(c)
+		else
+			m.blood_volume -= amount
+			to_chat(m, span_warning("[parent_relic] lashes out!"))
+
+/datum/relic_node/rosetta
+	desc = "This node offers thesaurical knowledge..."
+	var/language
+	var/percent
+
+/datum/relic_node/rosetta/on_generate()
+	language = pick(subtypesof(/datum/language/))
+	percent = rand(1, 100)
 
 /obj/item/relic
 	desc = "What mysteries could this hold? Maybe Research & Development knows how to analyze it...."
@@ -447,34 +490,36 @@
 	var/static/list/existing_relics = list()
 
 	var/static/list/relic_reactions = list(
-		/datum/relic_node/no_effect = 1,
-		/datum/relic_node/reagent 	= 1,
-		/datum/relic_node/item		= 1,
-		/datum/relic_node/animal	= 1,
-		/datum/relic_node/emp		= 1,
-		/datum/relic_node/charge	= 1,
-		/datum/relic_node/explode	= 1,
-		/datum/relic_node/harm		= 1,
-		/datum/relic_node/vacuum	= 1,
-		/datum/relic_node/outgas	= 1,
-		/datum/relic_node/sound		= 1,
-		/datum/relic_node/rad_pulse	= 1,
-		/datum/relic_node/teleport	= 1,
-		/datum/relic_node/dimensional_shift = 1
+		/datum/relic_node/no_effect = 10,
+		/datum/relic_node/reagent 	= 10,
+		/datum/relic_node/item		= 10,
+		/datum/relic_node/animal	= 10,
+		/datum/relic_node/emp		= 10,
+		/datum/relic_node/charge	= 10,
+		/datum/relic_node/explode	= 10,
+		/datum/relic_node/harm		= 10,
+		/datum/relic_node/vacuum	= 10,
+		/datum/relic_node/outgas	= 10,
+		/datum/relic_node/sound		= 10,
+		/datum/relic_node/rad_pulse	= 10,
+		/datum/relic_node/teleport	= 10,
+		/datum/relic_node/dimensional_shift = 10,
+		/datum/relic_node/blood		= 10,
+		/datum/relic_node/rosetta	= 10,
 	)
 
 	var/static/list/relic_trans_types = list(
-		/datum/relic_trans/none		= 1,
-		/datum/relic_trans/touch	= 1,
-		/datum/relic_trans/harm		= 1,
-		/datum/relic_trans/fire		= 1,
-		/datum/relic_trans/reagent	= 1,
-		/datum/relic_trans/paint	= 1,
+		/datum/relic_trans/none		= 10,
+		/datum/relic_trans/touch	= 10,
+		/datum/relic_trans/harm		= 10,
+		/datum/relic_trans/fire		= 10,
+		/datum/relic_trans/reagent	= 10,
+		/datum/relic_trans/paint	= 10,
 		// /datum/relic_trans/vacuum, // Requires adding a tick, not gonna do that.
-		/datum/relic_trans/irradiate= 1,
-		/datum/relic_trans/explode	= 1,
-		/datum/relic_trans/tracked	= 1,
-		/datum/relic_trans/hear		= 1 // For some reason, this item's Hear doesn't get procced by anything.
+		/datum/relic_trans/irradiate= 10,
+		/datum/relic_trans/explode	= 10,
+		/datum/relic_trans/tracked	= 10,
+		/datum/relic_trans/hear		= 10
 	)
 
 /obj/item/relic/Initialize()
@@ -616,8 +661,13 @@
 		current_node.check_trans(user, /datum/relic_trans/harm, user)
 		return TRUE
 	else
-
-		to_chat(user, span_notice("You touch [src], its surface seems inviting."))
+		if (istype(current_node, /datum/relic_node/rosetta) && istype(user, /mob/living))
+			var/datum/relic_node/rosetta/r = current_node
+			var/mob/living/l = user;
+			to_chat(user, span_notice("[src] has unknown text that fills you with knowledge of a language."))
+			l.grant_partial_language(r.language, r.percent, MAGIC_TRAIT)
+		else
+			to_chat(user, span_notice("You touch [src], its surface seems inviting."))
 		current_node.check_trans(user, /datum/relic_trans/touch)
 	return ..()
 
