@@ -54,8 +54,6 @@
 					target = null
 				else
 					target = target_relic
-
-
 	return (target && istype(target, /obj/item/relic) && trackable(target))
 
 /obj/item/pinpointer/relic/pre_attack(atom/O, mob/user, list/modifiers)
