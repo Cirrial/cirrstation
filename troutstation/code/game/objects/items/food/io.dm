@@ -217,7 +217,6 @@
 	. = ..()
 	AddElement(/datum/element/love_food_buff, /datum/status_effect/food/speech/io)
 
-
 /obj/item/food/fairy_bread
 	name = "fairy bread"
 	desc = "ytpmv elf voice: gay people" // change this
@@ -273,7 +272,71 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	crafting_complexity = FOOD_COMPLEXITY_4
 	trash_type = /obj/item/reagent_containers/cup/bowl
+	venue_value = FOOD_PRICE_NORMAL
 
 /obj/item/food/pie_floater/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/love_food_buff, /datum/status_effect/food/speech/io)
+
+
+/obj/item/food/vanilla_slice
+	name = "vanilla slice"
+	desc = "Two slabs of puff pastry with a whole lot of incredibly fluffy vanilla custard stuffed in the middle, with icing slathered on the top! Io claims this as their own, though variations exist elsewhere. Also named snot block, snot brick, and phlegm cake."
+	icon = 'troutstation/icons/obj/food/io_foods.dmi'
+	icon_state = "vanilla_slice"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 12,
+		/datum/reagent/consumable/vanillapudding = 20,
+		/datum/reagent/consumable/sugar = 10,
+	)
+	tastes = list("custard" = 1, "sugar" = 1)
+	foodtypes = DAIRY|GRAIN|SUGAR
+	crafting_complexity = FOOD_COMPLEXITY_2
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/food/vanilla_slice/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/love_food_buff, /datum/status_effect/food/speech/io)
+
+/obj/item/food/vanilla_slice/make_processable()
+	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/vanilla_slice_slice, 4, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice")
+
+/obj/item/food/vanilla_slice_slice
+	name = "vanilla slice slice"
+	desc = "A slice of vanilla slice. Surely there isn't a vanilla slice slice slice..."
+	icon = 'troutstation/icons/obj/food/io_foods.dmi'
+	icon_state = "vanilla_slice_slice"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/vanillapudding = 5,
+		/datum/reagent/consumable/sugar = 2.5,
+	)
+	tastes = list("custard" = 1, "sugar" = 1)
+	foodtypes = DAIRY|GRAIN|SUGAR
+	crafting_complexity = FOOD_COMPLEXITY_2
+	w_class = WEIGHT_CLASS_SMALL
+	food_flags = FOOD_FINGER_FOOD
+	venue_value = FOOD_PRICE_CHEAP
+
+/obj/item/food/vanilla_slice_slice/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/love_food_buff, /datum/status_effect/food/speech/io)
+
+/obj/item/food/vanilla_slice_slice/make_processable()
+	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/vanilla_slice_slice_slice, 6, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice")
+
+/obj/item/food/vanilla_slice_slice_slice
+	name = "vanilla slice slice slice"
+	desc = "this is crumbs"
+	icon = 'troutstation/icons/obj/food/io_foods.dmi'
+	icon_state = "vanilla_slice_slice_slice"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 0.5,
+		/datum/reagent/consumable/vanillapudding = 0.8,
+		/datum/reagent/consumable/sugar = 0.4,
+	)
+	tastes = list("custard" = 1, "sugar" = 1)
+	foodtypes = DAIRY|GRAIN|SUGAR
+	crafting_complexity = FOOD_COMPLEXITY_2
+	w_class = WEIGHT_CLASS_TINY
+	food_flags = FOOD_FINGER_FOOD

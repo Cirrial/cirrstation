@@ -54,7 +54,7 @@
 	category = CAT_IO
 
 /datum/crafting_recipe/food/knife/lamington_slice
-	reqs = list(/datum/crafting_recipe/food/lamington = 1)
+	reqs = list(/obj/item/food/lamington = 1)
 	result = /obj/item/food/lamington_slice
 	category = CAT_IO
 
@@ -69,7 +69,7 @@
 	category = CAT_IO
 
 /datum/crafting_recipe/food/knife/JC_lamington_slice
-	reqs = list(/datum/crafting_recipe/food/JC_lamington = 1)
+	reqs = list(/obj/item/food/JC_lamington = 1)
 	result = /obj/item/food/JC_lamington_slice
 	category = CAT_IO
 
@@ -128,4 +128,19 @@
 		/obj/item/reagent_containers/cup/bowl = 1,
 	)
 	result = /obj/item/food/pie_floater
+	category = CAT_IO
+
+/datum/crafting_recipe/food/vanilla_slice
+	name = "vanilla slice"
+	reqs = list(
+		/datum/reagent/consumable/vanillapudding = 20,
+		/obj/item/food/pastrybase = 4,
+		/datum/reagent/consumable/sugar = 10,
+	)
+	result = /obj/item/food/vanilla_slice
+	category = CAT_IO
+
+/datum/crafting_recipe/food/knife/vanilla_slice_slice
+	reqs = list(/obj/item/food/vanilla_slice = 1)
+	result = /obj/item/food/vanilla_slice_slice
 	category = CAT_IO
