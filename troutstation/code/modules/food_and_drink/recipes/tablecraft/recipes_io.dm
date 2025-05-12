@@ -50,6 +50,7 @@
 		/obj/item/food/chocolatebar = 1
 	)
 	result = /obj/item/food/lamington
+	removed_foodtypes = JUNKFOOD
 	category = CAT_IO
 
 /datum/crafting_recipe/food/knife/lamington_slice
@@ -70,4 +71,61 @@
 /datum/crafting_recipe/food/knife/JC_lamington_slice
 	reqs = list(/datum/crafting_recipe/food/JC_lamington = 1)
 	result = /obj/item/food/JC_lamington_slice
+	category = CAT_IO
+
+/datum/crafting_recipe/food/vegemite_toast
+	name = "\improper Vegemite toast"
+	reqs = list(
+		/datum/reagent/consumable/vegemite = 10,
+		/obj/item/food/griddle_toast = 1,
+	)
+	result = /obj/item/food/vegemite_toast
+	category = CAT_IO
+
+/datum/crafting_recipe/food/cheese_vegemite_scroll
+	name = "cheese and Vegemite scroll"
+	reqs = list(
+		/datum/reagent/consumable/vegemite = 5,
+		/obj/item/food/pastrybase = 1,
+		/obj/item/food/cheese/wedge = 1,
+	)
+	result = /obj/item/food/cheese_vegemite_scroll
+	category = CAT_IO
+
+/datum/crafting_recipe/food/fairy_bread
+	name = "fairy bread"
+	reqs = list(
+		/obj/item/food/butterslice = 1,
+		/datum/reagent/consumable/sprinkles = 2,
+		/obj/item/food/breadslice/plain = 1,
+	)
+	result = /obj/item/food/fairy_bread
+	removed_foodtypes = JUNKFOOD
+	category = CAT_IO
+
+/datum/crafting_recipe/food/golden_gaytime
+	name = "\improper Golden Gaytime"
+	reqs = list(
+		/obj/item/popsicle_stick = 1,
+		/datum/reagent/consumable/caramel = 4,
+		/datum/reagent/consumable/ice = 2,
+		/datum/reagent/consumable/cream = 2,
+		/datum/reagent/consumable/vanilla = 2,
+		/obj/item/food/chocolatebar = 1,
+		/datum/reagent/consumable/sugar = 2
+	)
+	result = /obj/item/food/popsicle/golden_gaytime
+	added_foodtypes = DAIRY
+	removed_foodtypes = JUNKFOOD
+	category = CAT_IO
+
+/datum/crafting_recipe/food/pie_floater
+	name = "pie floater"
+	reqs = list(
+		/datum/reagent/consumable/nutriment/soup/pea = 30,
+		/obj/item/food/pie/meatpie = 1,
+		/datum/reagent/consumable/ketchup = 5,
+		/obj/item/reagent_containers/cup/bowl = 1,
+	)
+	result = /obj/item/food/pie_floater
 	category = CAT_IO

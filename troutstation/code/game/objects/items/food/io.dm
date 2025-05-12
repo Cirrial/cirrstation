@@ -175,3 +175,105 @@
 /obj/item/food/JC_lamington_slice/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/love_food_buff, /datum/status_effect/food/speech/io)
+
+/obj/item/food/vegemite_toast
+	name = "\improper Vegemite toast"
+	desc = "A slab of toast with a salty spread from Io on it. But man, thats way too much dude..."
+	icon = 'troutstation/icons/obj/food/io_foods.dmi'
+	icon_state = "vegemite_toast"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 2,
+		/datum/reagent/consumable/nutriment/vitamin = 3,
+		/datum/reagent/consumable/vegemite = 10,
+	)
+	tastes = list("salt" = 1, "toast" = 1)
+	foodtypes = GRAIN|VEGETABLES
+	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
+
+
+/obj/item/food/vegemite_toast/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/love_food_buff, /datum/status_effect/food/speech/io)
+
+/obj/item/food/cheese_vegemite_scroll
+	name = "cheese and Vegemite scroll"
+	desc = "A 'classic' Io pastry. It's like a cinnamon roll but savory, with Vegemite and cheese."
+	icon = 'troutstation/icons/obj/food/io_foods.dmi'
+	icon_state = "cheese_vegemite_scroll"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 2,
+		/datum/reagent/consumable/nutriment/fat = 2,
+		/datum/reagent/consumable/nutriment/protein = 1,
+		/datum/reagent/consumable/nutriment/vitamin = 1,
+		/datum/reagent/consumable/vegemite = 5,
+	)
+	tastes = list("salt" = 1, "cheese" = 1)
+	foodtypes = GRAIN|VEGETABLES|DAIRY
+	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
+
+/obj/item/food/cheese_vegemite_scroll/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/love_food_buff, /datum/status_effect/food/speech/io)
+
+
+/obj/item/food/fairy_bread
+	name = "fairy bread"
+	desc = "ytpmv elf voice: gay people" // change this
+	icon = 'troutstation/icons/obj/food/io_foods.dmi'
+	icon_state = "fairy_bread"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 5,
+		/datum/reagent/consumable/sprinkles = 2,
+		/datum/reagent/consumable/sugar = 2,
+	)
+	tastes = list("butter" = 1, "sugar" = 1, "gay" = 1)
+	foodtypes = GRAIN|SUGAR|DAIRY
+	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
+
+/obj/item/food/fairy_bread/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/love_food_buff, /datum/status_effect/food/speech/io)
+
+/obj/item/food/popsicle/golden_gaytime
+	name = "\improper Golden Gaytime"
+	desc = "It's so hard to have a Gaytime on your own!"
+	icon = 'troutstation/icons/obj/food/io_foods.dmi'
+	icon_state = "golden_gaytime"
+	food_reagents = list(
+		/datum/reagent/consumable/vanilla = 2,
+		/datum/reagent/consumable/cream = 2,
+		/datum/reagent/consumable/sugar = 2,
+		/datum/reagent/consumable/hot_coco = 4,
+		/datum/reagent/consumable/caramel = 4,
+	)
+	tastes = list("vanilla" = 1, "toffee" = 1, "cream" = 1, "sugar" = 1, "gay" = 1)
+	crafting_complexity = FOOD_COMPLEXITY_4
+
+/obj/item/food/popsicle/golden_gaytime/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/love_food_buff, /datum/status_effect/food/speech/io)
+
+/obj/item/food/pie_floater
+	name = "pie floater"
+	desc = "'Pie floaters are an iconic Southern Io street food snack. This pie floater recipe features a crispy, flaky beef pie floating in a delicious homemade mushy pea soup.' - some recipe website i found"
+	icon = 'troutstation/icons/obj/food/io_foods.dmi'
+	icon_state = "pie_floater"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 10,
+		/datum/reagent/consumable/nutriment/vitamin = 4,
+		/datum/reagent/consumable/nutriment/protein = 2,
+		/datum/reagent/consumable/ketchup = 5,
+		/datum/reagent/consumable/nutriment/soup/pea = 30,
+	)
+	tastes = list("peas" = 1, "meat" = 1, "tomato sauce" = 1)
+	foodtypes = GRAIN|VEGETABLES|MEAT
+	w_class = WEIGHT_CLASS_NORMAL
+	crafting_complexity = FOOD_COMPLEXITY_4
+	trash_type = /obj/item/reagent_containers/cup/bowl
+
+/obj/item/food/pie_floater/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/love_food_buff, /datum/status_effect/food/speech/io)
