@@ -6,4 +6,4 @@
 /datum/orderable_item/reagents/sprinkles
 	name = "sprinkles"
 	purchase_path = /obj/item/reagent_containers/condiment/sprinkles
-	cost_per_order = 15
+	cost_per_order = 40
