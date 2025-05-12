@@ -11,5 +11,5 @@
 	desc = "Multi-colored little bits of sugar, commonly found on donuts. Loved by cops."
 	icon = 'troutstation/icons/obj/food/io_foods.dmi'
 	icon_state = "sprinkles"
-	list_reagents = list(/datum/reagent/consumable/sprinkles = 30)
+	list_reagents = list(/datum/reagent/consumable/sprinkles = 10)
 	fill_icon_thresholds = null
