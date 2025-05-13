@@ -50,7 +50,7 @@
 	. = ..()
 	AddElement(/datum/element/footstep, footstep_type = FOOTSTEP_MOB_CLAW)
 	AddElement(/datum/element/ai_retaliate)
-	AddElement(/datum/element/dextrous)
+	AddElement(/datum/element/dextrous, can_throw = TRUE)
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 	AddElement(/datum/element/basic_eating, heal_amt = 2, food_types = edibles)

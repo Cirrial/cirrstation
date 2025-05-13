@@ -624,6 +624,7 @@
 	#define AI_HOLOGRAM_NARSIE "Narsie"
 	#define AI_HOLOGRAM_RATVAR "Ratvar"
 	#define AI_HOLOGRAM_XENO "Xeno Queen"
+	#define AI_HOLOGRAM_SKIFF "Skiff" // Troutstation edit
 
 /// Icon state to use for ai displays that just turns them off
 #define AI_DISPLAY_DONT_GLOW "ai_off"

@@ -40,6 +40,7 @@ GLOBAL_LIST_INIT(ai_hologram_category_options, list(
 		AI_HOLOGRAM_NARSIE,
 		AI_HOLOGRAM_RATVAR,
 		AI_HOLOGRAM_XENO,
+		AI_HOLOGRAM_SKIFF, // Troutstation edit
 	),
 ))
 
@@ -65,6 +66,7 @@ GLOBAL_LIST_INIT(ai_hologram_icons, list(
 	AI_HOLOGRAM_NARSIE = 'icons/mob/silicon/ai.dmi',
 	AI_HOLOGRAM_RATVAR = 'icons/mob/silicon/ai.dmi',
 	AI_HOLOGRAM_XENO = 'icons/mob/nonhuman-player/alien.dmi',
+	AI_HOLOGRAM_SKIFF = 'icons/mob/silicon/robots.dmi', // Troutstation edit
 ))
 
 // New items need to also be added to ai_hologram_icons list
@@ -89,6 +91,7 @@ GLOBAL_LIST_INIT(ai_hologram_icon_state, list(
 	AI_HOLOGRAM_NARSIE = "horror",
 	AI_HOLOGRAM_RATVAR = "clock",
 	AI_HOLOGRAM_XENO = "alienq",
+	AI_HOLOGRAM_SKIFF = "skiff_medical", // Troutstation edit
 ))
 
 
