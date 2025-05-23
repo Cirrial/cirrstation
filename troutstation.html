@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="dmdoc.css"><title>troutstation/README.md - /tg/ Station 13</title></head><body><header><a href="index.html">/tg/ Station 13</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a></header><main><h1>CONTRIBUTING TO TROUTSTATION <aside>troutstation/README.md</aside> <a href="https://github.com/Cirrial/cirrstation/blob/7dfe32badde582a345030bec2d0dc020496b7373/troutstation/README.md"><img src="git.png" width="16" height="16" title="troutstation/README.md"></a></h1><table class="summary" cellspacing="0"><tr><td colspan="2"><p>an essay into madness by Cirr</p>
+<h2 id="why-would-you-do-this">Why would you do this?</h2>
+<ul>
+<li>Get your cool OC feature into the space game</li>
+<li>Suffer endless horrors at working with design tools from 20 years ago</li>
+<li>&quot;How much effort could it be to implement this small tweak??&quot;</li>
+<li>WYCI means When You Code It</li>
+<li>put that you wrote code for a multiplayer sandbox game on your resume or CV
+<ul>
+<li>(this is not a joke, several people have done this, and so did I once upon a time)</li>
+</ul>
+</li>
+</ul>
+<h2 id="how-would-you-do-this">How would you do this?</h2><h3 id="preparation">PREPARATION</h3>
+<p>I would strongly recommend at least skimming through the <a href="https://github.com/tgstation/tgstation/blob/master/.github/CONTRIBUTING.md">tgstation Guide to Contributing</a>, although you can safely ignore any mention of Good Boy Points and the team structure they have. Following the guides from there will be of great use.</p>
+<p>Firstly, you'll need to set up a development environment. I'm just going to point at the <a href="https://hackmd.io/@tgstation/HJ8OdjNBc">development guide</a> because it explains things better than I could, and will get you set up with tools that were not made 20 years ago.</p>
+<p>BYOND <em>does</em> come with its own development tools, and you can use those, but I would strongly, <em>strongly</em> recommend against using its built-in code editor. Please, please have more respect for your own health than to use it.</p>
+<h3 id="fork-me">FORK ME</h3>
+<p>When you have your development environment set up, whether's that you setting up VSCode and its extensions (highly recommended if you intend to add more than one thing ever) or going at it with pluck, courage, BYOND's own dev tools, and whichever Git client scares you the least, follow the next few steps to make your life easier. I promise this will make your life easier.</p>
+<h4 id="fork-and-clone">Fork and Clone</h4>
+<ul>
+<li>Fork the repository. You'll need a GitHub account to do this, but that's free. For now.</li>
+<li>Go to https://github.com/Cirrial/cirrstation and you'll see a button that says &quot;Fork&quot; to the right and up. Click it to have a space station of your very own</li>
+<li>Go to your new fork, and <strong>clone</strong> the repository by clicking on the green Code dropdown button, it'll give you options on how you want to clone the repository.
+<ul>
+<li>The exact specifics for this are out of scope of this document, but basically if you pick HTTPS you'll have to put your GitHub username and password into your client each time, and if you pick SSH <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh">you'll need to look into setting up a whole bunch of stuff instead</a>, so if you're very new to this I'd recommend HTTPS</li>
+</ul>
+</li>
+</ul>
+<h4 id="setting-up-the-upstream-branching-advice">Setting up the Upstream, &amp; Branching Advice</h4>
+<ul>
+<li>On your local copy of the repository, set up a second origin, <code>upstream</code>, and point it to the Troutstation repo confusingly called cirrstation (the same one you initially forked).
+<ul>
+<li>
+<p>I can't give advice here because every Git client is different, and it's different if you're using HTTPS or SSH (it might just be easier to ask Cirr for advice here there's too many possibilities to cover)</p>
+</li>
+<li>
+<p>Or if you're using Git on the command line,</p>
+<pre><code>git remote add upstream https://github.com/Cirrial/cirrstation.git
+</code></pre>
+<p>(or <code>git remote add upstream git@github.com:Cirrial/cirrstation.git</code> if you're using SSH)</p>
+<pre><code>git fetch upstream
+git checkout -b troutstation upstream/troutstation
+git push origin
+</code></pre>
+</li>
+</ul>
+</li>
+<li>Check out the branch <code>troutstation</code> from the upstream to your own repository, and push it to your fork.</li>
+<li><strong>Change your branch from <code>master</code> to <code>troutstation</code>.</strong></li>
+<li>Now, <strong>make a new branch from this branch.</strong> Name it whatever you feel like. You can now change whatever you feel like, and it will be nice and isolated from everything else. And if you screw up royally, you can change back to the <code>troutstation</code> branch and make a new branch</li>
+</ul>
+<h4 id="but-cirr-why-are-we-doing-this-whole-troutstation-branch-nonsense">&quot;But Cirr, why are we doing this whole &quot;troutstation&quot; branch nonsense?&quot;</h4>
+<p>It makes maintaining the troutstation repo easier. I appreciate it makes contributing a little harder, but this way the &quot;master&quot; branch is (in theory) identical to the tgstation master branch and it's less of a confusing headache to manage. (In practice, the master branch is always going to be a little bit behind, as nothing is automatically keeping them in sync. YET)</p>
+<h3 id="syncing-your-repo-and-avoiding-a-million-merge-conflicts">SYNCING YOUR REPO (and avoiding a million merge conflicts)</h3>
+<p>Time always goes forwards and the repositories all get updates.
+GitHub will helpfully tell you if the <code>master</code> branch is out of date.
+This is sadly not helpful as the main branch we work on here is the <code>troutstation</code> branch.</p>
+<h4 id="basic-approach">Basic approach:</h4>
+<ul>
+<li>Open GitHub for your repository</li>
+<li>Click the little branch button that says <code>master</code> and change it to <code>troutstation</code>
+<ul>
+<li>If you don't have a <code>troutstation</code> branch please refer back to setting up the upstream</li>
+</ul>
+</li>
+<li>GitHub should helpfully tell you about whether you're out of sync or not and offer a link to automatically bring your <code>troutstation</code> branch up to sync, and providing you've been making your changes in branches that aren't the <code>troutstation</code> branch, it should just work
+<ul>
+<li>if it does not work and you do not know why, I would suggest asking someone for help</li>
+</ul>
+</li>
+<li>Do not forget to PULL on your local <code>troutstation</code> branch!</li>
+</ul>
+<h4 id="advanced-quicker-approach-if-this-makes-sense-to-you">Advanced, quicker approach if this makes sense to you:</h4>
+<ul>
+<li>Fetch from upstream</li>
+<li>Pull <code>troutstation</code> from upstream</li>
+<li>Merge/rebase <code>upstream/troutstation</code> into your local <code>troutstation</code> branch</li>
+<li>Push to <code>origin/troutstation</code> if you feel like it (this is more important for repos that are being worked on by multiple people or otherwise accessed by external things, which, as you're working on a development fork, should not matter for you)</li>
+</ul>
+<p>If you've been working on changes in a feature branch, merge <code>troutstation</code> into your local feature branch. That way you should have your changes and the latest Troutstation changes all accounted for, and you will not get horrible merge conflicts when you submit your PR.</p>
+<h4 id="i-got-horrible-merge-conflicts">I got horrible merge conflicts</h4>
+<p>Hooray! Unavoidable. It doesn't matter how much we try, all we can do is minimise the risk. Hopefully your client will tell you what conflicts and offer you a way to step through and resolve the conflicts, but the key thing is you need to resolve the conflicts in your branch, and then when you submit the PR you'll have done the work required to resolve the conflicts and it should just easily merge in.</p>
+<p>This isn't always the case because the world is a chaotic and noisy place and all processes meet their match eventually but, generally speaking, if you follow the advice in the next section you will again minimise the chances of this happening.</p>
+<p>Worst case scenario, just talk to Cirr.</p>
+<h3 id="actually-making-changes">ACTUALLY MAKING CHANGES</h3>
+<p>Let's discuss what to do next!!</p>
+<h3 id="i-dont-know-what-to-do-to-make-my-change">I don't know what to do to make my change.</h3>
+<p>Yeah I feel you there buddy, there's no way around this except trying to read code for something similar and piecing together what it's doing. If you're trying to do something extremely original and innovative as your first code change, don't. Do something smaller first. If you want to get seriously into working on a thing for SS13 you will at some point need to learn some of the fundamentals of BYOND coding.</p>
+<p>Quick references for this:</p>
+<ul>
+<li><a href="https://www.byond.com/docs/guide/">The Blue Book, a standard BYOND DM intro guide</a></li>
+<li><a href="https://www.byond.com/docs/ref/">The DM Reference you will end up checking more often</a></li>
+<li><a href="https://docs.google.com/document/u/0/d/1HGkCp4eQU8Jp14Srh8Isuv_liehzV_XB6IcSUbVFFiY/pub?revision=latest%22%22">The Red Book, an unofficial repository of forbidden knowledge</a></li>
+</ul>
+<p>There are also coding guidelines scattered throughout the codebase and I haven't even found all of them, good luck!!</p>
+<p>(My first ever SS13 addition was a pizza cutter and that was basically just a circular saw reskin)</p>
+<h3 id="where-do-my-changes-go">Where do my changes go?</h3>
+<p>We're trying to follow a &quot;<strong>modularization pattern</strong>&quot;. This is a fancy way of saying &quot;stick as much of the stuff we're doing in a separate folder&quot;. For consistency's sakes, we try to mirror the existing filepath structure for the rest of the repository.
+This is <strong>especially important</strong> for binary files like DMIs and OGGs as they <strong>cannot</strong> be merged at all, so the fewer things we touch in the existing repo the better.</p>
+<p>There's a <a href="https://github.com/Monkestation/Monkestation2.0/blob/master/monkestation/README_old.md">probably better written guide to this concept</a> by Monkestation, who ended up abandoning modularisation for their own reasons, but it still makes sense for us as an itty bitty little baby fork.</p>
+<p>What does that actually mean? It depends on your change.</p>
+<h3 id="if-your-change-is">If your change is:</h3><h4 id="adding-something-new">Adding something new</h4>
+<p>Easiest situation! Probably!</p>
+<ul>
+<li>If your change involves defining a new thing, find where you would most likely add a file or edit an existing file, and make a <strong>new</strong> file in an equivalent directory in the <code>troutstation</code> folder.
+<ul>
+<li>For example: you have a new type of food you want to add. Add it to <code>troutstation/code/game/objects/food</code> instead of <code>code/game/objects/food</code>.</li>
+<li>Remember that if you're adding new files, <code>tgstation.dme</code> needs to have the path added as well or it won't be included in the compile, and your new stuff won't exist!</li>
+</ul>
+</li>
+<li>Defines (largely compile-time constants and macros) are handled a little differently. If you need to add new defines, add them to the file that uses them, or if they're going to be used in more than one place, use <code>code/__DEFINES/~troutstation</code>. If you don't know if you need to use defines or not, most of the time you probably won't. This has to be in a different folder for load order reasons, defines <em>have</em> to come earlier than everything else.</li>
+<li>If you need to edit something else in the process of adding something new, keep reading.</li>
+</ul>
+<h4 id="changing-or-removing-something-that-exists">Changing or removing something that exists</h4>
+<p>Oh boy.</p>
+<ul>
+<li>If you want to add new vars or procs to an existing thing without modifying the existing vars or procs, or you want to add an extra bit to the end of the proc, then BYOND's cool horrible features actually have you covered! This can still be made modular. Whether it should or not is another matter; if it's just too much effort to make modular, I totally understand.
+<ul>
+<li>If you redefine the same path in a later file, you will not override the path but you will add things on. So, for example, say we have <code>obj/item/gun</code> defined in the normal code. Then in a modular file, we can do this:
+<pre><code>/obj/item/gun
+	var/muzzle_flash = TRUE
+</code></pre>
+and this will retroactively add <code>var/muzzle_flash</code> to the item as you'd expect.
+However, you can't do this with lists -- if you try to add new things to a list you're likelier to just end up redefining the list.</li>
+<li>You can do this with <del>functions</del> procs too. <code>..()</code> is a wonderful DM term that means &quot;call parent function&quot;. Except, if you're redefining the proc again, it <em>actually</em> means &quot;call the previous version of this function first&quot;. This is horrible. I hate it. You will probably not need to do this and it might be better to just not do this. But the option is there.</li>
+</ul>
+</li>
+<li>If you can't make a change in isolation because you need to edit a chunk inside a proc or you need to edit something like a big list, the change will be non-modular and you'll have to edit the actual file. In this situation, make sure to note that there's an edit that has been made for us:
+<pre><code>// ADD NEW TROUTSTATION DNA BLOCKS HERE
+#define DNA_ANTEATER_SNOUT_BLOCK 26 // Troutstation edit
+</code></pre>
+This makes it easier when reviewing merge conflicts to know what <strong>we</strong> changed versus what the <strong>upstream</strong> changed.</li>
+<li>If you want to straight up kill something from the code, <strong>comment it out</strong> and leave a comment near the chunk of code that says <code>// Troutstation removal</code> or something to that effect. Again, this helps with knowing what to do in future if the upstream updates something related.</li>
+</ul>
+<h4 id="some-combination-of-all-of-the-above">Some combination of all of the above</h4>
+<ul>
+<li>Good luck.</li>
+</ul>
+<h3 id="reference-index">REFERENCE INDEX</h3>
+<ul>
+<li><a href="https://github.com/tgstation/tgstation/blob/master/.github/CONTRIBUTING.md">tgstation Guide to Contributing</a></li>
+<li><a href="https://hackmd.io/@tgstation/HJ8OdjNBc">tgstation Development Guide</a></li>
+<li><a href="https://www.byond.com/docs/guide/">BYOND DM Blue Book</a></li>
+<li><a href="https://www.byond.com/docs/ref/">BYOND DM Reference</a></li>
+<li><a href="https://docs.google.com/document/u/0/d/1HGkCp4eQU8Jp14Srh8Isuv_liehzV_XB6IcSUbVFFiY/pub?revision=latest%22%22">BYOND DM Red Book (unofficial)</a></li>
+<li><a href="https://github.com/Monkestation/Monkestation2.0/blob/master/monkestation/README_old.md">Monkestation Guide to Modularization</a></li>
+</ul></td></tr></table></main><footer>tgstation.dme <a href="https://github.com/Cirrial/cirrstation/tree/7dfe32badde582a345030bec2d0dc020496b7373">7dfe32b</a> (troutstation) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.10.0</a></footer></body></html>
