@@ -41,7 +41,7 @@
 /datum/relic_trans/fire
 	desc = "Lighting on fire."
 /datum/relic_trans/paint
-	desc = "Applying artistic expression."
+	desc = "Applying a new coat of paint."
 /datum/relic_trans/irradiate
 	desc = "Exposing to ionizing radiation."
 /datum/relic_trans/hear
@@ -458,7 +458,7 @@
 			playsound(parent_relic, SFX_DESECRATION, 50, TRUE)
 			if (prob(80)) // Just blood.. blood..
 				c.blood_volume -= amount
-				to_chat(c, span_danger("[parent_relic] drains some of your succulent lifeforce!"))
+				to_chat(c, span_bolddanger("[parent_relic] drains some of your succulent lifeforce!"))
 			else if (prob(95)) // Steal a non-brain organ
 				var/obj/item/organ/remove_organ = pick(GLOB.bioscrambler_valid_organs)
 				if (c.organs_slot.Find(remove_organ.slot))
