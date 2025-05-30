@@ -445,11 +445,16 @@ Behavior that's still missing from this component that original food items had t
 
 		// Troutstation edit start
 		if(HAS_TRAIT(eater, TRAIT_TINY_SNOUT))
-			var/snout_broadcast_category = "[owner.snout_eat_message_category][SNOUT_EAT_MESSAGE_BROADCAST_SUFFIX]"
-			message_to_consumer = pick_list_replacements(SNOUT_EAT_MESSAGE_FILE, owner.snout_eat_message_category)
-			message_to_consumer = REPLACE_PRONOUNS(replacetext(message_to_consumer, "%FOOD", "\the [food]"), eater)
-			message_to_nearby_audience = pick_list_replacements(SNOUT_EAT_MESSAGE_FILE, snout_broadcast_category)"
-			message_to_nearby_audience = REPLACE_PRONOUNS(replacetext(message_to_nearby_audience, "%FOOD", "\the [food]"), eater)
+			var/snout_message_category = SNOUT_EAT_MESSAGE_CATEGORY_SLURP
+			if(istype(owner, /obj/item/food))
+				var/obj/item/food/food = owner
+				if(food.snout_eat_message_category)
+					snout_message_category = food.snout_eat_message_category
+			var/snout_broadcast_category = "[snout_message_category][SNOUT_EAT_MESSAGE_BROADCAST_SUFFIX]"
+			message_to_consumer = pick_list_replacements(SNOUT_EAT_MESSAGE_FILE, snout_message_category)
+			message_to_consumer = REPLACE_PRONOUNS(replacetext(message_to_consumer, "%FOOD", "\the [parent]"), eater)
+			message_to_nearby_audience = pick_list_replacements(SNOUT_EAT_MESSAGE_FILE, snout_broadcast_category)
+			message_to_nearby_audience = REPLACE_PRONOUNS(replacetext(message_to_nearby_audience, "%FOOD", "\the [parent]"), eater)
 			if(!(snout_broadcast_category in SNOUT_EAT_QUIETLY_LIST))
 				message_to_blind_nearby_audience = "You hear an anteater struggling with food."
 
