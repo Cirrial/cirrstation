@@ -158,8 +158,18 @@
 	desc = "This node made it release some animals!"
 	var/mob/living/basic/animal_type
 	var/count
+	// removing types that should be in admin hands
+	var/list/invalid_types = list(/mob/living/basic/heretic_summon/star_gazer,
+								/mob/living/basic/construct/harvester,
+								/mob/living/basic/space_dragon,
+								/mob/living/basic/revenant,
+								/mob/living/basic/alien/queen)
 /datum/relic_node/animal/on_generate()
-	animal_type = pick(subtypesof(/mob/living/basic))
+	var/list/valid_types = subtypesof(/mob/living/basic);
+	if (!parent_relic.very_dangerous)
+		for (var/i as anything in invalid_types)
+			valid_types.Remove(i)
+	animal_type = pick(valid_types)
 	count = rand(1,4)
 	return
 
@@ -255,6 +265,7 @@
 	var/amount
 	var/range
 	var/stunner
+
 /datum/relic_node/charge/on_generate()
 	amount = rand(1,500)
 	range = rand(1, 6)
@@ -505,7 +516,7 @@
 /obj/item/relic
 	desc = "What mysteries could this hold? Maybe Research & Development knows how to analyze it...."
 	//Minimum possible cooldown.
-	min_cooldown = 1 SECONDS
+	min_cooldown = 2 SECONDS
 	//Max possible cooldown.
 	max_cooldown = 12 SECONDS
 	w_class = 3
@@ -513,6 +524,7 @@
 	var/node_limit = 0
 	var/list/relic_nodes = list()
 	var/datum/relic_node/current_node
+	var/very_dangerous = FALSE
 	var/reacting_when_off_cooldown = FALSE //has a pending reaction
 	var/static/list/existing_relics = list()
 
