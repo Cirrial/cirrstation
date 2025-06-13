@@ -13,6 +13,8 @@
 	///Used as a base name while generating the icon states when stacked
 	var/stack_name = "pancakes"
 	crafting_complexity = FOOD_COMPLEXITY_2
+	food_flags = FOOD_TINY_SNOUT_EDIBLE // Troutstation edit
+	snout_eat_message_category = SNOUT_EAT_MESSAGE_CATEGORY_SMUSH // Troutstation edit
 
 /obj/item/food/pancakes/raw
 	name = "goopy pancake"
@@ -30,7 +32,7 @@
 				positive_result = TRUE,\
 				use_large_steam_sprite = TRUE)
 
-/obj/item/food/pancakes/raw/attackby(obj/item/garnish, mob/living/user, list/modifiers)
+/obj/item/food/pancakes/raw/attackby(obj/item/garnish, mob/living/user, list/modifiers, list/attack_modifiers)
 	var/newresult
 	if(istype(garnish, /obj/item/food/grown/berries))
 		newresult = /obj/item/food/pancakes/blueberry
@@ -117,7 +119,7 @@
 			ingredients_listed += "[ING.name], "
 		. += "It contains [contents.len?"[ingredients_listed]":"no ingredient, "]on top of a [initial(name)]."
 
-/obj/item/food/pancakes/attackby(obj/item/item, mob/living/user, list/modifiers)
+/obj/item/food/pancakes/attackby(obj/item/item, mob/living/user, list/modifiers, list/attack_modifiers)
 	if(istype(item, /obj/item/food/pancakes))
 		var/obj/item/food/pancakes/pancake = item
 		if((contents.len >= PANCAKE_MAX_STACK) || ((pancake.contents.len + contents.len) > PANCAKE_MAX_STACK))

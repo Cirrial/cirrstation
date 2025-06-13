@@ -177,12 +177,17 @@ GLOBAL_LIST_INIT(food_buffs, list(
 #define FOOD_NO_EXAMINE (1<<2)
 /// This food item doesn't track bitecounts, use responsibly.
 #define FOOD_NO_BITECOUNT (1<<3)
+// Troutstation edit start
+/// This food can be eaten by tiny snouts (so, by anteaters)
+#define FOOD_TINY_SNOUT_EDIBLE (1<<4)
+// Troutstation edit end
 
 DEFINE_BITFIELD(food_flags, list(
 	"FOOD_FINGER_FOOD" = FOOD_FINGER_FOOD,
 	"FOOD_IN_CONTAINER" = FOOD_IN_CONTAINER,
 	"FOOD_NO_EXAMINE" = FOOD_NO_EXAMINE,
 	"FOOD_NO_BITECOUNT" = FOOD_NO_BITECOUNT,
+	"FOOD_TINY_SNOUT_EDIBLE" = FOOD_TINY_SNOUT_EDIBLE,
 ))
 
 ///Define for return value of the after_eat callback that will call OnConsume if it hasn't already.
@@ -280,3 +285,10 @@ DEFINE_BITFIELD(food_flags, list(
 
 /// How much milk is needed to make butter on a reagent grinder
 #define MILK_TO_BUTTER_COEFF 25
+
+/// How much material one slab of meat usually contains
+#define MEATSLAB_MATERIAL_AMOUNT SHEET_MATERIAL_AMOUNT * 4
+/// How many cutlets or meatballs one slab gives when processed
+#define MEATSLAB_PROCESSED_AMOUNT 3
+/// This should be 1/3 of the amount found in a slab (a portion will be lost when rounding but it's negligible)
+#define MEATDISH_MATERIAL_AMOUNT (MEATSLAB_MATERIAL_AMOUNT / MEATSLAB_PROCESSED_AMOUNT)

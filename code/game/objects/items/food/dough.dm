@@ -9,6 +9,8 @@
 	tastes = list("dough" = 1)
 	foodtypes = GRAIN
 	crafting_complexity = FOOD_COMPLEXITY_0
+	food_flags = FOOD_TINY_SNOUT_EDIBLE // Troutstation edit
+	snout_eat_message_category = SNOUT_EAT_MESSAGE_CATEGORY_SMUSH // Troutstation edit
 
 /obj/item/food/dough/make_bakeable()
 	AddComponent(/datum/component/bakeable, /obj/item/food/bread/plain, rand(30 SECONDS, 45 SECONDS), TRUE, TRUE)
@@ -46,7 +48,7 @@
 
 /obj/item/food/pizzabread/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/customizable_reagent_holder, /obj/item/food/pizza, CUSTOM_INGREDIENT_ICON_SCATTER, max_ingredients = 12)
+	AddComponent(/datum/component/ingredients_holder, /obj/item/food/pizza, CUSTOM_INGREDIENT_ICON_SCATTER, max_ingredients = 12)
 
 /obj/item/food/doughslice
 	name = "dough slice"
@@ -58,6 +60,8 @@
 	tastes = list("dough" = 1)
 	foodtypes = GRAIN
 	crafting_complexity = FOOD_COMPLEXITY_0
+	food_flags = FOOD_TINY_SNOUT_EDIBLE // Troutstation edit
+	snout_eat_message_category = SNOUT_EAT_MESSAGE_CATEGORY_SMUSH // Troutstation edit
 
 /obj/item/food/doughslice/make_bakeable()
 	AddComponent(/datum/component/bakeable, /obj/item/food/bun, rand(20 SECONDS, 25 SECONDS), TRUE, TRUE)
@@ -78,7 +82,7 @@
 
 /obj/item/food/bun/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/customizable_reagent_holder, /obj/item/food/burger/empty, CUSTOM_INGREDIENT_ICON_STACKPLUSTOP)
+	AddComponent(/datum/component/ingredients_holder, /obj/item/food/burger/empty, CUSTOM_INGREDIENT_ICON_STACKPLUSTOP)
 
 /obj/item/food/cakebatter
 	name = "cake batter"
@@ -89,6 +93,8 @@
 	tastes = list("batter" = 1)
 	foodtypes = GRAIN | DAIRY
 	crafting_complexity = FOOD_COMPLEXITY_1
+	food_flags = FOOD_TINY_SNOUT_EDIBLE // Troutstation edit
+	snout_eat_message_category = SNOUT_EAT_MESSAGE_CATEGORY_SMUSH // Troutstation edit
 
 /obj/item/food/cakebatter/make_bakeable()
 	AddComponent(/datum/component/bakeable, /obj/item/food/cake/plain, rand(70 SECONDS, 90 SECONDS), TRUE, TRUE)
@@ -105,6 +111,8 @@
 	tastes = list("dough" = 1)
 	foodtypes = GRAIN | DAIRY
 	crafting_complexity = FOOD_COMPLEXITY_1
+	food_flags = FOOD_TINY_SNOUT_EDIBLE // Troutstation edit
+	snout_eat_message_category = SNOUT_EAT_MESSAGE_CATEGORY_SMUSH // Troutstation edit
 
 /obj/item/food/piedough/make_bakeable()
 	AddComponent(/datum/component/bakeable, /obj/item/food/pie/plain, rand(30 SECONDS, 45 SECONDS), TRUE, TRUE)
@@ -122,6 +130,8 @@
 	tastes = list("raw pastry" = 1)
 	foodtypes = GRAIN | DAIRY
 	crafting_complexity = FOOD_COMPLEXITY_1
+	food_flags = FOOD_TINY_SNOUT_EDIBLE // Troutstation edit
+	snout_eat_message_category = SNOUT_EAT_MESSAGE_CATEGORY_SMUSH // Troutstation edit
 
 /obj/item/food/rawpastrybase/make_bakeable()
 	AddComponent(/datum/component/bakeable, /obj/item/food/pastrybase, rand(20 SECONDS, 25 SECONDS), TRUE, TRUE)
@@ -136,3 +146,6 @@
 	tastes = list("pastry" = 1)
 	foodtypes = GRAIN | DAIRY
 	crafting_complexity = FOOD_COMPLEXITY_2
+	food_flags = FOOD_TINY_SNOUT_EDIBLE // Troutstation edit
+	snout_eat_message_category = SNOUT_EAT_MESSAGE_CATEGORY_CRUMBLE // Troutstation edit
+

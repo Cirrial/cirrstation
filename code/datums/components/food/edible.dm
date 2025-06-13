@@ -76,10 +76,12 @@ Behavior that's still missing from this component that original food items had t
 /datum/component/edible/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(examine))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_ANIMAL, PROC_REF(UseByAnimal))
-	RegisterSignal(parent, COMSIG_ATOM_CHECKPARTS, PROC_REF(OnCraft))
+	RegisterSignal(parent, COMSIG_ATOM_ON_CRAFT, PROC_REF(OnCraft))
 	RegisterSignal(parent, COMSIG_OOZE_EAT_ATOM, PROC_REF(on_ooze_eat))
 	RegisterSignal(parent, COMSIG_FOOD_INGREDIENT_ADDED, PROC_REF(edible_ingredient_added))
 	RegisterSignal(parent, COMSIG_ATOM_CREATEDBY_PROCESSING, PROC_REF(created_by_processing))
+	RegisterSignal(parent, COMSIG_ATOM_FINALIZE_MATERIAL_EFFECTS, PROC_REF(on_material_effects))
+	RegisterSignal(parent, COMSIG_ATOM_FINALIZE_REMOVE_MATERIAL_EFFECTS, PROC_REF(on_remove_material_effects))
 
 	if(isturf(parent))
 		RegisterSignal(parent, COMSIG_ATOM_ENTERED, PROC_REF(on_entered))
@@ -105,7 +107,7 @@ Behavior that's still missing from this component that original food items had t
 	UnregisterSignal(parent, list(
 		COMSIG_ATOM_ATTACK_ANIMAL,
 		COMSIG_ATOM_ATTACK_HAND,
-		COMSIG_ATOM_CHECKPARTS,
+		COMSIG_ATOM_ON_CRAFT,
 		COMSIG_ATOM_CREATEDBY_PROCESSING,
 		COMSIG_ATOM_ENTERED,
 		COMSIG_FOOD_INGREDIENT_ADDED,
@@ -243,6 +245,18 @@ Behavior that's still missing from this component that original food items had t
 		var/list/types = bitfield_to_list(foodtypes, FOOD_FLAGS)
 		examine_list += span_notice("It is [LOWER_TEXT(english_list(types))].")
 
+	// Troutstation edit begin
+	if(HAS_TRAIT(user, TRAIT_TINY_SNOUT))
+		if(food_flags & FOOD_TINY_SNOUT_EDIBLE)
+			examine_list += span_nicegreen("It will fit into your snout!")
+		else
+			examine_list += span_warning("It's too big for your snout.")
+	else if(food_flags & FOOD_TINY_SNOUT_EDIBLE)
+		var/obj/item/organ/liver/liver = user.get_organ_slot(ORGAN_SLOT_LIVER)
+		if(liver && HAS_TRAIT(liver, TRAIT_CULINARY_METABOLISM)) // goddamn liver traits
+			examine_list += span_notice("It will fit into a narrow snout, which is great for anteaters.")
+	// Troutstation edit end
+
 	var/quality = get_perceived_food_quality(user)
 	if(quality > 0)
 		var/quality_label = GLOB.food_quality_description[quality]
@@ -333,11 +347,11 @@ Behavior that's still missing from this component that original food items had t
 		this_food.desc = "[original_atom.desc]"
 
 ///Called when food is crafted through a crafting recipe datum.
-/datum/component/edible/proc/OnCraft(datum/source, list/parts_list, datum/crafting_recipe/food/recipe)
+/datum/component/edible/proc/OnCraft(datum/source, list/components, datum/crafting_recipe/food/recipe)
 	SIGNAL_HANDLER
 
 	var/atom/this_food = parent
-	for(var/obj/item/food/crafted_part in parts_list)
+	for(var/obj/item/food/crafted_part in components)
 		if(!crafted_part.reagents)
 			continue
 		this_food.reagents.maximum_volume += crafted_part.reagents.maximum_volume
@@ -397,6 +411,7 @@ Behavior that's still missing from this component that original food items had t
 		var/message_to_nearby_audience = ""
 		var/message_to_consumer = ""
 		var/message_to_blind_consumer = ""
+		var/message_to_blind_nearby_audience = "" // Troutstation edit
 
 		if(junkiness && eater.satiety < -150 && eater.nutrition > NUTRITION_LEVEL_STARVING + 50 && !HAS_TRAIT(eater, TRAIT_VORACIOUS) && !HAS_TRAIT(eater, TRAIT_GLUTTON))
 			to_chat(eater, span_warning("You don't feel like eating any more junk food at the moment!"))
@@ -430,10 +445,28 @@ Behavior that's still missing from this component that original food items had t
 			message_to_nearby_audience = span_notice("[eater] hungrily [eatverb]s \the [parent], gobbling it down!")
 			message_to_consumer = span_notice("You hungrily [eatverb] \the [parent], gobbling it down!")
 
+		// Troutstation edit start
+		if(HAS_TRAIT(eater, TRAIT_TINY_SNOUT))
+			var/snout_message_category = SNOUT_EAT_MESSAGE_CATEGORY_SLURP
+			if(istype(owner, /obj/item/food))
+				var/obj/item/food/food = owner
+				if(food.snout_eat_message_category)
+					snout_message_category = food.snout_eat_message_category
+			var/snout_broadcast_category = "[snout_message_category][SNOUT_EAT_MESSAGE_BROADCAST_SUFFIX]"
+			message_to_consumer = pick_list_replacements(SNOUT_EAT_MESSAGE_FILE, snout_message_category)
+			message_to_consumer = REPLACE_PRONOUNS(replacetext(message_to_consumer, "%FOOD", "\the [parent]"), eater)
+			message_to_nearby_audience = pick_list_replacements(SNOUT_EAT_MESSAGE_FILE, snout_broadcast_category)
+			message_to_nearby_audience = REPLACE_PRONOUNS(replacetext(message_to_nearby_audience, "%FOOD", "\the [parent]"), eater)
+			if(!(snout_broadcast_category in SNOUT_EAT_QUIETLY_LIST))
+				message_to_blind_nearby_audience = "You hear an anteater struggling with food."
+
 		//if we're blind, we want to feel how hungrily we ate that food
 		message_to_blind_consumer = message_to_consumer
 		eater.show_message(message_to_consumer, MSG_VISUAL, message_to_blind_consumer)
-		eater.visible_message(message_to_nearby_audience, ignored_mobs = eater)
+		if(message_to_blind_nearby_audience)
+			eater.visible_message(message_to_nearby_audience, ignored_mobs = eater, blind_message = message_to_blind_nearby_audience)
+		else
+		// Troutstation edit end
 
 	else //If you're feeding it to someone else.
 		if(isbrain(eater))
@@ -530,6 +563,16 @@ Behavior that's still missing from this component that original food items had t
 		return FALSE
 
 	var/atom/food = parent
+
+	// Troutstation edit start
+	if(HAS_TRAIT(eater, TRAIT_TINY_SNOUT))
+		if(!(food_flags & FOOD_TINY_SNOUT_EDIBLE))
+			if(eater == feeder)
+				eater.balloon_alert(eater, "won't fit in your snout!")
+			else
+				feeder.balloon_alert(feeder, "won't fit in [eater.p_their()] snout!")
+			return FALSE
+	// Troutstation edit end
 
 	if(food.flags_1 & HOLOGRAM_1)
 		if(eater == feeder)
@@ -742,4 +785,19 @@ Behavior that's still missing from this component that original food items had t
 		qdel(food)
 		return COMPONENT_ATOM_EATEN
 
+#define REQUIRED_MAT_FLAGS (MATERIAL_EFFECTS|MATERIAL_NO_EDIBILITY)
+
+///Calls on_edible_applied() for the main material composing the atom parent
+/datum/component/edible/proc/on_material_effects(atom/source, list/materials, datum/material/main_material)
+	SIGNAL_HANDLER
+	if((source.material_flags & REQUIRED_MAT_FLAGS) == REQUIRED_MAT_FLAGS)
+		main_material.on_edible_applied(source, src)
+
+///Calls on_edible_removed() for the main material no longer composing the atom parent
+/datum/component/edible/proc/on_remove_material_effects(atom/source, list/materials, datum/material/main_material)
+	SIGNAL_HANDLER
+	if((source.material_flags & REQUIRED_MAT_FLAGS) == REQUIRED_MAT_FLAGS)
+		main_material.on_edible_removed(source, src)
+
+#undef REQUIRED_MAT_FLAGS
 #undef DEFAULT_EDIBLE_VOLUME
