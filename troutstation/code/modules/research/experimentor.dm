@@ -509,7 +509,7 @@
 	var/list/table_list = list()
 	for (var/obj/structure/table/t in range(table_range, parent_relic))
 		table_list.Add(t)
-	var/obj/structure/table/chosen_one = pick(table_list)
+	var/datum/component/table_smash/chosen_one = pick(table_list).GetComponent(datum/component/table_smash)
 	for (var/mob/living/m in view(table_range, parent_relic))
 		chosen_one.tablepush(m, m)
 
