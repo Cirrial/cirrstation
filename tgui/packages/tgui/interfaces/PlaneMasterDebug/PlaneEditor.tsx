@@ -7,13 +7,12 @@ import {
   Tooltip,
 } from 'tgui-core/components';
 
-import { useBackend } from '../../backend';
-import type { Plane } from './types';
+import { Plane } from './types';
 import { usePlaneDebugContext } from './usePlaneDebug';
 
 export function PlaneEditor() {
-  const { act } = useBackend();
-  const { activePlane, planesProcessed, setPlaneOpen } = usePlaneDebugContext();
+  const { activePlane, planesProcessed, setPlaneOpen, act } =
+    usePlaneDebugContext();
 
   const currentPlane: Plane = planesProcessed[activePlane as number];
   const doc_html = {
@@ -130,6 +129,9 @@ export function PlaneEditor() {
             maxValue={255}
             step={1}
             stepPixelSize={1.9}
+            onDrag={(_event, value) =>
+              act('set_alpha', { edit: currentPlane.plane, alpha: value })
+            }
             onChange={(_event, value) =>
               act('set_alpha', { edit: currentPlane.plane, alpha: value })
             }

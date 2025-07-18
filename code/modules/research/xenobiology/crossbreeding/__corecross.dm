@@ -100,7 +100,7 @@ To add a crossbreed:
 
 /obj/item/slimecrossbeaker/Initialize(mapload)
 	. = ..()
-	create_reagents(50, INJECTABLE | DRAWABLE | SEALED_CONTAINER)
+	create_reagents(50, INJECTABLE | DRAWABLE)
 	if(list_reagents)
 		for(var/reagent in list_reagents)
 			reagents.add_reagent(reagent, list_reagents[reagent])

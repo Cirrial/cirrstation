@@ -94,14 +94,11 @@
 					transfer_fingerprints_to(FW)
 					qdel(src)
 					return
-			else if(state == GIRDER_REINF)
-				balloon_alert(user, "need plasteel sheet!")
-				return
 			else
 				if(rod.get_amount() < amount)
 					balloon_alert(user, "need [amount] rods!")
 					return
-				balloon_alert(user, "adding rods...")
+				balloon_alert(user, "adding plating...")
 				if(do_after(user, 4 SECONDS, target = src))
 					if(rod.get_amount() < amount)
 						return
@@ -481,7 +478,7 @@
 	return
 
 /obj/structure/girder/cult/atom_deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/runed_metal(drop_location())
+	new /obj/item/stack/sheet/runed_metal(drop_location(), 1)
 
 /obj/structure/girder/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	switch(the_rcd.mode)

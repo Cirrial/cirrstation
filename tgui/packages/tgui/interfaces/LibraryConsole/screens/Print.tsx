@@ -3,7 +3,7 @@ import { useBackend } from 'tgui/backend';
 import { Box, Button, Section, Stack, Tabs } from 'tgui-core/components';
 import { classes } from 'tgui-core/react';
 
-import type { LibraryConsoleData } from '../types';
+import { LibraryConsoleData } from '../types';
 
 export function Print(props) {
   const { act, data } = useBackend<LibraryConsoleData>();

@@ -30,37 +30,36 @@
 		id_tag = assign_random_name()
 
 /obj/machinery/door/airlock/tram/open(forced = DEFAULT_DOOR_CHECKS)
-	if(welded || locked || seal)
+	if(operating || welded || locked || seal)
 		return FALSE
 
 	if(!density)
 		return TRUE
 
-	if(forced == DEFAULT_DOOR_CHECKS && (operating || !hasPower() || wires.is_cut(WIRE_OPEN)))
+	if(forced == DEFAULT_DOOR_CHECKS && (!hasPower() || wires.is_cut(WIRE_OPEN)))
 		return FALSE
 
 	SEND_SIGNAL(src, COMSIG_AIRLOCK_OPEN, FALSE)
-	set_airlock_state(AIRLOCK_OPENING, animated = TRUE)
+	operating = TRUE
+	update_icon(ALL, AIRLOCK_OPENING, TRUE)
 
-	var/passable_delay
 	if(forced >= BYPASS_DOOR_CHECKS)
 		playsound(src, 'sound/machines/airlock/airlockforced.ogg', vol = 40, vary = FALSE)
-		passable_delay = 0
+		sleep(TRAM_DOOR_CYCLE_TIME)
 	else
 		playsound(src, doorOpen, vol = 40, vary = FALSE)
-		passable_delay = animation_segment_delay(AIRLOCK_OPENING_PASSABLE)
+		sleep(TRAM_DOOR_WARNING_TIME)
 
-	sleep(passable_delay)
 	set_density(FALSE)
 	if(!isnull(filler))
 		filler.set_density(FALSE)
 	update_freelook_sight()
 	flags_1 &= ~PREVENT_CLICK_UNDER_1
 	air_update_turf(TRUE, FALSE)
-	var/open_delay = animation_segment_delay(AIRLOCK_OPENING_FINISHED) - passable_delay
-	sleep(open_delay)
+	sleep(TRAM_DOOR_WARNING_TIME)
 	layer = OPEN_DOOR_LAYER
-	set_airlock_state(AIRLOCK_OPEN, animated = FALSE)
+	update_icon(ALL, AIRLOCK_OPEN, TRUE)
+	operating = FALSE
 
 	return TRUE
 
@@ -94,10 +93,10 @@
 		playsound(src, SFX_SPARKS, vol = 75, vary = FALSE, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 	use_energy(50 JOULES)
 	playsound(src, doorClose, vol = 40, vary = FALSE)
+	operating = TRUE
 	layer = CLOSED_DOOR_LAYER
-	set_airlock_state(AIRLOCK_CLOSING, animated = TRUE)
-	var/unpassable_delay = animation_segment_delay(AIRLOCK_CLOSING_UNPASSABLE)
-	sleep(unpassable_delay)
+	update_icon(ALL, AIRLOCK_CLOSING, 1)
+	sleep(TRAM_DOOR_WARNING_TIME)
 	if(!hungry_door)
 		for(var/turf/checked_turf in locs)
 			for(var/atom/movable/blocker in checked_turf)
@@ -105,11 +104,11 @@
 					say("Please stand clear of the doors!")
 					playsound(src, 'sound/machines/buzz/buzz-sigh.ogg', 60, vary = FALSE, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 					layer = OPEN_DOOR_LAYER
-					set_airlock_state(AIRLOCK_OPEN, animated = FALSE)
+					update_icon(ALL, AIRLOCK_OPEN, 1)
+					operating = FALSE
 					return FALSE
 	SEND_SIGNAL(src, COMSIG_AIRLOCK_CLOSE)
-	var/opaque_delay = animation_segment_delay(AIRLOCK_CLOSING_OPAQUE) - unpassable_delay
-	sleep(opaque_delay)
+	sleep(TRAM_DOOR_CRUSH_TIME)
 	set_density(TRUE)
 	if(!isnull(filler))
 		filler.set_density(TRUE)
@@ -118,33 +117,11 @@
 	air_update_turf(TRUE, TRUE)
 	crush()
 	crushing_in_progress = FALSE
-	var/close_delay = animation_segment_delay(AIRLOCK_CLOSING_FINISHED) - unpassable_delay - opaque_delay
-	sleep(close_delay)
-	set_airlock_state(AIRLOCK_CLOSED, animated = FALSE)
+	sleep(TRAM_DOOR_WARNING_TIME)
+	update_icon(ALL, AIRLOCK_CLOSED, 1)
+	operating = FALSE
 	retry_counter = 0
 	return TRUE
-
-/obj/machinery/door/airlock/tram/animation_length(animation)
-	switch(animation)
-		if(DOOR_OPENING_ANIMATION)
-			return 1.8 SECONDS
-		if(DOOR_CLOSING_ANIMATION)
-			return 2.5 SECONDS
-
-/obj/machinery/door/airlock/tram/animation_segment_delay(animation)
-	switch(animation)
-		if(AIRLOCK_OPENING_TRANSPARENT)
-			return 0.9 SECONDS
-		if(AIRLOCK_OPENING_PASSABLE)
-			return 0.9 SECONDS
-		if(AIRLOCK_OPENING_FINISHED)
-			return 1.8 SECONDS
-		if(AIRLOCK_CLOSING_UNPASSABLE)
-			return 0.9 SECONDS
-		if(AIRLOCK_CLOSING_OPAQUE)
-			return 1.6 SECONDS
-		if(AIRLOCK_CLOSING_FINISHED)
-			return 2.5 SECONDS
 
 /**
  * Crush the jerk holding up the tram from moving
@@ -258,9 +235,8 @@
 		return
 	if((tram_part.travel_remaining < DEFAULT_TRAM_LENGTH || tram_part.travel_remaining > tram_part.travel_trip_length - DEFAULT_TRAM_LENGTH) && tram_part.controller_active)
 		return // we're already animating, don't reset that
-	set_airlock_state(AIRLOCK_OPENING, animated = TRUE)
-	if(do_after(user, delay = 0.6 SECONDS, timed_action_flags = IGNORE_USER_LOC_CHANGE | IGNORE_SLOWDOWNS))
-		open(forced = BYPASS_DOOR_CHECKS)
+	open(forced = BYPASS_DOOR_CHECKS)
+	return
 
 #undef TRAM_DOOR_WARNING_TIME
 #undef TRAM_DOOR_CYCLE_TIME

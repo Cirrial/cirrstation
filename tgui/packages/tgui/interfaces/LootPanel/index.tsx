@@ -3,13 +3,13 @@ import { useMemo } from 'react';
 import { Button, Input, Section, Stack } from 'tgui-core/components';
 import { isEscape } from 'tgui-core/keys';
 import { clamp } from 'tgui-core/math';
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../../backend';
 import { Window } from '../../layouts';
 import { GroupedContents } from './GroupedContents';
 import { RawContents } from './RawContents';
-import type { SearchItem } from './types';
+import { SearchItem } from './types';
 
 type Data = {
   contents: SearchItem[];

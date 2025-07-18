@@ -1,6 +1,6 @@
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
 
-import type { Region } from '../common/AccessConfig';
+import { Region } from '../common/AccessConfig';
 
 export type AccessData = {
   name: string;
@@ -18,7 +18,7 @@ export type MainData = {
   mecha_flags: number;
   internal_damage: number;
   internal_damage_keys: string[];
-  mechflag_keys: Record<string, number>;
+  mechflag_keys: string[];
 
   can_use_overclock: BooleanLike;
   overclock_safety_available: BooleanLike;

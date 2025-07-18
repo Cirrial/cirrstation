@@ -25,8 +25,6 @@
 		/obj/item/implantcase,
 		/obj/item/implant,
 		/obj/item/implanter,
-		/obj/item/blood_scanner,
-		/obj/item/reflexhammer,
 
 		//stacks
 		/obj/item/stack/medical,
@@ -82,7 +80,7 @@
 		/obj/item/autosurgeon/syndicate/emaggedsurgerytoolset,
 	)
 
-/datum/storage/medkit/New(atom/parent, max_slots, max_specific_storage, max_total_storage, rustle_sound, remove_rustle_sound, list/holdables = null)
+/datum/storage/medkit/New(atom/parent, max_slots, max_specific_storage, max_total_storage, list/holdables = null)
 	. = ..()
 	if(!isnull(holdables))
 		set_holdable(holdables)
@@ -93,7 +91,7 @@
 	max_total_storage = 24
 	max_specific_storage = WEIGHT_CLASS_NORMAL //holds the same equipment as a medibelt
 
-/datum/storage/medkit/surgery/New(atom/parent, max_slots, max_specific_storage, max_total_storage, rustle_sound, remove_rustle_sound, list/holdables)
+/datum/storage/medkit/surgery/New(atom/parent, max_slots, max_specific_storage, max_total_storage, list/holdables)
 	holdables = list_of_everything_medkits_can_hold
 	return ..()
 
@@ -103,7 +101,7 @@
 	max_total_storage = 24
 	max_specific_storage = WEIGHT_CLASS_NORMAL
 
-/datum/storage/medkit/tactical/New(atom/parent, max_slots, max_specific_storage, max_total_storage, rustle_sound, remove_rustle_sound, list/holdables)
+/datum/storage/medkit/tactical/New(atom/parent, max_slots, max_specific_storage, max_total_storage, list/holdables)
 	holdables = list_of_everything_medkits_can_hold
 	return ..()
 
@@ -118,7 +116,7 @@
 	max_total_storage = 24
 	max_specific_storage = WEIGHT_CLASS_NORMAL
 
-/datum/storage/medkit/coroner/New(atom/parent, max_slots, max_specific_storage, max_total_storage, rustle_sound, remove_rustle_sound, list/holdables)
+/datum/storage/medkit/coroner/New(atom/parent, max_slots, max_specific_storage, max_total_storage, list/holdables)
 	holdables = list(
 		/obj/item/reagent_containers,
 		/obj/item/bodybag,

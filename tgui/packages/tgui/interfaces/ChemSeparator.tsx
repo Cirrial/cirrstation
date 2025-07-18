@@ -6,7 +6,7 @@ import {
   ProgressBar,
   Stack,
 } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -166,7 +166,7 @@ export const ChemSeparator = (props) => {
               step={1}
               stepPixelSize={10}
               value={knob}
-              onChange={(_e, value) =>
+              onDrag={(_e, value) =>
                 act('knob', {
                   amount: value,
                 })

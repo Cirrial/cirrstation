@@ -1,7 +1,7 @@
 import { Button, LabeledList, Section, Stack } from 'tgui-core/components';
 
 import { useBackend } from '../../backend';
-import type { ControllerData } from './types';
+import { ControllerData } from './types';
 
 export function OverviewSection(props) {
   const { act, data } = useBackend<ControllerData>();

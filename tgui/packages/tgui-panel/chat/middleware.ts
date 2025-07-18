@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import type { Store } from 'common/redux';
+import { Store } from 'common/redux';
 import { storage } from 'common/storage';
 import DOMPurify from 'dompurify';
 
@@ -63,7 +63,7 @@ const loadChatFromStorage = async (store: Store) => {
     return;
   }
   if (messages) {
-    for (const message of messages) {
+    for (let message of messages) {
       if (message.html) {
         message.html = DOMPurify.sanitize(message.html, {
           FORBID_TAGS,

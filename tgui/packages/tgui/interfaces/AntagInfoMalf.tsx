@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { BlockQuote, Button, Section, Stack, Tabs } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { MalfAiModules } from './common/MalfAiModules';
 import {
-  type Objective,
+  Objective,
   ObjectivePrintout,
   ReplaceObjectivesButton,
 } from './common/Objectives';
-import type { Item } from './Uplink/GenericUplink';
+import { Item } from './Uplink/GenericUplink';
 
 const allystyle = {
   fontWeight: 'bold',

@@ -11,7 +11,7 @@ import {
   TextArea,
 } from 'tgui-core/components';
 import { formatTime } from 'tgui-core/format';
-import { type BooleanLike, classes } from 'tgui-core/react';
+import { BooleanLike, classes } from 'tgui-core/react';
 import { decodeHtmlEntities } from 'tgui-core/string';
 
 import { useBackend } from '../backend';
@@ -164,7 +164,12 @@ export const MafiaPanel = (props) => {
   const { act, data } = useBackend<MafiaData>();
   const { roleinfo } = data;
   return (
-    <Window title="Mafia" theme={roleinfo?.role_theme} width={900} height={600}>
+    <Window
+      title="Mafia"
+      theme={roleinfo && roleinfo.role_theme}
+      width={900}
+      height={600}
+    >
       <Window.Content>
         <MafiaPanelData />
       </Window.Content>
@@ -435,7 +440,7 @@ const MafiaPlayers = (props) => {
               >
                 {player.name}
                 {(!!player.is_you && ' (YOU)') ||
-                  (!!player.role_revealed && ` - ${player.role_revealed}`)}
+                  (!!player.role_revealed && ' - ' + player.role_revealed)}
               </Stack.Item>
               <Stack.Item>
                 {player.votes !== undefined &&

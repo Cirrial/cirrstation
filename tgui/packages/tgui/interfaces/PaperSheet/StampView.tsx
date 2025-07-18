@@ -1,6 +1,6 @@
 import { useBackend } from '../../backend';
 import { Stamp } from './Stamp';
-import type { PaperContext } from './types';
+import { PaperContext } from './types';
 
 // Renders all the stamp components for every valid stamp.
 export function StampView(props) {

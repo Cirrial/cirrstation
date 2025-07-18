@@ -8,7 +8,7 @@ import {
 import { formatMoney } from 'tgui-core/format';
 
 import { useBackend } from '../../backend';
-import type { CargoData } from './types';
+import { CargoData } from './types';
 
 export function CargoStatus(props) {
   const { act, data } = useBackend<CargoData>();

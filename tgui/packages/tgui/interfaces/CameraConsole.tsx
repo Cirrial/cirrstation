@@ -1,5 +1,4 @@
-import { sortBy } from 'es-toolkit';
-import { filter } from 'es-toolkit/compat';
+import { filter, sort } from 'common/collections';
 import { useState } from 'react';
 import {
   Button,
@@ -9,7 +8,7 @@ import {
   Section,
   Stack,
 } from 'tgui-core/components';
-import { type BooleanLike, classes } from 'tgui-core/react';
+import { BooleanLike, classes } from 'tgui-core/react';
 import { createSearch } from 'tgui-core/string';
 
 import { useBackend } from '../backend';
@@ -76,7 +75,7 @@ const selectCameras = (cameras: Camera[], searchText = ''): Camera[] => {
     );
     queriedCameras = filter(queriedCameras, testSearch);
   }
-  queriedCameras = sortBy(queriedCameras, [(c) => c.name]);
+  queriedCameras = sort(queriedCameras);
 
   return queriedCameras;
 };

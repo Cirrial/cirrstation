@@ -50,7 +50,7 @@ export const HypertorusParameters = (props) => {
 
   let activity =
     heat_output / (heat_output < 0 ? heat_output_min : heat_output_max);
-  if (Number.isNaN(activity) || !Number.isFinite(activity)) {
+  if (isNaN(activity) || !isFinite(activity)) {
     activity = 0;
   }
 

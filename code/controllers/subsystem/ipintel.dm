@@ -129,7 +129,7 @@ SUBSYSTEM_DEF(ipintel)
 	)
 	query.warn_execute()
 	query.sync()
-	QDEL_NULL(query)
+	qdel(query)
 
 /datum/controller/subsystem/ipintel/proc/fetch_cached_ip_intel(address)
 	if (!SSdbcore.Connect())
@@ -152,7 +152,7 @@ SUBSYSTEM_DEF(ipintel)
 
 	query.NextRow()
 	var/list/data = query.item
-	QDEL_NULL(query)
+	qdel(query)
 	if(isnull(data))
 		return null
 
@@ -191,7 +191,7 @@ SUBSYSTEM_DEF(ipintel)
 		return FALSE
 	query.NextRow()
 	. = !!query.item // if they have a row, they are whitelisted
-	QDEL_NULL(query)
+	qdel(query)
 
 
 ADMIN_VERB(ipintel_allow, R_BAN, "Whitelist Player VPN", "Allow a player to connect even if they are using a VPN.", ADMIN_CATEGORY_IPINTEL, ckey as text)
@@ -215,7 +215,7 @@ ADMIN_VERB(ipintel_allow, R_BAN, "Whitelist Player VPN", "Allow a player to conn
 	)
 	query.warn_execute()
 	query.sync()
-	QDEL_NULL(query)
+	qdel(query)
 	message_admins("IPINTEL: [key_name_admin(user)] has whitelisted '[ckey]'")
 
 ADMIN_VERB(ipintel_revoke, R_BAN, "Revoke Player VPN Whitelist", "Revoke a player's VPN whitelist.", ADMIN_CATEGORY_IPINTEL, ckey as text)
@@ -231,7 +231,7 @@ ADMIN_VERB(ipintel_revoke, R_BAN, "Revoke Player VPN Whitelist", "Revoke a playe
 	)
 	query.warn_execute()
 	query.sync()
-	QDEL_NULL(query)
+	qdel(query)
 	message_admins("IPINTEL: [key_name_admin(user)] has revoked the VPN whitelist for '[ckey]'")
 
 /client/proc/check_ip_intel()

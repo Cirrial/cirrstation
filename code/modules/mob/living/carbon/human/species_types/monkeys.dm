@@ -176,7 +176,7 @@
 	crossing_mob.knockOver(owner)
 
 /obj/item/organ/brain/primate/get_attacking_limb(mob/living/carbon/human/target)
-	if(!HAS_TRAIT(owner, TRAIT_ADVANCEDTOOLUSER) || HAS_TRAIT(owner, TRAIT_FERAL_BITER))
+	if(!HAS_TRAIT(owner, TRAIT_ADVANCEDTOOLUSER))
 		return owner.get_bodypart(BODY_ZONE_HEAD)
 	return ..()
 

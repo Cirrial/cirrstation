@@ -10,7 +10,7 @@ import { Forbidden } from './screens/Forbidden';
 import { Inventory } from './screens/Inventory';
 import { Print } from './screens/Print';
 import { Upload } from './screens/Upload';
-import type { LibraryConsoleData } from './types';
+import { LibraryConsoleData } from './types';
 import { LibraryContext } from './useLibraryContext';
 
 export function LibraryConsole(props) {

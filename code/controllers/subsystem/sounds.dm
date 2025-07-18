@@ -37,7 +37,6 @@ SUBSYSTEM_DEF(sounds)
 /datum/controller/subsystem/sounds/Initialize()
 	setup_available_channels()
 	find_all_available_sounds()
-	init_sound_keys()
 
 	if(!(RUST_G))
 		to_chat(world, span_boldnotice("Sounds subsystem: No rust_g detected."))
@@ -225,11 +224,5 @@ SUBSYSTEM_DEF(sounds)
 
 	sound_lengths[file_path] = as_num
 	return as_num
-
-/datum/controller/subsystem/sounds/proc/init_sound_keys()
-	for(var/datum/sound_effect/sfx as anything in subtypesof(/datum/sound_effect))
-		// this is for the assoc subtype
-		if(!isnull(sfx.key))
-			GLOB.sfx_datum_by_key[sfx.key] = new sfx()
 
 #undef DATUMLESS

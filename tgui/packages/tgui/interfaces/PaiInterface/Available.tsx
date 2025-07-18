@@ -10,7 +10,7 @@ import {
 } from 'tgui-core/components';
 
 import { SOFTWARE_DESC } from './constants';
-import type { PaiData } from './types';
+import { PaiData } from './types';
 
 /**
  * Renders a list of available software and the ram with which to download it

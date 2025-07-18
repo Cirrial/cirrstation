@@ -14,6 +14,7 @@
 
 /obj/item/organ/stomach/anteater/proc/on_expose(atom/source, list/reagents, datum/reagents/source_reagents, methods)
 	SIGNAL_HANDLER
+	debug_world("anteater stomach on_expose")
 	var/mob/living/exposed_mob = source
 	if(!exposed_mob)
 		return
@@ -29,5 +30,7 @@
 	// take out any ants and replace with the same quantity of nutriment
 	source_reagents.del_reagent(/datum/reagent/ants)
 	var/amount_added = ants_amount * ant_digestion_efficiency
-	source_reagents.add_reagent(/datum/reagent/consumable/nutriment, amount_added)
+	var/datum/reagents/extra_reagents = new()
+	extra_reagents.add_reagent(/datum/reagent/consumable/nutriment, amount_added)
+	extra_reagents.trans_to(source, amount_added, transferred_by = src, methods = INJECT)
 	to_chat(exposed_mob, span_notice("Yum, ants!"))

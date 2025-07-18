@@ -11,9 +11,9 @@ import { CharacterPreferenceWindow } from './CharacterPreferences';
 import { GamePreferenceWindow } from './GamePreferences';
 import {
   GamePreferencesSelectedPage,
-  type PreferencesMenuData,
+  PreferencesMenuData,
   PrefsWindow,
-  type ServerData,
+  ServerData,
 } from './types';
 import { RandomToggleState } from './useRandomToggleState';
 import { ServerPrefs } from './useServerPrefs';

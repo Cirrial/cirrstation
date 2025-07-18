@@ -13,11 +13,7 @@
 	name = "random pinup poster"
 	icon_state = "rolled_poster"
 	/// List of posters which make you feel a certain type of way
-	var/static/list/pinup_posters = list(
-		/obj/structure/sign/poster/contraband/lizard,
-		/obj/structure/sign/poster/contraband/lusty_xenomorph,
-		/obj/structure/sign/poster/contraband/double_rainbow,
-	)
+	var/static/list/pinup_posters = list(/obj/structure/sign/poster/contraband/lizard, /obj/structure/sign/poster/contraband/lusty_xenomorph)
 
 /obj/item/poster/random_contraband/pinup/Initialize(mapload, obj/structure/sign/poster/new_poster_structure)
 	poster_type = pick(pinup_posters)
@@ -831,10 +827,3 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/jovial, 32)
 	icon_state = "rolled_poster"
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/bojack, 32)
-
-/obj/structure/sign/poster/contraband/double_rainbow
-	name = "Double Rainbow"
-	desc = "It's so bright and vivid! What does this mean?"
-	icon_state = "double_rainbow"
-
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/double_rainbow, 32)

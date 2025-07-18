@@ -1,9 +1,9 @@
-import { Component, type RefObject } from 'react';
+import { Component, RefObject } from 'react';
 import { clamp } from 'tgui-core/math';
 
 import { useBackend } from '../../backend';
 import { Stamp } from './Stamp';
-import type { PaperContext } from './types';
+import { PaperContext } from './types';
 
 type PaperSheetStamperState = {
   x: number;

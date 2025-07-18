@@ -4,18 +4,14 @@ import { fetchRetry } from 'tgui-core/http';
 import { resolveAsset } from './assets';
 import { logger } from './logging';
 
-function setIconRefMap(map: Record<string, string>): void {
-  Byond.iconRefMap = map;
-}
-
-function loadIconMap(): void {
+function loadIconMap() {
   fetchRetry(resolveAsset('icon_ref_map.json'))
     .then((res) => res.json())
-    .then(setIconRefMap)
+    .then((data) => (Byond.iconRefMap = data))
     .catch((error) => logger.log(error));
 }
 
-function IconMapLoader(): null {
+function IconMapLoader() {
   useEffect(() => {
     if (Object.keys(Byond.iconRefMap).length === 0) {
       loadIconMap();

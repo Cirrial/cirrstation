@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { Button, Section, Stack } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
-import type { CssColor } from '../constants';
+import { CssColor } from '../constants';
 import { Window } from '../layouts';
 
 type Data = {

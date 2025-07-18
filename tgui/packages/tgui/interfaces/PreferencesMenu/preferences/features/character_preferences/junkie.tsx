@@ -1,4 +1,4 @@
-import type { FeatureChoiced } from '../base';
+import { FeatureChoiced } from '../base';
 import { FeatureDropdownInput } from '../dropdowns';
 
 export const junkie: FeatureChoiced = {

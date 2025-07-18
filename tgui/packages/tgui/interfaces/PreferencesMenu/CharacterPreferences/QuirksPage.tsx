@@ -1,4 +1,4 @@
-import { filter } from 'es-toolkit/compat';
+import { filter } from 'common/collections';
 import { useState } from 'react';
 import { useBackend } from 'tgui/backend';
 import {
@@ -13,10 +13,10 @@ import {
 import { createSearch } from 'tgui-core/string';
 
 import {
-  type PreferencesMenuData,
-  type Quirk,
+  PreferencesMenuData,
+  Quirk,
   RandomSetting,
-  type ServerData,
+  ServerData,
 } from '../types';
 import { useRandomToggleState } from '../useRandomToggleState';
 import { useServerPrefs } from '../useServerPrefs';

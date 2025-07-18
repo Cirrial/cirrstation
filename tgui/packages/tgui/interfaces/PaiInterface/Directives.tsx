@@ -9,7 +9,7 @@ import {
 import { decodeHtmlEntities } from 'tgui-core/string';
 
 import { DIRECTIVE_COMPREHENSION, DIRECTIVE_ORDER } from './constants';
-import type { PaiData } from './types';
+import { PaiData } from './types';
 
 /** Shows the hardcoded PAI info along with any supplied orders. */
 export function DirectiveDisplay(props) {

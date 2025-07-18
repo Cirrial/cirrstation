@@ -9,14 +9,14 @@ import {
   Stack,
   Table,
 } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
 import { toTitleCase } from 'tgui-core/string';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { MaterialAccessBar } from './Fabrication/MaterialAccessBar';
 import { MaterialIcon } from './Fabrication/MaterialIcon';
-import type { Material } from './Fabrication/Types';
+import { Material } from './Fabrication/Types';
 
 type Data = {
   SHEET_MATERIAL_AMOUNT: number;
@@ -29,6 +29,7 @@ type Design = {
   name: string;
   icon: string;
   requiredMaterials: Material[];
+  canPrint: BooleanLike;
   disableReason?: string;
 };
 
@@ -144,7 +145,7 @@ const BoardPreview = (props: BoardPreviewProps) => {
             icon="cog"
             fontSize={1.2}
             textAlign="center"
-            disabled={!design || design.disableReason !== ''}
+            disabled={!design || !design.canPrint}
             tooltip={design.disableReason}
             tooltipPosition="bottom"
             onClick={() => onPrint()}

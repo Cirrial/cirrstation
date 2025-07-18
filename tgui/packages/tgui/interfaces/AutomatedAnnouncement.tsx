@@ -1,5 +1,4 @@
-import { sortBy } from 'es-toolkit';
-import { filter } from 'es-toolkit/compat';
+import { filter, sortBy } from 'common/collections';
 import { useState } from 'react';
 import {
   Button,
@@ -10,7 +9,7 @@ import {
   Stack,
   Table,
 } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -61,7 +60,7 @@ export const AutomatedAnnouncement = (props) => {
 
   const sorted = sortBy(
     filter(config_entries, (entry) => isEntryMatch(entry, search)),
-    [(entry) => entry.name],
+    (entry) => entry.name,
   );
   return (
     <Window title="Automated Announcement System" width={500} height={280}>
@@ -89,12 +88,12 @@ export const AutomatedAnnouncement = (props) => {
                           icon="info"
                           tooltip={
                             (entry.generalTooltip
-                              ? `${entry.generalTooltip}\n`
+                              ? entry.generalTooltip + '\n'
                               : '') +
                             Object.entries(entry.varsAndTooltipsMap)
                               .map(
                                 ([varName, tooltip]) =>
-                                  `%${varName} ${tooltip}`,
+                                  '%' + varName + ' ' + tooltip,
                               )
                               .join('\n')
                           }

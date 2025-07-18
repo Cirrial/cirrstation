@@ -18,7 +18,7 @@ import {
 } from 'tgui-core/components';
 
 import { getSecurityRecord } from './helpers';
-import { type Crime, SECURETAB, type SecurityRecordsData } from './types';
+import { Crime, SECURETAB, SecurityRecordsData } from './types';
 
 /** Displays a list of crimes and allows to add new ones. */
 export const CrimeWatcher = (props) => {

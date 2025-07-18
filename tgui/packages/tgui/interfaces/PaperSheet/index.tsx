@@ -3,7 +3,7 @@ import { Window } from '../../layouts';
 import { TEXTAREA_INPUT_HEIGHT } from './constants';
 import { canEdit } from './helpers';
 import { PrimaryView } from './PrimaryView';
-import type { PaperContext } from './types';
+import { PaperContext } from './types';
 
 export function PaperSheet(props) {
   const { data } = useBackend<PaperContext>();

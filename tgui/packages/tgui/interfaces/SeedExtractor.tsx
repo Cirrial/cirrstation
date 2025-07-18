@@ -1,4 +1,4 @@
-import { sortBy } from 'es-toolkit';
+import { sortBy } from 'common/collections';
 import { useState } from 'react';
 import {
   Box,
@@ -67,9 +67,10 @@ export const SeedExtractor = (props) => {
   const search = createSearch(searchText, (item: SeedData) => item.name);
   const seeds_filtered =
     searchText.length > 0 ? data.seeds.filter(search) : data.seeds;
-  const seeds = sortBy(seeds_filtered || [], [
+  const seeds = sortBy(
+    seeds_filtered || [],
     (item: SeedData) => item[sortField as keyof SeedData],
-  ]);
+  );
   sortField !== 'name' && seeds.reverse();
 
   return (
@@ -358,8 +359,8 @@ export const ReagentTooltip = (props) => {
   props.reagents.forEach((reagent) => {
     rate_total += reagent.rate;
   });
-  const reagent_volumes: number[] = [];
-  const reagent_percentages: number[] = [];
+  let reagent_volumes: number[] = [];
+  let reagent_percentages: number[] = [];
   props.reagents.forEach((reagent) => {
     reagent_percentages.push(reagent.rate / Math.max(1, rate_total));
     reagent_volumes.push(

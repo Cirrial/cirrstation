@@ -242,7 +242,8 @@
 	)
 
 	insert_tutorial_query.warn_execute()
-	QDEL_NULL(insert_tutorial_query)
+
+	qdel(insert_tutorial_query)
 
 /// Dismisses the tutorial, not marking it as completed in the database.
 /// Call `/datum/tutorial/proc/dismiss()` instead.

@@ -7,7 +7,7 @@ import {
   Section,
   Stack,
 } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
 
 import { HypertorusSecondaryControls, HypertorusWasteRemove } from './Controls';
 import { HypertorusGases } from './Gases';

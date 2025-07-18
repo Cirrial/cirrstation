@@ -14,7 +14,7 @@ import { OrbitContext } from '.';
 import { HEALTH, VIEWMODE } from './constants';
 import { getDepartmentByJob, getDisplayName } from './helpers';
 import { JobIcon } from './JobIcon';
-import type { OrbitData } from './types';
+import { OrbitData } from './types';
 
 /** Slide open menu with more info about the current observable */
 export function OrbitBlade(props) {

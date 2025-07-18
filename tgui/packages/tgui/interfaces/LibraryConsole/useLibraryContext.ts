@@ -1,9 +1,4 @@
-import {
-  createContext,
-  type Dispatch,
-  type SetStateAction,
-  useContext,
-} from 'react';
+import { createContext, Dispatch, SetStateAction, useContext } from 'react';
 
 type LibraryContextType = {
   checkoutBookState: [boolean, Dispatch<SetStateAction<boolean>>];

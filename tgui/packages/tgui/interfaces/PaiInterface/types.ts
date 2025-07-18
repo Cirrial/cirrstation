@@ -1,4 +1,4 @@
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
 
 export type PaiData = {
   available: Record<string, number>;

@@ -10,16 +10,12 @@ import {
 import { resolveAsset } from '../../assets';
 import { useBackend } from '../../backend';
 import { Window } from '../../layouts';
-import {
-  type Connection,
-  Connections,
-  type Coordinates,
-} from './../common/Connections';
+import { Connection, Connections, Position } from './../common/Connections';
 import { ABSOLUTE_Y_OFFSET } from './../IntegratedCircuit/constants';
 import { PlaneEditor } from './PlaneEditor';
 import { PlaneMaster } from './PlaneMaster';
 import { PlaneMenus } from './PlaneMenus';
-import type {
+import {
   Filter,
   Plane,
   PlaneConnectionsMap,
@@ -34,7 +30,7 @@ import type {
 } from './types';
 import { PlaneDebugContext } from './usePlaneDebug';
 
-function getPosition(el: HTMLElement | null): Coordinates {
+function getPosition(el: HTMLElement | null): Position {
   let xPos = 0;
   let yPos = 0;
 
@@ -522,6 +518,7 @@ export function PlaneMasterDebug() {
         planeOpen,
         setPlaneOpen,
         planesProcessed,
+        act,
       }}
     >
       <Window

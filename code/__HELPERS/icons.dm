@@ -334,14 +334,26 @@ world
 /proc/RotateHue(rgb, angle)
 	var/list/HSV = rgb2hsv(rgb)
 
-	angle %= 360
-
-	HSV[1] = round(HSV[1] + angle)
-
-	HSV[1] %= 360
-
+	// normalize hsv in case anything is screwy
+	if(HSV[1] >= 1536)
+		HSV[1] %= 1536
 	if(HSV[1] < 0)
-		HSV[1] += 360
+		HSV[1] += 1536
+
+	// Compress hue into easier-to-manage range
+	HSV[1] -= HSV[1] >> 8
+
+	if(angle < 0 || angle >= 360)
+		angle -= 360 * round(angle / 360)
+	HSV[1] = round(HSV[1] + angle * (1530/360), 1)
+
+	// normalize hue
+	if(HSV[1] < 0 || HSV[1] >= 1530)
+		HSV[1] %= 1530
+	if(HSV[1] < 0)
+		HSV[1] += 1530
+	// decompress hue
+	HSV[1] += round(HSV[1] / 255)
 
 	return hsv2rgb(HSV)
 

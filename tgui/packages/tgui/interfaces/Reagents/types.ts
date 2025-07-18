@@ -1,5 +1,5 @@
-import type { Dispatch, SetStateAction } from 'react';
-import type { BooleanLike } from 'tgui-core/react';
+import { Dispatch, SetStateAction } from 'react';
+import { BooleanLike } from 'tgui-core/react';
 
 export type ReagentsData = {
   beakerSync: BooleanLike;

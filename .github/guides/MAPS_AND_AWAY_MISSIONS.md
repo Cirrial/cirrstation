@@ -2,13 +2,12 @@
 
 /tg/station currently has six station maps in rotation.
 
-- [CatwalkStation](https://tgstation13.org/wiki/CatwalkStation)
+- [Birdshot](https://tgstation13.org/wiki/Birdshot)
 - [DeltaStation](https://tgstation13.org/wiki/DeltaStation)
 - [IceBoxStation](https://tgstation13.org/wiki/IceboxStation)
 - [MetaStation](https://tgstation13.org/wiki/MetaStation)
-- [NebulaStation](https://tgstation13.org/wiki/NebulaStation)
+- [NorthStar](https://tgstation13.org/wiki/The_North_Star)
 - [TramStation](https://tgstation13.org/wiki/Tramstation)
-- [WawaStation](https://tgstation13.org/wiki/WawaStation)
 
 Debug station maps.
 

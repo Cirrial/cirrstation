@@ -10,7 +10,7 @@ import {
   Tooltip,
 } from 'tgui-core/components';
 import { fetchRetry } from 'tgui-core/http';
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
 
 import { resolveAsset } from '../../assets';
 import { useBackend } from '../../backend';
@@ -20,7 +20,7 @@ import {
   calculateProgression,
   dangerLevelsTooltip,
 } from './calculateDangerLevel';
-import { GenericUplink, type Item } from './GenericUplink';
+import { GenericUplink, Item } from './GenericUplink';
 import { PrimaryObjectiveMenu } from './PrimaryObjectiveMenu';
 
 type UplinkItem = {
@@ -93,7 +93,7 @@ type ItemExtraData = Item & {
 // Cache response so it's only sent once
 let fetchServerData: Promise<ServerData> | undefined;
 
-export class Uplink extends Component<any, UplinkState> {
+export class Uplink extends Component<{}, UplinkState> {
   constructor(props) {
     super(props);
     this.state = {

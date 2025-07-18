@@ -1,4 +1,4 @@
-import { CheckboxInput, type FeatureToggle } from '../base';
+import { CheckboxInput, FeatureToggle } from '../base';
 
 export const windowflashing: FeatureToggle = {
   name: 'Enable window flashing',

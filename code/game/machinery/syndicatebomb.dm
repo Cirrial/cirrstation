@@ -320,17 +320,6 @@
 	. = ..()
 	wires.cut_all()
 
-/obj/machinery/syndicatebomb/nukie/empty
-	name = "syndicate bomb"
-	desc = "An menancing looking device designed to detonate an explosive payload. Can be botled down using a wrench."
-	payload = null
-	open_panel = TRUE
-	timer_set = 120
-
-/obj/machinery/syndicatebomb/nukie/empty/Initialize(mapload)
-	. = ..()
-	wires.cut_all()
-
 /obj/machinery/syndicatebomb/self_destruct
 	name = "self-destruct device"
 	desc = "Do not taunt. Warranty invalid if exposed to high temperature. Not suitable for agents under 3 years of age."
@@ -598,10 +587,6 @@
 				beaker.forceMove(drop_location())
 
 	return ..()
-
-/obj/item/bombcore/chemical/nukie
-	icon_state = "nukie_chemcore"
-	max_beakers = 5
 
 /obj/item/bombcore/emp
 	name = "EMP payload"

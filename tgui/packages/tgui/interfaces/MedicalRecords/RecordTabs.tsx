@@ -1,5 +1,4 @@
-import { sortBy } from 'es-toolkit';
-import { filter } from 'es-toolkit/compat';
+import { filter, sortBy } from 'common/collections';
 import { useState } from 'react';
 import { useBackend, useLocalState } from 'tgui/backend';
 import {
@@ -15,7 +14,7 @@ import {
 
 import { JOB2ICON } from '../common/JobToIcon';
 import { isRecordMatch } from '../SecurityRecords/helpers';
-import type { MedicalRecord, MedicalRecordData } from './types';
+import { MedicalRecord, MedicalRecordData } from './types';
 
 /** Displays all found records. */
 export const MedicalRecordTabs = (props) => {
@@ -30,7 +29,7 @@ export const MedicalRecordTabs = (props) => {
 
   const sorted: MedicalRecord[] = sortBy(
     filter(records, (record) => isRecordMatch(record, search)),
-    [(record) => record.name?.toLowerCase()],
+    (record) => record.name?.toLowerCase(),
   );
 
   return (

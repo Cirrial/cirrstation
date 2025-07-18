@@ -7,11 +7,11 @@ import {
   Section,
   Stack,
 } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { NtosWindow } from '../layouts';
-import type { NTOSData } from '../layouts/NtosWindow';
+import { NTOSData } from '../layouts/NtosWindow';
 import { AccessList } from './common/AccessList';
 
 type Data = {

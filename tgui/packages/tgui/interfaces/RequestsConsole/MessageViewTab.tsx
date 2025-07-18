@@ -10,9 +10,9 @@ import { decodeHtmlEntities } from 'tgui-core/string';
 
 import { useBackend } from '../../backend';
 import {
-  type RequestMessage,
+  RequestMessage,
   RequestPriority,
-  type RequestsData,
+  RequestsData,
   RequestType,
 } from './types';
 

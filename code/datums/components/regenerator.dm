@@ -25,8 +25,6 @@
 	var/outline_colour
 	/// When this timer completes we start restoring health, it is a timer rather than a cooldown so we can do something on its completion
 	var/regeneration_start_timer
-	/// Callback for adding special checks for whether or not we can start regenning
-	var/datum/callback/regen_check = null
 
 /datum/component/regenerator/Initialize(
 	regeneration_delay = 6 SECONDS,
@@ -37,7 +35,6 @@
 	heals_wounds = FALSE,
 	ignore_damage_types = list(STAMINA),
 	outline_colour = COLOR_PALE_GREEN,
-	regen_check = null,
 )
 	if (!isliving(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -50,7 +47,6 @@
 	src.heals_wounds = heals_wounds
 	src.ignore_damage_types = ignore_damage_types
 	src.outline_colour = outline_colour
-	src.regen_check = regen_check
 
 /datum/component/regenerator/RegisterWithParent()
 	. = ..()
@@ -75,10 +71,6 @@
 
 	if (damagetype in ignore_damage_types)
 		return
-
-	reset_regeneration_timer()
-
-/datum/component/regenerator/proc/reset_regeneration_timer()
 	stop_regenerating()
 	regeneration_start_timer = addtimer(CALLBACK(src, PROC_REF(start_regenerating)), regeneration_delay, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE)
 
@@ -137,11 +129,6 @@
 /datum/component/regenerator/proc/should_be_regenning(mob/living/who)
 	if(who.stat == DEAD)
 		return FALSE
-
-	if(regen_check && !regen_check.Invoke(who))
-		reset_regeneration_timer()
-		return FALSE
-
 	if(heals_wounds && iscarbon(who))
 		var/mob/living/carbon/carbon_who = who
 		if(length(carbon_who.all_wounds) > 0)

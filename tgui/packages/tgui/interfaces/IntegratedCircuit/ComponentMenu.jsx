@@ -73,8 +73,8 @@ export class ComponentMenu extends Component {
     } = this.state;
 
     const tabs = ['All'];
-    const shownComponents = componentData.filter((val) => {
-      const shouldShow = showAll || components.includes(val.type);
+    let shownComponents = componentData.filter((val) => {
+      let shouldShow = showAll || components.includes(val.type);
       if (shouldShow) {
         if (!tabs.includes(val.category)) {
           tabs.push(val.category);

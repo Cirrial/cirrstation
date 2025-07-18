@@ -1,6 +1,6 @@
 import { DmIcon, Icon, Image } from 'tgui-core/components';
 
-import type { SearchItem } from './types';
+import { SearchItem } from './types';
 
 type Props = {
   item: SearchItem;

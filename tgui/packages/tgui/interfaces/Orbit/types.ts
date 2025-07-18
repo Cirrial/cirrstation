@@ -1,6 +1,6 @@
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
 
-import type { VIEWMODE } from './constants';
+import { VIEWMODE } from './constants';
 
 export type Antagonist = Observable & {
   antag: string;

@@ -44,7 +44,6 @@
 
 /obj/machinery/pdapainter/Initialize(mapload)
 	. = ..()
-	register_context()
 
 	if(!target_dept)
 		pda_types = SSid_access.station_pda_templates.Copy()
@@ -104,59 +103,53 @@
 		stored_id_card = null
 		update_appearance(UPDATE_ICON)
 
-/obj/machinery/pdapainter/add_context(atom/source, list/context, obj/item/held_item, mob/living/user)
-	if(isnull(held_item))
-		context[SCREENTIP_CONTEXT_LMB] = "Open UI"
-		if(stored_pda)
-			context[SCREENTIP_CONTEXT_RMB] = "Eject PDA"
-		else if(stored_id_card)
-			context[SCREENTIP_CONTEXT_RMB] = "Eject ID"
-		return CONTEXTUAL_SCREENTIP_SET
-
-	if(istype(held_item, /obj/item/modular_computer/pda))
-		context[SCREENTIP_CONTEXT_LMB] = "[stored_pda ? "Swap" : "Insert"] PDA"
-		return CONTEXTUAL_SCREENTIP_SET
-	if(isidcard(held_item))
-		context[SCREENTIP_CONTEXT_LMB] = "[stored_id_card ? "Swap" : "Insert"] ID"
-		return CONTEXTUAL_SCREENTIP_SET
-
-	switch(held_item.tool_behaviour)
-		if(TOOL_WRENCH)
-			context[SCREENTIP_CONTEXT_LMB] = "[anchored ? "Una" : "A"]nchor"
-			return CONTEXTUAL_SCREENTIP_SET
-		if(TOOL_WELDER)
-			context[SCREENTIP_CONTEXT_LMB] = "Repair"
-			return CONTEXTUAL_SCREENTIP_SET
-	return NONE
-
 /obj/machinery/pdapainter/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()
 	if(default_unfasten_wrench(user, tool))
 		power_change()
 	return ITEM_INTERACT_SUCCESS
 
-/obj/machinery/pdapainter/welder_act(mob/living/user, obj/item/tool)
-	if(!(machine_stat & BROKEN) && (atom_integrity >= max_integrity))
-		balloon_alert(user, "isn't broken!")
-		return ITEM_INTERACT_BLOCKING
-	if(!tool.tool_start_check(user, amount = 1))
-		balloon_alert(user, "not enough fuel!")
-		return ITEM_INTERACT_BLOCKING
+/obj/machinery/pdapainter/attackby(obj/item/O, mob/living/user, list/modifiers, list/attack_modifiers)
+	if(machine_stat & BROKEN)
+		if(O.tool_behaviour == TOOL_WELDER && !user.combat_mode)
+			if(!O.tool_start_check(user, amount=1))
+				return
+			user.visible_message(span_notice("[user] is repairing [src]."), \
+							span_notice("You begin repairing [src]..."), \
+							span_hear("You hear welding."))
+			if(O.use_tool(src, user, 40, volume=50))
+				if(!(machine_stat & BROKEN))
+					return
+				to_chat(user, span_notice("You repair [src]."))
+				set_machine_stat(machine_stat & ~BROKEN)
+				atom_integrity = max_integrity
+				update_appearance(UPDATE_ICON)
+			return
+		return ..()
 
-	if(!tool.use_tool(src, user, 40, volume = 50))
-		return ITEM_INTERACT_BLOCKING
+	// Chameleon checks first so they can exit the logic early if they're detected.
+	if(istype(O, /obj/item/card/id/advanced/chameleon))
+		to_chat(user, span_warning("The machine rejects your [O]. This ID card does not appear to be compatible with the PDA Painter."))
+		return
 
-	set_machine_stat(machine_stat & ~BROKEN)
-	atom_integrity = max_integrity
-	balloon_alert(user, "repaired")
-	return ITEM_INTERACT_SUCCESS
+	if(istype(O, /obj/item/modular_computer/pda))
+		insert_pda(O, user)
+		return
 
-/obj/machinery/pdapainter/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
-	if(istype(tool, /obj/item/modular_computer/pda))
-		return insert_pda(tool, user) ? ITEM_INTERACT_SUCCESS : ITEM_INTERACT_BLOCKING
-	if(isidcard(tool))
-		return insert_id_card(tool, user) ? ITEM_INTERACT_SUCCESS : ITEM_INTERACT_BLOCKING
-	return NONE
+	if(isidcard(O))
+		if(stored_id_card)
+			to_chat(user, span_warning("There is already an ID card inside!"))
+			return
+
+		if(!user.transferItemToLoc(O, src))
+			return
+
+		stored_id_card = O
+		O.add_fingerprint(user)
+		update_appearance(UPDATE_ICON)
+		return
+
+	return ..()
 
 /obj/machinery/pdapainter/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
@@ -175,21 +168,23 @@
  * Returns TRUE on success, FALSE otherwise.
  * Arguments:
  * * new_pda - The PDA to insert.
- * * user - The user attempting to insert the PDA.
+ * * user - The user to try and eject the PDA into the hands of.
  */
 /obj/machinery/pdapainter/proc/insert_pda(obj/item/modular_computer/pda/new_pda, mob/living/user)
-	if(user && !user.transferItemToLoc(new_pda, src, silent = FALSE))
+	if(!istype(new_pda))
+		return FALSE
+
+	if(user && !user.transferItemToLoc(new_pda, src))
 		return FALSE
 	else
 		new_pda.forceMove(src)
 
 	if(stored_pda)
 		eject_pda(user)
-		balloon_alert(user, "swapped")
 
 	stored_pda = new_pda
 	new_pda.add_fingerprint(user)
-	update_appearance(UPDATE_ICON)
+	update_icon()
 	return TRUE
 
 /**
@@ -199,13 +194,14 @@
  * * user - The user to try and eject the PDA into the hands of.
  */
 /obj/machinery/pdapainter/proc/eject_pda(mob/living/user)
-	if(isnull(stored_pda))
-		return
+	if(stored_pda)
+		if(user && !issilicon(user) && in_range(src, user))
+			user.put_in_hands(stored_pda)
+		else
+			stored_pda.forceMove(drop_location())
 
-	try_put_in_hand(stored_pda, user)
-
-	stored_pda = null
-	update_appearance(UPDATE_ICON)
+		stored_pda = null
+		update_icon()
 
 /**
  * Insert an ID card into the machine.
@@ -214,27 +210,23 @@
  * Returns TRUE on success, FALSE otherwise.
  * Arguments:
  * * new_id_card - The ID card to insert.
- * * user - The user attempting to insert the ID.
+ * * user - The user to try and eject the PDA into the hands of.
  */
 /obj/machinery/pdapainter/proc/insert_id_card(obj/item/card/id/new_id_card, mob/living/user)
-	if(!new_id_card.trim_changeable)
-		balloon_alert(user, "rejected!")
-		playsound(src, 'sound/machines/buzz/buzz-sigh.ogg', 50, TRUE)
-		to_chat(user, span_warning("This ID card does not appear to be compatible with the ID Painter."))
+	if(!istype(new_id_card))
 		return FALSE
 
-	if(user && !user.transferItemToLoc(new_id_card, src, silent = FALSE))
+	if(user && !user.transferItemToLoc(new_id_card, src))
 		return FALSE
 	else
 		new_id_card.forceMove(src)
 
 	if(stored_id_card)
 		eject_id_card(user)
-		balloon_alert(user, "swapped")
 
 	stored_id_card = new_id_card
 	new_id_card.add_fingerprint(user)
-	update_appearance(UPDATE_ICON)
+	update_icon()
 	return TRUE
 
 /**
@@ -244,14 +236,15 @@
  * * user - The user to try and eject the ID card into the hands of.
  */
 /obj/machinery/pdapainter/proc/eject_id_card(mob/living/user)
-	if(isnull(stored_id_card))
-		return FALSE
+	if(stored_id_card)
+		GLOB.manifest.modify(stored_id_card.registered_name, stored_id_card.assignment, stored_id_card.get_trim_assignment())
+		if(user && !issilicon(user) && in_range(src, user))
+			user.put_in_hands(stored_id_card)
+		else
+			stored_id_card.forceMove(drop_location())
 
-	GLOB.manifest.modify(stored_id_card.registered_name, stored_id_card.assignment, stored_id_card.get_trim_assignment())
-	try_put_in_hand(stored_id_card, user)
-
-	stored_id_card = null
-	update_appearance(UPDATE_ICON)
+		stored_id_card = null
+		update_appearance(UPDATE_ICON)
 
 /obj/machinery/pdapainter/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

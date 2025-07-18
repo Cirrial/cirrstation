@@ -3,7 +3,7 @@ import { formatTime } from 'tgui-core/format';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { type AdventureDataProvider, AdventureScreen } from './ExodroneConsole';
+import { AdventureDataProvider, AdventureScreen } from './ExodroneConsole';
 
 type Adventure = {
   ref: string;

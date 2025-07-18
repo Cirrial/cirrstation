@@ -1,8 +1,8 @@
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
 
-import type { ScrubberProps } from '../common/AtmosControls';
-import type { VentProps } from '../common/AtmosControls';
-import type { AIR_ALARM_ROUTES } from './AlarmControl';
+import { ScrubberProps } from '../common/AtmosControls';
+import { VentProps } from '../common/AtmosControls';
+import { AIR_ALARM_ROUTES } from './AlarmControl';
 
 type AlarmStatus = 0 | 1 | 2;
 

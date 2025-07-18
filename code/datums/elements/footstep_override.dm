@@ -34,7 +34,6 @@
 		occupy_turf(target, target.loc)
 
 /datum/element/footstep_override/Detach(atom/movable/source)
-	UnregisterSignal(source, COMSIG_MOVABLE_MOVED)
 	if(isturf(source.loc))
 		vacate_turf(source, source.loc)
 	return ..()

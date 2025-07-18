@@ -260,11 +260,10 @@
 		var/datum/design/design = SSresearch.techweb_design_by_id(id)
 		if((design.build_type & COMPONENT_PRINTER) && design.build_path)
 			all_circuit_designs[design.build_path] = list(
-				"id" = design.build_path,
-				"categories" = design.category,
-				"cost" = design.materials,
-				"desc" = design.desc,
 				"name" = design.name,
+				"description" = design.desc,
+				"materials" = design.materials,
+				"categories" = design.category
 			)
 
 	for(var/obj/item/circuit_component/component as anything in subtypesof(/obj/item/circuit_component))
@@ -273,11 +272,10 @@
 			categories = list("Admin")
 		if(!(component in all_circuit_designs))
 			all_circuit_designs[component] = list(
-				"id" = component.type,
-				"categories" = categories,
-				"cost" = list(),
-				"desc" = initial(component.desc),
 				"name" = initial(component.display_name),
+				"description" = initial(component.desc),
+				"materials" = list(),
+				"categories" = categories,
 			)
 
 /obj/machinery/debug_component_printer/ui_interact(mob/user, datum/tgui/ui)
@@ -304,7 +302,7 @@
 				return TRUE
 
 			var/list/design = all_circuit_designs[build_path]
-			if (!design)
+			if(!design)
 				return TRUE
 
 			balloon_alert_to_viewers("printed [design["name"]]")
@@ -317,10 +315,8 @@
 /obj/machinery/debug_component_printer/ui_static_data(mob/user)
 	var/list/data = list()
 
-	data["debug"] = TRUE
-	data["designs"] = all_circuit_designs
 	data["materials"] = list()
-	data["SHEET_MATERIAL_AMOUNT"] = SHEET_MATERIAL_AMOUNT
+	data["designs"] = all_circuit_designs
 
 	return data
 

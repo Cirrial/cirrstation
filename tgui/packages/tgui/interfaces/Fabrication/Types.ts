@@ -1,4 +1,4 @@
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
 
 /**
  * A map of keyed materials to a quantity.

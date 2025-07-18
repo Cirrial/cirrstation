@@ -178,14 +178,14 @@ export function ExperimentConfigure(props) {
   const { act, data } = useBackend<Data>();
   const { always_active, has_start_callback } = data;
 
-  const techwebs = data.techwebs ?? [];
+  let techwebs = data.techwebs ?? [];
 
   const experiments = data.experiments.sort((a, b) =>
     a.name.localeCompare(b.name),
   );
 
   // Group servers together by web
-  const webs = new Map();
+  let webs = new Map();
   for (const x of techwebs) {
     if (x.web_id !== null) {
       if (!webs.has(x.web_id)) {

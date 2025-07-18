@@ -1,4 +1,4 @@
-import { CheckboxInput, type FeatureToggle } from '../base';
+import { CheckboxInput, FeatureToggle } from '../base';
 
 export const tgui_fancy: FeatureToggle = {
   name: 'Enable fancy TGUI',

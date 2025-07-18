@@ -16,10 +16,10 @@ import { LoadingScreen } from '../../common/LoadingScreen';
 import {
   createSetPreference,
   Food,
-  type Perk,
-  type PreferencesMenuData,
-  type ServerData,
-  type Species,
+  Perk,
+  PreferencesMenuData,
+  ServerData,
+  Species,
 } from '../types';
 import { useServerPrefs } from '../useServerPrefs';
 
@@ -261,7 +261,7 @@ function SpeciesPageInner(props: SpeciesPageInnerProps) {
   const { act, data } = useBackend<PreferencesMenuData>();
   const setSpecies = createSetPreference(act, 'species');
 
-  const species: [string, Species][] = Object.entries(props.species).map(
+  let species: [string, Species][] = Object.entries(props.species).map(
     ([species, data]) => {
       return [species, data];
     },

@@ -1,8 +1,8 @@
 import {
   CheckboxInput,
-  type Feature,
+  Feature,
   FeatureNumberInput,
-  type FeatureToggle,
+  FeatureToggle,
 } from '../base';
 
 export const enable_tips: FeatureToggle = {

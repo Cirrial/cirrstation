@@ -17,6 +17,6 @@
 	)
 
 /obj/effect/spawner/random/mod/maint/Initialize(mapload)
-	if(is_multi_z_level(z))
+	if(SSmapping.level_trait(z, ZTRAIT_UP) || SSmapping.level_trait(z, ZTRAIT_DOWN))
 		loot += list(/obj/item/mod/module/atrocinator = 3)
 	return ..()

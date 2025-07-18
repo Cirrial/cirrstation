@@ -17,10 +17,16 @@ endmap
 
 # Production-level maps.
 
-map deltastation
-	minplayers 50
-	votable
-endmap
+#map birdshot
+#	#default
+#	maxplayers 66
+#	votable
+#endmap
+
+#map deltastation
+#	minplayers 50
+#	votable
+#endmap
 
 #map icebox
 #	minplayers 25

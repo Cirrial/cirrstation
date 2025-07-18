@@ -6,7 +6,7 @@ import {
   Stack,
   Table,
 } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -60,7 +60,7 @@ const MasterControls = () => {
           minValue={min_delay}
           maxValue={max_delay}
           unit="sec."
-          onChange={(e, value) =>
+          onDrag={(e, value) =>
             act('changeDelay', {
               new_delay: value,
             })

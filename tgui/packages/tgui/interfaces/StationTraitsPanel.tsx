@@ -1,4 +1,4 @@
-import { filter, map } from 'es-toolkit/compat';
+import { filter, map } from 'common/collections';
 import { useState } from 'react';
 import {
   Box,
@@ -9,7 +9,7 @@ import {
   Tabs,
 } from 'tgui-core/components';
 import { exhaustiveCheck } from 'tgui-core/exhaustive';
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';

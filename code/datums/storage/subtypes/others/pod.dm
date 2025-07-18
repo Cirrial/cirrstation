@@ -11,7 +11,7 @@
 		return FALSE
 	return ..()
 
-/datum/storage/pod/New(atom/parent, max_slots, max_specific_storage, max_total_storage, rustle_sound, remove_rustle_sound)
+/datum/storage/pod/New(atom/parent, max_slots, max_specific_storage, max_total_storage)
 	. = ..()
 	// all of these are a type below what actually spawn with
 	// (IE all space suits instead of just the emergency ones)

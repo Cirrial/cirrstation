@@ -1,14 +1,14 @@
 import { marked } from 'marked';
 import { baseUrl } from 'marked-base-url';
 import { markedSmartypants } from 'marked-smartypants';
-import { Component, type RefObject } from 'react';
+import { Component, RefObject } from 'react';
 import { Box, Section } from 'tgui-core/components';
 
 import { useBackend, useLocalState } from '../../backend';
 import { sanitizeText } from '../../sanitize';
 import { tokenizer, walkTokens } from './helpers';
 import { StampView } from './StampView';
-import { type FieldInput, InteractionType, type PaperContext } from './types';
+import { FieldInput, InteractionType, PaperContext } from './types';
 
 type PreviewViewProps = {
   scrollableRef: RefObject<HTMLDivElement | null>;
@@ -187,7 +187,7 @@ export class PreviewView extends Component<PreviewViewProps> {
     this.lastReadOnly = readOnly;
 
     raw_text_input?.forEach((value) => {
-      const rawText = value.raw_text.trim();
+      let rawText = value.raw_text.trim();
       if (!rawText.length) {
         return;
       }
@@ -197,7 +197,7 @@ export class PreviewView extends Component<PreviewViewProps> {
       const fontBold = value.bold || false;
       const advancedHtml = value.advanced_html || false;
 
-      const processingOutput = this.formatAndProcessRawText(
+      let processingOutput = this.formatAndProcessRawText(
         rawText,
         fontFace,
         fontColor,
@@ -244,7 +244,7 @@ export class PreviewView extends Component<PreviewViewProps> {
     const fontFace = held_item_details?.font || default_pen_font;
     const fontBold = held_item_details?.use_bold || false;
 
-    const processingOutput = this.formatAndProcessRawText(
+    let processingOutput = this.formatAndProcessRawText(
       textArea,
       fontFace,
       fontColor,
@@ -342,7 +342,7 @@ export class PreviewView extends Component<PreviewViewProps> {
 
   // Builds a paper field ID from a number or string.
   createIDHeader = (index: number | string): string => {
-    return `paperfield_${index}`;
+    return 'paperfield_' + index;
   };
 
   // Returns the width the text with the provided attributes would take up in px.
@@ -480,7 +480,7 @@ export class PreviewView extends Component<PreviewViewProps> {
 
     const fieldData = field.field_data;
 
-    const input = document.createElement('input');
+    let input = document.createElement('input');
     input.setAttribute('type', 'text');
 
     input.style.fontSize = field.is_signature ? '15px' : `${fontSize}px`;

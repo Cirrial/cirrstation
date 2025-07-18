@@ -18,7 +18,7 @@
 	. = ..()
 
 	if(brain_owner.dna.species.id != SPECIES_NIGHTMARE)
-		brain_owner.set_species(/datum/species/shadow/nightmare, replace_missing = FALSE)
+		brain_owner.set_species(/datum/species/shadow/nightmare)
 		visible_message(span_warning("[brain_owner] thrashes as [src] takes root in [brain_owner.p_their()] body!"))
 
 	our_jaunt = new(brain_owner)
@@ -82,7 +82,6 @@
 	icon_state = "demon_heart-on"
 	base_icon_state = "demon_heart"
 
-	beat_noise = "the writhing pulses of a fear given form" // evil schmeevil
 	color = COLOR_CRAYON_BLACK
 	decay_factor = 0
 	// No love is to be found in a heart so twisted.

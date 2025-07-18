@@ -5,11 +5,7 @@ import { classes } from 'tgui-core/react';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import {
-  type Connection,
-  Connections,
-  ConnectionStyle,
-} from './common/Connections';
+import { Connection, Connections, ConnectionStyle } from './common/Connections';
 import { ABSOLUTE_Y_OFFSET } from './IntegratedCircuit/constants';
 
 type Coord = {

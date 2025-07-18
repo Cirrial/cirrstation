@@ -22,7 +22,7 @@ import {
 } from './constants';
 import { getMedicalRecord, getQuirkStrings } from './helpers';
 import { NoteKeeper } from './NoteKeeper';
-import type { MedicalRecordData } from './types';
+import { MedicalRecordData } from './types';
 
 /** Views a selected record. */
 export const MedicalRecordView = (props) => {

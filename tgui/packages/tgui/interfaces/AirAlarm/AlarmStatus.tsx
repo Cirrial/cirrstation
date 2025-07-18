@@ -1,7 +1,7 @@
 import { LabeledList, Section } from 'tgui-core/components';
 
 import { useBackend } from '../../backend';
-import type { AirAlarmData } from './types';
+import { AirAlarmData } from './types';
 
 const dangerMap = {
   0: {

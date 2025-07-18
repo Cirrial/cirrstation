@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Flex, Modal, TextArea } from 'tgui-core/components';
 
 import { useBackend } from '../../backend';
-import type { CommsConsoleData } from './types';
+import { CommsConsoleData } from './types';
 
 type Props = {
   buttonText: string;

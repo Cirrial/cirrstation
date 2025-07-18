@@ -1,5 +1,5 @@
 import { DEPARTMENT2COLOR, HEALTH, THREAT, VIEWMODE } from './constants';
-import type { AntagGroup, Antagonist, Observable, ViewMode } from './types';
+import { AntagGroup, Antagonist, Observable, ViewMode } from './types';
 
 /** Return a map of strings with each antag in its antag_category */
 export function getAntagCategories(antagonists: Antagonist[]): AntagGroup[] {

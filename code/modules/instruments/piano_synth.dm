@@ -144,8 +144,6 @@
 	SIGNAL_HANDLER
 	is_playing.set_output(TRUE)
 	started_playing.set_output(COMPONENT_SIGNAL)
-	if (beats_per_min.value)
-		synth.song.set_bpm(beats_per_min.value)
 
 /obj/item/circuit_component/synth/proc/continue_if_autoplaying(datum/source, atom/music_player)
 	SIGNAL_HANDLER
@@ -167,8 +165,7 @@
 	synth.song.set_repeats(repetitions.value)
 
 /obj/item/circuit_component/synth/proc/set_bpm()
-	if (beats_per_min.value)
-		synth.song.set_bpm(beats_per_min.value)
+	synth.song.sanitize_tempo(BPM_TO_TEMPO_SETTING(beats_per_min.value))
 
 /obj/item/circuit_component/synth/proc/set_instrument()
 	synth.song.set_instrument(selected_instrument.value)

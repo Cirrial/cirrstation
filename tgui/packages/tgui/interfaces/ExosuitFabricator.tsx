@@ -1,13 +1,13 @@
 import { Box, Button, Icon, Section, Stack } from 'tgui-core/components';
 import { Tooltip } from 'tgui-core/components';
-import { type BooleanLike, classes } from 'tgui-core/react';
+import { BooleanLike, classes } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { DesignBrowser } from './Fabrication/DesignBrowser';
 import { MaterialAccessBar } from './Fabrication/MaterialAccessBar';
 import { MaterialCostSequence } from './Fabrication/MaterialCostSequence';
-import type { Design, FabricatorData, MaterialMap } from './Fabrication/Types';
+import { Design, FabricatorData, MaterialMap } from './Fabrication/Types';
 
 type ExosuitDesign = Design & {
   constructionTime: number;
@@ -330,11 +330,14 @@ const QueueList = (props: QueueListProps) => {
                   <Box
                     width={'32px'}
                     height={'32px'}
-                    className={classes(['design32x32', entry.design?.icon])}
+                    className={classes([
+                      'design32x32',
+                      entry.design && entry.design.icon,
+                    ])}
                   />
                 </div>
                 <div className="FabricatorRecipe__Label">
-                  {entry.design?.name}
+                  {entry.design && entry.design.name}
                 </div>
               </div>
             </Tooltip>

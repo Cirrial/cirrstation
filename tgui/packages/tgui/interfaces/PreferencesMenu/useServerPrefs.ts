@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import type { ServerData } from './types';
+import { ServerData } from './types';
 
 export const ServerPrefs = createContext<ServerData | undefined>({
   jobs: {

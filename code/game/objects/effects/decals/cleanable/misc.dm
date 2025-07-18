@@ -191,15 +191,15 @@
 
 /obj/effect/decal/cleanable/vomit/attack_hand(mob/user, list/modifiers)
 	. = ..()
-	if(. || !ishuman(user))
+	if(.)
 		return
-	var/mob/living/carbon/human/as_human = user
-	if(!isflyperson(as_human))
-		return
-	playsound(get_turf(src), 'sound/items/drink.ogg', 50, TRUE) //slurp
-	as_human.visible_message(span_alert("[as_human] extends a small proboscis into the vomit pool, sucking it with a slurping sound."))
-	lazy_init_reagents()?.trans_to(as_human, reagents.total_volume, transferred_by = user, methods = INGEST)
-	qdel(src)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(isflyperson(H))
+			playsound(get_turf(src), 'sound/items/drink.ogg', 50, TRUE) //slurp
+			H.visible_message(span_alert("[H] extends a small proboscis into the vomit pool, sucking it with a slurping sound."))
+			reagents.trans_to(H, reagents.total_volume, transferred_by = user, methods = INGEST)
+			qdel(src)
 
 /obj/effect/decal/cleanable/vomit/toxic // this has a more toned-down color palette, which may be why it's used as the default in so many spots
 	icon_state = "vomittox_1"
@@ -215,9 +215,6 @@
 	icon_state = "vomitnanite_1"
 	random_icon_states = list("vomitnanite_1", "vomitnanite_2", "vomitnanite_3", "vomitnanite_4")
 
-/// Tracked for voidwalkers to jump to and from
-GLOBAL_LIST_EMPTY(nebula_vomits)
-
 /obj/effect/decal/cleanable/vomit/nebula
 	name = "nebula vomit"
 	desc = "Gosh, how... beautiful."
@@ -228,16 +225,10 @@ GLOBAL_LIST_EMPTY(nebula_vomits)
 /obj/effect/decal/cleanable/vomit/nebula/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
 	update_appearance(UPDATE_OVERLAYS)
-	GLOB.nebula_vomits += src
 
 /obj/effect/decal/cleanable/vomit/nebula/update_overlays()
 	. = ..()
 	. += emissive_appearance(icon, icon_state, src, alpha = src.alpha)
-
-/obj/effect/decal/cleanable/vomit/nebula/Destroy()
-	. = ..()
-
-	GLOB.nebula_vomits -= src
 
 /// Nebula vomit with extra guests
 /obj/effect/decal/cleanable/vomit/nebula/worms

@@ -1,5 +1,8 @@
+.pnp.*
+.yarn
 node_modules
-public
 
+# Avoid running on any bundles.
+/public/**/*
 # Running it on tgui.html is fine, however.
 !/public/tgui.html

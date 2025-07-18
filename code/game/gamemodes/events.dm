@@ -54,7 +54,7 @@
 	for(var/obj/machinery/power/smes/smes as anything in all_smes)
 		if(!is_station_level(smes.z))
 			continue
-		smes.adjust_charge(INFINITY)
+		smes.charge = smes.capacity
 		smes.output_level = smes.output_level_max
 		smes.output_attempt = TRUE
 		smes.update_appearance()
@@ -86,7 +86,7 @@
 	for(var/obj/machinery/power/smes/smes as anything in all_smes)
 		if(!is_station_level(smes.z))
 			continue
-		smes.adjust_charge(INFINITY)
+		smes.charge = smes.capacity
 		smes.output_level = smes.output_level_max
 		smes.output_attempt = TRUE
 		smes.update_appearance()

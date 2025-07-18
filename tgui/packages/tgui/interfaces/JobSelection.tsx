@@ -1,4 +1,4 @@
-import { toMerged } from 'es-toolkit';
+import { deepMerge } from 'common/collections';
 import { Color } from 'tgui-core/color';
 import {
   Box,
@@ -9,7 +9,7 @@ import {
   Stack,
   StyleableSection,
 } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -177,7 +177,7 @@ export function JobSelection(props) {
     return null; // Stop TGUI whitescreens with TGUI-dev!
   }
 
-  const departments: Record<string, Department> = toMerged(
+  const departments: Record<string, Department> = deepMerge(
     data.departments,
     data.departments_static,
   );

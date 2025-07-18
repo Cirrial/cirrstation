@@ -5,11 +5,11 @@ import {
   Section,
   Stack,
 } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { AccessConfig, type Region } from './common/AccessConfig';
+import { AccessConfig, Region } from './common/AccessConfig';
 
 type Data = {
   accesses: string[];

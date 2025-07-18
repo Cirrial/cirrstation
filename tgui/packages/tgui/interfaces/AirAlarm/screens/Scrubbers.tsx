@@ -2,7 +2,7 @@ import { useBackend } from 'tgui/backend';
 import { NoticeBox, VirtualList } from 'tgui-core/components';
 
 import { Scrubber } from '../../common/AtmosControls';
-import type { AirAlarmData } from '../types';
+import { AirAlarmData } from '../types';
 
 export function AirAlarmControlScrubbers(props) {
   const { data } = useBackend<AirAlarmData>();

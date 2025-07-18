@@ -1,4 +1,4 @@
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
 
 export type MedicalRecordData = {
   assigned_view: string;

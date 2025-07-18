@@ -229,8 +229,6 @@
 	if(!button)
 		return
 
-	button.actiontooltipstyle = buttontooltipstyle
-
 	if(update_flags & UPDATE_BUTTON_NAME)
 		update_button_name(button, force)
 

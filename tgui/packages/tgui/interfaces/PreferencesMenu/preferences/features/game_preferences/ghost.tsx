@@ -1,16 +1,16 @@
 import { binaryInsertWith } from 'common/collections';
-import type { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { useBackend } from 'tgui/backend';
 import { Box, Dropdown, Flex } from 'tgui-core/components';
 import { classes } from 'tgui-core/react';
 
-import type { PreferencesMenuData } from '../../../types';
+import { PreferencesMenuData } from '../../../types';
 import {
   CheckboxInput,
-  type FeatureChoiced,
-  type FeatureChoicedServerData,
-  type FeatureToggle,
-  type FeatureValueProps,
+  FeatureChoiced,
+  FeatureChoicedServerData,
+  FeatureToggle,
+  FeatureValueProps,
 } from '../base';
 import { FeatureDropdownInput } from '../dropdowns';
 

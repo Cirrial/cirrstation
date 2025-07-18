@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { Button, Stack } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../../backend';
 

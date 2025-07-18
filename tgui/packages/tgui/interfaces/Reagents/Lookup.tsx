@@ -4,7 +4,7 @@ import { useBackend } from '../../backend';
 import { ReagentLookup } from '../common/ReagentLookup';
 import { RecipeLookup } from '../common/RecipeLookup';
 import { bookmarkedReactions } from '.';
-import type { ReagentsData } from './types';
+import { ReagentsData } from './types';
 
 export function Lookup() {
   const { act, data } = useBackend<ReagentsData>();

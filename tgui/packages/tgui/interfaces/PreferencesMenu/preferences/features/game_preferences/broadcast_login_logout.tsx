@@ -1,4 +1,4 @@
-import { CheckboxInput, type FeatureToggle } from '../base';
+import { CheckboxInput, FeatureToggle } from '../base';
 
 export const broadcast_login_logout: FeatureToggle = {
   name: 'Broadcast login/logout',

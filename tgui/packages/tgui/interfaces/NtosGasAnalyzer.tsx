@@ -1,9 +1,9 @@
 import { Button } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { NtosWindow } from '../layouts';
-import { GasAnalyzerContent, type GasAnalyzerData } from './GasAnalyzer';
+import { GasAnalyzerContent, GasAnalyzerData } from './GasAnalyzer';
 
 type NtosGasAnalyzerData = GasAnalyzerData & {
   atmozphereMode: 'click' | 'env';

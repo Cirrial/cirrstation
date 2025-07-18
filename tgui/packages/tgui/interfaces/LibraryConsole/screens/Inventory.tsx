@@ -3,7 +3,7 @@ import { Button, NoticeBox, Stack, Table } from 'tgui-core/components';
 
 import { PageSelect } from '../components/PageSelect';
 import { ScrollableSection } from '../components/ScrollableSection';
-import type { LibraryConsoleData } from '../types';
+import { LibraryConsoleData } from '../types';
 
 export function Inventory(props) {
   const { act, data } = useBackend<LibraryConsoleData>();

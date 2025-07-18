@@ -1,4 +1,4 @@
-import { CheckboxInput, type FeatureToggle } from '../base';
+import { CheckboxInput, FeatureToggle } from '../base';
 
 export const multiz_parallax: FeatureToggle = {
   name: 'Enable multi-z parallax',

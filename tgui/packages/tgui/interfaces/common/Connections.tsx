@@ -10,16 +10,16 @@ export enum ConnectionStyle {
   SUBWAY_SHARP = 'subway sharp',
 }
 
-export type Coordinates = {
+export type Position = {
   x: number;
   y: number;
 };
 
 export type Connection = {
   // X, Y starting point
-  from: Coordinates;
+  from: Position;
   // X, Y ending point
-  to: Coordinates;
+  to: Position;
   // Color of the line, defaults to blue
   color?: string;
   // Type of line - Curvy or Straight / angled, defaults to curvy

@@ -8260,7 +8260,7 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
 /obj/structure/table/glass,
 /obj/item/stack/medical/mesh,
-/obj/item/stack/medical/bandage,
+/obj/item/stack/medical/suture/emergency,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /turf/open/floor/iron/white,
@@ -16906,8 +16906,10 @@
 /obj/effect/turf_decal/siding/dark_blue{
 	dir = 8
 	},
+/obj/item/clothing/gloves/maid,
 /obj/item/clothing/accessory/maidapron,
 /obj/item/clothing/under/costume/maid,
+/obj/item/clothing/neck/maid,
 /obj/effect/spawner/random/clothing/kittyears_or_rabbitears,
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -46565,6 +46567,9 @@
 	pixel_y = 5
 	},
 /obj/item/airlock_painter/decal,
+/obj/item/airlock_painter/decal/tile{
+	pixel_y = -6
+	},
 /obj/effect/turf_decal/trimline/dark/line,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron/dark,

@@ -9,7 +9,7 @@ import {
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import type { Objective } from './common/Objectives';
+import { Objective } from './common/Objectives';
 
 type Data = {
   color: string;

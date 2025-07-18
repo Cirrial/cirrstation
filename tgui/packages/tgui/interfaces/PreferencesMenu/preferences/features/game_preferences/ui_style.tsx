@@ -2,9 +2,9 @@ import { Box, Dropdown, Stack } from 'tgui-core/components';
 import { classes } from 'tgui-core/react';
 
 import {
-  type FeatureChoiced,
-  type FeatureChoicedServerData,
-  type FeatureValueProps,
+  FeatureChoiced,
+  FeatureChoicedServerData,
+  FeatureValueProps,
   sortChoices,
 } from '../base';
 

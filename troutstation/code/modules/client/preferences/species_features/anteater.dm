@@ -55,7 +55,7 @@
 	return final_icon
 
 /datum/preference/choiced/anteater_body_markings/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features[FEATURE_ANTEATER_MARKINGS] = value
+	target.dna.features["anteater_markings"] = value
 
 /datum/preference/choiced/anteater_snout
 	savefile_key = "feature_anteater_snout"
@@ -69,10 +69,10 @@
 	return assoc_to_keys_features(SSaccessories.anteater_snouts_list)
 
 /datum/preference/choiced/anteater_snout/icon_for(value)
-	return generate_anteater_side_shot(SSaccessories.anteater_snouts_list[value], FEATURE_ANTEATER_SNOUT, include_snout = FALSE)
+	return generate_anteater_side_shot(SSaccessories.anteater_snouts_list[value], "anteater_snout", include_snout = FALSE)
 
 /datum/preference/choiced/anteater_snout/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features[FEATURE_ANTEATER_SNOUT] = value
+	target.dna.features["anteater_snout"] = value
 
 /datum/preference/choiced/anteater_tail
 	savefile_key = "feature_anteater_tail"
@@ -84,7 +84,7 @@
 	return assoc_to_keys_features(SSaccessories.tails_list_anteater)
 
 /datum/preference/choiced/anteater_tail/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features[FEATURE_ANTEATER_TAIL] = value
+	target.dna.features["tail_anteater"] = value
 
 /datum/preference/choiced/anteater_tail/create_default_value()
 	return /datum/sprite_accessory/tails/anteater/giant::name

@@ -3,7 +3,7 @@ import { capitalize } from 'tgui-core/string';
 
 import { useBackend } from '../../backend';
 import { SWIPE_NEEDED } from './constants';
-import type { CommsConsoleData } from './types';
+import { CommsConsoleData } from './types';
 
 type Props = {
   alertLevel: string;

@@ -1,7 +1,7 @@
 import { DmIcon, Icon } from 'tgui-core/components';
 
 import { JOB2ICON } from '../common/JobToIcon';
-import type { Antagonist, Observable } from './types';
+import { Antagonist, Observable } from './types';
 
 type Props = {
   item: Observable | Antagonist;
