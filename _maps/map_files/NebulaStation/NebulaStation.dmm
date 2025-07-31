@@ -56283,10 +56283,6 @@
 /turf/open/floor/wood/large,
 /area/station/commons/dorms)
 "ipM" = (
-/obj/item/toy/plush/goatplushie{
-	name = "Easteria";
-	desc = "Despite its cuddly appearance and plush nature, it will... cuddle you up all the same?"
-	},
 /obj/item/staff,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/fore)
