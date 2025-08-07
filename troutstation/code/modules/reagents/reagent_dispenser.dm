@@ -15,10 +15,9 @@
 	. = ..()
 	START_PROCESSING(SSprocessing, src)
 
-// /obj/structure/reagent_dispensers/water_cooler/gay/Destroy()
-// 	STOP_PROCESSING(SSprocessing, src)
-// 	return ..()
-// // does this need to happen? i dont know how Destroy() works but i wouldn't want it to keep processing after being destroyed
+/obj/structure/reagent_dispensers/water_cooler/gay/Destroy()
+	STOP_PROCESSING(SSprocessing, src)
+	return ..()
 
 /obj/structure/reagent_dispensers/water_cooler/gay/process()
 	if(prob(1))
