@@ -66211,7 +66211,7 @@
 	name = "lavaland";
 	shuttle_id = "pod_2_lavaland"
 	},
-/turf/open/space,
+/turf/open/space/basic,
 /area/space)
 "jPa" = (
 /obj/structure/chair/office,
@@ -88028,11 +88028,6 @@
 /obj/item/radio/intercom/directional/south,
 /turf/open/floor/engine,
 /area/station/engineering/supermatter/room)
-"nea" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/marker_beacon/lime,
-/turf/open/space,
-/area/space/nearstation)
 "ned" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/window/reinforced/spawner/directional/south,
@@ -98845,7 +98840,7 @@
 	dir = 1
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/space,
+/turf/open/space/basic,
 /area/space/nearstation)
 "oJw" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
@@ -102382,7 +102377,7 @@
 "pgI" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
 /obj/structure/lattice/catwalk,
-/turf/open/space,
+/turf/open/space/basic,
 /area/space/nearstation)
 "pgL" = (
 /obj/structure/cable,
@@ -120504,10 +120499,6 @@
 	},
 /turf/open/floor/circuit/telecomms/server,
 /area/station/science/server)
-"rQa" = (
-/obj/structure/lattice,
-/turf/open/space,
-/area/space/nearstation)
 "rQb" = (
 /obj/structure/table/reinforced/plastitaniumglass,
 /turf/open/floor/iron/dark,
@@ -145350,11 +145341,6 @@
 /obj/machinery/camera/autoname/directional/east,
 /turf/open/floor/iron/dark,
 /area/station/security/checkpoint/supply)
-"vzP" = (
-/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
-/obj/structure/lattice/catwalk,
-/turf/open/space,
-/area/space/nearstation)
 "vzQ" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -159528,13 +159514,6 @@
 /obj/structure/marker_beacon/burgundy,
 /obj/structure/lattice/catwalk,
 /turf/open/floor/engine/hull/reinforced,
-/area/space/nearstation)
-"xKJ" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/components/unary/passive_vent{
-	dir = 1
-	},
-/turf/open/space,
 /area/space/nearstation)
 "xKK" = (
 /obj/machinery/computer/teleporter,
@@ -180751,7 +180730,7 @@ gym
 gym
 gym
 gym
-nea
+cJz
 gJT
 xzb
 ejn
@@ -181779,7 +181758,7 @@ gym
 gym
 gym
 gym
-nea
+cJz
 gJT
 xzb
 ejn
@@ -182807,7 +182786,7 @@ gym
 gym
 gym
 gym
-nea
+cJz
 gJT
 xzb
 ejn
@@ -183835,7 +183814,7 @@ gym
 gym
 gym
 gym
-nea
+cJz
 gJT
 xzb
 ejn
@@ -198066,13 +198045,13 @@ gih
 emX
 upO
 mSY
-xKJ
+acT
 trC
 trC
 trC
 trC
 trC
-rQa
+gJT
 ihJ
 gym
 gJT
@@ -198323,13 +198302,13 @@ xyz
 mYR
 cKX
 aVG
-vzP
+sXb
 tbk
 qGg
 oxC
 oxC
 trC
-rQa
+gJT
 dew
 gJT
 dew
@@ -198580,13 +198559,13 @@ jVY
 bSb
 jct
 jvZ
-rQa
+gJT
 cYz
 eBC
 sof
 wDA
 trC
-rQa
+gJT
 ihJ
 ykP
 dew
@@ -198843,7 +198822,7 @@ mHk
 qOc
 oxC
 trC
-rQa
+gJT
 dew
 gJT
 dew
@@ -199094,7 +199073,7 @@ aYL
 cWS
 oUY
 kpN
-rQa
+gJT
 trC
 trC
 trC
@@ -199351,13 +199330,13 @@ ykv
 bKG
 iKr
 aVG
-vzP
+sXb
 tbk
 mrN
 fsx
 fsx
 trC
-rQa
+gJT
 dew
 gJT
 dew
@@ -199608,13 +199587,13 @@ jSo
 eMn
 dmH
 jvZ
-rQa
+gJT
 cYz
 nrh
 wJx
 paH
 trC
-rQa
+gJT
 ihJ
 ykP
 dew
@@ -199871,7 +199850,7 @@ eNX
 bLG
 fsx
 trC
-rQa
+gJT
 dew
 gJT
 dew
@@ -200122,7 +200101,7 @@ uLW
 tYl
 oUY
 kpN
-rQa
+gJT
 trC
 trC
 trC
@@ -200385,7 +200364,7 @@ gGE
 uCR
 uCR
 trC
-rQa
+gJT
 dew
 gJT
 dew
@@ -200636,13 +200615,13 @@ rZX
 aab
 dmH
 jvZ
-rQa
+gJT
 cYz
 fEq
 kOH
 acG
 trC
-rQa
+gJT
 ihJ
 ykP
 dew
@@ -200899,7 +200878,7 @@ ocT
 gKt
 uCR
 trC
-rQa
+gJT
 dew
 gJT
 dew
@@ -201150,13 +201129,13 @@ cDb
 sBP
 eTX
 iwh
-rQa
+gJT
 trC
 trC
 trC
 trC
 trC
-rQa
+gJT
 ihJ
 gym
 gJT
@@ -201407,11 +201386,11 @@ lmu
 yjn
 caH
 iwh
-rQa
-ykP
-rQa
 gJT
-rQa
+ykP
+gJT
+gJT
+gJT
 ykP
 gJT
 gJT
