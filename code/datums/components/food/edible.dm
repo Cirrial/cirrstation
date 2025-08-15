@@ -339,7 +339,7 @@ Behavior that's still missing from this component that original food items had t
 	var/volume = ROUND_UP(original_atom.reagents.maximum_volume / chosen_processing_option[TOOL_PROCESSING_AMOUNT])
 
 	this_food.create_reagents(volume, this_food.reagents?.flags)
-	original_atom.reagents.copy_to(this_food, original_atom.reagents.total_volume / chosen_processing_option[TOOL_PROCESSING_AMOUNT], 1)
+	original_atom.reagents.trans_to(this_food, original_atom.reagents.total_volume / chosen_processing_option[TOOL_PROCESSING_AMOUNT], copy_only = TRUE)
 
 	if(original_atom.name != initial(original_atom.name))
 		this_food.name = "slice of [original_atom.name]"
@@ -453,10 +453,10 @@ Behavior that's still missing from this component that original food items had t
 				if(food.snout_eat_message_category)
 					snout_message_category = food.snout_eat_message_category
 			var/snout_broadcast_category = "[snout_message_category][SNOUT_EAT_MESSAGE_BROADCAST_SUFFIX]"
-			message_to_consumer = pick_list_replacements(SNOUT_EAT_MESSAGE_FILE, snout_message_category)
-			message_to_consumer = REPLACE_PRONOUNS(replacetext(message_to_consumer, "%FOOD", "\the [parent]"), eater)
-			message_to_nearby_audience = pick_list_replacements(SNOUT_EAT_MESSAGE_FILE, snout_broadcast_category)
-			message_to_nearby_audience = REPLACE_PRONOUNS(replacetext(message_to_nearby_audience, "%FOOD", "\the [parent]"), eater)
+			message_to_consumer = replacetext(pick_list_replacements(SNOUT_EAT_MESSAGE_FILE, snout_message_category), "%FOOD", "\the [parent]")
+			message_to_consumer = span_notice(REPLACE_PRONOUNS(message_to_consumer, eater))
+			message_to_nearby_audience = replacetext(pick_list_replacements(SNOUT_EAT_MESSAGE_FILE, snout_broadcast_category), "%FOOD", "\the [parent]")
+			message_to_nearby_audience = span_notice("[eater] [REPLACE_PRONOUNS(message_to_nearby_audience, eater)]")
 			if(!(snout_broadcast_category in SNOUT_EAT_QUIETLY_LIST))
 				message_to_blind_nearby_audience = "You hear an anteater struggling with food."
 

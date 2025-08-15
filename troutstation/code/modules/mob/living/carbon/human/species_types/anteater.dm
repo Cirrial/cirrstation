@@ -16,6 +16,7 @@
 	mutanttongue = /obj/item/organ/tongue/anteater
 	mutantstomach = /obj/item/organ/stomach/anteater
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
+	death_sound = 'troutstation/sound/mobs/humanoids/anteater/anteater_death.ogg'
 	species_language_holder = /datum/language_holder/anteater
 	payday_modifier = 1.0
 
@@ -61,24 +62,14 @@
 // sounds
 
 /datum/species/anteater/get_scream_sound(mob/living/carbon/human/anteater)
-	if(anteater.physique == MALE)
-		if(prob(1))
-			return 'sound/mobs/humanoids/human/scream/wilhelm_scream.ogg'
-		return pick(
-			'sound/mobs/humanoids/human/scream/malescream_1.ogg',
-			'sound/mobs/humanoids/human/scream/malescream_2.ogg',
-			'sound/mobs/humanoids/human/scream/malescream_3.ogg',
-			'sound/mobs/humanoids/human/scream/malescream_4.ogg',
-			'sound/mobs/humanoids/human/scream/malescream_5.ogg',
-			'sound/mobs/humanoids/human/scream/malescream_6.ogg',
-		)
-
 	return pick(
-		'sound/mobs/humanoids/human/scream/femalescream_1.ogg',
-		'sound/mobs/humanoids/human/scream/femalescream_2.ogg',
-		'sound/mobs/humanoids/human/scream/femalescream_3.ogg',
-		'sound/mobs/humanoids/human/scream/femalescream_4.ogg',
-		'sound/mobs/humanoids/human/scream/femalescream_5.ogg',
+		'troutstation/sound/mobs/humanoids/anteater/anteater_scream1.ogg',
+		'troutstation/sound/mobs/humanoids/anteater/anteater_scream2.ogg',
+		'troutstation/sound/mobs/humanoids/anteater/anteater_scream3.ogg',
+		'troutstation/sound/mobs/humanoids/anteater/anteater_scream4.ogg',
+		'troutstation/sound/mobs/humanoids/anteater/anteater_scream5.ogg',
+		'troutstation/sound/mobs/humanoids/anteater/anteater_scream6.ogg',
+		'troutstation/sound/mobs/humanoids/anteater/anteater_scream7.ogg',
 	)
 
 /datum/species/anteater/get_cough_sound(mob/living/carbon/human/anteater)
@@ -119,11 +110,10 @@
 	return 'sound/mobs/humanoids/human/sneeze/male_sneeze1.ogg'
 
 /datum/species/anteater/get_laugh_sound(mob/living/carbon/human/anteater)
-	if(anteater.physique == FEMALE)
-		return 'sound/mobs/humanoids/human/laugh/womanlaugh.ogg'
 	return pick(
-		'sound/mobs/humanoids/human/laugh/manlaugh1.ogg',
-		'sound/mobs/humanoids/human/laugh/manlaugh2.ogg',
+		'troutstation/sound/mobs/humanoids/anteater/anteater_laugh1.ogg',
+		'troutstation/sound/mobs/humanoids/anteater/anteater_laugh2.ogg',
+		'troutstation/sound/mobs/humanoids/anteater/anteater_laugh3.ogg',
 	)
 
 /datum/species/anteater/get_sigh_sound(mob/living/carbon/human/anteater)
@@ -142,7 +132,7 @@
 	return SFX_SNORE_MALE
 
 /datum/species/anteater/get_hiss_sound(mob/living/carbon/human/anteater)
-	return 'sound/mobs/humanoids/human/hiss/human_hiss.ogg'
+	return 'troutstation/sound/mobs/humanoids/anteater/anteater_hiss.ogg'
 
 // descriptions
 
@@ -151,15 +141,14 @@
 		They have a long snout and a large tail, and are known for their ability to eat space ants."
 
 /datum/species/anteater/get_species_description()
-	return "(EARLY ACCESS PREVIEW) \n\
-		Local to this sector of space, the anteaters helped with the financing of the \
+	return "Local to this sector of space, the anteaters helped with the financing of the \
 		construction of the station in exchange for a presence in NT operations here."
 
 /datum/species/anteater/get_species_lore()
 	return list(
-		"(no lore here yet :C)",
+		"Locals to this part of space, the Antan have allowed Nanotrasen the right to run a plasma research station at prime rates... provided that they allow any of their kind that wish to work there to do so.",
 
-		"Allen please add details."
+		"Nanotrasen agreed, as it doesn't cost anything to hire cheap labor and then not-support their biological needs.",
 	)
 
 /datum/species/anteater/create_pref_unique_perks()
@@ -169,7 +158,7 @@
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = FA_ICON_BUG,
 			SPECIES_PERK_NAME = "Ant Eater",
-			SPECIES_PERK_DESC = "You can eat space ants with no ill effect. Using an empty hand on space ants will let you eat them.",
+			SPECIES_PERK_DESC = "You can eat space ants with no ill effect. Using an empty hand on space ants on the floor will let you eat them.",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,

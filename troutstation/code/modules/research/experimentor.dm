@@ -471,9 +471,10 @@
 				c.blood_volume -= amount
 				to_chat(c, span_bolddanger("[parent_relic] drains some of your succulent lifeforce!"))
 			else if (prob(95)) // Steal a non-brain organ
-				var/obj/item/organ/remove_organ = pick(GLOB.bioscrambler_valid_organs)
-				if (c.organs_slot.Find(remove_organ.slot))
-					c.organs_slot[remove_organ.slot].mob_remove(c)
+				var/obj/item/organ/type_organ = pick(GLOB.bioscrambler_valid_organs)
+				if (c.organs_slot.Find(type_organ.slot))
+					var/obj/item/organ/organ_to_remove = c.organs_slot[type_organ.slot]
+					organ_to_remove.mob_remove(c)
 					to_chat(c, span_bolddanger("[parent_relic] demands something more, and you feel a little hollow."))
 				else
 					to_chat(c, span_warning("[parent_relic] demands something more, but you do not have what it wants."))
@@ -569,7 +570,7 @@
 	RegisterSignal(src, COMSIG_ATOM_FIRE_ACT, PROC_REF(on_fired))
 	RegisterSignal(src, COMSIG_ITEM_HIT_REACT, PROC_REF(on_hit_react))
 	RegisterSignal(src, COMSIG_OBJ_PAINTED, PROC_REF(on_painted))
-	RegisterSignal(src, COMSIG_ATOM_AFTER_EXPOSE_REAGENTS, PROC_REF(on_exposure))
+	RegisterSignal(src, COMSIG_ATOM_EXPOSE_REAGENTS, PROC_REF(on_exposure))
 	RegisterSignal(src, COMSIG_ATOM_ITEM_INTERACTION, PROC_REF(on_clicked))
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_IRRADIATED), PROC_REF(on_radiated))
 
