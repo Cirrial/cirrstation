@@ -92,7 +92,6 @@
 		if(size==2)
 			w_class = WEIGHT_CLASS_HUGE
 			AddComponent(/datum/component/two_handed, require_twohands = TRUE)
-			layer = ABOVE_MOB_LAYER
 		if(size==2.5)
 			w_class = WEIGHT_CLASS_GIGANTIC
 			interaction_flags_item = NONE
