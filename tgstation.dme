@@ -6827,6 +6827,7 @@
 #include "troutstation\code\modules\flock\flock_materials.dm"
 #include "troutstation\code\modules\flock\flock_misc_structures.dm"
 #include "troutstation\code\modules\flock\flock_turfs.dm"
+#include "troutstation\code\modules\flock\hud\flock_hud.dm"
 #include "troutstation\code\modules\flock\mobs\flock_analyst.dm"
 #include "troutstation\code\modules\food_and_drinks\recipes\drinks\drinks_non-alcoholic.dm"
 #include "troutstation\code\modules\food_and_drinks\recipes\tablecraft\recipes_guide.dm"

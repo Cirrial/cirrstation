@@ -1,8 +1,11 @@
 /mob/living/basic/flock
+	icon = 'troutstation/icons/mob/simple/flock.dmi'
 	gender = NEUTER
 	mob_biotypes = MOB_ROBOTIC | MOB_SPECIAL
 	faction = list(FACTION_FLOCK)
 	unsuitable_atmos_damage = 0 // they don't need air!
+	unsuitable_cold_damage = 0
+	unsuitable_heat_damage = 0
 	minimum_survivable_temperature = 0
 	maximum_survivable_temperature = INFINITY
 	fire_stack_decay_rate = -10 // todo: self-extinguish behaviour for all flock mobs
