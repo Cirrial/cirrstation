@@ -177,6 +177,15 @@
         border-color: #2c0f0c;
         background-color: #221c1a;
       }
+      /* Troutstation edit */
+      .wizard-tower .wrap {
+        border-color: #000000;
+      }
+      .wizard-tower .content {
+        color: #000000;
+        border-color: #3c3c3c;
+        background-color: #ffffff;
+      }
     </style>
   </head>
   <body>
@@ -222,13 +231,13 @@
             mapHeight = map["view-size"].y,
             tilesShownX = tooltip.client_view_w;
           tilesShownY = tooltip.client_view_h;
-          (realIconSizeX = mapWidth / tilesShownX),
+          ((realIconSizeX = mapWidth / tilesShownX),
             (realIconSizeY = mapHeight / tilesShownY),
             (resizeRatioX = realIconSizeX / tooltip.tileSize),
             (resizeRatioY = realIconSizeY / tooltip.tileSize),
             //Calculate letterboxing offsets
             (leftOffset = (map.size.x - mapWidth) / 2),
-            (topOffset = (map.size.y - mapHeight) / 2);
+            (topOffset = (map.size.y - mapHeight) / 2));
 
           //alert(realIconSize + ' | ' +tooltip.tileSize + ' | ' + resizeRatio); //DEBUG
 
