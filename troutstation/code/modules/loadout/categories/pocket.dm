@@ -5,3 +5,7 @@
 /datum/loadout_item/pocket_items/plush/rufran
 	name = "Plush (Rufran)"
 	item_path = /obj/item/toy/plush/rufran
+
+/datum/loadout_item/pocket_items/plush/lehto
+	name = "Plush (Lehto)"
+	item_path = /obj/item/toy/plush/lehto
