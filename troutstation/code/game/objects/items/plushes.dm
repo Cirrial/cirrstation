@@ -8,6 +8,7 @@
 	attack_verb_simple = list("squeak at", "strike", "bash")
 	squeak_override = list('troutstation/sound/items/toy_squeak/mrdSqueak.ogg' = 1)
 	gender = FEMALE
+	breedable = FALSE // do not the maddie
 
 /obj/item/toy/plush/goatplushie
 	icon = 'troutstation/icons/obj/toys/plushes.dmi'
@@ -82,14 +83,22 @@
 	squeak_override = list('sound/mobs/humanoids/moth/scream_moth.ogg'=1)
 	var/size = RUFRAN_NORMAL_SIZE
 
-/obj/item/toy/plush/rufran/attackby(obj/item/dnainjector/serum, mob/user, list/modifiers, list/attack_modifiers)
+/obj/item/toy/plush/rufran/attackby(obj/item/item, mob/user, list/modifiers, list/attack_modifiers)
+	if(istype(item, /obj/item/dnainjector))
+		var/obj/item/dnainjector/serum = item
+		embiggen(serum)
+	return ..()
+
+/obj/item/toy/plush/rufran/proc/embiggen(obj/item/dnainjector/serum, mob/user)
 	if(serum.used)
 		to_chat(user, span_warning("This injector is used up!"))
 		return
 	if(size >= RUFRAN_GIGANTIC_SIZE)
 		to_chat(user, span_warning("[src] can't get any bigger!"))
 		return
-	if((/datum/mutation/gigantism in serum.add_mutations) || (serum.add_mutations[1].name == "Gigantism")) // holy shit if you can make this cleaner PLEASE
+	var/list/mutations = serum.add_mutations
+	var/datum/mutation/primary_mutation = mutations[1]
+	if((/datum/mutation/gigantism in mutations) || (primary_mutation.name == "Gigantism")) // holy shit if you can make this cleaner PLEASE
 		to_chat(user, span_notice("You inject [src] with the gigantism serum!"))
 		size += RUFRAN_SIZE_INCREMENT
 		AddElement(/datum/element/item_scaling, size, size)
@@ -112,7 +121,6 @@
 			w_class = WEIGHT_CLASS_BULKY
 			change_squeak_frequency(0.85)
 		return
-
 
 /obj/item/toy/plush/rufran/examine()
 	. = ..()
