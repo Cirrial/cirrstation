@@ -547,7 +547,7 @@
 	var/obj/structure/table/chosen_table = pick(table_list)
 	var/datum/component/table_smash/smasher = chosen_table.GetComponent(/datum/component/table_smash)
 	for (var/mob/living/m in view(table_range, parent_relic))
-		chosen_table.tablepush(m, m)
+		smasher.tablepush(m, m)
 		if (parent_relic.embedded_mob == null)
 			do_teleport(teleatom = parent_relic, destination = get_turf(m))
 
