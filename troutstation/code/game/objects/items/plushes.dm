@@ -140,3 +140,72 @@
 #undef RUFRAN_HUGE_SIZE
 #undef RUFRAN_GIGANTIC_SIZE
 #undef RUFRAN_SIZE_INCREMENT
+
+
+
+/obj/item/toy/plush/cyd
+	icon = 'troutstation/icons/obj/toys/plushes.dmi'
+	name = "cydonia plushie"
+	desc = "That fucking unlucky bastard. Some fuck thought it was funny to turn this poor lizard into a marketable plushie just to torment her."
+	icon_state = "plushie_cyd"
+	inhand_icon_state = null
+	attack_verb_continuous = list("claws", "hisses", "tail slaps")
+	attack_verb_simple = list("claw", "hiss", "tail slap")
+	squeak_override = list('sound/mobs/humanoids/lizard/lizard_scream_2.ogg' = 1)
+	gender = FEMALE
+	var/squashed = 0
+
+/obj/item/toy/plush/cyd/examine()
+	. = ..()
+	if(squashed == 1)
+		. += span_notice("It has been crushed one time")
+	else if(squashed >= 2)
+		. += span_notice("It has been crushed " + convert_integer_to_words(squashed) + " times")
+
+/obj/item/toy/plush/vending
+	icon = 'troutstation/icons/obj/toys/plushes.dmi'
+	name = "vending machine plushie"
+	desc = "Marketable vending machine. Less marketable than a real vending machine as it does not actually vend."
+	icon_state = "plushie_vend_1"
+	inhand_icon_state = null
+	attack_verb_continuous = list("falls onto", "tilts onto")
+	attack_verb_simple = list("fall onto", "tilt onto")
+	verb_say = "beeps"
+	verb_ask = "beeps"
+	verb_exclaim = "beeps"
+	breedable = FALSE
+	squeak_override = list('sound/effects/bang.ogg' = 1)
+
+/obj/item/toy/plush/vending/red
+	icon_state = "plushie_vend_1"
+
+/obj/item/toy/plush/vending/cola
+	icon_state = "plushie_vend_2"
+
+/obj/item/toy/plush/vending/tool
+	icon_state = "plushie_vend_3"
+
+/obj/item/toy/plush/vending/snack
+	icon_state = "plushie_vend_4"
+
+/obj/effect/spawner/random/entertainment/plushie/vending // i probably dont NEED this to exist but
+	name = "vending machine plushie spawner"
+	icon_state = "plushie"
+	loot = list(
+		/obj/item/toy/plush/vending/red,
+		/obj/item/toy/plush/vending/cola,
+		/obj/item/toy/plush/vending/tool,
+		/obj/item/toy/plush/vending/snack,
+	)
+
+/obj/item/toy/plush/vending/attack_self(mob/user)
+	.=..()
+	say(pick("Smoke!","Don't believe the reports - smoke today!","Don't quit, buy more!","Probably not bad for you!","Hope you're thirsty!","Thirsty? Why not cola?","Please, have a drink!","Drink up!","Mmm! So good!","Have a meal.","Float like an astronaut, sting like a bullet!","Express your second amendment today!","Oh my god it's so juicy!","Have a snack.","Snacks are good for you!")) // desperately needs a cooldown, i dont know how to do that
+
+/obj/item/toy/plush/cyd/attackby(obj/item/item, mob/user, list/modifiers, list/attack_modifiers)
+	if(istype(item, /obj/item/toy/plush/vending))
+		src.AddElement(/datum/element/squish, 60 SECONDS)
+		playsound(get_turf(src), 'sound/effects/bang.ogg', 50, TRUE)
+		src.manual_emote("coughs!")
+		squashed += 1
+	return ..()
