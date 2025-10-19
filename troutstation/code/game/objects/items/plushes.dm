@@ -188,19 +188,15 @@
 /obj/item/toy/plush/vending/snack
 	icon_state = "plushie_vend_4"
 
-/obj/effect/spawner/random/entertainment/plushie/vending // i probably dont NEED this to exist but
+/obj/effect/spawner/random/entertainment/plushie/vending
 	name = "vending machine plushie spawner"
-	icon_state = "plushie"
-	loot = list(
-		/obj/item/toy/plush/vending/red,
-		/obj/item/toy/plush/vending/cola,
-		/obj/item/toy/plush/vending/tool,
-		/obj/item/toy/plush/vending/snack,
-	)
+	icon_state = "snack"
+	loot_subtype_path = /obj/item/toy/plush/vending
+	loot = list()
 
 /obj/item/toy/plush/vending/attack_self(mob/user)
 	.=..()
-	say(pick("Smoke!","Don't believe the reports - smoke today!","Don't quit, buy more!","Probably not bad for you!","Hope you're thirsty!","Thirsty? Why not cola?","Please, have a drink!","Drink up!","Mmm! So good!","Have a meal.","Float like an astronaut, sting like a bullet!","Express your second amendment today!","Oh my god it's so juicy!","Have a snack.","Snacks are good for you!")) // desperately needs a cooldown, i dont know how to do that
+	say(pick("Smoke!","Don't believe the reports - smoke today!","Don't quit, buy more!","Probably not bad for you!","Hope you're thirsty!","Thirsty? Why not cola?","Please, have a drink!","Drink up!","Mmm! So good!","Have a meal.","Float like an astronaut, sting like a bullet!","Express your second amendment today!","Oh my god it's so juicy!","Have a snack.","Snacks are good for you!","Hands down the best seed selection on the station!","THIS'S WHERE TH' SEEDS LIVE! GIT YOU SOME!")) // desperately needs a cooldown, i dont know how to do that
 
 /obj/item/toy/plush/cyd/attackby(obj/item/item, mob/user, list/modifiers, list/attack_modifiers)
 	if(istype(item, /obj/item/toy/plush/vending))
