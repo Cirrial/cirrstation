@@ -166,6 +166,8 @@
 	squeak_override = list('sound/mobs/humanoids/lizard/lizard_scream_2.ogg' = 1)
 	gender = FEMALE
 	var/squashed = 0
+	COOLDOWN_DECLARE(squash_cooldown)
+	var/squash_delay = 1 SECONDS
 
 /obj/item/toy/plush/cyd/examine()
 	. = ..()
@@ -187,6 +189,8 @@
 	verb_exclaim = "beeps"
 	breedable = FALSE
 	squeak_override = list('sound/effects/bang.ogg' = 1)
+	COOLDOWN_DECLARE(say_cooldown)
+	var/say_delay = 2 SECONDS
 
 /obj/item/toy/plush/vending/red
 	icon_state = "plushie_vend_1"
@@ -208,10 +212,13 @@
 
 /obj/item/toy/plush/vending/attack_self(mob/user)
 	.=..()
-	say(pick("Smoke!","Don't believe the reports - smoke today!","Don't quit, buy more!","Probably not bad for you!","Hope you're thirsty!","Thirsty? Why not cola?","Please, have a drink!","Drink up!","Mmm! So good!","Have a meal.","Float like an astronaut, sting like a bullet!","Express your second amendment today!","Oh my god it's so juicy!","Have a snack.","Snacks are good for you!","Hands down the best seed selection on the station!","THIS'S WHERE TH' SEEDS LIVE! GIT YOU SOME!")) // desperately needs a cooldown, i dont know how to do that
+	if(COOLDOWN_FINISHED(src, say_cooldown))
+		COOLDOWN_START(src, say_cooldown, say_delay)
+		say(pick("Smoke!","Don't believe the reports - smoke today!","Don't quit, buy more!","Probably not bad for you!","Hope you're thirsty!","Thirsty? Why not cola?","Please, have a drink!","Drink up!","Mmm! So good!","Have a meal.","Float like an astronaut, sting like a bullet!","Express your second amendment today!","Oh my god it's so juicy!","Have a snack.","Snacks are good for you!","Hands down the best seed selection on the station!","THIS'S WHERE TH' SEEDS LIVE! GIT YOU SOME!")) // desperately needs a cooldown, i dont know how to do that
 
 /obj/item/toy/plush/cyd/attackby(obj/item/item, mob/user, list/modifiers, list/attack_modifiers)
-	if(istype(item, /obj/item/toy/plush/vending))
+	if(istype(item, /obj/item/toy/plush/vending) && COOLDOWN_FINISHED(src, squash_cooldown))
+		COOLDOWN_START(src, squash_cooldown, squash_delay)
 		src.AddElement(/datum/element/squish, 60 SECONDS)
 		playsound(get_turf(src), 'sound/effects/bang.ogg', 50, TRUE)
 		src.manual_emote("coughs!")
