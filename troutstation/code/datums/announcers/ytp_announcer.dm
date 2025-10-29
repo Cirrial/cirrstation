@@ -13,9 +13,9 @@
 		ANNOUNCER_OUTBREAK7 = 'troutstation/sound/announcer/ytp/outbreak7.ogg',
 		ANNOUNCER_POWEROFF = 'troutstation/sound/announcer/ytp/poweroff.ogg',
 		ANNOUNCER_POWERON = 'troutstation/sound/announcer/ytp/poweron.ogg',
-		// ANNOUNCER_RADIATION = 'troutstation/sound/announcer/ytp/radiation.ogg',
+		ANNOUNCER_RADIATION = 'troutstation/sound/announcer/ytp/radiation.ogg',
 		ANNOUNCER_SHUTTLECALLED = 'troutstation/sound/announcer/ytp/shuttlecalled.ogg',
 		ANNOUNCER_SHUTTLEDOCK = 'troutstation/sound/announcer/ytp/shuttledock.ogg',
 		ANNOUNCER_SHUTTLERECALLED = 'troutstation/sound/announcer/ytp/shuttlerecalled.ogg'
-		// ANNOUNCER_SPANOMALIES = 'troutstation/sound/announcer/ytp/spanomalies.ogg'
+		ANNOUNCER_SPANOMALIES = 'troutstation/sound/announcer/ytp/spanomalies.ogg',
 		)
