@@ -85,7 +85,7 @@
 	ambientsounds = list(
 		'sound/ambience/security/ambidet1.ogg',
 		'sound/ambience/security/ambidet2.ogg',
-		'troutstaion/sound/ambience/security/ambidet3.ogg',
+		'troutstation/sound/ambience/security/ambidet3.ogg', // Troutstation edit
 		)
 
 /area/station/security/detectives_office/private_investigators_office
