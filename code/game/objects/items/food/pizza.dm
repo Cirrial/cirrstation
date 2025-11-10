@@ -134,7 +134,7 @@
 	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/pizzaslice/make_processable()
-	AddElement(/datum/element/processable, TOOL_ROLLINGPIN, /obj/item/stack/sheet/pizza, 1, 1 SECONDS, table_required = TRUE, screentip_verb = "Flatten")
+	AddElement(/datum/element/processable, TOOL_ROLLINGPIN, /obj/item/stack/sheet/pizza, 1, 1 SECONDS, table_required = TRUE, screentip_verb = "Flatten", sound_to_play = SFX_ROLLING_PIN_ROLLING)
 
 /obj/item/food/pizza/margherita
 	name = "pizza margherita"
@@ -536,6 +536,12 @@
 	)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "insects" = 1)
 	foodtypes = GRAIN | VEGETABLES | DAIRY | BUGS
+
+// Troutstation edit start
+/obj/item/food/pizzaslice/ants/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/anteater_lickable, /obj/item/food/pizzaslice/margherita)
+// Troutstation edit end
 
 // Ethereal Pizza, for when they want a slice
 /obj/item/food/pizza/energy

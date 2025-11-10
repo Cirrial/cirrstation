@@ -79,12 +79,22 @@
 	icon_state = "evidence"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
+/area/station/security/armory
+	name = "\improper Armory"
+	icon_state = "armory"
+	ambience_index = AMBIENCE_DANGER
+	motion_monitored = TRUE
+
+/area/station/security/armory/upper
+	name = "Upper Armory"
+
 /area/station/security/detectives_office
 	name = "\improper Detective's Office"
 	icon_state = "detective"
 	ambientsounds = list(
 		'sound/ambience/security/ambidet1.ogg',
 		'sound/ambience/security/ambidet2.ogg',
+		'troutstation/sound/ambience/security/ambidet3.ogg', // Troutstation edit
 		)
 
 /area/station/security/detectives_office/private_investigators_office

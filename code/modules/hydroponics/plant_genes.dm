@@ -354,7 +354,7 @@
 	to_chat(eater, span_notice("You feel energized as you bite into [our_plant]."))
 	var/batteries_recharged = FALSE
 	var/obj/item/seeds/our_seed = our_plant.get_plant_seed()
-	for(var/obj/item/stock_parts/power_store/found_cell in eater.get_all_cells())
+	for(var/obj/item/stock_parts/power_store/found_cell in assoc_to_values(eater.get_all_cells()))
 		var/newcharge = min(our_seed.potency * 0.01 * found_cell.maxcharge, found_cell.maxcharge)
 		if(found_cell.charge < newcharge)
 			found_cell.charge = newcharge
@@ -989,3 +989,21 @@
 /datum/plant_gene/trait/plant_type/alien_properties
 	name ="?????"
 	icon = FA_ICON_DISEASE
+
+/datum/plant_gene/trait/carnivory
+	name = "Obligate Carnivory"
+	description = "Pests have positive effect on the plant health."
+	icon = FA_ICON_SPIDER
+
+/datum/plant_gene/trait/semiaquatic
+	name = "Semiaquatic"
+	description = "A type of plant that thrives in flooded conditions due to less competion from weeds, but can also grow on land."
+	icon = FA_ICON_BOWL_RICE
+	mutability_flags = PLANT_GENE_REMOVABLE | PLANT_GENE_MUTATABLE | PLANT_GENE_GRAFTABLE
+
+/datum/plant_gene/trait/soil_lover
+	name = "Soil Lover"
+	description = "A plant that needs the firm embrace of soil to develop properly, produces small irregular produce when grown hydroponically."
+	icon =  FA_ICON_MOUND
+	mutability_flags = PLANT_GENE_REMOVABLE | PLANT_GENE_MUTATABLE | PLANT_GENE_GRAFTABLE
+

@@ -8,6 +8,7 @@
 	attack_verb_simple = list("squeak at", "strike", "bash")
 	squeak_override = list('troutstation/sound/items/toy_squeak/mrdSqueak.ogg' = 1)
 	gender = FEMALE
+	breedable = FALSE // do not the maddie
 
 /obj/item/toy/plush/goatplushie
 	icon = 'troutstation/icons/obj/toys/plushes.dmi'
@@ -82,14 +83,22 @@
 	squeak_override = list('sound/mobs/humanoids/moth/scream_moth.ogg'=1)
 	var/size = RUFRAN_NORMAL_SIZE
 
-/obj/item/toy/plush/rufran/attackby(obj/item/dnainjector/serum, mob/user, list/modifiers, list/attack_modifiers)
+/obj/item/toy/plush/rufran/attackby(obj/item/item, mob/user, list/modifiers, list/attack_modifiers)
+	if(istype(item, /obj/item/dnainjector))
+		var/obj/item/dnainjector/serum = item
+		embiggen(serum)
+	return ..()
+
+/obj/item/toy/plush/rufran/proc/embiggen(obj/item/dnainjector/serum, mob/user)
 	if(serum.used)
 		to_chat(user, span_warning("This injector is used up!"))
 		return
 	if(size >= RUFRAN_GIGANTIC_SIZE)
 		to_chat(user, span_warning("[src] can't get any bigger!"))
 		return
-	if((/datum/mutation/gigantism in serum.add_mutations) || (serum.add_mutations[1].name == "Gigantism")) // holy shit if you can make this cleaner PLEASE
+	var/list/mutations = serum.add_mutations
+	var/datum/mutation/primary_mutation = mutations[1]
+	if((/datum/mutation/gigantism in mutations) || (primary_mutation.name == "Gigantism")) // holy shit if you can make this cleaner PLEASE
 		to_chat(user, span_notice("You inject [src] with the gigantism serum!"))
 		size += RUFRAN_SIZE_INCREMENT
 		AddElement(/datum/element/item_scaling, size, size)
@@ -113,7 +122,6 @@
 			change_squeak_frequency(0.85)
 		return
 
-
 /obj/item/toy/plush/rufran/examine()
 	. = ..()
 	// important: biggest number first, then descending order
@@ -132,6 +140,90 @@
 #undef RUFRAN_HUGE_SIZE
 #undef RUFRAN_GIGANTIC_SIZE
 #undef RUFRAN_SIZE_INCREMENT
+
+/obj/item/toy/plush/hugs
+	icon = 'troutstation/icons/obj/toys/plushes.dmi'
+	name = "hugs-the-moths plushie"
+	desc = "Hugs-The-Moths once sold off his likeness to a plush company for the royalties. This is the result."
+	icon_state = "plushie_hugs"
+	inhand_icon_state = null
+	gender = MALE
+	breedable = FALSE
+	attack_verb_continuous = list("claws", "hisses", "tail slaps") // from lizard plush
+	attack_verb_simple = list("claw", "hiss", "tail slap") // from lizard plush
+	squeak_override = list('sound/items/weapons/slash.ogg' = 1) // regular lizard plushes make this sound
+
+
+
+/obj/item/toy/plush/cyd
+	icon = 'troutstation/icons/obj/toys/plushes.dmi'
+	name = "cydonia plushie"
+	desc = "That fucking unlucky bastard. Some fuck thought it was funny to turn this poor lizard into a marketable plushie just to torment her."
+	icon_state = "plushie_cyd"
+	inhand_icon_state = null
+	attack_verb_continuous = list("claws", "hisses", "tail slaps")
+	attack_verb_simple = list("claw", "hiss", "tail slap")
+	squeak_override = list('sound/mobs/humanoids/lizard/lizard_scream_2.ogg' = 1)
+	gender = FEMALE
+	var/squashed = 0
+	COOLDOWN_DECLARE(squash_cooldown)
+	var/squash_delay = 1 SECONDS
+
+/obj/item/toy/plush/cyd/examine()
+	. = ..()
+	if(squashed == 1)
+		. += span_notice("It has been crushed one time")
+	else if(squashed >= 2)
+		. += span_notice("It has been crushed " + convert_integer_to_words(squashed) + " times")
+
+/obj/item/toy/plush/vending
+	icon = 'troutstation/icons/obj/toys/plushes.dmi'
+	name = "vending machine plushie"
+	desc = "Marketable vending machine. Less marketable than a real vending machine as it does not actually vend."
+	icon_state = "plushie_vend_1"
+	inhand_icon_state = null
+	attack_verb_continuous = list("falls onto", "tilts onto")
+	attack_verb_simple = list("fall onto", "tilt onto")
+	verb_say = "beeps"
+	verb_ask = "beeps"
+	verb_exclaim = "beeps"
+	breedable = FALSE
+	squeak_override = list('sound/effects/bang.ogg' = 1)
+	COOLDOWN_DECLARE(say_cooldown)
+	var/say_delay = 2 SECONDS
+
+/obj/item/toy/plush/vending/red
+	icon_state = "plushie_vend_1"
+
+/obj/item/toy/plush/vending/cola
+	icon_state = "plushie_vend_2"
+
+/obj/item/toy/plush/vending/tool
+	icon_state = "plushie_vend_3"
+
+/obj/item/toy/plush/vending/snack
+	icon_state = "plushie_vend_4"
+
+/obj/effect/spawner/random/entertainment/plushie/vending
+	name = "vending machine plushie spawner"
+	icon_state = "snack"
+	loot_subtype_path = /obj/item/toy/plush/vending
+	loot = list()
+
+/obj/item/toy/plush/vending/attack_self(mob/user)
+	.=..()
+	if(COOLDOWN_FINISHED(src, say_cooldown))
+		COOLDOWN_START(src, say_cooldown, say_delay)
+		say(pick("Smoke!","Don't believe the reports - smoke today!","Don't quit, buy more!","Probably not bad for you!","Hope you're thirsty!","Thirsty? Why not cola?","Please, have a drink!","Drink up!","Mmm! So good!","Have a meal.","Float like an astronaut, sting like a bullet!","Express your second amendment today!","Oh my god it's so juicy!","Have a snack.","Snacks are good for you!","Hands down the best seed selection on the station!","THIS'S WHERE TH' SEEDS LIVE! GIT YOU SOME!")) // desperately needs a cooldown, i dont know how to do that
+
+/obj/item/toy/plush/cyd/attackby(obj/item/item, mob/user, list/modifiers, list/attack_modifiers)
+	if(istype(item, /obj/item/toy/plush/vending) && COOLDOWN_FINISHED(src, squash_cooldown))
+		COOLDOWN_START(src, squash_cooldown, squash_delay)
+		src.AddElement(/datum/element/squish, 60 SECONDS)
+		playsound(get_turf(src), 'sound/effects/bang.ogg', 50, TRUE)
+		src.manual_emote("coughs!")
+		squashed += 1
+	return ..()
 
 
 /obj/item/toy/plush/lehto
