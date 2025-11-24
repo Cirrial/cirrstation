@@ -16,6 +16,7 @@
 	speed = -0.5
 	mob_biotypes = MOB_ORGANIC
 	mob_size = MOB_SIZE_SMALL
+	faction = list(FACTION_SKITTER)
 
 	gold_core_spawnable = FRIENDLY_SPAWN
 
@@ -35,6 +36,16 @@
 	ai_controller = /datum/ai_controller/basic_controller/skitterer
 
 
+/mob/living/basic/skitterer/attackby(obj/item/reagent_containers/cooler_jug/gaywater/thejug, mob/user, list/modifiers, list/attack_modifiers)
+	if(!istype(thejug))
+		return ..()
+	new /mob/living/basic/gay_skitterer(src.loc)
+	to_chat(user, span_notice("[src] suddenly seems very gay..."))
+	qdel(thejug)
+	qdel(src)
+
+
+
 /mob/living/basic/skitterer/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/footstep, footstep_type = FOOTSTEP_MOB_SKITTER)
@@ -48,6 +59,7 @@
 		BB_EMOTE_SOUND = list('troutstation/sound/mobs/non-humanoids/skitterer/skitter_attack3.ogg'),
 	)
 	ai_controller.set_blackboard_key(BB_BASIC_MOB_SPEAK_LINES, display_emote)
+	ai_controller.set_blackboard_key(BB_REINFORCEMENTS_EMOTE, "screeches loudly, calling for help!")
 
 /mob/living/basic/gay_skitterer // not a subtype because the ai random speech/emote thing was acting weird
 	name = "gay skitterer"
@@ -67,6 +79,7 @@
 	speed = -0.5
 	mob_biotypes = MOB_ORGANIC
 	mob_size = MOB_SIZE_SMALL
+	faction = list(FACTION_SKITTER)
 
 	gold_core_spawnable = FRIENDLY_SPAWN
 
@@ -98,6 +111,7 @@
 		BB_EMOTE_SOUND = list('troutstation/sound/misc/gay.ogg','troutstation/sound/misc/gay2.ogg','troutstation/sound/misc/gay3.ogg','troutstation/sound/misc/gay4.ogg','troutstation/sound/misc/gay5.ogg'),
 	)
 	ai_controller.set_blackboard_key(BB_BASIC_MOB_SPEAK_LINES, display_emote)
+	ai_controller.set_blackboard_key(BB_REINFORCEMENTS_SAY, "GAYYYYYY!!!")
 
 
 
@@ -111,6 +125,7 @@
 
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/target_retaliate,
+		/datum/ai_planning_subtree/call_reinforcements,
 		/datum/ai_planning_subtree/random_speech/blackboard,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
 	)
