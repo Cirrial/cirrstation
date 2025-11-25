@@ -148,9 +148,11 @@
 	shared_cooldown = NONE
 
 /datum/action/cooldown/mob_cooldown/be_gay/Activate(atom/target)
+	var/mob/living/player = owner
 	StartCooldown(10 SECONDS)
 	playsound(owner, pick('troutstation/sound/misc/gay.ogg','troutstation/sound/misc/gay2.ogg','troutstation/sound/misc/gay3.ogg','troutstation/sound/misc/gay4.ogg','troutstation/sound/misc/gay5.ogg'), 100, TRUE)
 	new /obj/effect/temp_visual/circle_wave/pink(get_turf(owner))
+	player.say("Gay!")
 	StartCooldown() // i do not know if i need these cooldowns or what their purpose is (code borrowed from /datum/action/cooldown/mob_cooldown/riot)
 
 /obj/effect/temp_visual/circle_wave/pink
