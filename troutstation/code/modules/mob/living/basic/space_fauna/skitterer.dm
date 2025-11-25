@@ -97,7 +97,7 @@
 	attacked_sound = 'troutstation/sound/mobs/non-humanoids/skitterer/skitter_attack2.ogg'
 	death_sound = 'troutstation/sound/mobs/non-humanoids/skitterer/skitter_death.ogg'
 
-	ai_controller = /datum/ai_controller/basic_controller/skitterer
+	ai_controller = /datum/ai_controller/basic_controller/gay_skitterer
 
 /mob/living/basic/gay_skitterer/Initialize(mapload)
 	. = ..()
@@ -135,6 +135,22 @@
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
 	)
 
+/datum/ai_controller/basic_controller/gay_skitterer
+	blackboard = list(
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+	)
+
+	ai_movement = /datum/ai_movement/basic_avoidance
+	idle_behavior = /datum/idle_behavior/idle_random_walk/more_walking
+
+	planning_subtrees = list(
+		/datum/ai_planning_subtree/target_retaliate,
+		/datum/ai_planning_subtree/call_reinforcements,
+		/datum/ai_planning_subtree/use_mob_ability/be_gay,
+		/datum/ai_planning_subtree/random_speech/blackboard,
+		/datum/ai_planning_subtree/basic_melee_attack_subtree,
+	)
+
 /datum/action/cooldown/mob_cooldown/be_gay
 	name = "Be Gay"
 	desc = "Oh, you know."
@@ -157,6 +173,14 @@
 	player.say("Gay!")
 	StartCooldown() // i do not know if i need these cooldowns or what their purpose is (code borrowed from /datum/action/cooldown/mob_cooldown/riot)
 
+
 /obj/effect/temp_visual/circle_wave/pink
 	color = COLOR_FADED_PINK
 	amount_to_scale = 3
+
+/datum/ai_planning_subtree/use_mob_ability/be_gay
+	ability_key = BB_BE_GAY_ABILITY
+
+/datum/ai_planning_subtree/use_mob_ability/be_gay/SelectBehaviors(datum/ai_controller/controller, seconds_per_tick)
+	if (prob(5))
+		return ..()
