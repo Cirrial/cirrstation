@@ -305,6 +305,7 @@
 		/mob/living/basic/mushroom,
 		/mob/living/basic/viscerator,
 		/mob/living/basic/pet/gondola,
+		/mob/living/basic/gay_skitterer, // troutstation edit
 	)
 	return pick(mob_list)
 
