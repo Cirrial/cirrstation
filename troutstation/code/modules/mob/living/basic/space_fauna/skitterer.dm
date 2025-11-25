@@ -43,6 +43,7 @@
 	to_chat(user, span_notice("[src] suddenly seems very gay..."))
 	qdel(thejug)
 	qdel(src)
+	playsound(get_turf(user), pick('troutstation/sound/misc/gay.ogg','troutstation/sound/misc/gay2.ogg','troutstation/sound/misc/gay3.ogg','troutstation/sound/misc/gay4.ogg','troutstation/sound/misc/gay5.ogg'), 100, TRUE)
 
 
 
