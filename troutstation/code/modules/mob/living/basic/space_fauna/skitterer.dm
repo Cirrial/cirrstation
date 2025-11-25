@@ -182,5 +182,5 @@
 	ability_key = BB_BE_GAY_ABILITY
 
 /datum/ai_planning_subtree/use_mob_ability/be_gay/SelectBehaviors(datum/ai_controller/controller, seconds_per_tick)
-	if (prob(5))
+	if (prob(2))
 		return ..()
