@@ -22,3 +22,6 @@
 #define COMMAND_FOLLOW "Follow"
 #define COMMAND_STOP "Stop"
 #define COMMAND_ATTACK "Attack"
+
+/// Troutstation mob action
+#define BB_BE_GAY_ABILITY "BB_be_gay_ability"

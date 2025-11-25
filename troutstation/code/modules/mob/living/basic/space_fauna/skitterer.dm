@@ -114,6 +114,10 @@
 	ai_controller.set_blackboard_key(BB_BASIC_MOB_SPEAK_LINES, display_emote)
 	ai_controller.set_blackboard_key(BB_REINFORCEMENTS_SAY, "GAYYYYYY!!!")
 
+	var/static/list/innate_actions = list(
+		/datum/action/cooldown/mob_cooldown/be_gay = BB_BE_GAY_ABILITY,
+	)
+	grant_actions_by_list(innate_actions)
 
 
 /datum/ai_controller/basic_controller/skitterer
@@ -130,3 +134,25 @@
 		/datum/ai_planning_subtree/random_speech/blackboard,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
 	)
+
+/datum/action/cooldown/mob_cooldown/be_gay
+	name = "Be Gay"
+	desc = "Oh, you know."
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
+	click_to_activate = FALSE
+	button_icon = 'troutstation/icons/obj/machines/vending.dmi'
+	button_icon_state = "gaywater_cooler"
+	background_icon_state = "bg_hive"
+	overlay_icon_state = "bg_hive_border"
+	cooldown_time = 5 SECONDS
+	shared_cooldown = NONE
+
+/datum/action/cooldown/mob_cooldown/be_gay/Activate(atom/target)
+	StartCooldown(10 SECONDS)
+	playsound(owner, pick('troutstation/sound/misc/gay.ogg','troutstation/sound/misc/gay2.ogg','troutstation/sound/misc/gay3.ogg','troutstation/sound/misc/gay4.ogg','troutstation/sound/misc/gay5.ogg'), 100, TRUE)
+	new /obj/effect/temp_visual/circle_wave/pink(get_turf(owner))
+	StartCooldown() // i do not know if i need these cooldowns or what their purpose is (code borrowed from /datum/action/cooldown/mob_cooldown/riot)
+
+/obj/effect/temp_visual/circle_wave/pink
+	color = COLOR_FADED_PINK
+	amount_to_scale = 3
