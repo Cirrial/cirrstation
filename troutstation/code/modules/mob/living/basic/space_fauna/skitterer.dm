@@ -43,7 +43,7 @@
 	to_chat(user, span_notice("[src] suddenly seems very gay..."))
 	qdel(thejug)
 	qdel(src)
-	playsound(get_turf(user), pick('troutstation/sound/misc/gay.ogg','troutstation/sound/misc/gay2.ogg','troutstation/sound/misc/gay3.ogg','troutstation/sound/misc/gay4.ogg','troutstation/sound/misc/gay5.ogg'), 100, TRUE)
+	playsound(get_turf(user), SFX_GAY, 100, TRUE)
 
 
 
@@ -109,7 +109,7 @@
 		BB_EMOTE_SAY = list("Gay!"),
 		BB_EMOTE_SEE = list("flails gayly!", "hops around gayly!", "skitters gayly across the floor!"),
 		BB_SPEAK_CHANCE = 10,
-		BB_EMOTE_SOUND = list('troutstation/sound/misc/gay.ogg','troutstation/sound/misc/gay2.ogg','troutstation/sound/misc/gay3.ogg','troutstation/sound/misc/gay4.ogg','troutstation/sound/misc/gay5.ogg'),
+		BB_EMOTE_SOUND = SFX_GAY,
 	)
 	ai_controller.set_blackboard_key(BB_BASIC_MOB_SPEAK_LINES, display_emote)
 	ai_controller.set_blackboard_key(BB_REINFORCEMENTS_SAY, "GAYYYYYY!!!")
@@ -166,7 +166,7 @@
 /datum/action/cooldown/mob_cooldown/be_gay/Activate(atom/target)
 	var/mob/living/player = owner
 	var/turf/pinkspot = get_turf(owner)
-	playsound(owner, pick('troutstation/sound/misc/gay.ogg','troutstation/sound/misc/gay2.ogg','troutstation/sound/misc/gay3.ogg','troutstation/sound/misc/gay4.ogg','troutstation/sound/misc/gay5.ogg'), 100, TRUE)
+	playsound(owner, SFX_GAY, 100, TRUE)
 	new /obj/effect/temp_visual/circle_wave/pink(get_turf(owner))
 	pinkspot.add_atom_colour("#ff99fc",WASHABLE_COLOUR_PRIORITY)
 	player.say("Gay!")
