@@ -1,6 +1,8 @@
+#define BB_BE_GAY_CHANCE "BB_be_gay_chance"
+
 /mob/living/basic/skitterer
 	name = "skitterer"
-	desc = "A freak of a creature who's only objective in life seems to be to get on other lifeform's nerves. As it's name may imply, it skitters around on its six stubby legs."
+	desc = "A freak of a creature whose only objective in life seems to be to get on other lifeforms' nerves. As its name may imply, it skitters around on its six stubby legs."
 	icon = 'troutstation/icons/mob/simple/skitterer.dmi'
 	icon_state = "skitterer"
 	icon_living = "skitterer"
@@ -115,7 +117,7 @@
 	ai_controller.set_blackboard_key(BB_REINFORCEMENTS_SAY, "GAYYYYYY!!!")
 
 	var/static/list/innate_actions = list(
-		/datum/action/cooldown/mob_cooldown/be_gay = BB_BE_GAY_ABILITY,
+		/datum/action/cooldown/mob_cooldown/be_gay = BB_GENERIC_ACTION,
 	)
 	grant_actions_by_list(innate_actions)
 
@@ -138,6 +140,7 @@
 /datum/ai_controller/basic_controller/gay_skitterer
 	blackboard = list(
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+		BB_BE_GAY_CHANCE = 2,
 	)
 
 	ai_movement = /datum/ai_movement/basic_avoidance
@@ -170,7 +173,7 @@
 	new /obj/effect/temp_visual/circle_wave/pink(get_turf(owner))
 	pinkspot.add_atom_colour("#ff99fc",WASHABLE_COLOUR_PRIORITY)
 	player.say("Gay!")
-	StartCooldown() // i do not know if i need these cooldowns or what their purpose is (code borrowed from /datum/action/cooldown/mob_cooldown/riot)
+	StartCooldown()
 
 
 /obj/effect/temp_visual/circle_wave/pink
@@ -178,8 +181,10 @@
 	amount_to_scale = 3
 
 /datum/ai_planning_subtree/use_mob_ability/be_gay
-	ability_key = BB_BE_GAY_ABILITY
 
 /datum/ai_planning_subtree/use_mob_ability/be_gay/SelectBehaviors(datum/ai_controller/controller, seconds_per_tick)
-	if (prob(2))
-		return ..()
+	var/trigger_prob = controller.blackboard[BB_BE_GAY_CHANCE] || 0
+    if (prob(trigger_prob))
+        return ..()
+
+#undef BB_BE_GAY_CHANCE
