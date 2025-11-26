@@ -21,6 +21,9 @@
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/light/colour_cycle/dancefloor_b,
 /area/shuttle/escape)
+"bf" = (
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
 "cj" = (
 /obj/machinery/recharge_station,
 /turf/open/floor/iron/white/corner,
@@ -38,14 +41,17 @@
 	dir = 4
 	},
 /area/shuttle/escape)
-"cX" = (
-/turf/template_noop,
+"db" = (
+/obj/structure/chair/stool/bar/directional/south,
+/obj/effect/turf_decal/tile/purple/full,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "ev" = (
 /turf/open/floor/light/colour_cycle/dancefloor_a,
 /area/shuttle/escape)
 "eL" = (
 /obj/structure/sign/poster/abductor/random/directional/east,
+/obj/effect/turf_decal/tile/red/full,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "gc" = (
@@ -67,6 +73,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
+"gh" = (
+/obj/effect/turf_decal/tile/dark_blue/full,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
 "gp" = (
 /obj/structure/table,
 /obj/item/storage/medkit/fire,
@@ -81,6 +91,10 @@
 /turf/open/floor/iron/white/corner{
 	dir = 1
 	},
+/area/shuttle/escape)
+"gK" = (
+/obj/effect/turf_decal/tile/green/full,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "hD" = (
 /obj/machinery/vending/boozeomat,
@@ -112,7 +126,7 @@
 "jl" = (
 /obj/structure/table,
 /obj/machinery/recharger,
-/turf/open/floor/mineral/titanium,
+/turf/open/floor/mineral/silver,
 /area/shuttle/escape)
 "jn" = (
 /obj/structure/window/reinforced/spawner/directional/south,
@@ -126,16 +140,24 @@
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/light/colour_cycle/dancefloor_a,
 /area/shuttle/escape)
+"jy" = (
+/obj/structure/table/reinforced/rglass,
+/obj/item/food/grown/gaywatermelon,
+/turf/open/floor/iron/cafeteria,
+/area/shuttle/escape)
 "ku" = (
 /obj/machinery/griddle,
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/escape)
 "le" = (
 /obj/effect/spawner/random/vending/colavend,
+/obj/machinery/light/floor,
+/obj/effect/turf_decal/tile/bar/full,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "lX" = (
 /obj/structure/chair/stool/bar/directional/south,
+/obj/effect/turf_decal/tile/green/full,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "mr" = (
@@ -147,6 +169,18 @@
 /area/shuttle/escape)
 "mM" = (
 /obj/effect/spawner/random/vending/snackvend,
+/obj/machinery/light/floor,
+/obj/effect/turf_decal/tile/blue/full,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"mS" = (
+/obj/machinery/light/directional/north,
+/obj/effect/turf_decal/tile/purple/full,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"nd" = (
+/obj/structure/chair/stool/bar/directional/south,
+/obj/effect/turf_decal/tile/blue/full,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "no" = (
@@ -164,6 +198,10 @@
 /obj/structure/reagent_dispensers/water_cooler/gay,
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/south,
+/turf/open/floor/light/colour_cycle/dancefloor_a,
+/area/shuttle/escape)
+"oA" = (
+/obj/structure/sign/poster/contraband/random/directional/north,
 /turf/open/floor/light/colour_cycle/dancefloor_a,
 /area/shuttle/escape)
 "oI" = (
@@ -257,7 +295,16 @@
 	},
 /area/shuttle/escape)
 "oW" = (
-/obj/item/radio/intercom/directional/east,
+/obj/effect/spawner/random/entertainment/arcade{
+	dir = 8;
+	pixel_x = 6
+	},
+/obj/effect/turf_decal/tile/red/full,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"pn" = (
+/obj/machinery/light/floor,
+/obj/effect/turf_decal/tile/red/full,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "pD" = (
@@ -267,8 +314,13 @@
 /area/shuttle/escape)
 "pU" = (
 /obj/structure/table,
+/obj/item/knife{
+	pixel_x = -5;
+	pixel_y = 3
+	},
 /obj/machinery/processor{
-	pixel_y = 12
+	pixel_y = 5;
+	pixel_x = 9
 	},
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/escape)
@@ -276,6 +328,10 @@
 /obj/machinery/light/floor,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape/brig)
+"qg" = (
+/obj/effect/turf_decal/tile/bar/full,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
 "qj" = (
 /obj/structure/closet/crate/glitter/lavender,
 /obj/item/instrument/glockenspiel,
@@ -288,10 +344,17 @@
 /area/shuttle/escape)
 "qq" = (
 /obj/machinery/smartfridge/drying,
+/obj/machinery/light/floor,
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/escape)
 "qM" = (
 /obj/item/radio/intercom/directional/west,
+/obj/effect/turf_decal/tile/dark_blue/full,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"rD" = (
+/obj/machinery/light/floor,
+/obj/effect/turf_decal/tile/dark_green/full,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "rK" = (
@@ -333,12 +396,17 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape/brig)
+"ur" = (
+/obj/structure/table,
+/turf/open/floor/mineral/silver,
+/area/shuttle/escape)
 "uS" = (
 /turf/open/floor/eighties,
 /area/shuttle/escape)
 "vz" = (
 /obj/structure/reagent_dispensers/water_cooler/gay,
 /obj/machinery/light/floor,
+/obj/effect/turf_decal/tile/yellow/full,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "vB" = (
@@ -349,6 +417,12 @@
 /obj/item/instrument/eguitar,
 /obj/item/instrument/trumpet,
 /obj/machinery/light/floor,
+/obj/effect/turf_decal/tile/red/full,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"vG" = (
+/obj/machinery/light/directional/south,
+/obj/effect/turf_decal/tile/dark_green/full,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "wy" = (
@@ -358,9 +432,10 @@
 	dir = 8
 	},
 /area/shuttle/escape)
-"wI" = (
-/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
-/turf/open/floor/plating,
+"xD" = (
+/obj/machinery/light/directional/south,
+/obj/effect/turf_decal/tile/bar/full,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "xJ" = (
 /obj/structure/table,
@@ -394,17 +469,14 @@
 	pixel_x = 2;
 	pixel_y = 8
 	},
+/obj/machinery/light/floor,
 /turf/open/floor/iron/white/side,
 /area/shuttle/escape)
 "xY" = (
 /obj/structure/chair/comfy/black{
 	dir = 1
 	},
-/turf/open/floor/mineral/titanium/blue,
-/area/shuttle/escape)
-"yB" = (
-/obj/structure/sign/poster/official/random/directional/north,
-/turf/open/floor/mineral/titanium,
+/turf/open/floor/mineral/gold,
 /area/shuttle/escape)
 "yC" = (
 /obj/structure/rack,
@@ -425,6 +497,7 @@
 "yM" = (
 /obj/structure/table/reinforced/rglass,
 /obj/effect/spawner/random/entertainment/plushie,
+/obj/machinery/light/directional/south,
 /turf/open/floor/iron/checker,
 /area/shuttle/escape)
 "yV" = (
@@ -438,6 +511,22 @@
 /obj/effect/spawner/random/entertainment/plushie,
 /turf/open/floor/eighties,
 /area/shuttle/escape)
+"zi" = (
+/obj/structure/table/reinforced/rglass,
+/obj/item/food/gaywatermelonslice{
+	pixel_y = -3;
+	pixel_x = 8
+	},
+/obj/item/food/gaywatermelonslice{
+	pixel_y = 9;
+	pixel_x = 3
+	},
+/obj/item/food/gaywatermelonslice{
+	pixel_y = 2;
+	pixel_x = -5
+	},
+/turf/open/floor/iron/cafeteria,
+/area/shuttle/escape)
 "zs" = (
 /obj/structure/reagent_dispensers/water_cooler/gay,
 /obj/structure/window/reinforced/spawner/directional/west,
@@ -446,7 +535,7 @@
 /area/shuttle/escape)
 "zu" = (
 /obj/machinery/computer/emergency_shuttle,
-/turf/open/floor/mineral/titanium/blue,
+/turf/open/floor/mineral/silver,
 /area/shuttle/escape)
 "zJ" = (
 /turf/closed/wall/mineral/titanium,
@@ -455,13 +544,13 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape/brig)
 "Ae" = (
-/obj/structure/closet/crate/goldcrate,
 /obj/item/instrument/piano_synth,
 /obj/item/instrument/recorder,
 /obj/item/instrument/saxophone,
 /obj/item/instrument/trombone,
 /obj/item/instrument/violin/golden,
 /obj/machinery/light/floor,
+/obj/structure/closet/crate/glitter,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "AG" = (
@@ -480,16 +569,14 @@
 /obj/structure/sign/poster/random/directional/south,
 /turf/open/floor/light/colour_cycle/dancefloor_a,
 /area/shuttle/escape)
-"Bm" = (
-/obj/structure/sign/poster/official/random/directional/south,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/escape)
 "BC" = (
 /obj/machinery/oven/range,
 /turf/open/floor/iron/checker,
 /area/shuttle/escape)
 "Cc" = (
-/obj/structure/sink/directional/south,
+/obj/structure/sink/directional/south{
+	pixel_y = -10
+	},
 /turf/open/floor/iron/white/side{
 	dir = 1
 	},
@@ -507,9 +594,23 @@
 /obj/item/radio/intercom/directional/north,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape/brig)
+"Dd" = (
+/obj/machinery/light/directional/east,
+/obj/effect/turf_decal/tile/purple/full,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
 "DH" = (
 /obj/structure/table,
-/turf/open/floor/mineral/titanium,
+/obj/item/storage/fancy/donut_box,
+/obj/effect/spawner/random/food_or_drink/jelly_donuts{
+	pixel_x = 6;
+	pixel_y = 12
+	},
+/obj/effect/spawner/random/food_or_drink/jelly_donuts{
+	pixel_y = 11;
+	pixel_x = -7
+	},
+/turf/open/floor/mineral/silver,
 /area/shuttle/escape)
 "Eq" = (
 /obj/structure/reagent_dispensers/water_cooler/gay,
@@ -517,15 +618,11 @@
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/light/colour_cycle/dancefloor_b,
 /area/shuttle/escape)
-"Fo" = (
-/obj/machinery/wall_healer/free/directional/south,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/escape)
 "Fq" = (
 /obj/machinery/computer/crew{
 	dir = 4
 	},
-/turf/open/floor/mineral/titanium/blue,
+/turf/open/floor/mineral/diamond,
 /area/shuttle/escape)
 "FJ" = (
 /turf/open/floor/iron/white/side{
@@ -535,6 +632,7 @@
 "FV" = (
 /obj/structure/chair/stool/bar/directional/east,
 /obj/machinery/light/floor,
+/obj/effect/turf_decal/tile/red/full,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Gu" = (
@@ -545,9 +643,22 @@
 /obj/machinery/door/airlock/glass,
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/escape)
+"GH" = (
+/obj/machinery/light/floor,
+/turf/open/floor/mineral/silver,
+/area/shuttle/escape)
 "GU" = (
 /obj/machinery/space_heater,
 /turf/open/floor/iron/white/side,
+/area/shuttle/escape)
+"Hm" = (
+/obj/structure/sign/poster/official/random/directional/north,
+/turf/open/floor/light/colour_cycle/dancefloor_a,
+/area/shuttle/escape)
+"Hr" = (
+/obj/structure/sign/poster/official/random/directional/south,
+/obj/effect/turf_decal/tile/blue/full,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Hz" = (
 /obj/effect/turf_decal/tile/blue/anticorner{
@@ -561,19 +672,35 @@
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape/brig)
+"HZ" = (
+/obj/machinery/light/directional/north,
+/obj/effect/turf_decal/tile/blue/full,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
 "Io" = (
+/obj/machinery/light/directional/west,
+/obj/effect/turf_decal/tile/blue/full,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "IR" = (
 /obj/machinery/computer/atmos_alert{
 	dir = 4
 	},
-/turf/open/floor/mineral/titanium/blue,
+/turf/open/floor/mineral/diamond,
 /area/shuttle/escape)
 "JQ" = (
 /obj/machinery/power/shuttle_engine/heater,
 /obj/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
+/area/shuttle/escape)
+"KM" = (
+/obj/structure/table/reinforced/rglass,
+/obj/item/food/grown/gaywatermelon,
+/turf/open/floor/iron/checker,
+/area/shuttle/escape)
+"KS" = (
+/obj/effect/turf_decal/tile/yellow/full,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Lm" = (
 /obj/structure/table/reinforced/rglass,
@@ -587,7 +714,7 @@
 /obj/structure/chair/office{
 	dir = 4
 	},
-/turf/open/floor/mineral/titanium/blue,
+/turf/open/floor/mineral/diamond,
 /area/shuttle/escape)
 "Mt" = (
 /obj/machinery/door/airlock/medical/glass,
@@ -595,14 +722,12 @@
 /area/shuttle/escape)
 "MJ" = (
 /obj/machinery/vending/autodrobe,
+/obj/machinery/light/floor,
+/obj/effect/turf_decal/tile/dark_green/full,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "MN" = (
 /turf/open/floor/iron/checker,
-/area/shuttle/escape)
-"No" = (
-/obj/structure/sign/poster/contraband/random/directional/north,
-/turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "NS" = (
 /obj/structure/sign/poster/quirk/random,
@@ -616,16 +741,39 @@
 /obj/machinery/computer/security{
 	dir = 8
 	},
-/turf/open/floor/mineral/titanium/blue,
+/turf/open/floor/mineral/diamond,
 /area/shuttle/escape)
 "Oq" = (
 /obj/structure/reagent_dispensers/water_cooler/gay,
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/light/colour_cycle/dancefloor_b,
 /area/shuttle/escape)
+"Os" = (
+/obj/effect/turf_decal/tile/dark_green/full,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
 "OC" = (
 /obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
+/area/shuttle/escape)
+"Pl" = (
+/obj/structure/table/reinforced/rglass,
+/obj/item/food/gaywatermelonslice{
+	pixel_y = 9;
+	pixel_x = 7
+	},
+/obj/item/food/gaywatermelonslice{
+	pixel_x = 9;
+	pixel_y = -2
+	},
+/obj/item/food/gaywatermelonslice{
+	pixel_x = -4
+	},
+/obj/item/food/gaywatermelonslice{
+	pixel_y = 7;
+	pixel_x = -7
+	},
+/turf/open/floor/iron/checker,
 /area/shuttle/escape)
 "PE" = (
 /obj/machinery/door/airlock/shuttle,
@@ -657,27 +805,43 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/turf/open/floor/mineral/titanium/blue,
+/turf/open/floor/mineral/diamond,
 /area/shuttle/escape)
 "Rk" = (
 /obj/machinery/computer/records/security{
 	dir = 8
 	},
-/turf/open/floor/mineral/titanium/blue,
+/turf/open/floor/mineral/diamond,
+/area/shuttle/escape)
+"Rq" = (
+/obj/machinery/light/directional/east,
+/obj/effect/turf_decal/tile/bar/full,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "RE" = (
 /obj/machinery/wall_healer/free/directional/north{
 	use_power = 0
 	},
+/obj/effect/turf_decal/tile/bar/full,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "RV" = (
 /obj/structure/chair/stool/bar/directional/east,
+/obj/effect/turf_decal/tile/bar/full,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "RY" = (
 /obj/machinery/door/airlock/engineering/glass,
 /turf/open/floor/iron,
+/area/shuttle/escape)
+"Sl" = (
+/obj/machinery/light/floor,
+/obj/effect/turf_decal/tile/blue/full,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"Sm" = (
+/obj/effect/turf_decal/tile/neutral/full,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "So" = (
 /obj/structure/chair/comfy/shuttle,
@@ -708,6 +872,10 @@
 /obj/machinery/jukebox/disco/indestructible,
 /turf/open/floor/light/colour_cycle/dancefloor_b,
 /area/shuttle/escape)
+"TY" = (
+/obj/effect/turf_decal/tile/purple/full,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
 "Uf" = (
 /obj/structure/table,
 /obj/item/defibrillator/loaded,
@@ -718,6 +886,9 @@
 /area/shuttle/escape)
 "Uw" = (
 /turf/open/floor/iron/cafeteria,
+/area/shuttle/escape)
+"UC" = (
+/turf/open/floor/mineral/silver,
 /area/shuttle/escape)
 "Va" = (
 /obj/machinery/stasis,
@@ -736,12 +907,14 @@
 	dir = 8
 	},
 /area/shuttle/escape)
-"Vr" = (
-/turf/closed/wall/mineral/plastitanium,
+"Vd" = (
+/obj/machinery/light/floor,
+/obj/effect/turf_decal/tile/dark_blue/full,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Vu" = (
 /obj/machinery/computer/communications,
-/turf/open/floor/mineral/titanium/blue,
+/turf/open/floor/mineral/silver,
 /area/shuttle/escape)
 "VB" = (
 /obj/structure/reagent_dispensers/water_cooler/gay,
@@ -751,6 +924,11 @@
 "VD" = (
 /obj/machinery/door/airlock/command/glass,
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape)
+"VE" = (
+/obj/structure/chair/stool/bar/directional/east,
+/obj/effect/turf_decal/tile/purple/full,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "VQ" = (
@@ -759,6 +937,10 @@
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape/brig)
+"VT" = (
+/obj/effect/turf_decal/tile/blue/full,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
 "Wc" = (
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
 /obj/machinery/door/airlock/security/glass,
@@ -770,6 +952,10 @@
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape/brig)
+"WZ" = (
+/obj/effect/turf_decal/tile/red/full,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
 "Xv" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -782,7 +968,12 @@
 /area/shuttle/escape)
 "XJ" = (
 /obj/item/radio/intercom/command/directional/south,
-/turf/open/floor/mineral/titanium,
+/obj/structure/table,
+/obj/item/megaphone/command{
+	pixel_y = 5;
+	pixel_x = 2
+	},
+/turf/open/floor/mineral/silver,
 /area/shuttle/escape)
 "Ym" = (
 /obj/structure/rack,
@@ -796,14 +987,30 @@
 	},
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
+"Ze" = (
+/obj/structure/chair/stool/bar/directional/east,
+/obj/effect/turf_decal/tile/dark_blue/full,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"Zw" = (
+/obj/machinery/light/directional/west,
+/obj/effect/turf_decal/tile/dark_green/full,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
 "Zy" = (
 /obj/machinery/light/floor,
+/obj/effect/turf_decal/tile/purple/full,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"ZK" = (
+/obj/machinery/light/floor,
+/obj/effect/turf_decal/tile/bar/full,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 
 (1,1,1) = {"
 mr
-mr
+zJ
 zJ
 OC
 zJ
@@ -819,37 +1026,37 @@ PE
 zJ
 OC
 zJ
-mr
+zJ
 mr
 mr
 mr
 "}
 (2,1,1) = {"
-mr
 zJ
-Io
-Io
-Io
+zJ
+mS
+gh
+qg
 Zy
-Io
-Io
-Io
+gh
+qg
+TY
 qM
-Io
-Io
-Io
-Zy
-Io
-Io
-Io
+qg
+TY
+gh
+ZK
+TY
+gh
+xD
 zJ
-mr
+zJ
 mr
 mr
 "}
 (3,1,1) = {"
 zJ
-Io
+Zw
 za
 Xv
 Xv
@@ -857,7 +1064,7 @@ uS
 Xv
 Xv
 za
-Io
+WZ
 za
 Xv
 Xv
@@ -872,7 +1079,7 @@ mr
 "}
 (4,1,1) = {"
 OC
-Io
+Sm
 jn
 Oq
 jr
@@ -880,7 +1087,7 @@ aC
 jr
 Eq
 So
-Io
+KS
 jn
 jr
 Oq
@@ -888,14 +1095,14 @@ ev
 Oq
 zs
 So
-Io
+gK
 zJ
 JQ
 oI
 "}
 (5,1,1) = {"
 OC
-Zy
+ZK
 uS
 ev
 aC
@@ -903,7 +1110,7 @@ ev
 aC
 ev
 uS
-Zy
+Vd
 uS
 aC
 ev
@@ -918,7 +1125,7 @@ oI
 "}
 (6,1,1) = {"
 OC
-Io
+Os
 jn
 aY
 VB
@@ -926,7 +1133,7 @@ aC
 VB
 sD
 So
-Io
+WZ
 jn
 VB
 aY
@@ -934,14 +1141,14 @@ ev
 aY
 or
 So
-Io
+VT
 zJ
 zJ
 zJ
 "}
 (7,1,1) = {"
 OC
-Io
+Sm
 za
 SD
 SD
@@ -949,7 +1156,7 @@ uS
 SD
 SD
 za
-Io
+KS
 za
 SD
 SD
@@ -957,7 +1164,7 @@ uS
 SD
 SD
 za
-Io
+gK
 zJ
 JQ
 oI
@@ -965,22 +1172,22 @@ oI
 (8,1,1) = {"
 zJ
 le
-Io
-Io
-Io
-Io
-Io
-Io
-Io
-Io
-Io
-Io
-Io
+TY
+gh
+qg
+TY
+gh
+qg
+TY
+gh
+qg
+TY
+gh
 RV
+VE
+Ze
 RV
-RV
-RV
-Io
+Zy
 zJ
 JQ
 oI
@@ -993,15 +1200,15 @@ zJ
 OC
 zJ
 vB
-Io
-Io
-Io
-Io
-Io
+Os
+VT
+WZ
+Os
+VT
 FV
 Lu
 Lm
-Lu
+zi
 yM
 zJ
 zJ
@@ -1016,13 +1223,13 @@ hP
 cU
 zJ
 zJ
-No
-Io
+Sm
+gK
 vz
-Io
+Sm
 lX
-Lu
-Lm
+jy
+Pl
 Uw
 MN
 Uw
@@ -1039,12 +1246,12 @@ yV
 oU
 Sy
 zJ
-Io
-Io
-Io
-Io
-lX
-Lm
+qg
+TY
+gh
+qg
+db
+KM
 Uw
 MN
 XF
@@ -1062,11 +1269,11 @@ aK
 Oi
 oQ
 zJ
-RE
-Io
-Io
-Io
-lX
+Os
+VT
+WZ
+Os
+nd
 pD
 MN
 cQ
@@ -1085,7 +1292,7 @@ gc
 Hz
 Cc
 zJ
-ev
+oA
 aC
 ev
 aC
@@ -1150,7 +1357,7 @@ zJ
 zJ
 zJ
 zJ
-zJ
+OC
 zJ
 zJ
 zJ
@@ -1173,9 +1380,9 @@ oI
 OC
 OC
 IR
-DH
+ur
 Fq
-Io
+ur
 PV
 ev
 aC
@@ -1196,9 +1403,9 @@ zJ
 OC
 jl
 QQ
-Zy
+GH
 QQ
-Io
+UC
 VD
 aC
 ev
@@ -1219,11 +1426,11 @@ oI
 OC
 zu
 xY
-Io
-Io
-Io
+UC
+bf
+UC
 zJ
-ev
+Hm
 aC
 ev
 aC
@@ -1242,22 +1449,22 @@ oI
 OC
 Vu
 xY
-Io
-Io
-Io
+UC
+bf
+UC
 zJ
 RE
-Io
-Io
-Io
-Fo
-Vr
-Vr
-wI
+TY
+gh
+qg
+TY
+zJ
+zJ
+OC
 ik
-wI
-Vr
-Vr
+OC
+zJ
+zJ
 zJ
 zJ
 "}
@@ -1265,22 +1472,22 @@ zJ
 OC
 jl
 Mq
-Zy
+GH
 Mq
 XJ
 zJ
-Io
-Io
-Io
-Io
-Io
-Vr
+Os
+VT
+WZ
+Os
+Hr
+zJ
 zT
 zT
 qa
 zT
 zT
-Vr
+zJ
 JQ
 oI
 "}
@@ -1292,18 +1499,18 @@ DH
 Rk
 zJ
 zJ
-yB
-Io
+Sm
+gK
 vz
-Io
-Bm
-Vr
-Vr
+Sm
+gK
+zJ
+zJ
 VQ
 VQ
 VQ
 VQ
-Vr
+zJ
 JQ
 oI
 "}
@@ -1311,43 +1518,43 @@ oI
 zJ
 zJ
 zJ
-zJ
+OC
 zJ
 zJ
 qj
-Io
-Io
-Io
-Io
-Io
+qg
+TY
+gh
+qg
+TY
 Ae
-Vr
-Vr
-Vr
-Vr
-Vr
-Vr
+zJ
+zJ
+zJ
+zJ
+zJ
+zJ
 zJ
 zJ
 "}
 (24,1,1) = {"
 zJ
 MJ
-Io
-Io
-Io
-Io
-Io
-Io
-Io
-Io
-Io
-Io
-Io
-Io
-Io
-Io
-Io
+VT
+WZ
+Os
+VT
+WZ
+Os
+VT
+WZ
+Os
+VT
+WZ
+Os
+VT
+WZ
+Os
 mM
 zJ
 JQ
@@ -1355,7 +1562,7 @@ oI
 "}
 (25,1,1) = {"
 OC
-Io
+Sm
 za
 Xv
 Xv
@@ -1363,7 +1570,7 @@ uS
 Xv
 Xv
 za
-Io
+KS
 za
 Xv
 Xv
@@ -1371,14 +1578,14 @@ uS
 Xv
 Xv
 za
-Io
+gK
 zJ
 JQ
 oI
 "}
 (26,1,1) = {"
 OC
-Io
+qg
 jn
 jr
 Oq
@@ -1386,7 +1593,7 @@ ev
 Oq
 zs
 So
-Io
+gh
 jn
 Oq
 jr
@@ -1394,14 +1601,14 @@ aC
 jr
 Eq
 So
-Io
+TY
 zJ
 zJ
 zJ
 "}
 (27,1,1) = {"
 OC
-Zy
+rD
 uS
 aC
 ev
@@ -1409,7 +1616,7 @@ aC
 ev
 aC
 uS
-Zy
+pn
 uS
 ev
 aC
@@ -1417,14 +1624,14 @@ ev
 aC
 ev
 uS
-Zy
+Sl
 zJ
 JQ
 oI
 "}
 (28,1,1) = {"
 OC
-Io
+Sm
 jn
 VB
 aY
@@ -1432,7 +1639,7 @@ ev
 To
 or
 So
-Io
+KS
 jn
 aY
 VB
@@ -1440,14 +1647,14 @@ aC
 VB
 sD
 So
-Io
+gK
 zJ
 JQ
 oI
 "}
 (29,1,1) = {"
 zJ
-Io
+Rq
 za
 SD
 SD
@@ -1455,7 +1662,7 @@ uS
 SD
 SD
 za
-Io
+gh
 za
 SD
 SD
@@ -1463,37 +1670,37 @@ uS
 SD
 SD
 za
-Io
+Dd
 zJ
 zJ
 mr
 "}
 (30,1,1) = {"
-cX
 zJ
-Io
-Io
-Io
-Zy
+zJ
+HZ
+WZ
+Os
+Sl
 eL
-Io
-Io
+Os
+VT
 oW
-Io
-Io
-Io
-Zy
-Io
-Io
-Io
+Os
+VT
+WZ
+rD
+VT
+WZ
+vG
 zJ
-mr
+zJ
 mr
 mr
 "}
 (31,1,1) = {"
-cX
-cX
+mr
+zJ
 zJ
 OC
 OC
@@ -1509,7 +1716,7 @@ OC
 OC
 OC
 zJ
-mr
+zJ
 mr
 mr
 mr
