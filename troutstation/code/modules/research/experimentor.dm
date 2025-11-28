@@ -805,7 +805,7 @@
 			var/datum/relic_node/rosetta/r = current_node
 			var/mob/living/l = user
 			var/datum/language_holder/lholder = l.get_language_holder()
-			if(lholder.mutual_understanding[r.language] < r.percent)
+			if(lholder.best_mutual_languages[r.language] < r.percent)
 				to_chat(user, span_notice("[src] has familiar text that fills you with knowledge of a language."))
 			else
 				to_chat(user, span_warning("After reading the text on [src], you feel you understand it even less."))
