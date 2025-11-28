@@ -36,6 +36,7 @@
 	foodtypes = RAW|GRAIN|MEAT|VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_3
+	custom_materials = list(/datum/material/meat = MEATSLAB_MATERIAL_AMOUNT)
 	food_flags = FOOD_FINGER_FOOD|FOOD_TINY_SNOUT_EDIBLE
 	snout_eat_message_category = SNOUT_EAT_MESSAGE_CATEGORY_SMUSH
 
