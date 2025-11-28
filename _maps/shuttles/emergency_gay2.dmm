@@ -130,6 +130,11 @@
 /obj/effect/turf_decal/tile/green/full,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
+"hh" = (
+/obj/effect/decal/cleanable/confetti,
+/mob/living/basic/skitterer,
+/turf/open/floor/light/colour_cycle/dancefloor_b,
+/area/shuttle/escape)
 "hw" = (
 /obj/effect/turf_decal/tile/dark_blue/full,
 /obj/machinery/status_display/evac/directional/west,
@@ -361,6 +366,7 @@
 "pn" = (
 /obj/machinery/light/floor,
 /obj/effect/turf_decal/tile/red/full,
+/mob/living/basic/skitterer,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "pD" = (
@@ -373,6 +379,14 @@
 /obj/item/reagent_containers/condiment/sugar,
 /obj/item/reagent_containers/condiment/flour,
 /obj/item/reagent_containers/condiment/rice,
+/obj/item/food/grown/tomato,
+/obj/item/food/grown/tomato,
+/obj/item/food/grown/carrot,
+/obj/item/food/grown/citrus/orange,
+/obj/item/food/grown/banana,
+/obj/item/food/meat/slab/grassfed,
+/obj/item/food/meat/slab/grassfed,
+/obj/item/food/fishmeat/moonfish,
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/escape)
 "qa" = (
@@ -404,6 +418,11 @@
 /obj/effect/turf_decal/tile/dark_blue/full,
 /obj/item/clothing/neck/tie/disco,
 /turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"rv" = (
+/obj/effect/decal/cleanable/confetti,
+/mob/living/basic/gay_skitterer,
+/turf/open/floor/light/colour_cycle/dancefloor_b,
 /area/shuttle/escape)
 "rD" = (
 /obj/machinery/light/floor,
@@ -657,6 +676,11 @@
 /obj/effect/turf_decal/tile/dark_blue/full,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
+"Az" = (
+/obj/effect/decal/cleanable/confetti,
+/mob/living/basic/gay_skitterer,
+/turf/open/floor/light/colour_cycle/dancefloor_a,
+/area/shuttle/escape)
 "AG" = (
 /obj/machinery/door/airlock/shuttle,
 /obj/docking_port/mobile/emergency{
@@ -865,6 +889,11 @@
 /obj/effect/turf_decal/tile/yellow/full,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
+"Lh" = (
+/obj/effect/decal/cleanable/confetti,
+/mob/living/basic/skitterer,
+/turf/open/floor/light/colour_cycle/dancefloor_a,
+/area/shuttle/escape)
 "Lm" = (
 /obj/structure/table/reinforced/rglass,
 /obj/effect/spawner/random/clothing/funny_hats{
@@ -1025,6 +1054,12 @@
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
+"Rr" = (
+/obj/effect/decal/cleanable/confetti,
+/obj/effect/decal/cleanable/confetti,
+/mob/living/basic/skitterer,
+/turf/open/floor/light/colour_cycle/dancefloor_a,
+/area/shuttle/escape)
 "RE" = (
 /obj/machinery/wall_healer/free/directional/north{
 	use_power = 0
@@ -1128,6 +1163,7 @@
 "Vd" = (
 /obj/machinery/light/floor,
 /obj/effect/turf_decal/tile/dark_blue/full,
+/mob/living/basic/skitterer,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Vl" = (
@@ -1360,17 +1396,17 @@ OC
 ZK
 uS
 sL
-Ob
-Sd
-Ob
+rv
+Rr
+rv
 Sd
 uS
 Vd
 uS
 Ob
-sL
-Ob
-sL
+Az
+hh
+Az
 Ob
 uS
 Zy
@@ -1866,17 +1902,17 @@ OC
 rD
 uS
 Ob
-sL
-Ob
-sL
+Az
+hh
+Az
 Ob
 uS
 pn
 uS
 sL
-Ob
-sL
-Ob
+rv
+Lh
+rv
 sL
 uS
 Sl
