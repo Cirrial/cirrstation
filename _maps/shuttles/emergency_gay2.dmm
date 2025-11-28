@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
 /obj/effect/turf_decal/tile/red/full,
-/obj/item/pinata,
+/obj/structure/pinata,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "aC" = (
@@ -53,8 +53,7 @@
 /area/shuttle/escape)
 "cQ" = (
 /obj/machinery/chem_dispenser/drinks{
-	dir = 8;
-	pixel_y = 4
+	dir = 8
 	},
 /obj/structure/table/reinforced/rglass,
 /turf/open/floor/iron/cafeteria,
@@ -74,6 +73,13 @@
 /obj/effect/spawner/random/trash/grime,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape/brig)
+"dy" = (
+/obj/structure/sink/kitchen/directional/north{
+	dispensedreagent = /datum/reagent/medicine/gaywater;
+	name = "gaywater sink"
+	},
+/turf/open/floor/iron/cafeteria,
+/area/shuttle/escape)
 "ev" = (
 /turf/open/floor/light/colour_cycle/dancefloor_a,
 /area/shuttle/escape)
@@ -185,6 +191,7 @@
 "jy" = (
 /obj/structure/table/reinforced/rglass,
 /obj/item/food/grown/gaywatermelon,
+/obj/machinery/light/floor,
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/escape)
 "ku" = (
@@ -216,7 +223,6 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "mS" = (
-/obj/machinery/light/directional/north,
 /obj/effect/turf_decal/tile/purple/full,
 /obj/item/maneki_neko,
 /turf/open/floor/mineral/titanium,
@@ -237,8 +243,7 @@
 /area/shuttle/escape)
 "oi" = (
 /obj/machinery/chem_dispenser/drinks/beer{
-	dir = 8;
-	pixel_y = 5
+	dir = 8
 	},
 /obj/structure/table/reinforced/rglass,
 /turf/open/floor/iron/checker,
@@ -340,6 +345,7 @@
 	},
 /area/shuttle/escape)
 "oU" = (
+/mob/living/basic/bot/repairbot,
 /turf/open/floor/iron/white/side{
 	dir = 5
 	},
@@ -385,6 +391,7 @@
 /obj/item/instrument/musicalmoth,
 /obj/item/instrument/violin,
 /obj/machinery/light/floor,
+/obj/effect/turf_decal/tile/dark_blue/full,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "qq" = (
@@ -418,7 +425,7 @@
 /area/shuttle/escape)
 "sf" = (
 /obj/effect/turf_decal/tile/dark_blue/full,
-/obj/effect/spawner/random/decoration/statue,
+/obj/structure/pinata,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "sy" = (
@@ -517,7 +524,6 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "vG" = (
-/obj/machinery/light/directional/south,
 /obj/effect/turf_decal/tile/dark_green/full,
 /obj/machinery/status_display/evac/directional/east,
 /turf/open/floor/mineral/titanium,
@@ -528,11 +534,6 @@
 /turf/open/floor/iron/white/corner{
 	dir = 8
 	},
-/area/shuttle/escape)
-"xD" = (
-/obj/machinery/light/directional/south,
-/obj/effect/turf_decal/tile/bar/full,
-/turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "xJ" = (
 /obj/structure/table,
@@ -653,6 +654,7 @@
 /obj/item/instrument/violin/golden,
 /obj/machinery/light/floor,
 /obj/structure/closet/crate/glitter,
+/obj/effect/turf_decal/tile/dark_blue/full,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "AG" = (
@@ -670,6 +672,10 @@
 "AW" = (
 /obj/item/storage/medkit/advanced,
 /obj/structure/table/wood/fancy/black,
+/obj/item/megaphone/command{
+	pixel_y = 5;
+	pixel_x = 2
+	},
 /turf/open/floor/mineral/silver,
 /area/shuttle/escape)
 "AZ" = (
@@ -709,7 +715,6 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape/brig)
 "Dd" = (
-/obj/machinery/light/directional/east,
 /obj/effect/turf_decal/tile/purple/full,
 /obj/structure/extinguisher_cabinet/directional/south,
 /obj/item/food/grown/cannabis/rainbow,
@@ -811,13 +816,11 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape/brig)
 "HZ" = (
-/obj/machinery/light/directional/north,
 /obj/effect/turf_decal/tile/blue/full,
 /obj/machinery/status_display/evac/directional/east,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Io" = (
-/obj/machinery/light/directional/west,
 /obj/effect/turf_decal/tile/blue/full,
 /obj/structure/extinguisher_cabinet/directional/south,
 /turf/open/floor/mineral/titanium,
@@ -876,6 +879,14 @@
 "Lu" = (
 /obj/structure/table/reinforced/rglass,
 /obj/item/cigarette/rollie/trippy,
+/obj/item/food/popsicle/golden_gaytime{
+	pixel_x = 11
+	},
+/obj/item/food/fairy_bread{
+	pixel_y = 9;
+	pixel_x = -5
+	},
+/obj/machinery/light/floor,
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/escape)
 "Mq" = (
@@ -999,6 +1010,10 @@
 	},
 /turf/open/floor/mineral/diamond,
 /area/shuttle/escape)
+"QR" = (
+/obj/machinery/light/floor,
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/escape)
 "Rk" = (
 /obj/machinery/computer/records/security{
 	dir = 8
@@ -1006,7 +1021,6 @@
 /turf/open/floor/mineral/diamond,
 /area/shuttle/escape)
 "Rq" = (
-/obj/machinery/light/directional/east,
 /obj/effect/turf_decal/tile/bar/full,
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/mineral/titanium,
@@ -1178,11 +1192,37 @@
 /area/shuttle/escape)
 "XJ" = (
 /obj/item/radio/intercom/command/directional/south,
-/obj/item/megaphone/command{
-	pixel_y = 5;
-	pixel_x = 2
-	},
 /obj/structure/table/wood/fancy/purple,
+/obj/item/reagent_containers/cooler_jug/gaywater{
+	pixel_y = 15;
+	pixel_x = -7
+	},
+/obj/item/reagent_containers/cooler_jug/gaywater{
+	pixel_x = 1;
+	pixel_y = 14
+	},
+/obj/item/reagent_containers/cooler_jug/gaywater{
+	pixel_y = 15;
+	pixel_x = 9
+	},
+/obj/item/reagent_containers/cooler_jug/gaywater{
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/cooler_jug/gaywater{
+	pixel_y = 7;
+	pixel_x = 9
+	},
+/obj/item/reagent_containers/cooler_jug/gaywater{
+	pixel_x = 11
+	},
+/obj/item/reagent_containers/cooler_jug/gaywater{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/cooler_jug/gaywater{
+	pixel_y = 8;
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/cooler_jug/gaywater,
 /turf/open/floor/mineral/silver,
 /area/shuttle/escape)
 "Ym" = (
@@ -1203,7 +1243,6 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Zw" = (
-/obj/machinery/light/directional/west,
 /obj/effect/turf_decal/tile/dark_green/full,
 /obj/structure/extinguisher_cabinet/directional/north,
 /obj/item/food/grown/cannabis/rainbow,
@@ -1249,7 +1288,7 @@ mr
 "}
 (2,1,1) = {"
 zJ
-zJ
+QR
 mS
 gh
 qg
@@ -1264,8 +1303,8 @@ hw
 ZK
 TY
 gh
-xD
-zJ
+qg
+QR
 zJ
 mr
 mr
@@ -1414,7 +1453,7 @@ zJ
 RY
 zJ
 OC
-zJ
+QR
 vB
 Os
 sy
@@ -1438,7 +1477,7 @@ FJ
 hP
 cU
 zJ
-zJ
+QR
 Sm
 DI
 vz
@@ -1472,7 +1511,7 @@ Uw
 MN
 XF
 MN
-Uw
+dy
 zJ
 JQ
 oI
@@ -1714,13 +1753,13 @@ Om
 DH
 Rk
 zJ
-zJ
+QR
 Sm
 DI
 vz
 Jz
 gK
-zJ
+QR
 zJ
 VQ
 VQ
@@ -1736,7 +1775,7 @@ zJ
 zJ
 PW
 zJ
-zJ
+QR
 qj
 qg
 IX
@@ -1744,7 +1783,7 @@ Je
 Dy
 TY
 Ae
-zJ
+QR
 zJ
 zJ
 zJ
@@ -1893,7 +1932,7 @@ mr
 "}
 (30,1,1) = {"
 zJ
-zJ
+QR
 HZ
 WZ
 Os
@@ -1909,7 +1948,7 @@ rD
 VT
 WZ
 vG
-zJ
+QR
 zJ
 mr
 mr
