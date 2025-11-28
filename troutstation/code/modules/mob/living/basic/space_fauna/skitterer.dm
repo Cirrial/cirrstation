@@ -38,14 +38,12 @@
 	ai_controller = /datum/ai_controller/basic_controller/skitterer
 
 
-/mob/living/basic/skitterer/attackby(obj/item/reagent_containers/cooler_jug/gaywater/thejug, mob/user, list/modifiers, list/attack_modifiers)
-	if(!istype(thejug))
-		return ..()
-	new /mob/living/basic/gay_skitterer(src.loc)
-	to_chat(user, span_notice("[src] suddenly seems very gay..."))
-	qdel(thejug)
-	qdel(src)
-	playsound(get_turf(user), SFX_GAY, 100, TRUE)
+
+
+
+
+
+
 
 
 
@@ -184,7 +182,44 @@
 
 /datum/ai_planning_subtree/use_mob_ability/be_gay/SelectBehaviors(datum/ai_controller/controller, seconds_per_tick)
 	var/trigger_prob = controller.blackboard[BB_BE_GAY_CHANCE] || 0
-    if (prob(trigger_prob))
-        return ..()
+	if (prob(trigger_prob))
+		return ..()
+
+/mob/living/basic/skitterer/attackby(obj/item/reagent_containers/cooler_jug/thejug, mob/user, list/modifiers, list/attack_modifiers)
+	if(!istype(thejug))
+		return ..()
+	if(thejug.reagents.get_reagent_amount(/datum/reagent/medicine/gaywater) > 100)
+		var/mob/living/basic/gay_skitterer/new_skitterer = new(src.loc)
+		to_chat(user, span_notice("[src] suddenly seems very gay..."))
+		thejug.reagents.remove_all(thejug.reagents.maximum_volume)
+		qdel(src)
+		playsound(get_turf(user), SFX_GAY, 100, TRUE)
+
+		var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
+			check_jobban = ROLE_SENTIENCE,
+			poll_time = 20 SECONDS,
+			alert_pic = user,
+			jump_target = user,
+			role_name_text = "Gay Skitterer"
+		)
+		if(!length(candidates))
+			return
+
+		var/mob/ghost = candidates[1] // first one wins
+		new_skitterer.take_control(ghost)
+
+
+/mob/living/basic/gay_skitterer/proc/take_control(mob/ghost)
+	PossessByPlayer(ghost.key)
+	to_chat(src, span_warning("ooohhhhhh.... gay little thing....."))
+
+
+
+
+
+
+
+
 
 #undef BB_BE_GAY_CHANCE
+
