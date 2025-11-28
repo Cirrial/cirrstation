@@ -1,4 +1,5 @@
 // todo: remove this comment
+// and this one
 /obj/item/organ/stomach/anteater
 	name = "anteater stomach"
 	desc = "Like a human stomach, but, uh, slower? I guess?? Works great on ants, though."
