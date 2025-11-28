@@ -77,7 +77,7 @@
 	)
 	tastes = list("meat" = 1, "ketchup" = 1)
 	bite_consumption = 4
-	foodtypes = GRAIN|MEAT|VEGETABLES
+	foodtypes = MEAT|VEGETABLES|GRAIN|BREAKFAST
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_2
 	venue_value = FOOD_PRICE_CHEAP
@@ -284,7 +284,7 @@
 		/datum/reagent/consumable/nutriment/soup/pea = 30,
 	)
 	tastes = list("peas" = 1, "meat" = 1, "tomato sauce" = 1)
-	foodtypes = GRAIN|VEGETABLES|MEAT
+	foodtypes = GRAIN|VEGETABLES|MEAT|DAIRY
 	w_class = WEIGHT_CLASS_NORMAL
 	crafting_complexity = FOOD_COMPLEXITY_4
 	trash_type = /obj/item/reagent_containers/cup/bowl
