@@ -98,6 +98,7 @@
 		/obj/item/food/breadslice/plain = 1,
 	)
 	result = /obj/item/food/fairy_bread
+	added_foodtypes = SUGAR
 	removed_foodtypes = JUNKFOOD
 	category = CAT_IO
 
