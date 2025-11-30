@@ -58,7 +58,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_3
 	venue_value = FOOD_PRICE_CHEAP
-	custom_materials = list(/datum/material/meat = MEATSLAB_MATERIAL_AMOUNT)
+	custom_materials = list(/datum/material/meat = MEATDISH_MATERIAL_AMOUNT)
 	food_flags = FOOD_FINGER_FOOD|FOOD_TINY_SNOUT_EDIBLE
 	snout_eat_message_category = SNOUT_EAT_MESSAGE_CATEGORY_NEAT_FIT
 
@@ -293,6 +293,7 @@
 	crafting_complexity = FOOD_COMPLEXITY_4
 	trash_type = /obj/item/reagent_containers/cup/bowl
 	venue_value = FOOD_PRICE_NORMAL
+	custom_materials = list(/datum/material/meat = MEATSLAB_MATERIAL_AMOUNT)
 
 /obj/item/food/pie_floater/Initialize(mapload)
 	. = ..()
