@@ -36,7 +36,7 @@
 	foodtypes = RAW|GRAIN|MEAT|VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_3
-	custom_materials = list(/datum/material/meat = MEATSLAB_MATERIAL_AMOUNT)
+	custom_materials = list(/datum/material/meat = MEATDISH_MATERIAL_AMOUNT)
 	food_flags = FOOD_FINGER_FOOD|FOOD_TINY_SNOUT_EDIBLE
 	snout_eat_message_category = SNOUT_EAT_MESSAGE_CATEGORY_SMUSH
 
@@ -58,6 +58,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_3
 	venue_value = FOOD_PRICE_CHEAP
+	custom_materials = list(/datum/material/meat = MEATSLAB_MATERIAL_AMOUNT)
 	food_flags = FOOD_FINGER_FOOD|FOOD_TINY_SNOUT_EDIBLE
 	snout_eat_message_category = SNOUT_EAT_MESSAGE_CATEGORY_NEAT_FIT
 
@@ -82,6 +83,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_2
 	venue_value = FOOD_PRICE_CHEAP
+	custom_materials = list(/datum/material/meat = MEATSLAB_MATERIAL_AMOUNT)
 	food_flags = FOOD_FINGER_FOOD|FOOD_TINY_SNOUT_EDIBLE
 	snout_eat_message_category = SNOUT_EAT_MESSAGE_CATEGORY_NEAT_FIT
 
@@ -256,7 +258,8 @@
 	name = "\improper Golden Gaytime"
 	desc = "It's so hard to have a Gaytime on your own!"
 	icon = 'troutstation/icons/obj/food/io_foods.dmi'
-	icon_state = "golden_gaytime"
+	icon_state = "popsicle_stick_s"
+	overlay_state = "golden_gaytime"
 	food_reagents = list(
 		/datum/reagent/consumable/vanilla = 2,
 		/datum/reagent/consumable/cream = 2,
