@@ -87,7 +87,7 @@
 	coconut.force = 0
 	coconut.throwforce = 0
 	var/datum/component/edible/edible = coconut.GetComponent(/datum/component/edible)
-	coconut.edible.eat_time = 5 SECONDS
+	edible.eat_time = 5 SECONDS
 	coconut.cracked = TRUE
 
 /obj/item/food/desiccated_coconut
