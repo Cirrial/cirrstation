@@ -4,7 +4,7 @@
 
 	if (isnull(anteater))
 		anteater = uni_icon('troutstation/icons/mob/human/species/anteater/bodyparts.dmi', "anteater_head", EAST)
-		var/datum/universal_icon/eyes = uni_icon('icons/mob/human/human_face.dmi', "eyes_l", EAST)
+		var/datum/universal_icon/eyes = uni_icon(/obj/item/organ/eyes::eye_icon, "[/obj/item/organ/eyes::eye_icon_state]_l", EAST)
 		eyes.blend_color(COLOR_GRAY, ICON_MULTIPLY)
 		anteater.blend_icon(eyes, ICON_OVERLAY)
 
