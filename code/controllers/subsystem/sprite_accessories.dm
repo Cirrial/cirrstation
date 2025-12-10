@@ -44,11 +44,6 @@ SUBSYSTEM_DEF(accessories) // just 'accessories' for brevity
 	//All features, indexed by feature key, then name of the sprite accessory to the datum iteslf
 	var/list/list/feature_list
 
-	// Troutstation addition, sadly (can't modularise this)
-	var/list/anteater_snouts_list
-	var/list/tails_list_anteater
-	var/list/anteater_markings_list
-
 /datum/controller/subsystem/accessories/PreInit() // this stuff NEEDS to be set up before GLOB for preferences and stuff to work so this must go here. sorry
 	setup_lists()
 	init_hair_gradients()
