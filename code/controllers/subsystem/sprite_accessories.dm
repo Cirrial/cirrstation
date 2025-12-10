@@ -103,9 +103,10 @@ SUBSYSTEM_DEF(accessories) // just 'accessories' for brevity
 	feature_list[FEATURE_TAIL_XENO] = INIT_ACCESSORY(/datum/sprite_accessory/tails/xeno)
 
 	// Troutstation additions here
-	anteater_snouts_list = init_sprite_accessory_subtypes(/datum/sprite_accessory/anteater_snouts)[DEFAULT_SPRITE_LIST]
-	tails_list_anteater = init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/anteater)[DEFAULT_SPRITE_LIST]
-	anteater_markings_list = init_sprite_accessory_subtypes(/datum/sprite_accessory/anteater_markings, add_blank = TRUE)[DEFAULT_SPRITE_LIST]
+	feature_list[FEATURE_ANTEATER_SNOUT] = INIT_ACCESSORY(/datum/sprite_accessory/anteater_snouts)
+	feature_list[FEATURE_ANTEATER_TAIL] = INIT_ACCESSORY(/datum/sprite_accessory/tails/anteater)
+	feature_list[FEATURE_ANTEATER_MARKINGS] = INIT_OPTIONAL_ACCESSORY(/datum/sprite_accessory/anteater_markings)
+	feature_list[FEATURE_ANTEATER_MARKINGS] = INIT_OPTIONAL_ACCESSORY(/datum/sprite_accessory/anteater_markings)
 
 /// This proc just initializes all /datum/sprite_accessory/hair_gradient into an list indexed by gradient-style name
 /datum/controller/subsystem/accessories/proc/init_hair_gradients()
