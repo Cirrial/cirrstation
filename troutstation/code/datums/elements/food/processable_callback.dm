@@ -51,7 +51,7 @@
 			to_chat(user, span_notice("You cannot prepare this here! You need a table or at least a tray."))
 			return
 
-	call(result_callback)(target)
+	call(result_callback)(source)
 
 /datum/element/processable_callback/proc/OnExamine(atom/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER

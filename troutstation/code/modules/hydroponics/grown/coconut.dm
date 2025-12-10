@@ -78,6 +78,8 @@
 	crack_coconut()
 
 /proc/crack_coconut(obj/item/food/grown/coconut/coconut) // if anyone can help me make this not a GLOBAL fucking proc i am all ears
+	if(!coconut)
+		return
 	if(coconut.cracked)
 		return
 	coconut.RemoveElement(/datum/element/processable_callback, TOOL_ROLLINGPIN, GLOBAL_PROC_REF(crack_coconut), 3 SECONDS, table_required = TRUE, screentip_verb = "Crack")
