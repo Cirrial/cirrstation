@@ -44,7 +44,7 @@ const icons = {
   wip: { icon: 'hammer', color: 'orange' },
 };
 
-const HACKY_TROUTSTATION_PREFIX = 'TS!';
+const TROUTSTATION_IDENT = 'troutstation';
 
 export class Changelog extends Component {
   constructor(props) {
@@ -308,26 +308,41 @@ export class Changelog extends Component {
             <Box ml={3}>
               {Object.entries(authors).map(([name, changes]) => {
                 let isTroutstationEntry = false;
-                if (name.startsWith(HACKY_TROUTSTATION_PREFIX)) {
-                  name = name.replace(HACKY_TROUTSTATION_PREFIX, '');
-                  isTroutstationEntry = true;
-                }
+                changes.map((change) => {
+                  const changeType = Object.keys(change)[0];
+                  if (isTroutstationEntry) {
+                    // already figured it out
+                    return;
+                  }
+                  if (changeType === TROUTSTATION_IDENT) {
+                    isTroutstationEntry = true;
+                    return;
+                  }
+                });
                 return (
                   <Fragment key={name}>
-                    <h4>{name} changed:</h4>
+                    <h4
+                      className={
+                        isTroutstationEntry
+                          ? 'Changelog__Cell__Troutstation'
+                          : ''
+                      }
+                    >
+                      {name} changed:
+                    </h4>
                     <Box ml={3}>
                       <Table>
                         {changes.map((change) => {
                           const changeType = Object.keys(change)[0];
+                          if (changeType === TROUTSTATION_IDENT) {
+                            return; // do not actually display anything
+                          }
                           return (
                             <Table.Row key={changeType + change[changeType]}>
                               <Table.Cell
                                 className={classes([
                                   'Changelog__Cell',
                                   'Changelog__Cell--Icon',
-                                  isTroutstationEntry
-                                    ? 'Changelog__Cell__Troutstation'
-                                    : '',
                                 ])}
                               >
                                 <Icon
