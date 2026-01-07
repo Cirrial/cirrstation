@@ -30,13 +30,33 @@
 	if(!ismob(jaunter))
 		return
 	var/mob/mob_jaunter = jaunter
-	position_indicator = image(phased_mob_icon, src, phased_mob_icon_state, ABOVE_LIGHTING_PLANE)
-	position_indicator.appearance_flags |= RESET_ALPHA
-	SET_PLANE_EXPLICIT(position_indicator, ABOVE_LIGHTING_PLANE, src)
 	RegisterSignal(mob_jaunter, COMSIG_MOB_LOGIN, PROC_REF(show_client_image))
 	RegisterSignal(mob_jaunter, COMSIG_MOB_STATCHANGE, PROC_REF(on_stat_change))
 	mob_jaunter.reset_perspective(src)
+	show_indicator(mob_jaunter)
+
+// Troutstation edit start
+/// Updates the position indicator if we already have a jaunter
+/obj/effect/dummy/phased_mob/proc/update_indicator(new_icon_state)
+	if(!jaunter)
+		return
+	if(new_icon_state == phased_mob_icon_state)
+		return
+	phased_mob_icon_state = new_icon_state
+	var/mob/mob_jaunter = jaunter
+	remove_client_image(mob_jaunter)
+	position_indicator = null
+	show_indicator(mob_jaunter)
+
+/obj/effect/dummy/phased_mob/proc/show_indicator(mob/mob_jaunter)
+	position_indicator = image(phased_mob_icon, src, phased_mob_icon_state, ABOVE_LIGHTING_PLANE)
+	position_indicator.appearance_flags |= RESET_ALPHA
+	SET_PLANE_EXPLICIT(position_indicator, ABOVE_LIGHTING_PLANE, src)
 	show_client_image(mob_jaunter)
+
+/obj/effect/dummy/phased_mob/proc/remove_client_image(mob/hide_from)
+	hide_from.client?.images -= position_indicator
+// Troutstation edit end
 
 /// Displays our position indicator to a client
 /obj/effect/dummy/phased_mob/proc/show_client_image(mob/show_to)
