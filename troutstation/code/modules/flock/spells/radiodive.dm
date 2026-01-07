@@ -119,6 +119,7 @@
 		else
 			jaunter.visible_message(span_warning("[jaunter] shimmers and begins to dissolve towards [target]!"))
 		do_enter_effect(jaunter, target, phase_out_time)
+		playsound(jaunter, 'troutstation/sound/effects/flock/start_radiodive.ogg', 50, TRUE, -1)
 		if(!do_after(jaunter, phase_out_time, target = target))
 			cancel_effects()
 			return FALSE
@@ -136,7 +137,7 @@
 
 	jaunter.add_traits(jaunting_traits, RADIO_DIVING)
 	radio.visible_message(span_warning("[jaunter] fully dissipates into [target]!"))
-	playsound(jaunter, 'sound/effects/magic/ethereal_enter.ogg', 50, TRUE, -1)
+	playsound(radio, 'troutstation/sound/effects/flock/radio_sweep.ogg', 50, TRUE, -1)
 	jaunter.extinguish_mob()
 
 	for(var/atom/movable/screen/plane_master/lighting as anything in jaunter.hud_used.get_true_plane_masters(LIGHTING_PLANE))
@@ -186,6 +187,7 @@
 			radio.visible_message(span_warning("[radio] starts to emit strange noises as a beam flies out..."))
 		else
 			target.visible_message(span_warning("[target] starts to emit muffled strange noises as a beam flies out..."))
+		playsound(target, 'troutstation/sound/effects/flock/radio_sweep.ogg', 50, TRUE, -1)
 		do_exit_effect(target, target_turf, phase_in_time)
 		if(!do_after(jaunter, phase_in_time, target = target))
 			cancel_effects()
@@ -213,7 +215,7 @@
 	animate(color = null, alpha = 255, transform = null, time = 5)
 	if(prob(50))
 		do_sparks(1, TRUE, unjaunter)
-	playsound(unjaunter, 'sound/effects/magic/ethereal_exit.ogg', 50, TRUE, -1)
+	playsound(unjaunter, 'troutstation/sound/effects/flock/stop_radiodive.ogg', 50, TRUE, -1)
 	// undo weird colours
 	for(var/atom/movable/screen/plane_master/lighting as anything in unjaunter.hud_used.get_true_plane_masters(LIGHTING_PLANE))
 		lighting.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, RADIO_DIVE_TINT_COLOR)
