@@ -28,10 +28,11 @@
 	radio_images = list()
 
 	// make new ones
-	// radio overlays
 	var/image/I
 	var/list/radios = get_radios_nearby(viewer, distance)
 	for(var/obj/item/radio/radio in radios)
+		if(!radio.is_on())
+			continue
 		var/atom/location = radio.loc
 		if(isturf(location))
 			I = radio_source_make_overlay_image(radio, radio)
@@ -41,8 +42,15 @@
 		add_image_to_client(I, viewer.client)
 
 /datum/component/radio_source_vision/proc/radio_source_make_overlay_image(atom/source, obj/item/radio/radio)
+	var/radio_mode = "on"
+	if(radio.get_broadcasting() && radio.get_listening())
+		radio_mode = "both"
+	else if(radio.get_broadcasting())
+		radio_mode = "broadcasting"
+	else if(radio.get_listening())
+		radio_mode = "listening"
 	var/image/I = new(loc = source)
-	var/mutable_appearance/MA = mutable_appearance('icons/obj/weapons/guns/projectiles.dmi', icon_state = "bluespace")
+	var/mutable_appearance/MA = mutable_appearance('troutstation/icons/mob/hud/hud.dmi', icon_state = "radio_[radio_mode]")
 	MA.alpha = 192
 	MA.dir = radio.dir
 	I.appearance = MA

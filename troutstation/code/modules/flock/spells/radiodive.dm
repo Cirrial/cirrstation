@@ -12,8 +12,9 @@
 		You can only enter signal-space from radio devices that are both on and listening, \
 		and you can only exit signal-space from radio devices that are on and broadcasting."
 	// todo: fix this shit
-	background_icon_state = "bg_heretic"
-	overlay_icon_state = "bg_heretic_border"
+	background_icon = 'troutstation/icons/mob/actions/backgrounds.dmi'
+	background_icon_state = "bg_flock"
+	overlay_icon_state = "bg_flock_border"
 	button_icon = 'icons/mob/actions/actions_minor_antag.dmi'
 	button_icon_state = "ninja_cloak"
 
@@ -31,6 +32,8 @@
 	TRAIT_STUNIMMUNE, TRAIT_NOSOFTCRIT, TRAIT_NOHARDCRIT)
 	/// Reference to a fancy visual we own
 	var/obj/effect/radio_dive_swirl/swirly
+	/// Keep track of the visual beam so we can kill it
+
 	/// Reference to the processor overload event
 	var/datum/round_event_control/processor_overload/processor_overload_control
 
@@ -256,6 +259,7 @@
 
 /obj/effect/dummy/phased_mob/radiodive
 	name = "signal"
+	// TODO: specify our icon so ghosts can see it
 	/// Have we already warned our user about attenuation?
 	var/attenuation_warned = FALSE
 
