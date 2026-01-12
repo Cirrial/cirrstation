@@ -15,8 +15,8 @@
 	background_icon = 'troutstation/icons/mob/actions/backgrounds.dmi'
 	background_icon_state = "bg_flock"
 	overlay_icon_state = "bg_flock_border"
-	button_icon = 'icons/mob/actions/actions_minor_antag.dmi'
-	button_icon_state = "ninja_cloak"
+	button_icon = 'troutstation/icons/mob/actions/actions_flock.dmi'
+	button_icon_state = "radiodive"
 
 	spell_requirements = NONE
 	jaunt_type = /obj/effect/dummy/phased_mob/radiodive

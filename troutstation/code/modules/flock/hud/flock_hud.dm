@@ -1,4 +1,4 @@
-/datum/hud/dextrous/flock_analyst/New(mob/owner)
+/datum/hud/dextrous/flock_agent/New(mob/owner)
 	..()
 	var/atom/movable/screen/inventory/inv_box
 
@@ -17,10 +17,10 @@
 			inv.update_appearance()
 
 
-/datum/hud/dextrous/flock_analyst/persistent_inventory_update()
+/datum/hud/dextrous/flock_agent/persistent_inventory_update()
 	if(!mymob)
 		return
-	var/mob/living/basic/flock/analyst/flockmob = mymob
+	var/mob/living/basic/flock/agent/flockmob = mymob
 
 	if(hud_shown)
 		if(!isnull(flockmob.internal_storage))

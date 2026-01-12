@@ -4,7 +4,7 @@
 	spans = list(SPAN_FLOCK)
 	key = "1"
 	flags = NO_STUTTER
-	syllables = list("=", "*", "|", "/", "\\", ".", "-", "_")
+	syllables = list("=", "*", "|", "/", "\\", ".", "-", "_", "#", "caw", "rrp", "chirp", "chirrup", "twt", "bip")
 	space_chance = 0
 	sentence_chance = 0
 	between_word_sentence_chance = 0
