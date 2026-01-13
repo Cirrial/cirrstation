@@ -42,6 +42,7 @@
 		return
 	if(new_icon_state == phased_mob_icon_state)
 		return
+	icon = phased_mob_icon
 	icon_state = new_icon_state
 	phased_mob_icon_state = new_icon_state
 	var/mob/mob_jaunter = jaunter
