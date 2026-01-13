@@ -4,6 +4,10 @@
 	mob_biotypes = MOB_ROBOTIC | MOB_SPECIAL
 	faction = list(FACTION_FLOCK)
 	speed = 1
+	// teaaalllll
+	lighting_cutoff_red = 20
+	lighting_cutoff_green = 40
+	lighting_cutoff_blue = 40
 	unsuitable_atmos_damage = 0 // they don't need air!
 	unsuitable_cold_damage = 0
 	unsuitable_heat_damage = 0
@@ -26,4 +30,21 @@
 	response_harm_simple = "punch"
 	melee_attack_cooldown = CLICK_CD_MELEE
 
+
+/// Generate a name with a pattern using C for consonant and V for vowel
+/mob/living/basic/flock/proc/generate_flock_name(pattern = "CV.CV.CV")
+	var/new_name = ""
+	// use old procs instead of _char procs because we're only using basic latin characters
+	var/pattern_len = length(pattern)
+	for(var/i in 1 to pattern_len)
+		var/char = copytext(pattern, i, i+1)
+		switch(char)
+			if("C")
+				char = pick(CONSONANTS)
+			if("V")
+				char = pick(VOWELS)
+		if(i == 1)
+			char = uppertext(char)
+		new_name += char
+	return new_name
 

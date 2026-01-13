@@ -6,8 +6,7 @@
 	inv_box.name = "internal storage"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "suit_storage"
-// inv_box.icon_full = "template"
-	inv_box.screen_loc = ui_drone_storage
+	inv_box.screen_loc = ui_flock_storage
 	inv_box.slot_id = ITEM_SLOT_DEX_STORAGE
 	static_inventory += inv_box
 
