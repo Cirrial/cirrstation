@@ -22,7 +22,9 @@
 	. = ..()
 	AddElement(/datum/element/dextrous, hud_type = hud_type, can_throw = TRUE)
 	AddComponent(/datum/component/basic_inhands, x_offset = 0, y_offset = -1) // TODO: CUSTOM COMPONENT
-	AddComponentFrom(INNATE_TRAIT, /datum/component/radio_source_vision)
+	AddComponentFrom(SPECIES_TRAIT, /datum/component/radio_source_vision)
+	ADD_TRAIT(src, TRAIT_ADVANCEDTOOLUSER, SPECIES_TRAIT)
+	ADD_TRAIT(src, TRAIT_LITERATE, SPECIES_TRAIT)
 
 	radiodive = new(src)
 	radiodive.Grant(src)

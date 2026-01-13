@@ -49,6 +49,7 @@
 	return active_radios
 
 /datum/action/cooldown/mob_cooldown/flock_squawk/proc/force_radios(list/radios)
+	playsound(owner, 'troutstation/sound/effects/flock/radio_squawk.ogg', 50, TRUE, -1)
 	for(var/obj/item/radio in radios)
 		addtimer(CALLBACK(src, PROC_REF(force_radio), radio), rand(0, radio_stagger_max_duration))
 
