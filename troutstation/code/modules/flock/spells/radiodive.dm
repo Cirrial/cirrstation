@@ -1,5 +1,5 @@
-#define RADIODIVE_BROADCASTING 1
-#define RADIODIVE_LISTENING 2
+#define RADIO_EXIT 1
+#define RADIO_ENTER 2
 #define RADIO_DIVING "radio-diving"
 #define RADIO_DIVE_BEAM_COLOR "#3ecfb3"
 #define RADIO_DIVE_TINT_COLOR "#266155"
@@ -61,7 +61,7 @@
 		return FALSE
 
 	var/we_are_phasing = is_jaunting(owner)
-	var/required_radio_mode = we_are_phasing ? RADIODIVE_BROADCASTING : RADIODIVE_LISTENING
+	var/required_radio_mode = we_are_phasing ? RADIO_EXIT : RADIO_ENTER
 	var/turf/owner_turf = get_turf(owner)
 	var/obj/item/radio/nearby_radio = find_nearby_radio(owner_turf, radio_radius, required_radio_mode)
 	if(isnull(nearby_radio))
@@ -84,10 +84,10 @@
 	for(var/obj/item/radio/radio in radios)
 		if(radio.is_on())
 			switch(radio_mode)
-				if(RADIODIVE_BROADCASTING)
+				if(RADIO_ENTER)
 					if(radio.get_broadcasting())
 						return radio
-				if(RADIODIVE_LISTENING)
+				if(RADIO_EXIT)
 					if(radio.get_listening())
 						return radio
 	return null
@@ -95,7 +95,7 @@
 /datum/action/cooldown/spell/jaunt/radiodive/cast(mob/living/cast_on)
 	. = ..()
 	var/we_are_phasing = is_jaunting(owner)
-	var/required_radio_mode = we_are_phasing ? RADIODIVE_BROADCASTING : RADIODIVE_LISTENING
+	var/required_radio_mode = we_are_phasing ? RADIO_EXIT : RADIO_ENTER
 	var/obj/item/radio/nearby_radio = find_nearby_radio(get_turf(owner), radio_radius, required_radio_mode)
 	do_radiodive(nearby_radio, cast_on)
 
@@ -290,8 +290,8 @@
 		if(76 to INFINITY)
 			update_indicator("ice_1")
 
-#undef RADIODIVE_BROADCASTING
-#undef RADIODIVE_LISTENING
+#undef RADIO_EXIT
+#undef RADIO_ENTER
 #undef RADIO_DIVING
 #undef RADIO_DIVE_BEAM_COLOR
 #undef RADIO_DIVE_TINT_COLOR
