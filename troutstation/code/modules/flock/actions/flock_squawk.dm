@@ -69,7 +69,7 @@
 		radio_messages = world.file2list("strings/flock/squawk_messages.txt")
 	var/list/poly_messages = list()
 	var/list/message_choices = radio_messages + poly_messages
-	var/message = Gibberish(pick(message_choices), TRUE, 10)
+	var/message = scramble_message_replace_chars(pick(message_choices), 10)
 	radio.say(message, spans = list(SPAN_FLOCK))
 
 /datum/action/cooldown/mob_cooldown/flock_squawk/proc/restore_radio(obj/item/radio/radio)
