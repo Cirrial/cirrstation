@@ -33,16 +33,15 @@
 	RegisterSignal(mob_jaunter, COMSIG_MOB_LOGIN, PROC_REF(show_client_image))
 	RegisterSignal(mob_jaunter, COMSIG_MOB_STATCHANGE, PROC_REF(on_stat_change))
 	mob_jaunter.reset_perspective(src)
+// Troutstation edit start
 	show_indicator(mob_jaunter)
 
-// Troutstation edit start
 /// Updates the position indicator if we already have a jaunter
 /obj/effect/dummy/phased_mob/proc/update_indicator(new_icon_state)
 	if(!jaunter)
 		return
 	if(new_icon_state == phased_mob_icon_state)
 		return
-	icon = phased_mob_icon
 	icon_state = new_icon_state
 	phased_mob_icon_state = new_icon_state
 	var/mob/mob_jaunter = jaunter

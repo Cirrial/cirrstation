@@ -31,9 +31,9 @@
 	var/static/list/jaunting_traits = list(TRAIT_RESISTLOWPRESSURE, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTCOLD, TRAIT_NOBREATH,
 	TRAIT_STUNIMMUNE, TRAIT_NOSOFTCRIT, TRAIT_NOHARDCRIT)
 	/// Reference to a fancy visual we own
-	var/obj/effect/radio_dive_swirl/swirly
+	VAR_PRIVATE/obj/effect/radio_dive_swirl/swirly
 	/// Keep track of the visual beam so we can kill it
-
+	VAR_PRIVATE/datum/weakref/beam_weakref
 	/// Reference to the processor overload event
 	var/datum/round_event_control/processor_overload/processor_overload_control
 
@@ -226,14 +226,9 @@
 
 /datum/action/cooldown/spell/jaunt/radiodive/proc/do_enter_effect(atom/source, atom/target, duration)
 	start_swirly(source)
-	source.Beam(target, time = duration, icon_state="light_beam", beam_color = RADIO_DIVE_BEAM_COLOR)
+	beam_weakref = WEAKREF(source.Beam(target, time = duration, icon_state="light_beam", beam_color = RADIO_DIVE_BEAM_COLOR))
 	animate(source, color = RADIO_DIVE_BEAM_COLOR, transform = matrix()*0.5, time = duration * 0.8, easing = SINE_EASING | EASE_OUT)
 	animate(alpha = 0, time = duration * 0.2)
-
-// /atom/proc/Beam(atom/BeamTarget,
-// 	icon_state="b_beam",
-// 	icon='icons/effects/beam.dmi',
-// )
 
 /obj/effect/radio_dive_swirl
 	name = "signal motes"
@@ -241,7 +236,7 @@
 
 /datum/action/cooldown/spell/jaunt/radiodive/proc/do_exit_effect(atom/source, atom/target, duration)
 	start_swirly(target)
-	source.Beam(target, time = duration, icon_state="light_beam", beam_color = RADIO_DIVE_BEAM_COLOR)
+	beam_weakref = WEAKREF(source.Beam(target, time = duration, icon_state="light_beam", beam_color = RADIO_DIVE_BEAM_COLOR))
 
 /datum/action/cooldown/spell/jaunt/radiodive/proc/start_swirly(atom/source)
 	if(swirly)
@@ -256,9 +251,12 @@
 /datum/action/cooldown/spell/jaunt/radiodive/proc/cancel_effects()
 	end_swirly()
 	animate(owner, color = null, alpha = 255, transform = null, time = 1)
+	QDEL_NULL(beam_weakref)
 
 /obj/effect/dummy/phased_mob/radiodive
 	name = "signal"
+	icon = 'icons/obj/weapons/guns/projectiles.dmi'
+	icon_state = "ice_1"
 	// TODO: specify our icon so ghosts can see it
 	/// Have we already warned our user about attenuation?
 	var/attenuation_warned = FALSE
@@ -267,21 +265,29 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
+/obj/effect/dummy/phased_mob/radiodive/set_jaunter(atom/movable/new_jaunter)
+	. = ..(new_jaunter)
+	redraw_health_indicator()
+
 /obj/effect/dummy/phased_mob/radiodive/process(seconds_per_tick)
 	if(!isliving(jaunter))
 		STOP_PROCESSING(SSobj, src)
 		return ..()
 	var/mob/living/living_jaunter = jaunter
-	living_jaunter.take_overall_damage(2 * seconds_per_tick)
+	living_jaunter.take_overall_damage(1 * seconds_per_tick)
+	var/health_percentage = floor((living_jaunter.health / living_jaunter.maxHealth) * 100)
+	if(health_percentage < 25)
+		if(!attenuation_warned)
+			living_jaunter.show_message(span_boldwarning("You're attenuating! Find a broadcasting radio and emerge before you're gone completely!!"))
+			attenuation_warned = TRUE
+	redraw_health_indicator(health_percentage)
 
+
+/obj/effect/dummy/phased_mob/radiodive/proc/redraw_health_indicator(health_percentage = 100)
 	// TODO: change sprite based on jaunter health
 	// using actual assets and not this bullshit
-	var/health_percentage = floor((living_jaunter.health / living_jaunter.maxHealth) * 100)
 	switch(health_percentage)
 		if(0 to 25)
-			if(!attenuation_warned)
-				living_jaunter.show_message(span_boldwarning("You're attenuating! Find a broadcasting radio and emerge before you're gone completely!!"))
-				attenuation_warned = TRUE
 			update_indicator("mini_leaper")
 		if(26 to 50)
 			update_indicator("bluespace")

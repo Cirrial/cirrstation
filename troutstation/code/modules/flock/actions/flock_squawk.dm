@@ -6,7 +6,7 @@
 	button_icon = 'troutstation/icons/mob/actions/actions_flock.dmi'
 	button_icon_state = "squawk"
 	desc = "Forces nearby radios to be listening and broadcasting for a short time. Causes a bunch of useless messages, highly visible!"
-	cooldown_time = 30 SECONDS
+	cooldown_time = 60 SECONDS
 	shared_cooldown = NONE
 	click_to_activate = FALSE
 	/// What's the range on our squawk?
@@ -19,6 +19,8 @@
 	var/list/radios_affected = list()
 	/// List of gobbledegook to spit out of radios
 	var/static/list/radio_messages = list()
+	/// List of Poly gobbledegook to spit out of radios
+	var/static/list/poly_messages = list()
 
 
 /datum/action/cooldown/mob_cooldown/flock_squawk/IsAvailable(feedback = FALSE)
@@ -61,13 +63,15 @@
 	radio.set_broadcasting(TRUE)
 	radio.set_listening(TRUE)
 	send_message(radio)
+	new /obj/effect/temp_visual/emp(radio.loc)
 	playsound(radio, 'troutstation/sound/effects/flock/radio_sweep.ogg', 50, TRUE, -1)
 	addtimer(CALLBACK(src, PROC_REF(restore_radio), radio), radio_forced_duration)
 
 /datum/action/cooldown/mob_cooldown/flock_squawk/proc/send_message(obj/item/radio/radio)
 	if(radio_messages.len == 0)
 		radio_messages = world.file2list("strings/flock/squawk_messages.txt")
-	var/list/poly_messages = list()
+	if(poly_messages.len == 0)
+		poly_messages = load_poly_lines()
 	var/list/message_choices = radio_messages + poly_messages
 	var/message = scramble_message_replace_chars(pick(message_choices), 10)
 	radio.say(message, spans = list(SPAN_FLOCK))
@@ -77,3 +81,11 @@
 	radio.set_broadcasting(radio_data["broadcasting"])
 	radio.set_listening(radio_data["listening"])
 	radios_affected -= ref(radio)
+
+/datum/action/cooldown/mob_cooldown/flock_squawk/proc/load_poly_lines()
+	var/json_file = file("data/npc_saves/Poly.json")
+	if(!fexists(json_file))
+		return list()
+	var/list/json = json_decode(file2text(json_file))
+	var/list/returnable_list = json["phrases"]
+	return returnable_list

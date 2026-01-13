@@ -948,8 +948,16 @@ h2.alert {
 
 /* Troutstation edit */
 .flock {
-  font-family: 'Courier New', cursive, sans-serif;
-  color: hsl(162, 53%, 33%);
+  font-family: Consolas, monaco, monospace;
+  font-family: Consolas, monaco, monospace;
+  background: linear-gradient(
+    to right,
+    hsl(162, 62%, 28%),
+    hsl(162, 97%, 29%),
+    hsl(162, 62%, 28%)
+  );
+  color: transparent;
+  background-clip: text;
 }
 
 .upside_down {

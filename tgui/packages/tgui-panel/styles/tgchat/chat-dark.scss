@@ -944,8 +944,15 @@ em {
 
 /* Troutstation edit */
 .flock {
-  font-family: 'Courier New', cursive, sans-serif;
-  color: hsl(162, 53%, 33%);
+  font-family: Consolas, monaco, monospace;
+  background: linear-gradient(
+    to right,
+    hsl(162, 50%, 45%),
+    hsl(162, 56%, 50%),
+    hsl(162, 50%, 45%)
+  );
+  color: transparent;
+  background-clip: text;
 }
 
 .upside_down {
