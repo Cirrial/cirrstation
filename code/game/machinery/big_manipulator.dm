@@ -97,6 +97,12 @@
 		/obj/structure/closet,
 	)
 
+	// BEGIN TROUTSTATION EDIT
+	/// Laser taped on to improve throwing accuracy.
+	/// This exists entirely so that we can use the arm to throw items in the disposal bin when it's attached (adds `TRAIT_THROWINGARM`).
+	var/obj/item/stock_parts/micro_laser/laser
+	// END TROUTSTATION EDIT
+
 /obj/machinery/big_manipulator/Initialize(mapload)
 	. = ..()
 	take_and_drop_turfs_check()
@@ -125,6 +131,15 @@
 	var/mob/monkey_resolve = monkey_worker?.resolve()
 	if(!isnull(monkey_resolve))
 		. += "You can see [monkey_resolve]: [src] manager."
+	// BEGIN TROUTSTATION EDIT
+	if(!isnull(laser))
+		. += "A laser sight is attached to improve throwing accuracy, possibly."
+
+/obj/machinery/big_manipulator/examine_more(mob/user)
+	. = ..()
+	if(isnull(laser))
+		. += "You might be able to improve its throwing accuracy slightly by attaching a laser."
+// END TROUTSTATION EDIT
 
 /obj/machinery/big_manipulator/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	. = ..()
@@ -146,6 +161,11 @@
 	if(is_wire_tool(held_item) && panel_open)
 		context[SCREENTIP_CONTEXT_LMB] = "Interact with wires"
 		return CONTEXTUAL_SCREENTIP_SET
+	// BEGIN TROUTSTATION EDIT
+	if(istype(held_item, /obj/item/stock_parts/micro_laser) && panel_open)
+		context[SCREENTIP_CONTEXT_LMB] = "Attach laser"
+		return CONTEXTUAL_SCREENTIP_SET
+	// END TROUTSTATION EDIT
 
 /obj/machinery/big_manipulator/Destroy(force)
 	. = ..()
@@ -174,6 +194,11 @@
 		poor_monkey.remove_offsets("[src]")
 		if(interaction_mode == INTERACT_USE)
 			change_mode()
+	// BEGIN TROUTSTATION EDIT
+	if(gone == laser)
+		laser = null
+		REMOVE_TRAIT(src, TRAIT_THROWINGARM, "[src]")
+	// END TROUTSTATION EDIT
 	if(manipulator_arm.vis_contents.Find(gone))
 		manipulator_arm.vis_contents.Cut(gone)
 	..()
@@ -255,6 +280,19 @@
 	if(is_wire_tool(tool))
 		wires.interact(user)
 		return ITEM_INTERACT_SUCCESS
+
+	// BEGIN TROUTSTATION EDIT
+	if(istype(tool, /obj/item/stock_parts/micro_laser))
+		if(!isnull(laser))
+			balloon_alert(user, "there is already a laser attached!")
+			return ITEM_INTERACT_BLOCKING
+		if(user.transferItemToLoc(tool, src))
+			laser = tool
+			ADD_TRAIT(src, TRAIT_THROWINGARM, "[src]")
+			balloon_alert(user, "laser sight attached!")
+			to_chat(user, span_notice("You presume this will make the arm a bit more accurate with its throws."))
+			return ITEM_INTERACT_SUCCESS
+	// END TROUTSTATION EDIT
 
 	return NONE
 
@@ -580,7 +618,7 @@
 		return
 	var/obj/item/im_item = target
 	im_item.forceMove(drop_turf)
-	im_item.throw_at(get_edge_target_turf(get_turf(src), drop_here), manipulator_throw_range - 1, 2)
+	im_item.throw_at(get_edge_target_turf(get_turf(src), drop_here), manipulator_throw_range - 1, 2, src)  // TROUTSTATION EDIT
 	src.do_attack_animation(drop_turf)
 	manipulator_arm.do_attack_animation(drop_turf)
 	finish_manipulation()
