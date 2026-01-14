@@ -562,19 +562,66 @@ GLOBAL_VAR_INIT(disposals_animals_spawned, 0)
 			eject()
 			. = TRUE
 
-
+// BEGIN TROUTSTATION EDITS
 /obj/machinery/disposal/bin/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	var/atom/thrower = throwingdatum?.get_thrower()
 	if(isitem(AM) && AM.CanEnterDisposals())
-		var/mob/thrower = throwingdatum?.get_thrower()
-		if((istype(thrower) && HAS_TRAIT(thrower, TRAIT_THROWINGARM)) || prob(75))
+		if((thrower && HAS_TRAIT(thrower, TRAIT_THROWINGARM)) || prob(75))
 			AM.forceMove(src)
 			visible_message(span_notice("[AM] lands in [src]."))
 			update_appearance()
 		else
 			visible_message(span_notice("[AM] bounces off of [src]'s rim!"))
 			return ..()
+
+	else if(ismob(AM) && AM.CanEnterDisposals())
+		// Lower probability so combat throws aren't a reliable way to dispose of combatants.
+		// Unless you're cursed, then you signed up for this fate.
+		if((thrower && HAS_TRAIT(thrower, TRAIT_THROWINGARM)) || prob(33) || HAS_TRAIT(AM, TRAIT_CURSED))
+			AM.forceMove(src)
+
+			if(isliving(AM))
+				var/mob/living/living = AM
+				living.Stun(10 SECONDS)
+
+			visible_message(span_notice("[AM] is launched directly into [src]!"))
+			flush = TRUE
+			visible_message(span_danger("[src]'s lever is forced down as [AM] lands inside!"))
+			update_appearance()
+		else
+			visible_message(span_notice("[AM] crashes against [src]!"))
+			return ..()
+
 	else
 		return ..()
+
+// Allow objects (or people) to fall into disposals from above!
+/obj/machinery/disposal/bin/intercept_zImpact(list/falling_movables, levels = 1)
+	. = ..()
+	for(var/atom/movable/AM in falling_movables)
+		if(AM.CanEnterDisposals())
+			if(isliving(AM))
+				visible_message(span_notice("[AM] dives into [src] from above!"))
+
+			AM.SpinAnimation(5, 2)
+			//Let the animation play before moving it into the bin.
+			addtimer(CALLBACK(src, PROC_REF(complete_fall), AM), 5 * 2)
+			falling_movables -= AM
+
+			if(isliving(AM))
+				var/mob/living/living = AM
+				living.Stun(10 SECONDS)
+
+	. |= FALL_INTERCEPTED
+
+/// Callback to complete the fall into the bin after doing a cool flip
+/obj/machinery/disposal/bin/proc/complete_fall(atom/movable/AM)
+	AM.forceMove(src)
+	update_appearance()
+	//Immediately flush living mobs as a reward(?) for diving in across z-levels
+	if(isliving(AM))
+		do_flush()
+// END TROUTSTATION EDITS
 
 /obj/machinery/disposal/bin/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
