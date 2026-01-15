@@ -129,7 +129,14 @@
 	var/datum/stock_part/servo/locate_servo = locate() in component_parts
 	var/manipulator_tier = locate_servo ? locate_servo.tier : 1
 
-	var/datum/interaction_point/new_interaction_point = new(new_turf, new_filters, new_filters_status, new_interaction_mode, manipulator_tier)
+	//Missing new_allowed_types and new_overflow_status
+	var/datum/interaction_point/new_interaction_point = new(
+		new_turf,
+		new_filters,
+		new_should_use_filters = new_filters_status,
+		new_interaction_mode = new_interaction_mode,
+		manipulator_tier = manipulator_tier
+	)
 
 	if(QDELETED(new_interaction_point)) // if something STILL somehow went wrong
 		return FALSE
