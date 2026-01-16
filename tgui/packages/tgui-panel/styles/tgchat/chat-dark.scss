@@ -945,11 +945,11 @@ em {
 /* Troutstation edit */
 .flock {
   font-family: Consolas, monaco, monospace;
-  background: linear-gradient(
-    to right,
-    hsl(162, 50%, 45%),
-    hsl(162, 56%, 50%),
-    hsl(162, 50%, 45%)
+  background-image: repeating-radial-gradient(
+    circle at center,
+    hsl(162, 48%, 40%) 0,
+    hsl(162, 82%, 70%),
+    hsl(162, 50%, 45%) 20%
   );
   color: transparent;
   background-clip: text;

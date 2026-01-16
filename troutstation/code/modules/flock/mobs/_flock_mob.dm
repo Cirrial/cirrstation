@@ -1,18 +1,18 @@
 /mob/living/basic/flock
 	icon = 'troutstation/icons/mob/simple/flock.dmi'
 	gender = NEUTER
-	mob_biotypes = MOB_ROBOTIC | MOB_SPECIAL
+	mob_biotypes = MOB_SPECIAL // MOB_ROBOTIC means you get robot deathgasp. lame
 	faction = list(FACTION_FLOCK)
 	speed = 1
 	// teaaalllll
-	lighting_cutoff_red = 20
-	lighting_cutoff_green = 40
-	lighting_cutoff_blue = 40
+	lighting_cutoff_red = 10
+	lighting_cutoff_green = 20
+	lighting_cutoff_blue = 20
 	unsuitable_atmos_damage = 0 // they don't need air!
-	unsuitable_cold_damage = 0
-	unsuitable_heat_damage = 0
-	minimum_survivable_temperature = 0
-	maximum_survivable_temperature = INFINITY
+	unsuitable_cold_damage = 1
+	unsuitable_heat_damage = 1
+	minimum_survivable_temperature = 200
+	maximum_survivable_temperature = 400
 	fire_stack_decay_rate = -5 // todo: self-extinguish behaviour for all flock mobs
 	pressure_resistance = 100
 	damage_coeff = list(BRUTE = 1.2, BURN = 0.8, TOX = 0, STAMINA = 0.8, OXY = 0)
@@ -26,8 +26,13 @@
 	response_help_simple = "pat"
 	response_disarm_continuous = "shoves"
 	response_disarm_simple = "shove"
-	response_harm_continuous = "punches"
-	response_harm_simple = "punch"
+	response_harm_continuous = "smacks"
+	response_harm_simple = "smack"
+
+	attack_verb_continuous = "pecks"
+	attack_verb_simple = "peck"
+	friendly_verb_continuous = "preens"
+	friendly_verb_simple = "preen"
 	melee_attack_cooldown = CLICK_CD_MELEE
 
 

@@ -2,7 +2,7 @@
 #define RADIO_ENTER 2
 #define RADIO_DIVING "radio-diving"
 #define RADIO_DIVE_BEAM_COLOR "#3ecfb3"
-#define RADIO_DIVE_TINT_COLOR "#266155"
+#define RADIO_DIVE_SCREEN_TINT_COLOR "#266155"
 
 /datum/action/cooldown/spell/jaunt/radiodive
 	name = "Radiodive"
@@ -66,7 +66,7 @@
 	var/obj/item/radio/nearby_radio = find_nearby_radio(owner_turf, radio_radius, required_radio_mode)
 	if(isnull(nearby_radio))
 		if(feedback)
-			to_chat(owner, span_warning("There are no functional radios currently [we_are_phasing ? "transmitting":"receiving"] any signals nearby!"))
+			to_chat(owner, span_warning("There are no functional radios in sight currently [we_are_phasing ? "transmitting":"receiving"] any signals nearby!"))
 		return FALSE
 
 	if(owner_turf.is_blocked_turf(exclude_mobs = TRUE))
@@ -79,17 +79,23 @@
 /// Find a nearby radio that matches the mode we're looking for.
 /// Returns null if none.
 /datum/action/cooldown/spell/jaunt/radiodive/proc/find_nearby_radio(turf/origin, radio_radius, radio_mode)
-	var/list/radios = get_radios_nearby(origin, radio_radius)
+	var/list/radios = get_radios_nearby(origin, radio_radius, visible_only = TRUE)
 
 	for(var/obj/item/radio/radio in radios)
-		if(radio.is_on())
-			switch(radio_mode)
-				if(RADIO_ENTER)
-					if(radio.get_broadcasting())
-						return radio
-				if(RADIO_EXIT)
-					if(radio.get_listening())
-						return radio
+		if(!radio.is_on())
+			continue
+		var/datum/wires/wires = radio.wires
+		switch(radio_mode)
+			if(RADIO_ENTER)
+				if(wires && wires.is_cut(WIRE_TX))
+					continue
+				if(radio.get_broadcasting())
+					return radio
+			if(RADIO_EXIT)
+				if(wires && wires.is_cut(WIRE_RX))
+					continue
+				if(radio.get_listening())
+					return radio
 	return null
 
 /datum/action/cooldown/spell/jaunt/radiodive/cast(mob/living/cast_on)
@@ -144,7 +150,7 @@
 	jaunter.extinguish_mob()
 
 	for(var/atom/movable/screen/plane_master/lighting as anything in jaunter.hud_used.get_true_plane_masters(LIGHTING_PLANE))
-		lighting.add_atom_colour(RADIO_DIVE_TINT_COLOR, TEMPORARY_COLOUR_PRIORITY)
+		lighting.add_atom_colour(RADIO_DIVE_SCREEN_TINT_COLOR, TEMPORARY_COLOUR_PRIORITY)
 
 	REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, REF(src))
 	return TRUE
@@ -221,12 +227,12 @@
 	playsound(unjaunter, 'troutstation/sound/effects/flock/stop_radiodive.ogg', 50, TRUE, -1)
 	// undo weird colours
 	for(var/atom/movable/screen/plane_master/lighting as anything in unjaunter.hud_used.get_true_plane_masters(LIGHTING_PLANE))
-		lighting.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, RADIO_DIVE_TINT_COLOR)
+		lighting.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, RADIO_DIVE_SCREEN_TINT_COLOR)
 	return ..()
 
 /datum/action/cooldown/spell/jaunt/radiodive/proc/do_enter_effect(atom/source, atom/target, duration)
 	start_swirly(source)
-	beam_weakref = WEAKREF(source.Beam(target, time = duration, icon_state="light_beam", beam_color = RADIO_DIVE_BEAM_COLOR))
+	beam_weakref = WEAKREF(source.Beam(target, time = duration, icon='troutstation/icons/effects/beam.dmi', icon_state="flock_transmit"))
 	animate(source, color = RADIO_DIVE_BEAM_COLOR, transform = matrix()*0.5, time = duration * 0.8, easing = SINE_EASING | EASE_OUT)
 	animate(alpha = 0, time = duration * 0.2)
 
@@ -236,7 +242,7 @@
 
 /datum/action/cooldown/spell/jaunt/radiodive/proc/do_exit_effect(atom/source, atom/target, duration)
 	start_swirly(target)
-	beam_weakref = WEAKREF(source.Beam(target, time = duration, icon_state="light_beam", beam_color = RADIO_DIVE_BEAM_COLOR))
+	beam_weakref = WEAKREF(source.Beam(target, time = duration, icon='troutstation/icons/effects/beam.dmi', icon_state="flock_transmit"))
 
 /datum/action/cooldown/spell/jaunt/radiodive/proc/start_swirly(atom/source)
 	if(swirly)
@@ -300,4 +306,4 @@
 #undef RADIO_ENTER
 #undef RADIO_DIVING
 #undef RADIO_DIVE_BEAM_COLOR
-#undef RADIO_DIVE_TINT_COLOR
+#undef RADIO_DIVE_SCREEN_TINT_COLOR

@@ -52,6 +52,11 @@
 
 /datum/action/cooldown/mob_cooldown/flock_squawk/proc/force_radios(list/radios)
 	playsound(owner, 'troutstation/sound/effects/flock/radio_squawk.ogg', 50, TRUE, -1)
+	owner.visible_message(
+		span_warning("[owner] emits strange static!"),
+		span_notice("You transmit garbage data into the nearest compatible receivers, forcing them into full receptivity."),
+		span_warning("You hear strange fuzzy distorted noises.")
+	)
 	for(var/obj/item/radio in radios)
 		addtimer(CALLBACK(src, PROC_REF(force_radio), radio), rand(0, radio_stagger_max_duration))
 
@@ -60,8 +65,16 @@
 		"broadcasting" = radio.get_broadcasting(),
 		"listening" = radio.get_listening()
 	)
-	radio.set_broadcasting(TRUE)
-	radio.set_listening(TRUE)
+	var/datum/wires/wires = radio.wires
+	if(wires)
+		// check that the wires allow what we're doing
+		if(!wires.is_cut(WIRE_TX))
+			radio.set_broadcasting(TRUE)
+		if(!wires.is_cut(WIRE_RX))
+			radio.set_listening(TRUE)
+	else // no wires? no problem
+		radio.set_broadcasting(TRUE)
+		radio.set_listening(TRUE)
 	send_message(radio)
 	new /obj/effect/temp_visual/emp(radio.loc)
 	playsound(radio, 'troutstation/sound/effects/flock/radio_sweep.ogg', 50, TRUE, -1)
@@ -77,10 +90,13 @@
 	radio.say(message, spans = list(SPAN_FLOCK))
 
 /datum/action/cooldown/mob_cooldown/flock_squawk/proc/restore_radio(obj/item/radio/radio)
-	var/list/radio_data = radios_affected[ref(radio)]
+	var/list/radio_data = radios_affected?[ref(radio)]
+	radios_affected -= ref(radio)
+	if(isnull(radio_data) || radio_data.len == 0)
+		// something already beat us here
+		return
 	radio.set_broadcasting(radio_data["broadcasting"])
 	radio.set_listening(radio_data["listening"])
-	radios_affected -= ref(radio)
 
 /datum/action/cooldown/mob_cooldown/flock_squawk/proc/load_poly_lines()
 	var/json_file = file("data/npc_saves/Poly.json")
