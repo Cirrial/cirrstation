@@ -3,6 +3,8 @@
 #define RADIO_DIVING "radio-diving"
 #define RADIO_DIVE_BEAM_COLOR "#3ecfb3"
 #define RADIO_DIVE_SCREEN_TINT_COLOR "#266155"
+#define RADIO_DIVE_CRIT_HEALTH_PERCENT 20
+#define RADIO_DIVE_COLOR_MATRIX list(1,0,0,0,1,0,0,0,1,0.24,0.81,0.70)
 
 /datum/action/cooldown/spell/jaunt/radiodive
 	name = "Radiodive"
@@ -59,6 +61,10 @@
 		if(feedback)
 			to_chat(owner, span_warning("Something is emitting a disruptive jamming signal!"))
 		return FALSE
+	if(is_within_supermatter_range(owner))
+		if(feedback)
+			to_chat(owner, span_warning("That horrendous screeching is distorting signal-space. Whatever that yellow anomaly is, it's not safe to transmit anywhere near it."))
+		return FALSE
 
 	var/we_are_phasing = is_jaunting(owner)
 	var/required_radio_mode = we_are_phasing ? RADIO_EXIT : RADIO_ENTER
@@ -100,9 +106,13 @@
 
 /datum/action/cooldown/spell/jaunt/radiodive/cast(mob/living/cast_on)
 	. = ..()
-	var/we_are_phasing = is_jaunting(owner)
+	var/health_percentage = floor((cast_on.health / cast_on.maxHealth) * 100)
+	if(!is_jaunting(cast_on) && health_percentage <= RADIO_DIVE_CRIT_HEALTH_PERCENT)
+		if(tgui_alert(cast_on, "This will likely kill you! Are you sure?", "Criticial Integrity Warning!", list("Yes", "No")) == "No")
+			return
+	var/we_are_phasing = is_jaunting(cast_on)
 	var/required_radio_mode = we_are_phasing ? RADIO_EXIT : RADIO_ENTER
-	var/obj/item/radio/nearby_radio = find_nearby_radio(get_turf(owner), radio_radius, required_radio_mode)
+	var/obj/item/radio/nearby_radio = find_nearby_radio(get_turf(cast_on), radio_radius, required_radio_mode)
 	do_radiodive(nearby_radio, cast_on)
 
 /datum/action/cooldown/spell/jaunt/radiodive/proc/do_radiodive(obj/item/radio/radio, mob/living/jaunter)
@@ -115,6 +125,11 @@
 		to_chat(jaunter, span_warning("You are unable to radiodive!"))
 
 /datum/action/cooldown/spell/jaunt/radiodive/proc/try_enter_jaunt(obj/item/radio/radio, mob/living/jaunter)
+	// drop everything we have that isn't flock items
+	// (which at the moment is every item. TODO: add real check
+	for(var/obj/item/item in jaunter.get_all_gear())
+		jaunter.dropItemToGround(item, force = TRUE)
+
 	var/atom/target = radio
 	if(!isturf(radio.loc))
 		target = radio.loc
@@ -164,6 +179,19 @@
 		var/mob/living/jaunter = owner
 		to_chat(jaunter, span_boldwarning("Hostile radio interference! Signal disrupted! Attempting to reassemble!!"))
 		get_punted()
+	// do not get near any supermatter
+	if(is_within_supermatter_range(owner))
+		var/mob/living/jaunter = owner
+		to_chat(jaunter, span_boldwarning("Severe radio distortions! Unable to compensate for anomalous source! Initiating emergency reintegration!"))
+		get_punted()
+
+/datum/action/cooldown/spell/jaunt/radiodive/proc/is_within_supermatter_range(atom/source, dist = 6)
+	for(var/obj/machinery/power/supermatter_crystal/sm as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/supermatter_crystal))
+		if(!isturf(sm.loc) || !(is_station_level(sm.z) || is_mining_level(sm.z) || sm.z == source.z))
+			continue
+		if(IN_GIVEN_RANGE(source, sm, dist))
+			return TRUE
+	return FALSE
 
 /datum/action/cooldown/spell/jaunt/radiodive/proc/exospheric_punt(datum/round_event_control/source_event_control, datum/round_event/processor_overload/created_event)
 	var/we_are_phasing = is_jaunting(owner)
@@ -220,7 +248,7 @@
 	UnregisterSignal(jaunt, COMSIG_MOVABLE_MOVED)
 	STOP_PROCESSING(SSobj, jaunt)
 	end_swirly()
-	animate(unjaunter, color = RADIO_DIVE_BEAM_COLOR, transform = matrix()*0.5, alpha = 0, transform = null, time = 0)
+	animate(unjaunter, color=RADIO_DIVE_COLOR_MATRIX, transform = matrix()*0.5, alpha = 0, transform = null, time = 0)
 	animate(color = null, alpha = 255, transform = null, time = 5)
 	if(prob(50))
 		do_sparks(1, TRUE, unjaunter)
@@ -233,7 +261,7 @@
 /datum/action/cooldown/spell/jaunt/radiodive/proc/do_enter_effect(atom/source, atom/target, duration)
 	start_swirly(source)
 	beam_weakref = WEAKREF(source.Beam(target, time = duration, icon='troutstation/icons/effects/beam.dmi', icon_state="flock_transmit"))
-	animate(source, color = RADIO_DIVE_BEAM_COLOR, transform = matrix()*0.5, time = duration * 0.8, easing = SINE_EASING | EASE_OUT)
+	animate(source, color=RADIO_DIVE_COLOR_MATRIX, transform = matrix()*0.5, time = duration * 0.8, easing = SINE_EASING | EASE_OUT)
 	animate(alpha = 0, time = duration * 0.2)
 
 /obj/effect/radio_dive_swirl
@@ -266,6 +294,8 @@
 	// TODO: specify our icon so ghosts can see it
 	/// Have we already warned our user about attenuation?
 	var/attenuation_warned = FALSE
+	/// Did we just start damaged?
+	var/started_at_low_health = FALSE
 
 /obj/effect/dummy/phased_mob/radiodive/Initialize(mapload, atom/movable/jaunter)
 	. = ..()
@@ -273,6 +303,10 @@
 
 /obj/effect/dummy/phased_mob/radiodive/set_jaunter(atom/movable/new_jaunter)
 	. = ..(new_jaunter)
+	var/mob/living/living_jaunter = new_jaunter
+	var/health_percentage = floor((living_jaunter.health / living_jaunter.maxHealth) * 100)
+	if(health_percentage <= RADIO_DIVE_CRIT_HEALTH_PERCENT)
+		started_at_low_health = TRUE // good luck, buddy
 	redraw_health_indicator()
 
 /obj/effect/dummy/phased_mob/radiodive/process(seconds_per_tick)
@@ -282,10 +316,14 @@
 	var/mob/living/living_jaunter = jaunter
 	living_jaunter.take_overall_damage(1 * seconds_per_tick)
 	var/health_percentage = floor((living_jaunter.health / living_jaunter.maxHealth) * 100)
-	if(health_percentage < 25)
+	if(health_percentage < RADIO_DIVE_CRIT_HEALTH_PERCENT * 1.1)
 		if(!attenuation_warned)
-			living_jaunter.show_message(span_boldwarning("You're attenuating! Find a broadcasting radio and emerge before you're gone completely!!"))
+			living_jaunter.show_message(span_userdanger("You're attenuating! Find a broadcasting radio and emerge before you're gone completely!!"))
 			attenuation_warned = TRUE
+	if(health_percentage < RADIO_DIVE_CRIT_HEALTH_PERCENT && !started_at_low_health)
+		living_jaunter.show_message(span_userdanger("Integrity critical! Emergency reintegration initiated!!"))
+		eject_jaunter()
+		return
 	redraw_health_indicator(health_percentage)
 
 
@@ -307,3 +345,5 @@
 #undef RADIO_DIVING
 #undef RADIO_DIVE_BEAM_COLOR
 #undef RADIO_DIVE_SCREEN_TINT_COLOR
+#undef RADIO_DIVE_CRIT_HEALTH_PERCENT
+#undef RADIO_DIVE_COLOR_MATRIX

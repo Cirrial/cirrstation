@@ -12,6 +12,9 @@
 	death_message = "hits the ground and cracks, its desperate caws fading as its lights dim."
 	basic_mob_flags = FLAMMABLE_MOB // how else are we going to show off our fire extinguisher
 
+	/// Headwear slot
+	var/obj/item/head
+	/// Internal slot
 	var/obj/item/internal_storage
 
 	/// Intrinsic radiodive ability
@@ -19,6 +22,7 @@
 	/// Intrinsic squawk ability
 	var/datum/action/cooldown/mob_cooldown/flock_squawk/squawk
 
+	var/list/agent_overlays[FLOCK_AGENT_TOTAL_LAYERS]
 
 /mob/living/basic/flock/agent/Initialize(mapload)
 	. = ..()
@@ -35,7 +39,7 @@
 	var/obj/item/radio/internal_radio = new /obj/item/radio(src)
 	internal_radio.keyslot = /obj/item/encryptionkey/heads/captain
 	internal_radio.subspace_transmission = TRUE
-	internal_radio.canhear_range = 0 // anything higher and people in the area will hear it too
+	internal_radio.canhear_range = 0 // only us
 	internal_radio.recalculateChannels()
 
 	radiodive = new(src)
@@ -46,6 +50,8 @@
 	fully_replace_character_name(null, generate_flock_name("CV.CV.CV"))
 
 /mob/living/basic/flock/agent/death(gibbed)
+	if(head)
+		dropItemToGround(head)
 	if(internal_storage)
 		dropItemToGround(internal_storage)
 	if(is_jaunting(src))
@@ -57,38 +63,55 @@
 		playsound(src, 'troutstation/sound/mobs/non-humanoids/flock/flock_critter_death.ogg', 100, TRUE)
 	return ..(gibbed)
 
-
-// Internal storage
+// Inventory //
 
 /mob/living/basic/flock/agent/doUnEquip(obj/item/item_dropping, force, newloc, no_move, invdrop = TRUE, silent = FALSE)
-	. = ..()
-	if (!.)
-		return FALSE
-	update_held_items()
-	if(item_dropping == internal_storage)
-		internal_storage = null
-		update_inv_internal_storage()
-	return TRUE
+	if(..())
+		update_held_items()
+		if(item_dropping == head)
+			head = null
+			update_worn_head()
+		if(item_dropping == internal_storage)
+			internal_storage = null
+			update_inv_internal_storage()
+		return TRUE
+	return FALSE
 
-/mob/living/basic/flock/agent/can_equip(mob/living/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE, indirect_action = FALSE)
-	if(slot != ITEM_SLOT_DEX_STORAGE)
-		return FALSE
-	return isnull(internal_storage)
+/mob/living/basic/flock/agent/can_equip(obj/item/item, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE, indirect_action = FALSE)
+	switch(slot)
+		if(ITEM_SLOT_HEAD)
+			if(head)
+				return FALSE
+			if(!((item.slot_flags & ITEM_SLOT_HEAD) || (item.slot_flags & ITEM_SLOT_MASK)))
+				return FALSE
+			return TRUE
+		if(ITEM_SLOT_DEX_STORAGE)
+			if(internal_storage)
+				return FALSE
+			return TRUE
+	..()
+
 
 /mob/living/basic/flock/agent/get_item_by_slot(slot_id)
-	if(slot_id == ITEM_SLOT_DEX_STORAGE)
-		return internal_storage
+	switch(slot_id)
+		if(ITEM_SLOT_HEAD)
+			return head
+		if(ITEM_SLOT_DEX_STORAGE)
+			return internal_storage
 	return ..()
 
 /mob/living/basic/flock/agent/get_slot_by_item(obj/item/looking_for)
 	if(internal_storage == looking_for)
 		return ITEM_SLOT_DEX_STORAGE
+	if(head == looking_for)
+		return ITEM_SLOT_HEAD
 	return ..()
 
 /mob/living/basic/flock/agent/equip_to_slot(obj/item/equipping, slot, initial = FALSE, redraw_mob = FALSE, indirect_action = FALSE)
-	if (slot != ITEM_SLOT_DEX_STORAGE)
-		to_chat(src, span_danger("You are trying to equip this item to an unsupported inventory slot. Report this to a coder!"))
-		return FALSE
+	if(!slot)
+		return
+	if(!istype(equipping))
+		return
 
 	var/index = get_held_index_of_item(equipping)
 	if(index)
@@ -102,20 +125,63 @@
 	equipping.forceMove(src)
 	SET_PLANE_EXPLICIT(equipping, ABOVE_HUD_PLANE, src)
 
-	internal_storage = equipping
-	update_inv_internal_storage()
+	switch(slot)
+		if(ITEM_SLOT_HEAD)
+			head = equipping
+			update_worn_head()
+		if(ITEM_SLOT_DEX_STORAGE)
+			internal_storage = equipping
+			update_inv_internal_storage()
+		else
+			to_chat(src, span_danger("You are trying to equip this item to an unsupported inventory slot. Report this to a coder!"))
+			return
 
 	has_equipped(equipping, slot)
-	return TRUE
 
 /mob/living/basic/flock/agent/getBackSlot()
 	return ITEM_SLOT_DEX_STORAGE
 
+// Visuals eg. overlays //
+// mostly stolen from drones like the rest of this
+/mob/living/basic/flock/agent/proc/apply_overlay(cache_index)
+	if((. = agent_overlays[cache_index]))
+		add_overlay(.)
+
+/mob/living/basic/flock/agent/proc/remove_overlay(cache_index)
+	var/overlay = agent_overlays[cache_index]
+	if(overlay)
+		cut_overlay(overlay)
+		agent_overlays[cache_index] = null
+
+/mob/living/basic/flock/agent/update_clothing(slot_flags)
+	if(slot_flags & ITEM_SLOT_HEAD)
+		update_worn_head()
+	if(slot_flags & ITEM_SLOT_HANDS)
+		update_held_items()
+	if(slot_flags & (ITEM_SLOT_HANDS|ITEM_SLOT_DEX_STORAGE))
+		update_inv_internal_storage()
+
 /mob/living/basic/flock/agent/proc/update_inv_internal_storage()
-	if(isnull(internal_storage) || isnull(client) || !hud_used?.hud_shown)
-		return
-	internal_storage.screen_loc = ui_flock_storage
-	client.screen += internal_storage
+	if(internal_storage && client && hud_used?.hud_shown)
+		internal_storage.screen_loc = ui_drone_storage
+		client.screen += internal_storage
+
+/mob/living/basic/flock/agent/update_worn_head()
+	remove_overlay(FLOCK_AGENT_HEAD_LAYER)
+
+	if(head)
+		if(client && hud_used?.hud_shown)
+			head.screen_loc = ui_flock_head
+			client.screen += head
+		var/used_head_icon = 'icons/mob/clothing/head/utility.dmi'
+		var/mutable_appearance/head_overlay = head.build_worn_icon(default_layer = FLOCK_AGENT_HEAD_LAYER, default_icon_file = used_head_icon)
+		head_overlay.pixel_z -= 5
+
+		agent_overlays[FLOCK_AGENT_HEAD_LAYER] = head_overlay
+
+	apply_overlay(FLOCK_AGENT_HEAD_LAYER)
 
 /mob/living/basic/flock/agent/regenerate_icons()
+	update_held_items()
+	update_worn_head()
 	update_inv_internal_storage()
