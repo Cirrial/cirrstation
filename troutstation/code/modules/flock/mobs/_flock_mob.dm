@@ -53,3 +53,8 @@
 		new_name += char
 	return new_name
 
+/mob/living/basic/flock/proc/get_scream_sound()
+	return pick(
+		'troutstation/sound/effects/flock/flock_scream1.ogg',
+		'troutstation/sound/effects/flock/flock_scream2.ogg',
+	)

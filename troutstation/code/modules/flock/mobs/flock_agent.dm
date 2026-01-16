@@ -11,6 +11,10 @@
 	hud_type = /datum/hud/dextrous/flock_agent
 	death_message = "hits the ground and cracks, its desperate caws fading as its lights dim."
 	basic_mob_flags = FLAMMABLE_MOB // how else are we going to show off our fire extinguisher
+	fire_stack_decay_rate = -0.05
+	max_stamina = 100
+	stamina_crit_threshold = 100
+	max_stamina_slowdown = 3
 
 	/// Headwear slot
 	var/obj/item/head
@@ -21,6 +25,8 @@
 	var/datum/action/cooldown/spell/jaunt/radiodive/radiodive
 	/// Intrinsic squawk ability
 	var/datum/action/cooldown/mob_cooldown/flock_squawk/squawk
+	/// Have we started our self-extinguishing process?
+	var/extinguishing
 
 	var/list/agent_overlays[FLOCK_AGENT_TOTAL_LAYERS]
 
@@ -63,8 +69,25 @@
 		playsound(src, 'troutstation/sound/mobs/non-humanoids/flock/flock_critter_death.ogg', 100, TRUE)
 	return ..(gibbed)
 
-// Inventory //
+/mob/living/basic/flock/agent/Life()
+	. = ..()
+	var/datum/status_effect/fire_handler/fire_stacks/fire_status = has_status_effect(/datum/status_effect/fire_handler/fire_stacks)
+	// don't check if we're conscious, this is an autonomous process
+	if(fire_status && !extinguishing)
+		extinguishing = TRUE
+		to_chat(src, span_boldwarning("Fire detected in multiple systems. Integrated extinguishing systems are engaging."))
+		playsound(get_turf(src), 'sound/effects/bubbles/bubbles2.ogg', 50, TRUE, -3)
+		addtimer(CALLBACK(src, PROC_REF(do_self_extinguish)), 5 SECONDS)
 
+/mob/living/basic/flock/agent/proc/do_self_extinguish()
+	var/turf/our_turf = get_turf(src)
+	to_chat(src, span_boldnotice("Extinguisher online."))
+	playsound(our_turf, 'sound/effects/extinguish.ogg', 75, TRUE, -3)
+	new /obj/effect/particle_effect/fluid/foam/firefighting(our_turf)
+	src.extinguish_mob()
+	extinguishing = FALSE
+
+// Inventory //
 /mob/living/basic/flock/agent/doUnEquip(obj/item/item_dropping, force, newloc, no_move, invdrop = TRUE, silent = FALSE)
 	if(..())
 		update_held_items()
