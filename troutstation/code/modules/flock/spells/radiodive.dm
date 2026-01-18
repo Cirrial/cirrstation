@@ -234,7 +234,8 @@
 		return FALSE
 
 	jaunter.visible_message(span_boldwarning("[jaunter] emerges in a shower of lights from [target]!"))
-	if((jaunter.health/jaunter.maxHealth) > 0.25)
+	var/health_percentage = floor((jaunter.health / jaunter.maxHealth) * 100)
+	if(health_percentage > RADIO_DIVE_CRIT_HEALTH_PERCENT)
 		jaunter.revive(HEAL_ALL)
 		jaunter.show_message(span_good("Your body reassembles itself to complete physical integrity!"))
 	else
