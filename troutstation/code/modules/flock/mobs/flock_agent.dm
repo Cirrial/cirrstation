@@ -34,7 +34,7 @@
 	. = ..()
 	AddElement(/datum/element/dextrous, hud_type = hud_type, can_throw = TRUE)
 	AddComponent(/datum/component/personal_crafting)
-	AddComponent(/datum/component/basic_inhands, x_offset = 0, y_offset = -1) // TODO: CUSTOM COMPONENT
+	AddComponent(/datum/component/basic_inhands, x_offset = 0, y_offset = -1)
 	AddComponentFrom(SPECIES_TRAIT, /datum/component/radio_source_vision)
 	ADD_TRAIT(src, TRAIT_ADVANCEDTOOLUSER, SPECIES_TRAIT)
 	ADD_TRAIT(src, TRAIT_LITERATE, SPECIES_TRAIT)
@@ -198,6 +198,12 @@
 			client.screen += head
 		var/used_head_icon = 'icons/mob/clothing/head/utility.dmi'
 		var/mutable_appearance/head_overlay = head.build_worn_icon(default_layer = FLOCK_AGENT_HEAD_LAYER, default_icon_file = used_head_icon)
+		if(dir & EAST)
+			head_overlay.pixel_w = -2
+		else if(dir & WEST)
+			head_overlay.pixel_w = 2
+		else
+			head_overlay.pixel_w = 0
 		head_overlay.pixel_z -= 5
 
 		agent_overlays[FLOCK_AGENT_HEAD_LAYER] = head_overlay
