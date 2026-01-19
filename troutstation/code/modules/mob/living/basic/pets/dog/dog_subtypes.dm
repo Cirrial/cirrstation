@@ -14,7 +14,7 @@
 	gender = MALE
 	flags_ricochet = RICOCHET_HARD | RICOCHET_SHINY
 	receive_ricochet_damage_coeff = 0
-	ai_controller = /datum/ai_controller/basic_controller/dog/corgi
+	ai_controller = /datum/ai_controller/basic_controller/dog
 
 /mob/living/basic/pet/dog/dolby/Initialize(mapload)
 	. = ..()
