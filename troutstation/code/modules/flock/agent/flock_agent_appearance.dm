@@ -31,13 +31,9 @@
 			client.screen += head
 		var/used_head_icon = 'icons/mob/clothing/head/utility.dmi'
 		var/mutable_appearance/head_overlay = head.build_worn_icon(default_layer = FLOCK_AGENT_HEAD_LAYER, default_icon_file = used_head_icon)
-		if(sprite_dir == EAST)
-			head_overlay.pixel_w = 3
-		else if(sprite_dir == WEST)
-			head_overlay.pixel_w = -3
-		else
-			head_overlay.pixel_w = 0
-		head_overlay.pixel_z -= 4
+a		var/hat_offset = gear_offsets["hat"]
+		head_overlay.pixel_w = hat_offset[1]
+		head_overlay.pixel_z = hat_offset[2] + head.worn_y_offset
 
 		agent_overlays[FLOCK_AGENT_HEAD_LAYER] = head_overlay
 

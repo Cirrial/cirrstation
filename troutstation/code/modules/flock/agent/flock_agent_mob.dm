@@ -7,7 +7,7 @@
 	maxHealth = 100
 	health = 100
 	speed = 0.5
-	unique_name = FALSE // we get a REAL name
+	unique_name = FALSE // we get a REAL name in init
 	hud_type = /datum/hud/dextrous/flock_agent
 	death_message = "hits the ground and cracks, its desperate caws fading as its lights dim."
 	basic_mob_flags = FLAMMABLE_MOB // how else are we going to show off our fire extinguisher
@@ -28,18 +28,32 @@
 	/// Have we started our self-extinguishing process?
 	var/extinguishing
 
+	// Visuals
+	/// All our managed overlays
 	var/list/agent_overlays[FLOCK_AGENT_TOTAL_LAYERS]
-	var/sprite_dir = SOUTH
+	// Have to use text-based keys instead of directions because otherwise multiple unrelated procs freak out
+	/// Hat offsets (different for each direction)
+	var/static/alist/hat_offsets = alist(
+		SOUTH = list(0, -4),
+		NORTH = list(0, -4),
+		EAST = list(3, -4),
+		WEST = list(-3, -4),
+	)
+	/// Offsets of all our gear (head, hands, god knows what else)
+	var/list/gear_offsets = list(
+		"hat" = list(0, -4), // use the SOUTH offset by default
+	)
 
 /mob/living/basic/flock/agent/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/dextrous, hud_type = hud_type, can_throw = TRUE)
 	AddComponent(/datum/component/personal_crafting)
-	AddComponent(/datum/component/basic_inhands, x_offset = 0, y_offset = -1)
+	AddComponent(/datum/component/basic_inhands, x_offset = 0, y_offset = -1) // TODO: delete me when I have better inhands display logic
 	AddComponentFrom(SPECIES_TRAIT, /datum/component/radio_source_vision)
 	ADD_TRAIT(src, TRAIT_ADVANCEDTOOLUSER, SPECIES_TRAIT)
 	ADD_TRAIT(src, TRAIT_LITERATE, SPECIES_TRAIT)
 	ADD_TRAIT(src, TRAIT_CHUNKYFINGERS, SPECIES_TRAIT)
+
 	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(on_dir_change)) // it's ugly but it's all I can hook into
 
 	// as creatures of radio they should be allowed to hear all the radios
@@ -56,7 +70,28 @@
 	squawk.Grant(src)
 
 	fully_replace_character_name(null, generate_flock_name("CV.CV.CV"))
-	sprite_dir = dir
+
+/mob/living/basic/flock/agent/proc/on_dir_change(datum/source, old_dir, new_dir)
+	gear_offsets["hat"] = hat_offsets[new_dir]
+	update_worn_head()
+
+/mob/living/basic/flock/agent/getarmor(def_zone, type)
+	var/armorval = 0
+
+	if(head) // should have worn a helmet
+		armorval = head.get_armor_rating(type)
+	return armorval
+
+// the three most important things. how to live, how to die, and how to stop being on fire
+/mob/living/basic/flock/agent/Life()
+	. = ..()
+	var/datum/status_effect/fire_handler/fire_stacks/fire_status = has_status_effect(/datum/status_effect/fire_handler/fire_stacks)
+	// don't check if we're conscious, this is an autonomous process
+	if(fire_status && !extinguishing)
+		extinguishing = TRUE
+		to_chat(src, span_boldwarning("Fire detected in multiple systems. Integrated extinguishing systems are engaging."))
+		playsound(get_turf(src), 'sound/effects/bubbles/bubbles2.ogg', 50, TRUE, -3)
+		addtimer(CALLBACK(src, PROC_REF(do_self_extinguish)), 5 SECONDS)
 
 /mob/living/basic/flock/agent/death(gibbed)
 	if(head)
@@ -72,16 +107,6 @@
 		playsound(src, 'troutstation/sound/mobs/non-humanoids/flock/flock_critter_death.ogg', 100, TRUE)
 	return ..(gibbed)
 
-/mob/living/basic/flock/agent/Life()
-	. = ..()
-	var/datum/status_effect/fire_handler/fire_stacks/fire_status = has_status_effect(/datum/status_effect/fire_handler/fire_stacks)
-	// don't check if we're conscious, this is an autonomous process
-	if(fire_status && !extinguishing)
-		extinguishing = TRUE
-		to_chat(src, span_boldwarning("Fire detected in multiple systems. Integrated extinguishing systems are engaging."))
-		playsound(get_turf(src), 'sound/effects/bubbles/bubbles2.ogg', 50, TRUE, -3)
-		addtimer(CALLBACK(src, PROC_REF(do_self_extinguish)), 5 SECONDS)
-
 /mob/living/basic/flock/agent/proc/do_self_extinguish()
 	var/turf/our_turf = get_turf(src)
 	to_chat(src, span_boldnotice("Extinguisher online."))
@@ -93,13 +118,5 @@
 	src.extinguish_mob()
 	extinguishing = FALSE
 
-/mob/living/basic/flock/agent/getarmor(def_zone, type)
-	var/armorval = 0
 
-	if(head)
-		armorval = head.get_armor_rating(type)
-	return armorval
 
-/mob/living/basic/flock/agent/proc/on_dir_change(datum/source, old_dir, new_dir)
-	sprite_dir = new_dir // cache the value we're sent, it's always ordinal
-	update_worn_head()
