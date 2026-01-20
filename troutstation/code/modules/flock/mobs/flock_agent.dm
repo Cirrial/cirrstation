@@ -29,6 +29,7 @@
 	var/extinguishing
 
 	var/list/agent_overlays[FLOCK_AGENT_TOTAL_LAYERS]
+	var/sprite_dir = SOUTH
 
 /mob/living/basic/flock/agent/Initialize(mapload)
 	. = ..()
@@ -39,6 +40,7 @@
 	ADD_TRAIT(src, TRAIT_ADVANCEDTOOLUSER, SPECIES_TRAIT)
 	ADD_TRAIT(src, TRAIT_LITERATE, SPECIES_TRAIT)
 	ADD_TRAIT(src, TRAIT_CHUNKYFINGERS, SPECIES_TRAIT)
+	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(on_dir_change)) // it's ugly but it's all I can hook into
 
 	// as creatures of radio they should be allowed to hear all the radios
 	// TODO: decide if that includes syndie radios too
@@ -54,6 +56,7 @@
 	squawk.Grant(src)
 
 	fully_replace_character_name(null, generate_flock_name("CV.CV.CV"))
+	sprite_dir = dir
 
 /mob/living/basic/flock/agent/death(gibbed)
 	if(head)
@@ -86,6 +89,17 @@
 	new /obj/effect/particle_effect/fluid/foam/firefighting(our_turf)
 	src.extinguish_mob()
 	extinguishing = FALSE
+
+/mob/living/basic/flock/agent/getarmor(def_zone, type)
+	var/armorval = 0
+
+	if(head)
+		armorval = head.get_armor_rating(type)
+	return armorval
+
+/mob/living/basic/flock/agent/proc/on_dir_change(datum/source, old_dir, new_dir)
+	sprite_dir = new_dir // cache the value we're sent, it's always ordinal
+	update_worn_head()
 
 // Inventory //
 /mob/living/basic/flock/agent/doUnEquip(obj/item/item_dropping, force, newloc, no_move, invdrop = TRUE, silent = FALSE)
@@ -198,13 +212,13 @@
 			client.screen += head
 		var/used_head_icon = 'icons/mob/clothing/head/utility.dmi'
 		var/mutable_appearance/head_overlay = head.build_worn_icon(default_layer = FLOCK_AGENT_HEAD_LAYER, default_icon_file = used_head_icon)
-		if(dir & EAST)
-			head_overlay.pixel_w = -2
-		else if(dir & WEST)
-			head_overlay.pixel_w = 2
+		if(sprite_dir == EAST)
+			head_overlay.pixel_w = 3
+		else if(sprite_dir == WEST)
+			head_overlay.pixel_w = -3
 		else
 			head_overlay.pixel_w = 0
-		head_overlay.pixel_z -= 5
+		head_overlay.pixel_z -= 4
 
 		agent_overlays[FLOCK_AGENT_HEAD_LAYER] = head_overlay
 
