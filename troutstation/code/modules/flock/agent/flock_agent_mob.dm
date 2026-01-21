@@ -31,7 +31,6 @@
 	// Visuals
 	/// All our managed overlays
 	var/list/agent_overlays[FLOCK_AGENT_TOTAL_LAYERS]
-	// Have to use text-based keys instead of directions because otherwise multiple unrelated procs freak out
 	/// Hat offsets (different for each direction)
 	var/static/alist/hat_offsets = alist(
 		SOUTH = list(0, -4),
@@ -39,22 +38,35 @@
 		EAST = list(3, -4),
 		WEST = list(-3, -4),
 	)
+	/// Held item offsets for left hand
+	var/static/alist/left_hand_offsets = alist(
+		SOUTH = list(2, -1),
+		NORTH = list(-2, -1),
+		EAST = list(6, -1),
+		WEST = list(-7, -1),
+	)
+	/// Held item offsets for right hand
+	var/static/alist/right_hand_offsets = alist(
+		SOUTH = list(-2, -1),
+		NORTH = list(2, -1),
+		EAST = list(7, -1),
+		WEST = list(-6, -1),
+	)
 	/// Offsets of all our gear (head, hands, god knows what else)
 	var/list/gear_offsets = list(
 		"hat" = list(0, -4), // use the SOUTH offset by default
+		"left_hand" = list(3, -1),
+		"right_hand" = list(-3, -1)
 	)
 
 /mob/living/basic/flock/agent/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/dextrous, hud_type = hud_type, can_throw = TRUE)
 	AddComponent(/datum/component/personal_crafting)
-	AddComponent(/datum/component/basic_inhands, x_offset = 0, y_offset = -1) // TODO: delete me when I have better inhands display logic
 	AddComponentFrom(SPECIES_TRAIT, /datum/component/radio_source_vision)
-	ADD_TRAIT(src, TRAIT_ADVANCEDTOOLUSER, SPECIES_TRAIT)
-	ADD_TRAIT(src, TRAIT_LITERATE, SPECIES_TRAIT)
-	ADD_TRAIT(src, TRAIT_CHUNKYFINGERS, SPECIES_TRAIT)
-
-	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(on_dir_change)) // it's ugly but it's all I can hook into
+	add_traits(list(TRAIT_ADVANCEDTOOLUSER, TRAIT_LITERATE, TRAIT_CAN_STRIP, TRAIT_CHUNKYFINGERS), SPECIES_TRAIT)
+	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(on_dir_change))
+	RegisterSignal(src, COMSIG_MOB_UPDATE_HELD_ITEMS, PROC_REF(on_updated_held_items))
 
 	// as creatures of radio they should be allowed to hear all the radios
 	// TODO: decide if that includes syndie radios too
@@ -71,9 +83,19 @@
 
 	fully_replace_character_name(null, generate_flock_name("CV.CV.CV"))
 
+
 /mob/living/basic/flock/agent/proc/on_dir_change(datum/source, old_dir, new_dir)
+	SIGNAL_HANDLER
+	if(isnull(new_dir))
+		return
 	gear_offsets["hat"] = hat_offsets[new_dir]
+	gear_offsets["left_hand"] = left_hand_offsets[new_dir]
+	gear_offsets["right_hand"] = right_hand_offsets[new_dir]
 	update_worn_head()
+	update_held_items()
+
+/mob/living/basic/flock/agent/proc/on_updated_held_items(mob/living/holding_mob)
+	SIGNAL_HANDLER
 
 /mob/living/basic/flock/agent/getarmor(def_zone, type)
 	var/armorval = 0
