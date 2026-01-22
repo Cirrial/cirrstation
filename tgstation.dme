@@ -6885,6 +6885,7 @@
 #include "troutstation\code\modules\flock\agent\flock_agent_hud.dm"
 #include "troutstation\code\modules\flock\agent\flock_agent_inventory.dm"
 #include "troutstation\code\modules\flock\agent\flock_agent_mob.dm"
+#include "troutstation\code\modules\flock\agent\flock_agent_say.dm"
 #include "troutstation\code\modules\flock\agent\flock_agent_status.dm"
 #include "troutstation\code\modules\flock\mobs\_flock_mob.dm"
 #include "troutstation\code\modules\flock\spells\radiodive.dm"

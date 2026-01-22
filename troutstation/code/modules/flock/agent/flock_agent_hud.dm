@@ -1,11 +1,25 @@
+/datum/hud/dextrous/flock_agent
+	ui_style = 'troutstation/icons/hud/screen_flock.dmi'
+
 /datum/hud/dextrous/flock_agent/New(mob/owner)
 	..()
 	var/atom/movable/screen/inventory/inv_box
 
+	static_inventory -= floor_change // get rid of the old one
+	floor_change = new /atom/movable/screen/floor_changer(null, src)
+	floor_change.icon = ui_style
+	static_inventory += floor_change
+
+	static_inventory -= action_intent
+	action_intent = new /atom/movable/screen/combattoggle/flock(null, src)
+	action_intent.icon = ui_style
+	action_intent.screen_loc = ui_movi
+	static_inventory += action_intent
+
 	inv_box = new /atom/movable/screen/inventory(null, src)
 	inv_box.name = "internal storage"
 	inv_box.icon = ui_style
-	inv_box.icon_state = "suit_storage"
+	inv_box.icon_state = "internal"
 	inv_box.screen_loc = ui_flock_storage
 	inv_box.slot_id = ITEM_SLOT_DEX_STORAGE
 	static_inventory += inv_box
@@ -41,3 +55,21 @@
 		flockmob.head?.screen_loc = null
 
 	..()
+
+
+/atom/movable/screen/combattoggle/flock
+	/// Mut appearance for flashy border
+	var/mutable_appearance/flashy
+
+/atom/movable/screen/combattoggle/flock/update_overlays()
+	. = ..()
+	var/mob/living/user = hud?.mymob
+	if(!istype(user) || !user.client)
+		return
+
+	if(!user.combat_mode)
+		return
+
+	if(!flashy)
+		flashy = mutable_appearance('troutstation/icons/hud/screen_flock.dmi', "combattoggle")
+	. += flashy

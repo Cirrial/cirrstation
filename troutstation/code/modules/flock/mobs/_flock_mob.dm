@@ -58,3 +58,7 @@
 		'troutstation/sound/effects/flock/flock_scream1.ogg',
 		'troutstation/sound/effects/flock/flock_scream2.ogg',
 	)
+
+// really this should be much higher up
+/mob/living/basic/flock/proc/toggle_internals(obj/item/tank)
+	return FALSE
