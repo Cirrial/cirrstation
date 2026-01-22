@@ -72,7 +72,7 @@
 	var/obj/item/radio/nearby_radio = find_nearby_radio(owner_turf, radio_radius, required_radio_mode)
 	if(isnull(nearby_radio))
 		if(feedback)
-			to_chat(owner, span_warning("There are no functional radios in sight currently [we_are_phasing ? "transmitting":"receiving"] any signals nearby!"))
+			to_chat(owner, span_warning("There are no functional radios in sight and range currently [we_are_phasing ? "transmitting":"receiving"] any signals nearby!"))
 		return FALSE
 
 	if(owner_turf.is_blocked_turf(exclude_mobs = TRUE))
@@ -261,6 +261,7 @@
 
 /datum/action/cooldown/spell/jaunt/radiodive/proc/do_enter_effect(atom/source, atom/target, duration)
 	start_swirly(source)
+	QDEL_NULL(beam_weakref)
 	beam_weakref = WEAKREF(source.Beam(target, time = duration, icon='troutstation/icons/effects/beam.dmi', icon_state="flock_transmit"))
 	animate(source, color=RADIO_DIVE_COLOR_MATRIX, transform = matrix()*0.5, time = duration * 0.8, easing = SINE_EASING | EASE_OUT)
 	animate(alpha = 0, time = duration * 0.2)
@@ -271,6 +272,7 @@
 
 /datum/action/cooldown/spell/jaunt/radiodive/proc/do_exit_effect(atom/source, atom/target, duration)
 	start_swirly(target)
+	QDEL_NULL(beam_weakref)
 	beam_weakref = WEAKREF(source.Beam(target, time = duration, icon='troutstation/icons/effects/beam.dmi', icon_state="flock_transmit"))
 
 /datum/action/cooldown/spell/jaunt/radiodive/proc/start_swirly(atom/source)

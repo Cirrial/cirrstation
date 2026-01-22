@@ -15,14 +15,34 @@
 	STOP_PROCESSING(SSobj, src)
 
 /datum/component/radio_source_vision/process()
+	// show to our holder
 	radio_source_scan(parent, vision_distance)
+	// show to anyone directly observing
+	var/mob/mob_parent = parent
+	if(length(mob_parent.observers))
+		for(var/mob/dead/observe as anything in mob_parent.observers)
+			if(observe.client && observe.client.eye == mob_parent)
+				if(length(radio_images))
+					for(var/image/existing in radio_images)
+						add_image_to_client(existing, observe.client)
+			else
+				if(length(radio_images))
+					for(var/image/existing in radio_images)
+						remove_image_from_client(existing, observe.client)
+				mob_parent.observers -= observe
+				if(!mob_parent.observers.len)
+					mob_parent.observers = null
+					break
+
 
 /datum/component/radio_source_vision/proc/radio_source_scan(mob/viewer, distance = 3)
 	if(!ismob(viewer) || !viewer.client)
 		return
 
 	// clean out old images
-	if(radio_images.len > 0)
+	if(!ismob(viewer) || !viewer.client)
+		return
+	if(length(radio_images))
 		for(var/image/existing in radio_images)
 			remove_image_from_client(existing, viewer.client)
 	radio_images = list()
