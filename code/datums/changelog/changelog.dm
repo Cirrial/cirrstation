@@ -1,5 +1,7 @@
 /datum/changelog
 	var/static/list/changelog_items = list()
+	// Troutstation edit
+	var/static/list/troutstation_changelog_items = list()
 
 /datum/changelog/ui_state()
 	return GLOB.always_state
@@ -20,6 +22,13 @@
 			changelog_item = new /datum/asset/changelog_item(params["date"])
 			changelog_items[params["date"]] = changelog_item
 		return ui.send_asset(changelog_item)
+	// Troutstation edit, and the most bodged thing I've done yet
+	if(action == "get_troutstation_month")
+		var/datum/asset/changelog_item/troutstation/troutstation_changelog_item = troutstation_changelog_items[params["date"]]
+		if (!troutstation_changelog_item)
+			troutstation_changelog_item = new /datum/asset/changelog_item/troutstation(params["date"])
+			troutstation_changelog_items[params["date"]] = troutstation_changelog_item
+		return ui.send_asset(troutstation_changelog_item)
 
 /datum/changelog/ui_static_data()
 	var/list/data = list( "dates" = list() )
