@@ -164,13 +164,6 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		return
 	SSassets.transport.unregister_asset(item_filename)
 
-// Troutstation edit
-/datum/asset/changelog_item/troutstation
-
-/datum/asset/changelog_item/troutstation/New(date)
-	item_filename = SANITIZE_FILENAME("[date].yml")
-	SSassets.transport.register_asset("troutstation_[item_filename]", file("html/changelogs/troutstation/archive/" + item_filename))
-
 //Generates assets based on iconstates of a single icon
 /datum/asset/simple/icon_states
 	_abstract = /datum/asset/simple/icon_states
