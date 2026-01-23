@@ -210,7 +210,6 @@ export const DmTarget = new Juke.Target({
     !get(SkipIconCutter) && IconCutterTarget,
     // Troutstation edit
     !get(SkipIconCutter) && TroutstationIconCutterTarget,
-    CombineChangelogsTarget,
   ],
   inputs: [
     '_maps/map_files/generic/**',
@@ -509,7 +508,7 @@ export const LintTarget = new Juke.Target({
 });
 
 export const BuildTarget = new Juke.Target({
-  dependsOn: [TguiTarget, DmTarget],
+  dependsOn: [CombineChangelogsTarget, TguiTarget, DmTarget],
 });
 
 export const ServerTarget = new Juke.Target({
@@ -560,7 +559,7 @@ export const CleanAllTarget = new Juke.Target({
 });
 
 export const TgsTarget = new Juke.Target({
-  dependsOn: [TguiTarget],
+  dependsOn: [CombineChangelogsTarget, TguiTarget],
   executes: async () => {
     Juke.logger.info('Prepending TGS define');
     prependDefines('TGS');
