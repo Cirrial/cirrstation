@@ -87,7 +87,7 @@
 		poly_messages = load_poly_lines()
 	var/list/message_choices = radio_messages + poly_messages
 	var/message = scramble_message_replace_chars(pick(message_choices), 5)
-	radio.talk_into(owner, message, spans = list(SPAN_FLOCK))
+	radio.talk_into(radio, message, spans = list(SPAN_FLOCK))
 
 /datum/action/cooldown/mob_cooldown/flock_squawk/proc/restore_radio(obj/item/radio/radio)
 	var/list/radio_data = radios_affected?[ref(radio)]

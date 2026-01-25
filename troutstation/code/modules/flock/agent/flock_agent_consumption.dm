@@ -12,27 +12,37 @@
 /proc/get_flock_item_eating_time(obj/item/eating)
 	var/time = eating.get_integrity() / 50 // base item max integrity is 200, so this gives us 4 seconds
 	time += (get_flock_item_resources(eating) - 5) / 2 // another half a second per resource above 5 we get
+	if(length(eating.contents))
+		for(var/obj/item/contained in eating.contents)
+			time += get_flock_item_eating_time(contained)
 	return time
 
 /proc/get_flock_item_resources(obj/item/eating)
 	var/item_resources = 5 // a pity amount
-	if(length(eating.custom_materials) > 0)
+	if(length(eating.contents))
+		for(var/obj/item/contained in eating.contents)
+			item_resources += get_flock_item_resources(contained)
+	if(length(eating.custom_materials))
 		for(var/datum/material/mat in eating.custom_materials)
 			item_resources += eating.custom_materials[mat] * mat.flock_resource_value
 	return floor(item_resources)
 
 /// material extra defines. whee
-#define FLOCK_UNREAL_MATERIAL 2
-#define FLOCK_PRECIOUS_MATERIAL 1
-#define FLOCK_SEMIPRECIOUS_MATERIAL 0.5
-#define FLOCK_ACCEPTABLE_MATERIAL 0.1
-#define FLOCK_ORGANIC_TRASH 0.05
-#define FLOCK_NEARLY_WORTHLESS 0.01
+#define FLOCK_UNREAL_MATERIAL 0.5
+#define FLOCK_PRECIOUS_MATERIAL 0.1
+#define FLOCK_SEMIPRECIOUS_MATERIAL 0.05
+#define FLOCK_ACCEPTABLE_MATERIAL 0.01
+#define FLOCK_ORGANIC_TRASH 0.005
+#define FLOCK_NEARLY_WORTHLESS 0.001
 
 /datum/material
 	/// How many resources is 1 unit of this resource worth? Keep in mind a sheet is 100 units.
 	var/flock_resource_value = 0
 
+/datum/material/flockmetal
+	flock_resource_value = FLOCK_UNREAL_MATERIAL // costs 50 resource for 100 material units, one sheet
+/datum/material/flockmetal
+	flock_resource_value = FLOCK_UNREAL_MATERIAL // costs 50 resource for 100 material units, one sheet
 /datum/material/iron
 	flock_resource_value = FLOCK_ACCEPTABLE_MATERIAL
 /datum/material/glass

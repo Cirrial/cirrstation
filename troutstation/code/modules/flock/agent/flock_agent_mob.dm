@@ -88,6 +88,7 @@
 	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(on_dir_change))
 	RegisterSignal(src, COMSIG_LIVING_IGNITED, PROC_REF(on_ignited))
 	RegisterSignal(src, COMSIG_ATOM_EXAMINE, PROC_REF(on_examined))
+	RegisterSignal(src, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_take_damage))
 
 	// as creatures of radio they should be allowed to hear all the radios
 	// TODO: decide if that includes syndie radios too
@@ -125,6 +126,7 @@
 		playsound(get_turf(src), 'sound/effects/bubbles/bubbles2.ogg', 50, TRUE, -3)
 		addtimer(CALLBACK(src, PROC_REF(do_self_extinguish)), 5 SECONDS)
 
+// doing this as a signal handler to mesh up with dextrous component's examine stuff
 /mob/living/basic/flock/agent/proc/on_examined(mob/living/examined, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 	if(head)
@@ -133,6 +135,19 @@
 	if(internal_storage)
 		examine_list += span_info("[examined.p_They()] [examined.p_are()] holding something inside \
 			[examined.p_their()] body, but you can't tell what.")
+	if(stat)
+		return
+	// todo: add crit/repair process messages
+	if(health != maxHealth)
+		if(health > maxHealth * 0.5)
+			examine_list += span_warning("[examined.p_They()] [examined.p_are()] a bit dented and cracked in places.")
+		else
+			examine_list += span_boldwarning("[examined.p_They()] [examined.p_are()] severely cracked and leaking glowing fluid!")
+
+/mob/living/basic/flock/agent/proc/on_take_damage(datum/source, damage, damagetype, def_zone, ...)
+	SIGNAL_HANDLER
+
+	update_damage_overlays()
 
 /mob/living/basic/flock/agent/proc/do_self_extinguish()
 	var/turf/our_turf = get_turf(src)
@@ -183,6 +198,7 @@
 			adjust_brute_loss(-FLOCK_AGENT_TCOMMS_HEAL_RATE * seconds_per_tick, updating_health = FALSE)
 			adjust_fire_loss(-FLOCK_AGENT_TCOMMS_HEAL_RATE * seconds_per_tick, updating_health = FALSE)
 			updatehealth()
+			update_damage_overlays()
 
 	// eat items
 	if(eat_mode && internal_storage)

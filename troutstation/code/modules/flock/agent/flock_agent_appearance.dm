@@ -55,11 +55,29 @@
 		held_overlay.pixel_w = is_right ? right_hand_offset[1] : left_hand_offset[1]
 		held_overlay.pixel_z = is_right ? right_hand_offset[2] : left_hand_offset[2]
 		held_overlays += held_overlay
-	agent_overlays[FLOCK_AGENT_HANDS_LAYER] = held_overlays
 
+	agent_overlays[FLOCK_AGENT_HANDS_LAYER] = held_overlays
 	apply_overlay(FLOCK_AGENT_HANDS_LAYER)
+
+/mob/living/basic/flock/agent/update_damage_overlays()
+	remove_overlay(FLOCK_AGENT_DAMAGE_LAYER)
+
+	// TODO: make sure to return early if we're in crit/repair mode
+	if(stat)
+		return
+
+	var/mutable_appearance/damage_overlay
+	if(health <= maxHealth/2)
+		damage_overlay = mutable_appearance('troutstation/icons/mob/simple/flock.dmi', "agent_damage", layer = -DAMAGE_LAYER, appearance_flags = KEEP_TOGETHER)
+
+	if(isnull(damage_overlay))
+		return
+
+	agent_overlays[FLOCK_AGENT_DAMAGE_LAYER] = damage_overlay
+	apply_overlay(FLOCK_AGENT_DAMAGE_LAYER)
 
 /mob/living/basic/flock/agent/regenerate_icons()
 	update_held_items()
 	update_worn_head()
 	update_inv_internal_storage()
+	update_damage_overlays()

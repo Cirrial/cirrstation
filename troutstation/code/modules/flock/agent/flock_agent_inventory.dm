@@ -25,6 +25,10 @@
 		if(ITEM_SLOT_DEX_STORAGE)
 			if(internal_storage)
 				return FALSE
+			if(item.w_class > WEIGHT_CLASS_NORMAL)
+				if(!disable_warning)
+					to_chat(src, span_warning("It's bigger than your internal storage!"))
+				return FALSE
 			return TRUE
 	..()
 

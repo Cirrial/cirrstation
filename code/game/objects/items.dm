@@ -440,6 +440,8 @@
 	. = ..()
 	// Troutstation hacky as fuck edit
 	if(isflock(user))
+		if(w_class > WEIGHT_CLASS_NORMAL)
+			return
 		. += span_flock("<br>-=# INTEGRATED COMPOSITION ANALYZER::<br>\
 			- Calculated resource total: <b>[get_flock_item_resources(src)]</b>.<br>\
 			- Estimated processing time: <b>[get_flock_item_eating_time(src)]s</b>.")
