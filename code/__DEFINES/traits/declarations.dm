@@ -807,10 +807,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Cannot be targeted by watcher overwatch
 #define TRAIT_OVERWATCH_IMMUNE "overwatch_immune"
 
-/// Troutstation mob traits!
-/// Trait given by having a tiny snout (so if you're an anteater or a horrible abomination with a tiny snout)
-#define TRAIT_TINY_SNOUT "tiny_snout"
-
 //non-mob traits
 /// Used for limb-based paralysis, where replacing the limb will fix it.
 #define TRAIT_PARALYSIS "paralysis"
@@ -1644,5 +1640,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Object is dangerous to mobs buckled to it
 #define TRAIT_DANGEROUS_BUCKLE "dangerous_buckle"
+
+/// Troutstation traits!
+/// Trait given by having a tiny snout (so if you're an anteater or a horrible abomination with a tiny snout)
+#define TRAIT_TINY_SNOUT "tiny_snout"
+/// Trait given to items to indicate if they're valid for radiodive transport
+#define TRAIT_FLOCKISH_ITEM "flockish_item"
 
 // END TRAIT DEFINES

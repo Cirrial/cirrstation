@@ -19,7 +19,7 @@
 
 /mob/living/basic/flock/agent/proc/update_inv_internal_storage()
 	if(internal_storage && client && hud_used?.hud_shown)
-		internal_storage.screen_loc = ui_drone_storage
+		internal_storage.screen_loc = ui_flock_storage
 		client.screen += internal_storage
 
 /mob/living/basic/flock/agent/update_worn_head()
@@ -58,7 +58,6 @@
 	agent_overlays[FLOCK_AGENT_HANDS_LAYER] = held_overlays
 
 	apply_overlay(FLOCK_AGENT_HANDS_LAYER)
-
 
 /mob/living/basic/flock/agent/regenerate_icons()
 	update_held_items()

@@ -20,8 +20,9 @@
 	can_buckle_to = FALSE
 	initial_language_holder = /datum/language_holder/flock
 	death_message = "cracks and splinters, falling over."
+	speech_span = SPAN_FLOCK
 
-	speak_emote = list("chimes", "intones", "hums", "chirps")
+	speak_emote = list("chimes", "intones", "hums", "chirps", "peeps")
 	response_help_continuous = "pats"
 	response_help_simple = "pat"
 	response_disarm_continuous = "shoves"

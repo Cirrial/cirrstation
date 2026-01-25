@@ -5,7 +5,11 @@
 			head = null
 			update_worn_head()
 		if(item_dropping == internal_storage)
+			if(eat_mode)
+				stop_eating_item(internal_storage)
 			internal_storage = null
+			if(!silent)
+				playsound(get_turf(src), 'troutstation/sound/items/handling/flock_agent_storage_rustle.ogg', 40, TRUE, -5)
 			update_inv_internal_storage()
 		return TRUE
 	return FALSE
@@ -23,7 +27,6 @@
 				return FALSE
 			return TRUE
 	..()
-
 
 /mob/living/basic/flock/agent/get_item_by_slot(slot_id)
 	switch(slot_id)
@@ -64,6 +67,14 @@
 			update_worn_head()
 		if(ITEM_SLOT_DEX_STORAGE)
 			internal_storage = equipping
+			playsound(get_turf(src), 'troutstation/sound/items/handling/flock_agent_storage_rustle.ogg', 40, TRUE, -5)
+			if(internal_storage.drop_sound)
+				playsound(get_turf(src), internal_storage.drop_sound, 30, TRUE, -7)
+			src.visible_message(span_notice("[src] pops open a slot in [src.p_their()] back and puts [internal_storage] in it."),
+				span_notice("You pop open your internal storage and put [internal_storage] in it."),
+				blind_message = span_hear("You hear something popping open and something being placed inside it."))
+			if(eat_mode)
+				start_eating_item(equipping)
 			update_inv_internal_storage()
 		else
 			to_chat(src, span_danger("You are trying to equip this item to an unsupported inventory slot. Report this to a coder!"))
@@ -73,3 +84,31 @@
 
 /mob/living/basic/flock/agent/getBackSlot()
 	return ITEM_SLOT_DEX_STORAGE
+
+/mob/living/basic/flock/agent/proc/toggle_eat_mode()
+	if(stat)
+		return
+	if(eat_mode)
+		eat_mode_off()
+	else
+		eat_mode_on()
+
+/mob/living/basic/flock/agent/proc/eat_mode_on()
+	eat_mode = TRUE
+	if(hud_used)
+		var/datum/hud/flock_agent/flock_hud = hud_used
+		if(flock_hud)
+			flock_hud.eat.icon_state = "eat_on"
+			flock_hud.internal.update_appearance()
+	if(internal_storage)
+		start_eating_item(internal_storage)
+
+/mob/living/basic/flock/agent/proc/eat_mode_off()
+	eat_mode = FALSE
+	if(hud_used)
+		var/datum/hud/flock_agent/flock_hud = hud_used
+		if(flock_hud)
+			flock_hud.eat.icon_state = "eat"
+			flock_hud.internal.update_appearance()
+	if(internal_storage)
+		stop_eating_item(internal_storage)

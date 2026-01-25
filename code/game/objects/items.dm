@@ -437,7 +437,12 @@
 	if(!(item_flags & WEAPON_DESCRIPTION_INITIALIZED))
 		add_weapon_description()
 		item_flags |= WEAPON_DESCRIPTION_INITIALIZED
-	return ..()
+	. = ..()
+	// Troutstation hacky as fuck edit
+	if(isflock(user))
+		. += span_flock("<br>-=# INTEGRATED COMPOSITION ANALYZER::<br>\
+			- Calculated resource total: <b>[get_flock_item_resources(src)]</b>.<br>\
+			- Estimated processing time: <b>[get_flock_item_eating_time(src)]s</b>.")
 
 /obj/item/examine_more(mob/user)
 	. = ..()

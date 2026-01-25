@@ -8,11 +8,11 @@
 	icon_state = "agent"
 	icon_living = "agent"
 	icon_dead = "agent_dead"
-	maxHealth = 100
-	health = 100
-	speed = 0.5
+	maxHealth = 150
+	health = 150
+	speed = 0.4
 	unique_name = FALSE // we get a REAL name in init
-	hud_type = /datum/hud/dextrous/flock_agent
+	hud_type = /datum/hud/flock_agent
 	death_message = "hits the ground and cracks, its desperate caws fading as its lights dim."
 	basic_mob_flags = FLAMMABLE_MOB // how else are we going to show off our fire extinguisher
 	fire_stack_decay_rate = -0.05
@@ -20,10 +20,24 @@
 	stamina_crit_threshold = 100
 	max_stamina_slowdown = 3
 
+	// twice the unarmed damage of a human due to being made of technology. not very good punching technology, but metal's in there
+	// still a very bad idea
+	melee_damage_lower = 2
+	melee_damage_upper = 2
+
 	/// Headwear slot
 	var/obj/item/head
 	/// Internal slot
 	var/obj/item/internal_storage
+
+	/// Are we currently trying to consume whatever's in our internal slot?
+	var/eat_mode = FALSE
+	/// How much longer will it be until our thing is eaten?
+	var/eat_time_remaining = 0
+	/// Cache of the initial eat time for this item for integrity updates
+	var/total_eat_time = 0
+	/// Our current resources
+	var/resources = 0
 
 	/// Intrinsic radiodive ability
 	var/datum/action/cooldown/spell/jaunt/radiodive/radiodive
@@ -68,11 +82,12 @@
 /mob/living/basic/flock/agent/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/dextrous, hud_type = hud_type, can_throw = TRUE)
-	AddComponent(/datum/component/personal_crafting)
+	AddComponent(/datum/component/personal_crafting, screen_loc_override = ui_flock_crafting)
 	AddComponentFrom(SPECIES_TRAIT, /datum/component/radio_source_vision)
 	add_traits(list(TRAIT_ADVANCEDTOOLUSER, TRAIT_LITERATE, TRAIT_CAN_STRIP, TRAIT_CHUNKYFINGERS), SPECIES_TRAIT)
 	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(on_dir_change))
 	RegisterSignal(src, COMSIG_LIVING_IGNITED, PROC_REF(on_ignited))
+	RegisterSignal(src, COMSIG_ATOM_EXAMINE, PROC_REF(on_examined))
 
 	// as creatures of radio they should be allowed to hear all the radios
 	// TODO: decide if that includes syndie radios too
@@ -109,6 +124,15 @@
 		to_chat(src, span_boldwarning("Fire detected in multiple systems. Integrated extinguishing systems are engaging."))
 		playsound(get_turf(src), 'sound/effects/bubbles/bubbles2.ogg', 50, TRUE, -3)
 		addtimer(CALLBACK(src, PROC_REF(do_self_extinguish)), 5 SECONDS)
+
+/mob/living/basic/flock/agent/proc/on_examined(mob/living/examined, mob/user, list/examine_list)
+	SIGNAL_HANDLER
+	if(head)
+		examine_list += span_info("[examined.p_They()] [examined.p_are()] wearing [head.examine_title(user)] \
+			on [examined.p_their()] head.")
+	if(internal_storage)
+		examine_list += span_info("[examined.p_They()] [examined.p_are()] holding something inside \
+			[examined.p_their()] body, but you can't tell what.")
 
 /mob/living/basic/flock/agent/proc/do_self_extinguish()
 	var/turf/our_turf = get_turf(src)
@@ -160,6 +184,18 @@
 			adjust_fire_loss(-FLOCK_AGENT_TCOMMS_HEAL_RATE * seconds_per_tick, updating_health = FALSE)
 			updatehealth()
 
+	// eat items
+	if(eat_mode && internal_storage)
+		internal_storage.SpinAnimation(speed = eat_time_remaining, parallel = FALSE)
+		eat_time_remaining -= seconds_per_tick
+		internal_storage.update_integrity(floor(internal_storage.max_integrity * (eat_time_remaining/total_eat_time)))
+		if(eat_time_remaining <= 0)
+			var/new_resources = get_flock_item_resources(internal_storage)
+			resources += new_resources
+			playsound(get_turf(src), 'troutstation/sound/effects/flock/flock_absorb.ogg', 50, TRUE)
+			to_chat(src, span_good("You finish absorbing [internal_storage], and gain [new_resources] resource units. (Current total: [resources])"))
+			qdel(internal_storage)
+
 
 /mob/living/basic/flock/agent/death(gibbed)
 	if(head)
@@ -167,12 +203,12 @@
 	if(internal_storage)
 		dropItemToGround(internal_storage)
 	if(is_jaunting(src))
-		playsound(src, 'troutstation/sound/mobs/non-humanoids/flock/flock_critter_attenuate_death.ogg', 100, TRUE)
+		playsound(get_turf(src), 'troutstation/sound/mobs/non-humanoids/flock/flock_critter_attenuate_death.ogg', 100, TRUE)
 		icon_dead = "agent_dead_attenuated"
 		death_message = "abruptly forms from the air, a husk that clatters to the ground amid ethereal caws."
 		desc = "Odd lights fizz from a cracked, slowly melting shell. In a few days, there'll be no trace left."
 	else
-		playsound(src, 'troutstation/sound/mobs/non-humanoids/flock/flock_critter_death.ogg', 100, TRUE)
+		playsound(get_turf(src), 'troutstation/sound/mobs/non-humanoids/flock/flock_critter_death.ogg', 100, TRUE)
 	return ..(gibbed)
 
 #undef FLOCK_AGENT_TCOMMS_HEAL_RANGE
