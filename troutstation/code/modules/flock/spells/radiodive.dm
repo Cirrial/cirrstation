@@ -13,7 +13,6 @@
 		Exiting signal-space will reinforce your integrity, fully healing you. \
 		You can only enter signal-space from radio devices that are both on and listening, \
 		and you can only exit signal-space from radio devices that are on and broadcasting."
-	// todo: fix this shit
 	background_icon = 'troutstation/icons/mob/actions/backgrounds.dmi'
 	background_icon_state = "bg_flock"
 	overlay_icon_state = "bg_flock_border"
@@ -22,6 +21,7 @@
 
 	spell_requirements = NONE
 	jaunt_type = /obj/effect/dummy/phased_mob/radiodive
+	cooldown_time = 5 SECONDS
 
 	/// Radius we'll check for radio devices in
 	var/radio_radius = 4
@@ -69,8 +69,7 @@
 	var/we_are_phasing = is_jaunting(owner)
 	var/required_radio_mode = we_are_phasing ? RADIO_EXIT : RADIO_ENTER
 	var/turf/owner_turf = get_turf(owner)
-	var/obj/item/radio/nearby_radio = find_nearby_radio(owner_turf, radio_radius, required_radio_mode)
-	if(isnull(nearby_radio))
+	if(!length(find_nearby_radios(owner_turf, radio_radius, required_radio_mode)))
 		if(feedback)
 			to_chat(owner, span_warning("There are no functional radios in sight and range currently [we_are_phasing ? "transmitting":"receiving"] any signals nearby!"))
 		return FALSE
@@ -82,11 +81,10 @@
 
 	return TRUE
 
-/// Find a nearby radio that matches the mode we're looking for.
-/// Returns null if none.
-/datum/action/cooldown/spell/jaunt/radiodive/proc/find_nearby_radio(turf/origin, radio_radius, radio_mode)
+/// Find all nearby valid radios that match the mode we're looking for.
+/datum/action/cooldown/spell/jaunt/radiodive/proc/find_nearby_radios(turf/origin, radio_radius, radio_mode)
 	var/list/radios = get_radios_nearby(origin, radio_radius, visible_only = TRUE)
-
+	var/list/candidates = list()
 	for(var/obj/item/radio/radio in radios)
 		if(!radio.is_on())
 			continue
@@ -96,13 +94,35 @@
 				if(wires && wires.is_cut(WIRE_TX))
 					continue
 				if(radio.get_broadcasting())
-					return radio
+					candidates += radio
 			if(RADIO_EXIT)
 				if(wires && wires.is_cut(WIRE_RX))
 					continue
 				if(radio.get_listening())
-					return radio
-	return null
+					candidates += radio
+	return candidates
+
+/// Find the nearest ideally stationary radio that matches the mode we're looking for.
+/// Prioritizes radios that aren't in containers or mobs that are likely to be moved.
+/// Returns null if none.
+/datum/action/cooldown/spell/jaunt/radiodive/proc/find_nearest_radio(turf/origin, radio_radius, radio_mode)
+	// prioritize radios that aren't likely to move
+	var/best_match_radio_is_stationary = FALSE
+	var/best_match_distance = INFINITY
+	var/obj/item/radio/best_match = null
+	var/list/candidates = find_nearby_radios(origin, radio_radius, radio_mode)
+
+	// second pass: best fit
+	for(var/obj/item/radio/radio in candidates)
+		var/is_stationary = isturf(radio.loc)
+		var/dist = get_dist(origin, radio)
+		if(dist < best_match_distance)
+			if(!is_stationary && best_match_radio_is_stationary)
+				continue // i don't care how close that guy is, they're gonna start running when they see a beam go in them
+			best_match = radio
+			best_match_distance = dist
+			best_match_radio_is_stationary = is_stationary
+	return best_match
 
 /datum/action/cooldown/spell/jaunt/radiodive/cast(mob/living/cast_on)
 	. = ..()
@@ -112,8 +132,8 @@
 			return
 	var/we_are_phasing = is_jaunting(cast_on)
 	var/required_radio_mode = we_are_phasing ? RADIO_EXIT : RADIO_ENTER
-	var/obj/item/radio/nearby_radio = find_nearby_radio(get_turf(cast_on), radio_radius, required_radio_mode)
-	do_radiodive(nearby_radio, cast_on)
+	var/obj/item/radio/nearest_radio = find_nearest_radio(get_turf(cast_on), radio_radius, required_radio_mode)
+	do_radiodive(nearest_radio, cast_on)
 
 /datum/action/cooldown/spell/jaunt/radiodive/proc/do_radiodive(obj/item/radio/radio, mob/living/jaunter)
 	if(is_jaunting(jaunter))
@@ -144,7 +164,7 @@
 			jaunter.visible_message(span_warning("[jaunter] shimmers and begins to dissolve towards [target]!"))
 		do_enter_effect(jaunter, target, phase_out_time)
 		playsound(jaunter, 'troutstation/sound/effects/flock/start_radiodive.ogg', 50, TRUE, -1)
-		if(!do_after(jaunter, phase_out_time, target = target))
+		if(!do_after(jaunter, phase_out_time, target = target, extra_checks = CALLBACK(src, PROC_REF(radio_still_on), target, RADIO_ENTER)))
 			cancel_effects()
 			return FALSE
 
@@ -169,6 +189,22 @@
 
 	REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, REF(src))
 	return TRUE
+
+/datum/action/cooldown/spell/jaunt/radiodive/proc/radio_still_on(obj/item/radio/radio, direction)
+	if(QDELETED(radio) || !radio.is_on())
+		return FALSE
+	var/datum/wires/wires = radio.wires
+	switch(direction)
+		if(RADIO_ENTER)
+			if((wires && wires.is_cut(WIRE_TX)) || !radio.get_broadcasting())
+				return FALSE
+		if(RADIO_EXIT)
+			if((wires && wires.is_cut(WIRE_RX)) || !radio.get_listening())
+				return FALSE
+	return TRUE
+
+/datum/action/cooldown/spell/jaunt/radiodive/proc/radio_still_on_and_no_movement(obj/item/radio/radio, turf/original_location)
+	return radio_still_on(radio, RADIO_EXIT) && (get_turf(owner) == original_location)
 
 /datum/action/cooldown/spell/jaunt/radiodive/proc/on_move(atom/old_loc, dir, forced, list/old_locs)
 	update_status_on_signal()
@@ -226,11 +262,11 @@
 			target.visible_message(span_warning("[target] starts to emit muffled strange noises as a beam flies out..."))
 		playsound(target, 'troutstation/sound/effects/flock/radio_sweep.ogg', 50, TRUE, -1)
 		do_exit_effect(target, target_turf, phase_in_time)
-		if(!do_after(jaunter, phase_in_time, target = target))
+		if(!do_after(jaunter, phase_in_time, target = target, extra_checks = CALLBACK(src, PROC_REF(radio_still_on_and_no_movement), target, target_turf)))
 			cancel_effects()
 			return FALSE
 
-	if(!exit_jaunt(jaunter, get_turf(jaunter)))
+	if(!exit_jaunt(jaunter, target_turf))
 		return FALSE
 
 	jaunter.visible_message(span_boldwarning("[jaunter] emerges in a shower of lights from [target]!"))

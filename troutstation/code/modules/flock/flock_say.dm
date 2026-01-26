@@ -1,0 +1,65 @@
+/mob/living/proc/flock_talk(message, list/spans = list(), list/message_mods = list())
+	log_sayverb_talk(message, message_mods, tag="flock comms")
+
+	spans |= SPAN_FLOCK
+
+
+	var/namepart = name
+	if(isflock(src))
+		var/mob/living/basic/flock/flockmob = src
+		namepart = "[uppertext(flockmob.lord_name)].[uppertext(name)]"
+	var/messagepart = generate_messagepart(
+		message,
+		spans,
+		message_mods,
+	)
+
+	// TODO: some way for flock talk to leak/be listened into?
+	// var/translated_message = hearing_mob.translate_language(src, /datum/language/flock, message, spans, message_mods)
+
+	for(var/mob/hearing_mob in GLOB.player_list)
+		if(isflock(hearing_mob))
+			to_chat(
+				hearing_mob,
+				span_flock("\
+					\[FLOCK::[span_name("[namepart]")]\] \
+					<span class='message'>[messagepart]</span>\
+				"),
+				type = MESSAGE_TYPE_RADIO,
+				avoid_highlighting = (src == hearing_mob)
+			)
+
+		if(isobserver(hearing_mob))
+			var/follow_link = FOLLOW_LINK(hearing_mob, src)
+
+			to_chat(
+				hearing_mob,
+				span_flock("\
+					[follow_link] \
+					\[FLOCK::[span_name("[namepart]")]\] \
+					<span class='message'>[messagepart]</span>\
+				"),
+				type = MESSAGE_TYPE_RADIO,
+				avoid_highlighting = (src == hearing_mob)
+			)
+
+
+/datum/saymode/flock
+	key = MODE_KEY_FLOCK
+	mode = MODE_FLOCK
+	allows_custom_say_emotes = TRUE
+
+/datum/saymode/flock/can_be_used_by(mob/living/user)
+	if(!isflock(user))
+		return FALSE
+	return TRUE
+
+/datum/saymode/flock/handle_message(
+	mob/living/user,
+	message,
+	list/spans = list(),
+	datum/language/language,
+	list/message_mods = list()
+)
+	user.flock_talk(message, spans, message_mods)
+	return SAYMODE_MESSAGE_HANDLED

@@ -1,35 +1,36 @@
-/// Proc to fetch all radios near an origin regardless of if they're in containers or not. Excludes origin.
+/// Proc to fetch all radios near an origin regardless of if they're in containers or not. Excludes origin obj/mob's contents.
 /proc/get_radios_nearby(atom/origin, distance = 3, visible_only = FALSE)
 	var/list/radios = list()
 	var/obj/item/radio/radio = null
 	var/atom/origin_turf = get_turf(origin) // so we can still see radio signals while in phased dummy
-	var/list/mobs
-	var/list/objs
+	var/list/movables
 	if(visible_only)
-		mobs = oview(distance, origin_turf)
-		objs = oview(distance, origin_turf)
+		movables = view(distance, origin_turf)
 	else
-		mobs = orange(distance, origin_turf)
-		objs = orange(distance, origin_turf)
-	// any mobs with radios
-	for(var/mob/M in mobs)
-		if(M == origin)
+		movables = range(distance, origin_turf)
+	for(var/atom/movable/movable in movables)
+		if(movable == origin)
 			continue
-		if(M.contents.len > 0)
-			for(var/obj/content in M.contents)
-				if(istype(content, /obj/item/radio))
-					radio = content
-					radios += radio
-	// any objs with/that are radios
-	for(var/obj/O in objs)
-		if(O == origin)
-			continue
-		if(istype(O, /obj/item/radio))
-			radio = O
+		if(istype(movable, /obj/item/radio))
+			radio = movable
 			radios += radio
-		if(O.contents.len > 0)
-			for(var/obj/content in O.contents)
+		if(length(movable.contents))
+			for(var/obj/content in movable.contents)
 				if(istype(content, /obj/item/radio))
 					radio = content
 					radios += radio
+	return radios
+
+/// Get ALL listening radio items in a target.
+/proc/get_all_listening_radios_in(atom/target)
+	var/list/radios = list()
+	var/obj/item/radio/radio = null
+	for(var/atom/movable/content in target.contents)
+		if(istype(content, /obj/item/radio))
+			radio = content
+			if(radio.is_on() && radio.get_listening())
+				radios += radio
+		else
+			var/list/contained_radios = get_all_listening_radios_in(content)
+			radios += contained_radios
 	return radios

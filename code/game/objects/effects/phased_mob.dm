@@ -32,11 +32,16 @@
 	var/mob/mob_jaunter = jaunter
 	RegisterSignal(mob_jaunter, COMSIG_MOB_LOGIN, PROC_REF(show_client_image))
 	RegisterSignal(mob_jaunter, COMSIG_MOB_STATCHANGE, PROC_REF(on_stat_change))
+	RegisterSignal(mob_jaunter, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_z_change)) // Troutstation edit
 	mob_jaunter.reset_perspective(src)
 // Troutstation edit start
 	show_indicator(mob_jaunter)
 
 /// Updates the position indicator if we already have a jaunter
+/obj/effect/dummy/phased_mob/proc/on_z_change(mob/source)
+	SIGNAL_HANDLER
+	update_indicator(phased_mob_icon_state)
+
 /obj/effect/dummy/phased_mob/proc/update_indicator(new_icon_state)
 	if(!jaunter)
 		return
@@ -97,6 +102,7 @@
 	if(gone == jaunter)
 		UnregisterSignal(jaunter, COMSIG_MOB_STATCHANGE)
 		UnregisterSignal(jaunter, COMSIG_MOB_LOGIN)
+		UnregisterSignal(jaunter, COMSIG_MOVABLE_Z_CHANGED)
 		SEND_SIGNAL(src, COMSIG_MOB_EJECTED_FROM_JAUNT, jaunter)
 		jaunter = null
 

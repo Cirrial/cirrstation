@@ -43,6 +43,8 @@
 	var/datum/action/cooldown/spell/jaunt/radiodive/radiodive
 	/// Intrinsic squawk ability
 	var/datum/action/cooldown/mob_cooldown/flock_squawk/squawk
+	/// Intrinsic narrowbeam ability
+	var/datum/action/cooldown/mob_cooldown/flock_narrowbeam/narrowbeam
 	/// Have we started our self-extinguishing process?
 	var/extinguishing = FALSE
 	/// Are we healing from tcomms presence?
@@ -91,17 +93,15 @@
 	RegisterSignal(src, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_take_damage))
 
 	// as creatures of radio they should be allowed to hear all the radios
-	// TODO: decide if that includes syndie radios too
-	var/obj/item/radio/internal_radio = new /obj/item/radio(src)
-	internal_radio.keyslot = /obj/item/encryptionkey/heads/captain
-	internal_radio.subspace_transmission = TRUE
-	internal_radio.canhear_range = 0 // only us
-	internal_radio.recalculateChannels()
+	var/obj/item/implant/radio/flock/internal_radio = new(src)
+	internal_radio.implant(src, null, TRUE, TRUE)
 
 	radiodive = new(src)
 	radiodive.Grant(src)
 	squawk = new(src)
 	squawk.Grant(src)
+	narrowbeam = new(src)
+	narrowbeam.Grant(src)
 
 	fully_replace_character_name(null, generate_flock_name("CV.CV.CV"))
 
@@ -135,6 +135,9 @@
 	if(internal_storage)
 		examine_list += span_info("[examined.p_They()] [examined.p_are()] holding something inside \
 			[examined.p_their()] body, but you can't tell what.")
+	if(eat_mode)
+		examine_list += span_info("[examined.p_They()] [examined.p_are()] glowing faintly from within. \
+			[internal_storage ? "Whatever's in [examined.p_their()] body appears to be violently shaking." : ""]")
 	if(stat)
 		return
 	// todo: add crit/repair process messages

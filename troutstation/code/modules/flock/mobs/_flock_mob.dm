@@ -1,26 +1,30 @@
 /mob/living/basic/flock
+	abstract_type = /mob/living/basic/flock
+	name = "Flock Error"
+	desc = "oh no this shouldn't be happening CALL CIRR IMMEDIATELY"
 	icon = 'troutstation/icons/mob/simple/flock.dmi'
 	gender = NEUTER
-	mob_biotypes = MOB_SPECIAL // MOB_ROBOTIC means you get robot deathgasp. lame
+	mob_biotypes = MOB_SPECIAL // MOB_ROBOTIC means "does it have wires" and they don't, not in the same way a robot does
 	faction = list(FACTION_FLOCK)
 	speed = 1
 	// teaaalllll
-	lighting_cutoff_red = 10
-	lighting_cutoff_green = 20
-	lighting_cutoff_blue = 20
+	lighting_cutoff_red = 15
+	lighting_cutoff_green = 30
+	lighting_cutoff_blue = 30
 	unsuitable_atmos_damage = 0 // they don't need air!
 	unsuitable_cold_damage = 1
 	unsuitable_heat_damage = 1
-	minimum_survivable_temperature = 200
-	maximum_survivable_temperature = 400
+	minimum_survivable_temperature = 150
+	maximum_survivable_temperature = 450
 	fire_stack_decay_rate = -5 // todo: self-extinguish behaviour for all flock mobs
-	pressure_resistance = 100
+	pressure_resistance = 50
 	damage_coeff = list(BRUTE = 1.2, BURN = 0.8, TOX = 0, STAMINA = 0.8, OXY = 0)
 	unique_name = TRUE
 	can_buckle_to = FALSE
 	initial_language_holder = /datum/language_holder/flock
 	death_message = "cracks and splinters, falling over."
 	speech_span = SPAN_FLOCK
+	bubble_icon = "flock"
 
 	speak_emote = list("chimes", "intones", "hums", "chirps", "peeps")
 	response_help_continuous = "pats"
@@ -35,6 +39,13 @@
 	friendly_verb_continuous = "preens"
 	friendly_verb_simple = "preen"
 	melee_attack_cooldown = CLICK_CD_MELEE
+
+	var/lord_name = "???" // TODO: replace this
+
+
+/mob/living/basic/flock/Initialize(mapload)
+	. = ..()
+	lord_name = generate_flock_name("CV.CV")
 
 
 /// Generate a name with a pattern using C for consonant and V for vowel
