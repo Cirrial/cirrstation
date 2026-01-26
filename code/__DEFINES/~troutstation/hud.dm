@@ -10,6 +10,7 @@
 #define ui_flock_building "EAST-3:24,SOUTH+1:24"
 #define ui_flock_navigate "EAST-3:7,SOUTH+1:7"
 #define ui_flock_eat "CENTER+1:18,SOUTH+1:5"
-#define ui_flock_resource_count ""
+#define ui_flock_resource_count_above "CENTER+1:18,SOUTH+1:12"
+#define ui_flock_resource_count_right "CENTER+2:18,SOUTH:5"
 #define ui_flock_see_radio ""
 #define ui_flock_signal_indicator ""

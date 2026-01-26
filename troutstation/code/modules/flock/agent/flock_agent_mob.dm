@@ -149,7 +149,6 @@
 
 /mob/living/basic/flock/agent/proc/on_take_damage(datum/source, damage, damagetype, def_zone, ...)
 	SIGNAL_HANDLER
-
 	update_damage_overlays()
 
 /mob/living/basic/flock/agent/proc/do_self_extinguish()
@@ -211,7 +210,8 @@
 		if(eat_time_remaining <= 0)
 			var/new_resources = get_flock_item_resources(internal_storage)
 			resources += new_resources
-			playsound(get_turf(src), 'troutstation/sound/effects/flock/flock_absorb.ogg', 50, TRUE)
+			SEND_SIGNAL(src, COMSIG_FLOCK_ITEM_CONSUMED, internal_storage, resources)
+			playsound(get_turf(src), 'troutstation/sound/effects/flock/flock_absorb.ogg', 40, TRUE, -5)
 			to_chat(src, span_good("You finish absorbing [internal_storage], and gain [new_resources] resource units. (Current total: [resources])"))
 			qdel(internal_storage)
 

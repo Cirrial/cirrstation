@@ -94,8 +94,10 @@
 		return
 	if(eat_mode)
 		eat_mode_off()
+		SEND_SOUND(src, sound('troutstation/sound/effects/flock/flock_interface_off.ogg', volume = 25))
 	else
 		eat_mode_on()
+		SEND_SOUND(src, sound('troutstation/sound/effects/flock/flock_interface_on.ogg', volume = 25))
 
 /mob/living/basic/flock/agent/proc/eat_mode_on()
 	eat_mode = TRUE

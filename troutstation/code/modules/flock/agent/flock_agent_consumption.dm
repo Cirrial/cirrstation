@@ -5,6 +5,7 @@
 	eating.SpinAnimation(speed = eat_time_remaining, parallel = FALSE)
 	// actual eating happens in flock agent's Life process
 	to_chat(src, span_notice("It will take about [eat_time_remaining] second[eat_time_remaining == 1 ? "" : "s"] to process [eating]."))
+	playsound(get_turf(src), 'troutstation/sound/effects/flock/flock_start_absorb.ogg', 40, TRUE, -5)
 
 /mob/living/basic/flock/agent/proc/stop_eating_item(obj/item/eating)
 	animate(eating, color = null, transform = null, time = 0.1 SECONDS)

@@ -5,6 +5,8 @@
 	var/atom/movable/screen/eat
 	/// Internal storage
 	var/atom/movable/screen/inventory/flock_internal/internal
+	/// Resource display
+	var/atom/movable/screen/flock_resources_display/resources
 
 /datum/hud/flock_agent/New(mob/living/owner)
 	..()
@@ -80,9 +82,12 @@
 	internal.slot_id = ITEM_SLOT_DEX_STORAGE
 	static_inventory += internal
 
+	// snowflake screen bits
 	eat = new /atom/movable/screen/eat(null, src)
-	eat.screen_loc = ui_flock_eat
 	static_inventory += eat
+
+	resources = new /atom/movable/screen/flock_resources_display(null, src)
+	static_inventory += resources
 
 	inv_box = new /atom/movable/screen/inventory(null, src)
 	inv_box.name = "hat"
@@ -170,9 +175,38 @@
 	name = "absorb contents"
 	icon = 'troutstation/icons/hud/screen_flock.dmi'
 	icon_state = "eat"
+	screen_loc = ui_flock_eat
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/eat/Click()
 	if(istype(usr, /mob/living/basic/flock/agent))
 		var/mob/living/basic/flock/agent/user = usr
 		user.toggle_eat_mode()
+
+#define FORMAT_FLOCK_RESOURCES_HUD_MAPTEXT(value) MAPTEXT("<div align='center' valign='middle' style='position:relative; top:-1px; left:6px'><font color='#ade4d3'>[round(value,1)]</font></div>")
+
+/atom/movable/screen/flock_resources_display
+	name = "Resource Count"
+	icon = 'troutstation/icons/hud/screen_flock.dmi'
+	icon_state = "resource_count"
+	screen_loc = ui_flock_resource_count_right
+
+/atom/movable/screen/flock_resources_display/Initialize(mapload, datum/hud/hud_owner)
+	. = ..()
+	if(isnull(hud_owner))
+		return INITIALIZE_HINT_QDEL
+	RegisterSignal(hud_owner.mymob, COMSIG_FLOCK_ITEM_CONSUMED, PROC_REF(on_item_consumed))
+	var/mob/living/basic/flock/agent/agent = hud_owner.mymob
+	var/shown_resources = 0
+	if(agent)
+		shown_resources = agent.resources
+	show_resource_count(shown_resources)
+
+/atom/movable/screen/flock_resources_display/proc/on_item_consumed(mob/living/basic/flock/agent/consumer, obj/item/consumed, new_resource_total)
+	SIGNAL_HANDLER
+	show_resource_count(new_resource_total)
+
+/atom/movable/screen/flock_resources_display/proc/show_resource_count(new_resource_total)
+	maptext = FORMAT_FLOCK_RESOURCES_HUD_MAPTEXT(new_resource_total)
+
+#undef FORMAT_FLOCK_RESOURCES_HUD_MAPTEXT

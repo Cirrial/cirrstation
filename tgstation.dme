@@ -430,6 +430,7 @@
 #include "code\__DEFINES\~troutstation\is_helpers.dm"
 #include "code\__DEFINES\~troutstation\mobs.dm"
 #include "code\__DEFINES\~troutstation\role_preferences.dm"
+#include "code\__DEFINES\~troutstation\signals.dm"
 #include "code\__DEFINES\~troutstation\span.dm"
 #include "code\__DEFINES\~troutstation\text.dm"
 #include "code\__HELPERS\_auxtools_api.dm"
