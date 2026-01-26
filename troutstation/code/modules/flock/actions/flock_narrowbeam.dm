@@ -25,7 +25,7 @@
 	var/mob/living/target_living = target_atom
 	var/list/target_radios = get_all_listening_radios_in(target_atom)
 	if(!length(target_radios))
-		target_living.balloon_alert("no radio!")
+		target_living.balloon_alert(owner, "no radio!")
 		to_chat(owner, span_warning("Can't find a working radio device to target on [target_living]."))
 		return FALSE
 

@@ -20,10 +20,11 @@
 	stamina_crit_threshold = 100
 	max_stamina_slowdown = 3
 
-	// twice the unarmed damage of a human due to being made of technology. not very good punching technology, but metal's in there
+	// not very good punching technology, but metal's in there
 	// still a very bad idea
-	melee_damage_lower = 2
-	melee_damage_upper = 2
+	attack_sound = 'troutstation/sound/effects/flock/flock_peck.ogg'
+	melee_damage_lower = 5
+	melee_damage_upper = 10
 
 	/// Headwear slot
 	var/obj/item/head

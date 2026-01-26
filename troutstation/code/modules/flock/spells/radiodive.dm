@@ -21,7 +21,6 @@
 
 	spell_requirements = NONE
 	jaunt_type = /obj/effect/dummy/phased_mob/radiodive
-	cooldown_time = 5 SECONDS
 
 	/// Radius we'll check for radio devices in
 	var/radio_radius = 4
