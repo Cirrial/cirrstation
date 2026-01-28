@@ -71,6 +71,9 @@
 		'troutstation/sound/effects/flock/flock_scream2.ogg',
 	)
 
+/mob/living/basic/flock/proc/get_lord_name()
+	return lord_name // todo: better than this
+
 // really this should be much higher up
 /mob/living/basic/flock/proc/toggle_internals(obj/item/tank)
 	return FALSE

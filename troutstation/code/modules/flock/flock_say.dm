@@ -7,7 +7,7 @@
 	var/namepart = name
 	if(isflock(src))
 		var/mob/living/basic/flock/flockmob = src
-		namepart = "[uppertext(flockmob.lord_name)].[uppertext(name)]"
+		namepart = "[uppertext(flockmob.get_lord_name())].[uppertext(name)]"
 	var/messagepart = generate_messagepart(
 		message,
 		spans,

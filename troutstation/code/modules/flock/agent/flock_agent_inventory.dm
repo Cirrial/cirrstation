@@ -100,6 +100,9 @@
 		SEND_SOUND(src, sound('troutstation/sound/effects/flock/flock_interface_on.ogg', volume = 25))
 
 /mob/living/basic/flock/agent/proc/eat_mode_on()
+	if(internal_storage && istype(internal_storage, /obj/item/flock_creation))
+		to_chat(src, span_warning("No, you're using that space to make something."))
+		return
 	eat_mode = TRUE
 	if(hud_used)
 		var/datum/hud/flock_agent/flock_hud = hud_used

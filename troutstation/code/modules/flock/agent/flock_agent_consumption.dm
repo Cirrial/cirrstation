@@ -1,4 +1,6 @@
 /mob/living/basic/flock/agent/proc/start_eating_item(obj/item/eating)
+	if(istype(eating, /obj/item/flock_creation))
+		return // under no circumstances eat the creation effect
 	eat_time_remaining = get_flock_item_eating_time(eating)
 	total_eat_time = eat_time_remaining
 	animate(eating, color = list(1,0,0,0,1,0,0,0,1,0,1,0.5), time = eat_time_remaining / 10)

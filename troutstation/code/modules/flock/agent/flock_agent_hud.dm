@@ -195,16 +195,20 @@
 	. = ..()
 	if(isnull(hud_owner))
 		return INITIALIZE_HINT_QDEL
-	RegisterSignal(hud_owner.mymob, COMSIG_FLOCK_ITEM_CONSUMED, PROC_REF(on_item_consumed))
+	RegisterSignal(hud_owner.mymob, COMSIG_FLOCK_RESOURCES_CHANGED, PROC_REF(on_resources_update))
 	var/mob/living/basic/flock/agent/agent = hud_owner.mymob
 	var/shown_resources = 0
 	if(agent)
 		shown_resources = agent.resources
 	show_resource_count(shown_resources)
 
-/atom/movable/screen/flock_resources_display/proc/on_item_consumed(mob/living/basic/flock/agent/consumer, obj/item/consumed, new_resource_total)
+/atom/movable/screen/flock_resources_display/proc/on_resources_update(mob/living/basic/flock/agent/agent, new_resource_total)
 	SIGNAL_HANDLER
 	show_resource_count(new_resource_total)
+
+// /atom/movable/screen/flock_resources_display/proc/on_item_consumed(mob/living/basic/flock/agent/consumer, obj/item/consumed, new_resource_total)
+// 	SIGNAL_HANDLER
+// 	show_resource_count(new_resource_total)
 
 /atom/movable/screen/flock_resources_display/proc/show_resource_count(new_resource_total)
 	maptext = FORMAT_FLOCK_RESOURCES_HUD_MAPTEXT(new_resource_total)

@@ -212,10 +212,10 @@
 			var/new_resources = get_flock_item_resources(internal_storage)
 			resources += new_resources
 			SEND_SIGNAL(src, COMSIG_FLOCK_ITEM_CONSUMED, internal_storage, resources)
+			SEND_SIGNAL(src, COMSIG_FLOCK_RESOURCES_CHANGED, resources)
 			playsound(get_turf(src), 'troutstation/sound/effects/flock/flock_absorb.ogg', 40, TRUE, -5)
 			to_chat(src, span_good("You finish absorbing [internal_storage], and gain [new_resources] resource units. (Current total: [resources])"))
 			qdel(internal_storage)
-
 
 /mob/living/basic/flock/agent/death(gibbed)
 	if(head)
