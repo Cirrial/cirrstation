@@ -71,14 +71,15 @@
 			update_worn_head()
 		if(ITEM_SLOT_DEX_STORAGE)
 			internal_storage = equipping
-			playsound(get_turf(src), 'troutstation/sound/items/handling/flock_agent_storage_rustle.ogg', 40, TRUE, -5)
-			if(internal_storage.drop_sound)
-				playsound(get_turf(src), internal_storage.drop_sound, 30, TRUE, -7)
-			src.visible_message(span_notice("[src] pops open a slot in [src.p_their()] back and puts [internal_storage] in it."),
-				span_notice("You pop open your internal storage and put [internal_storage] in it."),
-				blind_message = span_hear("You hear something popping open and something being placed inside it."))
-			if(eat_mode)
-				start_eating_item(equipping)
+			if(!is_creating)
+				playsound(get_turf(src), 'troutstation/sound/items/handling/flock_agent_storage_rustle.ogg', 40, TRUE, -5)
+				if(internal_storage.drop_sound)
+					playsound(get_turf(src), internal_storage.drop_sound, 30, TRUE, -7)
+				src.visible_message(span_notice("[src] pops open a slot in [src.p_their()] back and puts [internal_storage] in it."),
+					span_notice("You pop open your internal storage and put [internal_storage] in it."),
+					blind_message = span_hear("You hear something popping open and something being placed inside it."))
+				if(eat_mode)
+					start_eating_item(equipping)
 			update_inv_internal_storage()
 		else
 			to_chat(src, span_danger("You are trying to equip this item to an unsupported inventory slot. Report this to a coder!"))

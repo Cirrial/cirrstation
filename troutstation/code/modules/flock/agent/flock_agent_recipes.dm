@@ -36,15 +36,22 @@
 	var/obj/item/flock_creation/creation = new(src)
 	equip_to_slot_or_del(creation, ITEM_SLOT_DEX_STORAGE)
 	addtimer(CALLBACK(src, PROC_REF(finish_recipe), recipe.item), recipe.time, TIMER_DELETE_ME)
+	is_creating = TRUE
 
 /mob/living/basic/flock/agent/proc/finish_recipe(obj/item/new_item_path)
+	if(!internal_storage || !istype(internal_storage, /obj/item/flock_creation)) // guess we changed our minds
+		is_creating = FALSE
+		return
 	qdel(internal_storage)
 	var/obj/item/created = new new_item_path(src)
 	created.color = list(1,0,0,0,1,0,0,0,1,0,1,0.5)
 	animate(created, color = null, time = 0.5 SECONDS)
 	equip_to_slot_or_del(created, ITEM_SLOT_DEX_STORAGE)
 	playsound(get_turf(src), 'troutstation/sound/effects/flock/flock_create.ogg', 40, TRUE, -5)
-	to_chat(src, span_good("You finish forming [internal_storage]!"))
+	src.visible_message(span_notice("[src] shakes a bit and makes a weird sound, like lots of tiny things smacking together into a larger thing."),
+					span_good("You finish forming [internal_storage]!"),
+					blind_message = span_hear("You hear the muffled sound of lots of tiny things smacking together into a larger thing."))
+	is_creating = FALSE
 
 /// Dummy item/effect to indicate we're making something in storage.
 /obj/item/flock_creation

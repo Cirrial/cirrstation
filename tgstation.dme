@@ -6884,6 +6884,7 @@
 #include "troutstation\code\modules\flock\flock_conversion.dm"
 #include "troutstation\code\modules\flock\flock_materials.dm"
 #include "troutstation\code\modules\flock\flock_misc_structures.dm"
+#include "troutstation\code\modules\flock\flock_outpost.dm"
 #include "troutstation\code\modules\flock\flock_particles.dm"
 #include "troutstation\code\modules\flock\flock_radio_utils.dm"
 #include "troutstation\code\modules\flock\flock_say.dm"

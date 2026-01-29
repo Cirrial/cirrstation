@@ -2,6 +2,7 @@ import '../styles/interfaces/AntagInfoFlockAgent.scss';
 
 import { useState } from 'react';
 import {
+  AnimatedNumber,
   Box,
   Button,
   DmIcon,
@@ -78,18 +79,20 @@ const LordBriefing = (props: LordBriefingProps) => {
 };
 
 type RecipesProps = {
-  resources: number;
   recipes: Recipe[];
 };
 
 const RecipesSection = (props: RecipesProps) => {
-  const { resources, recipes } = props;
+  const { data } = useBackend<Info>();
+  const { recipes } = props;
+  const { resources } = data;
   return (
     <Section title="Available Templates" fill scrollable>
       <Stack vertical>
         <Stack.Item textAlign="center" fontSize="14px">
-          You have <span style={{ fontSize: '16px' }}>{resources}</span>{' '}
-          resources
+          <Box inline bold>
+            You have <AnimatedNumber value={Math.round(resources)} /> resources
+          </Box>
         </Stack.Item>
         <Stack.Divider />
         {recipes.length === 0
@@ -104,7 +107,7 @@ const RecipesSection = (props: RecipesProps) => {
                     backgroundColor="transparent"
                     wrap="wrap"
                   >
-                    <RecipeNode recipe={recipe} enabled={enabled} />
+                    <RecipeRow recipe={recipe} enabled={enabled} />
                   </Stack>
                 </Stack.Item>
               );
@@ -114,12 +117,12 @@ const RecipesSection = (props: RecipesProps) => {
   );
 };
 
-type RecipeNodeProps = {
+type RecipeRowProps = {
   recipe: Recipe;
   enabled: BooleanLike;
 };
 
-const RecipeNode = (props: RecipeNodeProps) => {
+const RecipeRow = (props: RecipeRowProps) => {
   const { recipe, enabled } = props;
   const { act } = useBackend<Info>();
 
@@ -134,7 +137,11 @@ const RecipeNode = (props: RecipeNodeProps) => {
             : () => logger.warn(`Cannot buy ${recipe.name}`)
         }
         width="64px"
-        height=""
+        height="64px"
+        m="8px"
+        style={{
+          borderRadius: '50%',
+        }}
         disabled={!enabled}
       >
         <DmIcon
@@ -180,12 +187,12 @@ export const AntagInfoFlockAgent = () => {
     {
       label: 'Templates',
       icon: 'cubes',
-      content: <RecipesSection resources={resources} recipes={recipes} />,
+      content: <RecipesSection recipes={recipes} />,
     },
   ];
 
   return (
-    <Window width={750} height={635} theme={'theme-Flock'}>
+    <Window width={750} height={635} theme={'flock'}>
       <Window.Content>
         <Stack vertical fill>
           <Stack.Item>

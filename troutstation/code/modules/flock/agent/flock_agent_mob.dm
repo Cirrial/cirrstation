@@ -37,6 +37,8 @@
 	var/eat_time_remaining = 0
 	/// Cache of the initial eat time for this item for integrity updates
 	var/total_eat_time = 0
+	/// Are we currently making something?
+	var/is_creating = FALSE
 	/// Our current resources
 	var/resources = 0
 

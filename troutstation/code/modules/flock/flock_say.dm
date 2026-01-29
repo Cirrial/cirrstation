@@ -7,7 +7,7 @@
 	var/namepart = name
 	if(isflock(src))
 		var/mob/living/basic/flock/flockmob = src
-		namepart = "[uppertext(flockmob.get_lord_name())].[uppertext(name)]"
+		namepart = "[flockmob.get_lord_name()].[name]"
 	var/messagepart = generate_messagepart(
 		message,
 		spans,
@@ -22,9 +22,9 @@
 			to_chat(
 				hearing_mob,
 				span_flock("\
-					\[FLOCK::[span_name("[namepart]")]\] \
+					\[FLK::[span_name("[namepart]")] \
 					<span class='message'>[messagepart]</span>\
-				"),
+					\]"),
 				type = MESSAGE_TYPE_RADIO,
 				avoid_highlighting = (src == hearing_mob)
 			)
@@ -36,9 +36,9 @@
 				hearing_mob,
 				span_flock("\
 					[follow_link] \
-					\[FLOCK::[span_name("[namepart]")]\] \
+					\[FLK::[span_name("[namepart]")] \
 					<span class='message'>[messagepart]</span>\
-				"),
+					\]"),
 				type = MESSAGE_TYPE_RADIO,
 				avoid_highlighting = (src == hearing_mob)
 			)
