@@ -6882,6 +6882,7 @@
 #include "troutstation\code\modules\clothing\head\helmet.dm"
 #include "troutstation\code\modules\clothing\suits\armor.dm"
 #include "troutstation\code\modules\flock\flock_conversion.dm"
+#include "troutstation\code\modules\flock\flock_furniture.dm"
 #include "troutstation\code\modules\flock\flock_materials.dm"
 #include "troutstation\code\modules\flock\flock_misc_structures.dm"
 #include "troutstation\code\modules\flock\flock_outpost.dm"

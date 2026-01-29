@@ -35,15 +35,17 @@
 	eat_mode_off() // don't want to start eating the thing we're making
 	var/obj/item/flock_creation/creation = new(src)
 	equip_to_slot_or_del(creation, ITEM_SLOT_DEX_STORAGE)
-	addtimer(CALLBACK(src, PROC_REF(finish_recipe), recipe.item), recipe.time, TIMER_DELETE_ME)
+	addtimer(CALLBACK(src, PROC_REF(finish_recipe), recipe), recipe.time, TIMER_DELETE_ME)
 	is_creating = TRUE
 
-/mob/living/basic/flock/agent/proc/finish_recipe(obj/item/new_item_path)
+/mob/living/basic/flock/agent/proc/finish_recipe(datum/flock_recipe/recipe/recipe)
 	if(!internal_storage || !istype(internal_storage, /obj/item/flock_creation)) // guess we changed our minds
 		is_creating = FALSE
+		// refund the resources
+		resources += recipe.cost
 		return
 	qdel(internal_storage)
-	var/obj/item/created = new new_item_path(src)
+	var/obj/item/created = new recipe.item(src)
 	created.color = list(1,0,0,0,1,0,0,0,1,0,1,0.5)
 	animate(created, color = null, time = 0.5 SECONDS)
 	equip_to_slot_or_del(created, ITEM_SLOT_DEX_STORAGE)

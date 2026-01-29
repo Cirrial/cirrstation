@@ -1,3 +1,19 @@
+#define FLOCK_OUTPOST_DEFAULT_ATMOS GAS_N2 + "=100;TEMP=200"
+#define FLOCK_OUTPOST_VOID_LIGHT_COLOR "#ace5c6"
+
+// AREAS
+/area/centcom/flock_outpost
+	name = "Flock Outpost"
+	desc = "caw caw motherfucker"
+	icon = 'troutstation/icons/area/areas_centcom.dmi'
+	icon_state = "flock_outpost"
+	requires_power = FALSE
+	area_flags = NOTELEPORT
+	static_lighting = TRUE
+	base_lighting_alpha = 0
+	default_gravity = STANDARD_GRAVITY
+	flags_1 = NONE
+
 // TURFS
 /turf/open/floor/flock_outpost
 	name = "resilient substrate"
@@ -10,6 +26,8 @@
 	canSmoothWith = SMOOTH_GROUP_FLOCK_OUTPOST
 	footstep = FOOTSTEP_FLOOR
 	smoothing_junction = 255
+	planetary_atmos = TRUE
+	initial_gas_mix = FLOCK_OUTPOST_DEFAULT_ATMOS
 	/// Icon for the emissive overlay
 	var/emissive_icon = 'troutstation/icons/turf/floors/flock_outpost_floor_e.dmi'
 	/// The alpha used for the emissive decal.
@@ -60,6 +78,33 @@
 	. = ..()
 	underlays += mutable_appearance('troutstation/icons/turf/floors/flock_outpost.dmi', "plating", layer - 0.01, src) //add the plating underlay
 
+/turf/open/flock_void
+	name = "signal space"
+	desc = "The artificial energy subdimension this outpost resides in. Shreds lesser beings."
+	icon = 'troutstation/icons/turf/floors/flock_outpost.dmi'
+	icon_state = "void"
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
+	layer = SPACE_LAYER
+	turf_flags = NOJAUNT | NO_RUST
+	light_range = 2
+	light_power = 0.6
+	light_color = FLOCK_OUTPOST_VOID_LIGHT_COLOR
+
+/turf/open/flock_void/examine(mob_user)
+	. = ..()
+	. += span_warning("You'd be dissolved immediately if you somehow walked into this.")
+
+/turf/open/flock_void/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if(isobj(arrived))
+		qdel(arrived)
+	else if(isliving(arrived))
+		var/mob/living/unfortunate = arrived
+		to_chat(unfortunate, span_userdanger("You are torn to shreds by the energy of signal space!!"))
+		unfortunate.dust(force = TRUE)
+
 // OBJS
 #define LIGHT_COLOR_FLOCK_OUTPOST "#b8ece4" // a very faint teal
 
@@ -84,3 +129,6 @@
 	DO_FLOATING_ANIM(src)
 
 #undef LIGHT_COLOR_FLOCK_OUTPOST
+
+#undef FLOCK_OUTPOST_DEFAULT_ATMOS
+#undef FLOCK_OUTPOST_VOID_LIGHT_COLOR
