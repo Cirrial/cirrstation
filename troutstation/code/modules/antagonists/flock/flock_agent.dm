@@ -7,7 +7,7 @@
 	show_in_antagpanel = TRUE
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
-	// stinger_sound = 'troutstation/sound/music/antag/flock_intro.ogg'
+	stinger_sound = 'troutstation/sound/music/antag/flock_intro.ogg'
 	ui_name = "AntagInfoFlockAgent"
 	suicide_cry = "FOR MY LORD!!"
 
