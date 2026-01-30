@@ -3,6 +3,7 @@
 	desc = "It takes a very long time for furniture radio ads to cross the gulf of space."
 	icon = 'troutstation/icons/obj/flock_furniture.dmi'
 	icon_state = "egg_chair"
+	item_chair = null
 	has_armrest = TRUE
 	custom_materials = null // todo: add flock materials to this
 

@@ -1,4 +1,4 @@
-output_name = "flock_floor"
+output_name = "flock_floor_e"
 template = "bitmask/diagonal_32x32.toml"
 
 [animation]

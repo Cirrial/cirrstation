@@ -38,7 +38,7 @@
 	addtimer(CALLBACK(src, PROC_REF(finish_recipe), recipe), recipe.time, TIMER_DELETE_ME)
 	is_creating = TRUE
 
-/mob/living/basic/flock/agent/proc/finish_recipe(datum/flock_recipe/recipe/recipe)
+/mob/living/basic/flock/agent/proc/finish_recipe(datum/flock_recipe/recipe)
 	if(!internal_storage || !istype(internal_storage, /obj/item/flock_creation)) // guess we changed our minds
 		is_creating = FALSE
 		// refund the resources
