@@ -1,4 +1,4 @@
-output_name = "flock_outpost_light_floor_e"
+output_name = "flock_outpost_light_floor"
 template = "bitmask/diagonal_32x32.toml"
 
 [animation]
