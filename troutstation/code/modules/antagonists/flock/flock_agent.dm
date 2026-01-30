@@ -1,33 +1,44 @@
 /// High mobility nuisance antag with a focus on stealing things the crew would rather not lose (but not high value targets)
 /datum/antagonist/flock_agent
 	name = "\improper Flock Agent"
+	roundend_category = "flock agents"
 	antagpanel_category = ANTAG_GROUP_FLOCK
 	pref_flag = ROLE_FLOCK_AGENT
-
 	show_in_antagpanel = TRUE
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
-
 	// stinger_sound = 'troutstation/sound/music/antag/flock_intro.ogg'
-
 	ui_name = "AntagInfoFlockAgent"
 	suicide_cry = "FOR MY LORD!!"
 
+	var/datum/team/flock_agent/team = null
 	var/mob/living/basic/flock/agent/agent
 	var/list/cached_recipe_data
 
 /datum/antagonist/flock_agent/Destroy()
+	team = null
 	agent = null
 	return ..()
 
 /datum/antagonist/flock_agent/greet()
 	. = ..()
+	to_chat(owner, span_bold("Awoken from cryosleep. It appears your Lord has need for you once more..."))
 	owner.announce_objectives()
 
+/datum/antagonist/flock_agent/forge_objectives()
+	objectives |= team.objectives
+
+/datum/antagonist/flock_agent/create_team(datum/team/new_team)
+	GLOB.flock_agent_team ||= new()
+	team = GLOB.flock_agent_team
+
+/datum/antagonist/flock_agent/get_team()
+	return team
+
 /datum/antagonist/flock_agent/on_gain()
-	. = ..()
 	agent = owner.current
 	forge_objectives()
+	return ..()
 
 /datum/antagonist/flock_agent/admin_add(datum/mind/new_owner, mob/admin)
 	if (!new_owner.current)
@@ -35,10 +46,8 @@
 
 	if (!istype(new_owner.current, /mob/living/basic/flock/agent))
 		var/old_mob = new_owner.current
-
 		var/mob/living/basic/flock/agent/new_agent = new(get_turf(new_owner.current))
 		new_owner.transfer_to(new_agent, force_key_move = TRUE)
-
 		qdel(old_mob)
 
 	return ..()
@@ -58,7 +67,7 @@
 	recipe_data["path"] = recipe
 	recipe_data["name"] = recipe.item.name
 	recipe_data["icon_params"] = get_recipe_item_icon(recipe)
-	recipe_data["cost"] = recipe.cost
+	recipe_data["cost"] = get_flock_recipe_cost(recipe)
 	recipe_data["desc"] = recipe.desc
 	return recipe_data
 
@@ -88,8 +97,9 @@
 
 /datum/antagonist/flock_agent/ui_data(mob/user)
 	var/list/data = list()
-	data["resources"] = agent.resources
-	data["lord_name"] = agent.get_lord_name()
+	data["resources"] = agent?.resources || 0
+	// data["lord_name"] = agent.get_lord_name()
+	data["objectives"] = get_objectives()
 
 	var/recipes_list = list()
 	if(length(cached_recipe_data))
@@ -119,24 +129,7 @@
 		return UI_UPDATE
 	return ..()
 
-
-
-
-
-
-// TODO: put into new file
-
-/datum/antagonist/flock_agent/forge_objectives()
-	var/datum/objective/flock_agent_objective/objective = new
-	objective.owner = owner
-	objectives += objective
-
-/datum/objective/flock_agent_objective
-
-/datum/objective/flock_agent_objective/New()
-	explanation_text = "TODO: proper objectives."
-	..()
-
-/datum/objective/flock_agent_objective/check_completion()
-	return owner.current && owner.current.stat != DEAD
-
+/datum/antagonist/flock_agent/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/flock),
+	)

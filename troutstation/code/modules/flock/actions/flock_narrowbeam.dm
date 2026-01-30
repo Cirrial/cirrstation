@@ -3,8 +3,8 @@
 	background_icon = 'troutstation/icons/mob/actions/backgrounds.dmi'
 	background_icon_state = "bg_flock"
 	overlay_icon_state = "bg_flock_border"
-	button_icon = 'troutstation/icons/mob/actions/actions_flock.dmi'
-	button_icon_state = ""
+	button_icon = 'icons/obj/clothing/headsets.dmi' // TODO: CUSTOM
+	button_icon_state = "headset" // TODO: CUSTOM
 	desc = "Speak directly to someone through radio. No one else will hear your message. Unlimited range. You can also do this from within signal-space."
 	cooldown_time = 10 SECONDS
 	shared_cooldown = NONE

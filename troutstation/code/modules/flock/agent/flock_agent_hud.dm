@@ -202,7 +202,7 @@
 		shown_resources = agent.resources
 	show_resource_count(shown_resources)
 
-/atom/movable/screen/flock_resources_display/proc/on_resources_update(mob/living/basic/flock/agent/agent, new_resource_total)
+/atom/movable/screen/flock_resources_display/proc/on_resources_update(mob/living/basic/flock/agent/agent, new_resource_total, added_resources)
 	SIGNAL_HANDLER
 	show_resource_count(new_resource_total)
 

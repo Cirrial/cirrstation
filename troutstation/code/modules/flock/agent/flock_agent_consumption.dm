@@ -22,12 +22,17 @@
 
 /proc/get_flock_item_resources(obj/item/eating)
 	var/item_resources = 5 // a pity amount
-	if(length(eating.contents))
-		for(var/obj/item/contained in eating.contents)
-			item_resources += get_flock_item_resources(contained)
-	if(length(eating.custom_materials))
-		for(var/datum/material/mat in eating.custom_materials)
-			item_resources += eating.custom_materials[mat] * mat.flock_resource_value
+	if(ispath(eating))
+		if(length(eating::custom_materials))
+			for(var/datum/material/mat in eating::custom_materials)
+				item_resources += eating::custom_materials[mat] * mat.flock_resource_value
+	else
+		if(length(eating.contents))
+			for(var/obj/item/contained in eating.contents)
+				item_resources += get_flock_item_resources(contained)
+		if(length(eating.custom_materials))
+			for(var/datum/material/mat in eating.custom_materials)
+				item_resources += eating.custom_materials[mat] * mat.flock_resource_value
 	return floor(item_resources)
 
 /// material extra defines. whee

@@ -3,7 +3,6 @@
 
 	spans |= SPAN_FLOCK
 
-
 	var/namepart = name
 	if(isflock(src))
 		var/mob/living/basic/flock/flockmob = src
