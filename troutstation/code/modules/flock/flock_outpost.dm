@@ -181,14 +181,11 @@
 
 /turf/open/flock_void/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
-	if(is_type_in_typecache(arrived, forbidden_types) || (!isliving(dropped_thing) && !isobj(dropped_thing)))
+	if(is_type_in_typecache(arrived, forbidden_types) || (!isliving(arrived) && !isobj(arrived)))
 		return
-	 if(isliving(arrived))
-		var/mob/living/unfortunate = arrived
-		to_chat(unfortunate, span_userdanger("You are torn to shreds by the energy of signal space!!"))
-		unfortunate.dust(force = TRUE)
-	else
-		qdel(arrived)
+	arrived.visible_message(span_boldwarning("[src] is torn to shreds by the energy of signal space!"),
+		span_userdanger("You walk into the raw energy of signal space. You are instantly torn and flayed by a raging sea that overwhelms all senses. Nothing of your body or mind remains."))
+	arrived.dust(force = TRUE)
 
 // OBJS
 /obj/machinery/door/flock_outpost
