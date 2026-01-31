@@ -146,6 +146,34 @@
 	light_range = 2
 	light_power = 0.6
 	light_color = FLOCK_OUTPOST_VOID_LIGHT_COLOR
+	var/static/list/forbidden_types = typecacheof(list( // copied from chasm component, these must never be destroyed by this
+		/obj/docking_port,
+		/obj/effect/abstract,
+		/obj/effect/atmos_shield,
+		/obj/effect/collapse,
+		/obj/effect/constructing_effect,
+		/obj/effect/dummy/phased_mob,
+		/obj/effect/ebeam,
+		/obj/effect/fishing_float,
+		/obj/effect/hotspot,
+		/obj/effect/landmark,
+		/obj/effect/light_emitter/tendril,
+		/obj/effect/mapping_helpers,
+		/obj/effect/particle_effect/ion_trails,
+		/obj/effect/particle_effect/sparks,
+		/obj/effect/portal,
+		/obj/effect/projectile,
+		/obj/effect/spectre_of_resurrection,
+		/obj/effect/temp_visual,
+		/obj/effect/wisp,
+		/obj/energy_ball,
+		/obj/narsie,
+		/obj/projectile,
+		/obj/singularity,
+		/obj/structure/lattice,
+		/obj/structure/stone_tile,
+		/obj/structure/ore_vent,
+	))
 
 /turf/open/flock_void/examine(mob_user)
 	. = ..()
@@ -153,12 +181,14 @@
 
 /turf/open/flock_void/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
-	if(isobj(arrived))
-		qdel(arrived)
-	else if(isliving(arrived))
+	if(is_type_in_typecache(arrived, forbidden_types) || (!isliving(dropped_thing) && !isobj(dropped_thing)))
+		return
+	 if(isliving(arrived))
 		var/mob/living/unfortunate = arrived
 		to_chat(unfortunate, span_userdanger("You are torn to shreds by the energy of signal space!!"))
 		unfortunate.dust(force = TRUE)
+	else
+		qdel(arrived)
 
 // OBJS
 /obj/machinery/door/flock_outpost
