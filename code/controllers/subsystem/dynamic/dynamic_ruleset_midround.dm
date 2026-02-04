@@ -1061,7 +1061,7 @@
 
 	weight = 0 // not while i'm testing, fucker
 	min_pop = 0
-	max_antag_cap = 3
+	max_antag_cap = 2
 	signup_atom_appearance = /mob/living/basic/flock/agent
 
 /datum/dynamic_ruleset/midround/from_ghosts/morph/can_be_selected()

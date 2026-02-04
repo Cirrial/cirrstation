@@ -86,8 +86,8 @@
 	canSmoothWith = SMOOTH_GROUP_FLOCK_OUTPOST_LIGHT
 	footstep = FOOTSTEP_FLOOR
 	emissive_icon = 'troutstation/icons/turf/floors/flock_outpost_light_floor_e.dmi'
-	light_range = 2
-	light_power = 0.5
+	light_range = 5
+	light_power = 1
 	light_color = FLOCK_OUTPOST_LIGHT_COLOR
 
 // Walls
