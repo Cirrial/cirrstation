@@ -1059,7 +1059,7 @@
 	pref_flag = ROLE_FLOCK_AGENT
 	ruleset_flags = RULESET_INVADER
 
-	weight = 0 // not while i'm testing, fucker
+	weight = 5 // they're functional enough
 	min_pop = 0
 	max_antag_cap = 2
 	signup_atom_appearance = /mob/living/basic/flock/agent
