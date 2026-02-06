@@ -145,9 +145,9 @@
 
 /datum/action/cooldown/spell/jaunt/radiodive/proc/try_enter_jaunt(obj/item/radio/radio, mob/living/jaunter)
 	// drop everything we have that isn't flock items
-	// (which at the moment is every item. TODO: add real check
 	for(var/obj/item/item in jaunter.get_all_gear())
-		jaunter.dropItemToGround(item, force = TRUE)
+		if(!HAS_TRAIT(item, TRAIT_FLOCKISH_ITEM))
+			jaunter.dropItemToGround(item, force = TRUE)
 
 	var/atom/target = radio
 	if(!isturf(radio.loc))

@@ -7,23 +7,17 @@
 /proc/get_flock_recipe_cost(datum/flock_recipe/recipe)
 	return recipe::cost + get_flock_item_resources(recipe::item)
 
-/datum/flock_recipe/crowbar
-	item = /obj/item/crowbar
-	cost = 20
-	time = 3 SECONDS
-	desc = "Cirr's run out of ideas again, I see."
+/datum/flock_recipe/hat
+	item = /obj/item/clothing/head/hats/flock_chameleon
+	cost = 50
+	time = 6 SECONDS
+	desc = "Adaptive hat that can be taken into radiodive due to being entirely substrate based. For the discerning agent."
 
-/datum/flock_recipe/medical_wrench
-	item = /obj/item/wrench/medical
-	cost = 20
-	time = 3 SECONDS
-	desc = "Warning: Will not heal you."
-
-/datum/flock_recipe/radio
-	item = /obj/item/radio
-	cost = 20
-	time = 3 SECONDS
-	desc = "either incredibly useless or incredibly busted, I do not know which"
+/datum/flock_recipe/jack
+	item = /obj/item/flock_jack
+	cost = 100
+	time = 9 SECONDS
+	desc = "Multifunctional albeit single-use tool for hacking into alien security. Slow and noisy."
 
 /mob/living/basic/flock/agent/proc/create_recipe(datum/flock_recipe/recipe)
 	if(internal_storage)
