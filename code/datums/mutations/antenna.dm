@@ -26,7 +26,7 @@
 	linked_radio.implant(owner, null, TRUE, TRUE)
 	radio_weakref = WEAKREF(linked_radio)
 	// Troutstation edit
-	ADD_TRAIT(owner, TRAIT_FLOCKISH_EAVESDROPPER, src)
+	ADD_TRAIT(owner, TRAIT_FLOCKISH_EAVESDROPPER, REF(src))
 
 /datum/mutation/antenna/on_losing(mob/living/carbon/human/owner)
 	if(..())
@@ -35,7 +35,7 @@
 	if(linked_radio)
 		QDEL_NULL(linked_radio)
 	// Troutstation edit
-	REMOVE_TRAIT(owner, TRAIT_FLOCKISH_EAVESDROPPER, src)
+	REMOVE_TRAIT(owner, TRAIT_FLOCKISH_EAVESDROPPER, REF(src))
 
 /datum/mutation/antenna/New(datum/mutation/copymut)
 	..()
