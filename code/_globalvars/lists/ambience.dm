@@ -196,6 +196,7 @@ GLOBAL_LIST_INIT(flock_ambience,list(
 	'troutstation/sound/ambience/flock/new_signal.ogg',
 	'troutstation/sound/ambience/flock/radio_signal_interference.ogg',
 	'troutstation/sound/ambience/flock/storm_radio_interference_error_signal.ogg',
+	'troutstation/sound/ambience/flock/spacey_blip_bloop_bleep.ogg'
 ))
 
 GLOBAL_LIST_INIT(ambience_assoc,list(

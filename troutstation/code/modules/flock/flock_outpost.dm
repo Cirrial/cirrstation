@@ -28,6 +28,7 @@
 	desc = "You are absolutely being watched."
 	icon = 'troutstation/icons/turf/floors/flock_outpost_floor.dmi'
 	icon_state = "flock_outpost_floor-255"
+	baseturfs = /turf/open/floor/flock_outpost/plating
 	base_icon_state = "flock_outpost_floor"
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_FLOCK_OUTPOST
@@ -184,7 +185,7 @@
 	if(is_type_in_typecache(arrived, forbidden_types) || (!isliving(arrived) && !isobj(arrived)))
 		return
 	arrived.visible_message(span_boldwarning("[src] is torn to shreds by the energy of signal space!"),
-		span_userdanger("You walk into the raw energy of signal space. You are instantly torn and flayed by a raging sea that overwhelms all senses. Nothing of your body or mind remains."))
+		span_userdanger("You are instantly torn and subatomically flayed by a raging sea of energy that overwhelms all senses."))
 	arrived.dust(force = TRUE)
 
 // OBJS

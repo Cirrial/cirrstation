@@ -1,6 +1,8 @@
 #define FLOCK_AGENT_TCOMMS_HEAL_RANGE 5
 #define FLOCK_AGENT_TCOMMS_HEAL_ALERT_CATEGORY "flock_tcomms_heal"
 #define FLOCK_AGENT_TCOMMS_HEAL_RATE 5
+#define FLOCK_AGENT_REVIVAL_COST 400
+#define FLOCK_AGENT_REVIVAL_TIME 20 SECONDS
 
 /mob/living/basic/flock/agent
 	name = "odd avian construct"
@@ -89,7 +91,7 @@
 	AddElement(/datum/element/dextrous, hud_type = hud_type, can_throw = TRUE)
 	AddComponent(/datum/component/personal_crafting, screen_loc_override = ui_flock_crafting)
 	AddComponentFrom(SPECIES_TRAIT, /datum/component/radio_source_vision)
-	add_traits(list(TRAIT_ADVANCEDTOOLUSER, TRAIT_LITERATE, TRAIT_CAN_STRIP, TRAIT_CHUNKYFINGERS), SPECIES_TRAIT)
+	add_traits(list(TRAIT_ADVANCEDTOOLUSER, TRAIT_LITERATE, TRAIT_CAN_STRIP), SPECIES_TRAIT)
 	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(on_dir_change))
 	RegisterSignal(src, COMSIG_LIVING_IGNITED, PROC_REF(on_ignited))
 	RegisterSignal(src, COMSIG_ATOM_EXAMINE, PROC_REF(on_examined))
@@ -107,6 +109,49 @@
 	narrowbeam.Grant(src)
 
 	fully_replace_character_name(null, generate_flock_name("CV.CV.CV"))
+
+/mob/living/basic/flock/agent/can_use_guns(obj/item/gun)
+	if(HAS_TRAIT(gun, TRAIT_FLOCKISH_ITEM))
+		return TRUE
+	else
+		if(gun.trigger_guard != TRIGGER_GUARD_ALLOW_ALL)
+			to_chat(src, span_warning("Your manipulators barely work with the <b>grip</b>, you <b>definitely</b> can't get them into the trigger guard!"))
+			return FALSE
+
+/mob/living/basic/flock/agent/attack_hand(mob/user, list/modifiers)
+	. = ..()
+	if(istype(user, /mob/living/basic/flock/agent) && stat == DEAD)
+		if(tgui_alert(user, "Do you want to try reviving this agent? It'll take time, make sure they're in a safe place first.", "Flock Agent Salvation", list("Yes", "No")) == "Yes")
+			var/mob/living/basic/flock/agent/saviour = user
+			saviour.revive_agent(src)
+
+/mob/living/basic/flock/agent/proc/revive_agent(mob/living/basic/flock/agent/target)
+	if(!target || target.stat > DEAD)
+		return
+	var/revival_cost = FLOCK_AGENT_REVIVAL_COST
+	var/revival_time = FLOCK_AGENT_REVIVAL_TIME
+	if(resources < revival_cost)
+		to_chat(src, span_warning("You don't have enough raw substrate to revive [target.p_them()], you need [revival_cost] units."))
+		return
+	resources -= revival_cost
+	SEND_SIGNAL(src, COMSIG_FLOCK_RESOURCES_CHANGED, resources, -revival_cost)
+	visible_message(span_notice("[src] leans over [target] and places [src.p_their()] manipulators on [target]'s lifeless head and body as glassy fluid flows from one to the other."),
+		span_notice("You lean over [target] and place your manipulators in the best places for substrate transfer. <b>This will take about [DisplayTimeText(revival_time)], and will cost you resources if you are disrupted.</b>"),
+		span_notice("You hear a soft clasp of metal and glass."))
+	playsound(get_turf(src), 'troutstation/sound/effects/flock/flock_repair_TEMP.ogg', 50, TRUE)
+	if(!do_after(src, revival_time, target = target))
+		to_chat(src, span_boldwarning("You were interrupted! Your resources have been only partially refunded."))
+		resources += revival_cost/2
+		SEND_SIGNAL(src, COMSIG_FLOCK_RESOURCES_CHANGED, resources, revival_cost/2)
+		return
+	target.maxHealth = initial(target.maxHealth)
+	target.revive(HEAL_ALL)
+	target.flock_talk("restored", system = TRUE)
+	target.emote("scream", forced=TRUE)
+	target.visible_message(span_notice("[src] staggers up, fully restored! The last of the glassy fluid sinks into [src.p_their()] body."),
+		span_notice("You stagger up, cracks mended, light and warmth flooding into your circuits and vessels. <b>[src] has returned you to function!!</b>"),
+		span_notice("You hear a glassy creature stagger about, unsteady in gait."))
+
 
 /mob/living/basic/flock/agent/proc/on_dir_change(datum/source, old_dir, new_dir)
 	SIGNAL_HANDLER
@@ -149,6 +194,10 @@
 			examine_list += span_warning("[examined.p_They()] [examined.p_are()] a bit dented and cracked in places.")
 		else
 			examine_list += span_boldwarning("[examined.p_They()] [examined.p_are()] severely cracked and leaking glowing fluid!")
+	if(!client && stat != DEAD)
+		examine_list += "[examined.p_They()] [examined.p_are()] staring vacantly off into the distance."
+	if(isflock(examined) && stat == DEAD)
+		examine_list += span_boldnotice("You could revive them by clicking on them if you have enough resources.")
 
 /mob/living/basic/flock/agent/proc/on_take_damage(datum/source, damage, damagetype, def_zone, ...)
 	SIGNAL_HANDLER
@@ -229,10 +278,18 @@
 		icon_dead = "agent_dead_attenuated"
 		death_message = "abruptly forms from the air, a husk that clatters to the ground amid ethereal caws."
 		desc = "Odd lights fizz from a cracked, slowly melting shell. In a few days, there'll be no trace left."
+		flock_talk("mortally attenuated", system = TRUE)
 	else
 		playsound(get_turf(src), 'troutstation/sound/mobs/non-humanoids/flock/flock_critter_death.ogg', 100, TRUE)
+	if(gibbed)
+		flock_talk("irrecoverably destroyed", system = TRUE)
+	else
+		flock_talk("mortally wounded", system = TRUE)
+	update_damage_overlays()
 	return ..(gibbed)
 
 #undef FLOCK_AGENT_TCOMMS_HEAL_RANGE
 #undef FLOCK_AGENT_TCOMMS_HEAL_ALERT_CATEGORY
 #undef FLOCK_AGENT_TCOMMS_HEAL_RATE
+#undef FLOCK_AGENT_REVIVAL_COST
+#undef FLOCK_AGENT_REVIVAL_TIME

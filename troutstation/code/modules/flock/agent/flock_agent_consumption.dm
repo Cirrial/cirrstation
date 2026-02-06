@@ -21,7 +21,7 @@
 	return time
 
 /proc/get_flock_item_resources(obj/item/eating)
-	var/item_resources = 5 // a pity amount
+	var/item_resources = 0
 	if(ispath(eating))
 		if(length(eating::custom_materials))
 			for(var/datum/material/mat in eating::custom_materials)

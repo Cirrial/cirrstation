@@ -66,12 +66,12 @@
 /datum/objective/flock_agent/consume_uniques/jumpsuits
 	name = "Consume Unique Jumpsuits"
 	desired_types = list(/obj/item/clothing/under)
-	blacklisted_types = list(/obj/item/clothing/under/color)
+	blacklisted_types = list(/obj/item/clothing/under/color, /obj/item/clothing/under/shorts)
 	num_uniques_required = 7
 	thing_name = "jumpsuit"
 	thing_name_plural = "jumpsuits"
 	prefix = "Your Lord wants more insight on humanoid design sensibilities."
-	suffix = "They aren't interested in basic, single-colour jumpsuits."
+	suffix = "They aren't interested in basic, single-colour jumpsuits, or shorts."
 
 /datum/objective/flock_agent/consume_uniques/head_radios
 	name = "Consume Unique Headheadsets" // c:

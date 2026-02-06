@@ -182,6 +182,10 @@ const AdviceSection = () => {
           your body can't clear all the heat fast enough.
         </Stack.Item>
         <Stack.Item>
+          - You can resurrect a fallen comrade, but it costs a lot of resources
+          and time! Make sure to drag them to a safe place first!
+        </Stack.Item>
+        <Stack.Item>
           - Uhh there's probably more but I forgot to log it to my data block
           this morning uhhhmm your self repair system is currently broken so try
           to not die

@@ -20,13 +20,17 @@
 	pressure_resistance = 50
 	damage_coeff = list(BRUTE = 1.1, BURN = 0.9, TOX = 0, STAMINA = 0.8, OXY = 0)
 	unique_name = TRUE
-	can_buckle_to = FALSE
 	initial_language_holder = /datum/language_holder/flock
 	death_message = "cracks and splinters, falling over."
 	speech_span = SPAN_FLOCK
 	bubble_icon = "flock"
 
 	speak_emote = list("chimes", "intones", "hums", "chirps", "peeps")
+	verb_ask = "enquires"
+	verb_exclaim = "cries"
+	verb_whisper = "softly warbles"
+	verb_sing = "birdsings"
+	verb_yell = "squawks"
 	response_help_continuous = "pats"
 	response_help_simple = "pat"
 	response_disarm_continuous = "shoves"
