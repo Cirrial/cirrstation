@@ -50403,6 +50403,10 @@
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/airless,
 /area/station/asteroid)
+"pkm" = (
+/obj/machinery/light/floor,
+/turf/open/floor/iron,
+/area/station/hallway/tube)
 "pku" = (
 /obj/structure/kitchenspike,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
@@ -110500,7 +110504,7 @@ jKF
 lAu
 xZq
 joo
-mWX
+pkm
 mWX
 mom
 mIP
