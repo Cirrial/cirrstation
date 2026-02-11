@@ -16,9 +16,9 @@
 	icon_state = "crate_secure"
 	loot = list(
 		/obj/effect/spawner/random/structure/crate_loot = 744,
-		/obj/structure/closet/crate/slime = 100, // Troutstation Edit
 		/obj/structure/closet/crate/trashcart/filled = 75,
 		/obj/effect/spawner/random/trash/moisture_trap = 50,
+		/obj/structure/closet/crate/slime = 40, // Troutstation Edit
 		/obj/effect/spawner/random/trash/hobo_squat = 30,
 		/obj/structure/closet/mini_fridge = 35,
 		/obj/effect/spawner/random/trash/mess = 30,
@@ -145,8 +145,8 @@
 	icon_state = "crate"
 	loot = list(
 		/obj/effect/spawner/random/structure/closet_empty/crate/with_loot = 15,
-		/obj/structure/closet/crate/slime = 5, // Troutstation Edit
 		/obj/effect/spawner/random/structure/closet_empty/crate = 4,
+		/obj/structure/closet/crate/slime = 2, // Troutstation Edit
 		/obj/structure/closet/crate/secure/loot = 1,
 	)
 
