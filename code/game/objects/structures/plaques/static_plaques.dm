@@ -76,7 +76,7 @@
 ///Troutstation Edit Start
 // Tisserand: added Feb 13, 2026 (https://github.com/Cirrial/troutstation/pull/100)
 /obj/structure/plaque/static_plaque/golden/commission/tiss
-    desc = "Spinward Sector Station SS-13\n'Tisserand' Class Outpost\nCommissioned 13/02/2566\n'Orbiting Greatness'"
+	desc = "Spinward Sector Station SS-13\n'Tisserand' Class Outpost\nCommissioned 13/02/2566\n'Orbiting Greatness'"
 ///Troutstation Edit End
 
 //Removed stations
