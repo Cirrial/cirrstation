@@ -5,6 +5,7 @@
 	base_icon_state = "hydrocrate"
 	open_sound = 'troutstation/sound/machines/crate/slime_open.ogg'
 	close_sound = 'troutstation/sound/machines/crate/slime_close.ogg'
+	opened = FALSE
 	var/slimed = FALSE //will only slime once
 
 /obj/structure/closet/crate/slime/after_open(mob/living/user, force)
