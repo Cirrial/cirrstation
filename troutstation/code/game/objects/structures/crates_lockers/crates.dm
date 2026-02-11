@@ -5,7 +5,6 @@
 	base_icon_state = "hydrocrate"
 	open_sound = 'troutstation/sound/machines/crate/slime_open.ogg'
 	close_sound = 'troutstation/sound/machines/crate/slime_close.ogg'
-	opened = FALSE
 	var/slimed = FALSE //will only slime once
 
 /obj/structure/closet/crate/slime/after_open(mob/living/user, force)
@@ -16,7 +15,7 @@
 		explosion(src, 0, 0, 1, 0, 0, FALSE, FALSE, TRUE, FALSE, TRUE)
 		var/include_flags = INCLUDE_HELD|INCLUDE_ACCESSORIES|INCLUDE_POCKETS
 
-		for (var/turf/T in RANGE_TURFS(pick(1,2), src.loc))
+		for (var/turf/open/T in RANGE_TURFS(pick(1,2), src.loc))
 			new /obj/effect/decal/cleanable/greenglow(T)
 
 			for (var/mob/living/M in T)
