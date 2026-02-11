@@ -16,7 +16,7 @@
 		var/include_flags = INCLUDE_HELD|INCLUDE_ACCESSORIES|INCLUDE_POCKETS
 
 		for (var/turf/open/T in RANGE_TURFS(pick(1,2), src.loc))
-			if(T != /turf/open/space)
+			if(!istype(T, /turf/open/space))
 				new /obj/effect/decal/cleanable/greenglow(T)
 
 			for (var/mob/living/M in T)
