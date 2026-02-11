@@ -145,9 +145,7 @@ GLOBAL_LIST_INIT(unrecommended_builds, list(
 			if(!SSmapping.current_map.mapping_url)
 				return
 			if(is_station_level(mob.z))
-				src << link("[SSmapping.current_map.mapping_url]/?x=[mob.x]&y=[mob.y]&zoom=6")
-			else
-				src << link("[SSmapping.current_map.mapping_url]")
+				src << link("[SSmapping.current_map.mapping_url]") // Troutstation edit, deleted two lines above
 	if (hsrc)
 		var/datum/real_src = hsrc
 		if(QDELETED(real_src))
