@@ -176,6 +176,7 @@ SUBSYSTEM_DEF(ticker)
 			sortTim(players, GLOBAL_PROC_REF(cmp_text_asc))
 
 			if(CONFIG_GET(flag/show_job_estimation))
+				var/pickedJobs[0]
 				for(var/ckey in players)
 					var/mob/dead/new_player/player = players[ckey]
 					var/datum/preferences/prefs = player.client?.prefs
@@ -184,15 +185,12 @@ SUBSYSTEM_DEF(ticker)
 					if(!prefs.read_preference(/datum/preference/toggle/ready_job))
 						continue
 
-					var/display = player.client?.holder?.fakekey || ckey
-
 					var/datum/job/J = prefs.get_highest_priority_job()
-					if(!J)
-						player_ready_data += "* [display] forgot to pick a job!"
-						continue
 					var/title = J.title
 					if(player.ready == PLAYER_READY_TO_PLAY)
-						player_ready_data += "* [display] as [title]"
+						pickedJobs[title] += 1
+				for(var/t, v in pickedJobs)
+					player_ready_data += "[t]: [v]"
 
 				if(length(player_ready_data))
 					player_ready_data.Insert(1, "------------------")
