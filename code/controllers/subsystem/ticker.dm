@@ -186,10 +186,10 @@ SUBSYSTEM_DEF(ticker)
 						continue
 
 					var/datum/job/J = prefs.get_highest_priority_job()
-					var/title = J.title
 					if(!J)
 						pickedJobs["Jobless"] += 1
 						continue
+					var/title = J.title
 					if(player.ready == PLAYER_READY_TO_PLAY)
 						pickedJobs[title] += 1
 				for(var/t, v in pickedJobs)
