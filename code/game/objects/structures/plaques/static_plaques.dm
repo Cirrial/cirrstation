@@ -9,7 +9,7 @@
 		SET_PLANE_IMPLICIT(src, FLOOR_PLANE)
 		layer = HIGH_TURF_LAYER
 
-/obj/structure/plaque/static_plaque/get_moutable_objects()
+/obj/structure/plaque/static_plaque/get_mountable_objects()
 	return list()
 
 /obj/structure/plaque/static_plaque/find_and_mount_on_atom(mark_for_late_init, late_init)
@@ -72,6 +72,12 @@
 // Wawastation: added Jun 4, 2024 (#82298)
 /obj/structure/plaque/static_plaque/golden/commission/wawa
 	desc = "Spinward Sector Station SS-13\n'Wawa' Class Outpost\nCommissioned 04/06/2564\n'Forever Vertical'"
+
+///Troutstation Edit Start
+// Tisserand: added Feb 13, 2026 (https://github.com/Cirrial/troutstation/pull/100)
+/obj/structure/plaque/static_plaque/golden/commission/tiss
+	desc = "Spinward Sector Station SS-13\n'Tisserand' Class Outpost\nCommissioned 13/02/2566\n'Orbiting Greatness'"
+///Troutstation Edit End
 
 //Removed stations
 
