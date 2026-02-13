@@ -106,22 +106,27 @@
 /// Returns null if none.
 /datum/action/cooldown/spell/jaunt/radiodive/proc/find_nearest_radio(turf/origin, radio_radius, radio_mode)
 	// prioritize radios that aren't likely to move
-	var/best_match_radio_is_stationary = FALSE
-	var/best_match_distance = INFINITY
-	var/obj/item/radio/best_match = null
+	var/obj/item/radio/best_stationary_match
+	var/best_stationary_match_distance = INFINITY
+	var/obj/item/radio/best_backup_match
+	var/best_backup_match_distance = INFINITY
 	var/list/candidates = find_nearby_radios(origin, radio_radius, radio_mode)
 
-	// second pass: best fit
 	for(var/obj/item/radio/radio in candidates)
 		var/is_stationary = isturf(radio.loc)
+		if(best_stationary_match && !is_stationary)
+			continue // we prefer stationary matches always
 		var/dist = get_dist(origin, radio)
-		if(dist < best_match_distance)
-			if(!is_stationary && best_match_radio_is_stationary)
-				continue // i don't care how close that guy is, they're gonna start running when they see a beam go in them
-			best_match = radio
-			best_match_distance = dist
-			best_match_radio_is_stationary = is_stationary
-	return best_match
+		if(is_stationary)
+			if(dist < best_stationary_match_distance)
+				best_stationary_match = radio
+				best_stationary_match_distance = dist
+		else
+			if(dist < best_backup_match_distance)
+				best_backup_match = radio
+				best_backup_match_distance = dist
+
+	return best_stationary_match ? best_stationary_match : best_backup_match
 
 /datum/action/cooldown/spell/jaunt/radiodive/cast(mob/living/cast_on)
 	. = ..()
