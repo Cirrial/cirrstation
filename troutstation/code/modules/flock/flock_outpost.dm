@@ -339,7 +339,7 @@
 
 /////
 #define FLOCKPOD_COLOR_MATRIX list(1,0,0,0,1,0,0,0,1,0.52,0.81,0.63)
-#define FLOCKPOD_WARP_IN_TIME 6 SECONDS
+#define FLOCKPOD_WARP_IN_TIME 3 SECONDS
 #define FLOCKPOD_TRANSIT_TIME 6 SECONDS
 #define FLOCKPOD_LEAVE_TIME 2 SECONDS
 
@@ -369,8 +369,8 @@
 
 /obj/structure/closet/flockpod/proc/warp_in()
 	playsound(get_turf(src), 'troutstation/sound/effects/flock/flock_pod_form.ogg', 50, TRUE)
-	animate(src, color = FLOCKPOD_COLOR_MATRIX, transform = matrix()*2, alpha = 0, time = 0)
-	animate(color = null, alpha = 255, transform = null, time = FLOCKPOD_WARP_IN_TIME, easing = SINE_EASING)
+	animate(src, color = FLOCKPOD_COLOR_MATRIX, transform = matrix()*2, time = 0)
+	animate(color = null, transform = null, time = FLOCKPOD_WARP_IN_TIME, easing = SINE_EASING)
 
 /obj/structure/closet/flockpod/close(mob/living/user)
 	. = ..()
@@ -381,13 +381,13 @@
 /obj/structure/closet/flockpod/proc/transit_out()
 	locked = TRUE
 	playsound(get_turf(src), 'troutstation/sound/effects/flock/flock_pod_travel.ogg', 50, TRUE)
-	animate(src, color = FLOCKPOD_COLOR_MATRIX, transform = matrix()*2, alpha = 0, time = FLOCKPOD_TRANSIT_TIME, easing = SINE_EASING)
+	animate(src, color = FLOCKPOD_COLOR_MATRIX, transform = matrix()*2, time = FLOCKPOD_TRANSIT_TIME, easing = SINE_EASING)
 	addtimer(CALLBACK(src, PROC_REF(transit_in)), FLOCKPOD_TRANSIT_TIME)
 
 /obj/structure/closet/flockpod/proc/transit_in()
 	forceMove(drop_location)
 	playsound(get_turf(src), 'troutstation/sound/effects/flock/flock_pod_travel.ogg', 50, TRUE)
-	animate(src, color = null, alpha = 255, transform = null, time = FLOCKPOD_TRANSIT_TIME, easing = SINE_EASING)
+	animate(src, color = null, transform = null, time = FLOCKPOD_TRANSIT_TIME, easing = SINE_EASING)
 	addtimer(CALLBACK(src, PROC_REF(finish_transit)), FLOCKPOD_TRANSIT_TIME)
 
 /obj/structure/closet/flockpod/proc/finish_transit()
@@ -397,8 +397,8 @@
 
 /obj/structure/closet/flockpod/proc/warp_out()
 	playsound(get_turf(src), 'troutstation/sound/effects/flock/flock_pod_disappear.ogg', 50, TRUE)
-	animate(src, color = null, alpha = 255, transform = null, transform = null, time = 0)
-	animate(color = FLOCKPOD_COLOR_MATRIX, transform = matrix()*2, alpha = 0, time = FLOCKPOD_LEAVE_TIME, easing = SINE_EASING)
+	animate(src, color = null, transform = null, transform = null, time = 0)
+	animate(color = FLOCKPOD_COLOR_MATRIX, transform = matrix()*2, time = FLOCKPOD_LEAVE_TIME, easing = SINE_EASING)
 	addtimer(CALLBACK(src, PROC_REF(post_warp_out)), FLOCKPOD_LEAVE_TIME)
 
 /obj/structure/closet/flockpod/proc/post_warp_out()

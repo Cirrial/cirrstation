@@ -2,12 +2,21 @@
 "a" = (
 /turf/open/flock_void,
 /area/centcom/flock_outpost)
+"d" = (
+/obj/effect/landmark/flock_agent,
+/turf/open/floor/flock_outpost/carpet,
+/area/centcom/flock_outpost)
 "f" = (
 /turf/open/floor/flock_outpost,
 /area/centcom/flock_outpost)
 "i" = (
 /obj/machinery/door/flock_outpost,
 /turf/open/floor/flock_outpost/plating,
+/area/centcom/flock_outpost)
+"j" = (
+/obj/machinery/computer/camera_advanced/flock,
+/obj/structure/table/flock,
+/turf/open/floor/flock_outpost,
 /area/centcom/flock_outpost)
 "k" = (
 /turf/closed/indestructible/flock_outpost_window,
@@ -16,10 +25,9 @@
 /obj/machinery/flock_outpost/pod_pad,
 /turf/open/floor/flock_outpost,
 /area/centcom/flock_outpost)
-"r" = (
-/obj/structure/table/flock,
-/obj/machinery/computer/camera_advanced/flock,
-/turf/open/floor/flock_outpost,
+"o" = (
+/obj/structure/bed/flock_outpost,
+/turf/open/floor/flock_outpost/carpet,
 /area/centcom/flock_outpost)
 "t" = (
 /turf/closed/indestructible/flock_outpost,
@@ -41,6 +49,11 @@
 /obj/effect/flock_outpost_light,
 /turf/open/floor/flock_outpost,
 /area/centcom/flock_outpost)
+"F" = (
+/obj/structure/table/flock,
+/obj/item/toy/plush/flock_agent,
+/turf/open/floor/flock_outpost/carpet,
+/area/centcom/flock_outpost)
 "H" = (
 /turf/open/floor/flock_outpost/plating,
 /area/centcom/flock_outpost)
@@ -50,6 +63,7 @@
 /area/centcom/flock_outpost)
 "L" = (
 /obj/structure/table/flock,
+/obj/item/clothing/head/hats/flock_chameleon,
 /turf/open/floor/flock_outpost/carpet,
 /area/centcom/flock_outpost)
 "Q" = (
@@ -838,7 +852,7 @@ H
 H
 H
 t
-T
+o
 T
 T
 t
@@ -923,7 +937,7 @@ H
 H
 t
 T
-T
+d
 T
 y
 t
@@ -1005,17 +1019,17 @@ t
 H
 H
 H
-i
+x
 f
 f
 f
 f
 i
-f
 f
 f
 K
-r
+j
+K
 f
 f
 k
@@ -1055,9 +1069,9 @@ t
 t
 f
 f
-f
 K
 R
+f
 f
 f
 f
@@ -1257,7 +1271,7 @@ t
 H
 H
 H
-i
+x
 f
 f
 f
@@ -1303,7 +1317,7 @@ t
 T
 T
 T
-L
+F
 t
 f
 f
@@ -1343,7 +1357,7 @@ H
 H
 t
 T
-T
+d
 T
 y
 t
@@ -1426,7 +1440,7 @@ H
 H
 H
 t
-T
+o
 T
 T
 t

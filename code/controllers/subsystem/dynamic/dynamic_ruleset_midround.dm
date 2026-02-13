@@ -1072,7 +1072,7 @@
 
 /datum/dynamic_ruleset/midround/from_ghosts/flock_agent/assign_role(datum/mind/candidate)
 	candidate.add_antag_datum(/datum/antagonist/flock_agent)
-	candidate.current.forceMove(find_maintenance_spawn(atmos_sensitive = TRUE, require_darkness = FALSE))
+	// candidate.current.forceMove(find_maintenance_spawn(atmos_sensitive = TRUE, require_darkness = FALSE))
 // Troutstation edit end
 
 /datum/dynamic_ruleset/midround/from_living
