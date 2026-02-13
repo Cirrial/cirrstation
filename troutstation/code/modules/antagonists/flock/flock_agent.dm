@@ -38,7 +38,15 @@
 /datum/antagonist/flock_agent/on_gain()
 	agent = owner.current
 	forge_objectives()
+	send_to_outpost()
 	return ..()
+
+/datum/antagonist/flock_agent/proc/send_to_outpost()
+	SSmapping.lazy_load_template(LAZY_TEMPLATE_KEY_FLOCK_OUTPOST)
+	for(var/obj/effect/landmark/flock_agent/landmark in GLOB.landmarks_list)
+		if(!locate(/mob/living/basic/flock/agent, landmark))
+			agent.forceMove(landmark.loc)
+			break
 
 /datum/antagonist/flock_agent/admin_add(datum/mind/new_owner, mob/admin)
 	if (!new_owner.current)

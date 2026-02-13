@@ -229,25 +229,89 @@
 	AddElement(/datum/element/decal, emissive_icon, "orb_e", dir, EMISSIVE_PLANE, null, emissive_alpha, null, smoothing_junction)
 	DO_FLOATING_ANIM(src)
 
+// MACHINERY
+////
 /obj/machinery/computer/camera_advanced/flock
 	name = "Mission Deployment Console"
 	desc = "Pick where in the station you want to deploy to using this console."
-	icon = 'icons/obj/antags/abductor.dmi'
-	icon_state = "camera"
+	icon = 'troutstation/icons/obj/flock_outpost.dmi'
+	icon_state = "console"
 	icon_keyboard = null
 	icon_screen = null
 	networks = list(CAMERANET_NETWORK_SS13)
 	lock_override = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	var/obj/machinery/flock_outpost/pod_pad/pad
+	var/obj/effect/client_image_holder/flock_pod_drop_marker/marker
+	var/actions_created = FALSE
+
+/obj/machinery/computer/camera_advanced/flock/post_machine_initialize()
+	. = ..()
+	for(var/obj/machinery/flock_outpost/pod_pad/p as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/flock_outpost/pod_pad))
+		pad = p
+		break
 
 /obj/machinery/computer/camera_advanced/flock/CreateEye()
 	. = ..()
 	//For observers
 	eyeobj.icon = 'icons/mob/eyemob.dmi'
-	eyeobj.icon_state = "abductor_camera"
+	eyeobj.icon_state = "marker"
 	//For the user
 	eyeobj.set_user_icon(eyeobj.icon, eyeobj.icon_state)
 
+/obj/machinery/computer/camera_advanced/flock/proc/update_pod_drop_marker()
+	if(!marker)
+		marker = new(null, current_user)
+	if(pad && pad.drop_location)
+		marker.forceMove(pad.drop_location)
+	else
+		marker.moveToNullspace()
+
+/obj/machinery/computer/camera_advanced/flock/give_eye_control(mob/user)
+	. = ..()
+	update_pod_drop_marker()
+	marker.add_seer(user)
+
+/obj/machinery/computer/camera_advanced/flock/remove_eye_control(mob/living/user)
+	. = ..()
+	update_pod_drop_marker()
+	marker.remove_seer(user)
+
+/obj/machinery/computer/camera_advanced/flock/GrantActions(mob/living/carbon/user)
+	if(!actions_created)
+		actions_created = TRUE
+		actions += new /datum/action/innate/set_flockpod_point(src)
+	..()
+
+/obj/machinery/computer/camera_advanced/flock/proc/set_drop_point(turf/open/location, user)
+	if(!istype(location))
+		to_chat(user, span_warning("Unable to drop at specified location."))
+		return
+	if(pad)
+		pad.drop_location = location
+		to_chat(user, span_notice("Location marked for drop point."))
+		update_pod_drop_marker()
+
+/datum/action/innate/set_flockpod_point
+	name = "Set Drop Point"
+	button_icon = 'troutstation/icons/mob/actions/actions_flock.dmi'
+	button_icon_state = "set_pod"
+
+/datum/action/innate/set_flockpod_point/Activate()
+	if(!target || !isliving(owner))
+		return
+
+	var/mob/eye/camera/remote/remote_eye = owner.remote_control
+
+	var/obj/machinery/computer/camera_advanced/flock/console = target
+	console.set_drop_point(remote_eye.loc, owner)
+
+/obj/effect/client_image_holder/flock_pod_drop_marker
+	image_icon = 'troutstation/icons/effects/flock.dmi'
+	image_state = "pod_marker"
+	persist_without_seers = TRUE
+
+/////
 /obj/machinery/flock_outpost
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	use_power = NO_POWER_USE
@@ -255,8 +319,101 @@
 /obj/machinery/flock_outpost/pod_pad
 	name = "Transport Pod Shaper"
 	desc = "Spawns a transport pod when you're ready. Free one-way ticket."
-	icon = 'icons/obj/antags/abductor.dmi'
-	icon_state = "alien-pad-idle"
+	icon = 'troutstation/icons/obj/flock_outpost.dmi'
+	icon_state = "pad"
+	var/turf/open/drop_location
+
+/obj/machinery/flock_outpost/pod_pad/attack_hand(mob/living/user, list/modifiers)
+	if(locate(/obj/structure/closet/flockpod, loc))
+		to_chat(user, span_warning("The pad can only manage one pod at a time."))
+		return
+	if(!drop_location)
+		to_chat(user, span_warning("The pad is unresponsive. It has no destination set."))
+		return
+	to_chat(user, span_notice("Shaping pod. Climb into it once it's ready to deploy to the landing zone."))
+	icon_state = "pad_on"
+	var/obj/structure/closet/flockpod/pod = new(get_turf(src))
+	pod.drop_location = drop_location
+	pod.spawner_pad = src
+	pod.warp_in()
+
+/////
+#define FLOCKPOD_COLOR_MATRIX list(1,0,0,0,1,0,0,0,1,0.52,0.81,0.63)
+#define FLOCKPOD_WARP_IN_TIME 6 SECONDS
+#define FLOCKPOD_TRANSIT_TIME 6 SECONDS
+#define FLOCKPOD_LEAVE_TIME 2 SECONDS
+
+/obj/structure/closet/flockpod
+	name = "matter preservation transport capsule"
+	desc = "A robust structure designed to keep its contents safe as it traverses through signal and material space with minimal degradation."
+	icon = 'troutstation/icons/obj/flock_obj_64x64.dmi'
+	icon_state = "pod"
+	pixel_x = -16
+	pixel_y = -16
+	layer = BELOW_OBJ_LAYER //So that the crate inside doesn't appear underneath
+	allow_objects = TRUE
+	allow_dense = TRUE
+	delivery_icon = null
+	can_weld_shut = FALSE
+	armor_type = /datum/armor/closet_supplypod
+	anchored = TRUE //So it cant slide around after landing
+	anchorable = FALSE
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
+	appearance_flags = KEEP_TOGETHER | PIXEL_SCALE | LONG_GLIDE
+	density = FALSE
+	divable = FALSE
+	opened = TRUE
+	var/turf/open/drop_location
+	var/obj/machinery/flock_outpost/pod_pad/spawner_pad
+	var/in_transit = FALSE
+
+/obj/structure/closet/flockpod/proc/warp_in()
+	playsound(get_turf(src), 'troutstation/sound/effects/flock/flock_pod_form.ogg', 50, TRUE)
+	animate(src, color = FLOCKPOD_COLOR_MATRIX, transform = matrix()*2, alpha = 0, time = 0)
+	animate(color = null, alpha = 255, transform = null, time = FLOCKPOD_WARP_IN_TIME, easing = SINE_EASING)
+
+/obj/structure/closet/flockpod/close(mob/living/user)
+	. = ..()
+	if(drop_location && !in_transit)
+		in_transit = TRUE
+		transit_out()
+
+/obj/structure/closet/flockpod/proc/transit_out()
+	locked = TRUE
+	playsound(get_turf(src), 'troutstation/sound/effects/flock/flock_pod_travel.ogg', 50, TRUE)
+	animate(src, color = FLOCKPOD_COLOR_MATRIX, transform = matrix()*2, alpha = 0, time = FLOCKPOD_TRANSIT_TIME, easing = SINE_EASING)
+	addtimer(CALLBACK(src, PROC_REF(transit_in)), FLOCKPOD_TRANSIT_TIME)
+
+/obj/structure/closet/flockpod/proc/transit_in()
+	forceMove(drop_location)
+	playsound(get_turf(src), 'troutstation/sound/effects/flock/flock_pod_travel.ogg', 50, TRUE)
+	animate(src, color = null, alpha = 255, transform = null, time = FLOCKPOD_TRANSIT_TIME, easing = SINE_EASING)
+	addtimer(CALLBACK(src, PROC_REF(finish_transit)), FLOCKPOD_TRANSIT_TIME)
+
+/obj/structure/closet/flockpod/proc/finish_transit()
+	locked = FALSE
+	open(null, TRUE)
+	addtimer(CALLBACK(src, PROC_REF(warp_out)), FLOCKPOD_TRANSIT_TIME)
+
+/obj/structure/closet/flockpod/proc/warp_out()
+	playsound(get_turf(src), 'troutstation/sound/effects/flock/flock_pod_disappear.ogg', 50, TRUE)
+	animate(src, color = null, alpha = 255, transform = null, transform = null, time = 0)
+	animate(color = FLOCKPOD_COLOR_MATRIX, transform = matrix()*2, alpha = 0, time = FLOCKPOD_LEAVE_TIME, easing = SINE_EASING)
+	addtimer(CALLBACK(src, PROC_REF(post_warp_out)), FLOCKPOD_LEAVE_TIME)
+
+/obj/structure/closet/flockpod/proc/post_warp_out()
+	dump_contents() // just in case they managed to crawl in at the last second
+	qdel(src)
+
+#undef FLOCKPOD_COLOR_MATRIX
+#undef FLOCKPOD_WARP_IN_TIME
+#undef FLOCKPOD_TRANSIT_TIME
+#undef FLOCKPOD_LEAVE_TIME
+
+/obj/effect/landmark/flock_agent
+	icon = 'troutstation/icons/mob/simple/flock.dmi'
+	icon_state = "flock_agent"
+	var/position = 0 // ideally have 2 spawn positions
 
 #undef FLOCK_OUTPOST_LIGHT_COLOR
 #undef FLOCK_OUTPOST_DEFAULT_ATMOS

@@ -19,6 +19,12 @@
 	time = 9 SECONDS
 	desc = "Multifunctional albeit single-use tool for hacking into alien security. Slow and noisy."
 
+/datum/flock_recipe/plushie
+	item = /obj/item/toy/plush/flock_agent
+	cost = 50
+	time = 5 SECONDS
+	desc = "Endearing effigy. Maybe it will make the crew nicer to you. Or redirect their ire."
+
 /mob/living/basic/flock/agent/proc/create_recipe(datum/flock_recipe/recipe)
 	if(internal_storage)
 		to_chat(src, span_boldwarning("You can't make anything while you've got something in your storage!"))

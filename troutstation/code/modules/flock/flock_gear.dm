@@ -92,3 +92,21 @@
 			return TRUE
 	to_chat(user, span_warning("[src] has not been given sufficient instructions to deal with this technology."))
 	return FALSE
+
+// PLUSHIE because why not
+/obj/item/toy/plush/flock_agent
+	name = "flock agent plushie"
+	desc = "A plushie depicting a flock agent. Whatever that is. It looks adorable, but I wouldn't keep it near your headset."
+	icon = 'troutstation/icons/obj/toys/plushes.dmi'
+	icon_state = "plushie_flock_agent"
+	inhand_icon_state = null
+	attack_verb_continuous = list("pecks", "caws at")
+	attack_verb_continuous = list("peck", "caw at")
+	squeak_override = list(
+		'troutstation/sound/effects/flock/flock_scream1.ogg' = 1,
+		'troutstation/sound/effects/flock/flock_scream2.ogg' = 1,
+	)
+
+/obj/item/toy/plush/flock_agent/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_FLOCKISH_ITEM, ROUNDSTART_TRAIT)

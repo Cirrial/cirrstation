@@ -15,3 +15,9 @@
 	base_icon_state = "flock_table"
 	custom_materials = null // todo: add flock materials to this
 	can_flip = FALSE
+
+/obj/structure/bed/flock_outpost
+	name = "fuzzy alcove"
+	desc = "A big cozy blanket-fort of a nest bed, great for a quick nap. If you're a bird."
+	icon = 'troutstation/icons/obj/flock_outpost.dmi'
+	icon_state = "bed"
