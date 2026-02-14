@@ -17622,8 +17622,6 @@
 /area/station/service/chapel)
 "frZ" = (
 /obj/structure/cable,
-/obj/structure/table,
-/obj/structure/reagent_dispensers/servingdish,
 /obj/effect/turf_decal/tile/bar/opposingcorners{
 	dir = 1
 	},
@@ -31970,10 +31968,11 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/medical/virology)
 "jHB" = (
-/obj/machinery/vending/sustenance,
 /obj/effect/turf_decal/tile/bar/opposingcorners{
 	dir = 1
 	},
+/obj/machinery/power/apc/auto_name/directional/north,
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/station/security/prison/mess)
 "jHC" = (
@@ -36402,6 +36401,10 @@
 	dir = 9
 	},
 /obj/machinery/airalarm/directional/west,
+/obj/machinery/conveyor_switch/oneway{
+	id = "mining";
+	name = "mining conveyor switch"
+	},
 /turf/open/floor/iron/dark,
 /area/station/cargo/miningfoundry)
 "kWs" = (
@@ -52744,12 +52747,12 @@
 /area/station/hallway/primary/tram/sciai)
 "pVz" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/auto_name/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/dark_red,
+/obj/machinery/vending/sustenance,
 /turf/open/floor/iron/dark,
 /area/station/security/prison/mess)
 "pVB" = (
@@ -74599,6 +74602,8 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/dark_red,
+/obj/structure/table,
+/obj/structure/reagent_dispensers/servingdish,
 /turf/open/floor/iron/dark,
 /area/station/security/prison/mess)
 "wLA" = (
