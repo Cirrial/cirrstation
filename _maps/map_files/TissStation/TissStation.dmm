@@ -16116,6 +16116,7 @@
 "eVq" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/hallway/fore/port)
 "eVs" = (
@@ -24149,14 +24150,12 @@
 /turf/open/floor/iron,
 /area/station/commons/storage/tools)
 "hsM" = (
-/obj/structure/table/reinforced,
-/obj/item/clothing/gloves/latex/nitrile,
-/obj/item/wrench/medical,
 /obj/machinery/requests_console/directional/south{
 	department = "Medbay";
 	name = "Medbay Requests Console"
 	},
 /obj/effect/mapping_helpers/requests_console/assistance,
+/obj/machinery/recharge_station,
 /turf/open/floor/iron/dark/small,
 /area/station/medical/storage)
 "hsS" = (
@@ -24860,7 +24859,7 @@
 	dir = 8
 	},
 /obj/machinery/requests_console/directional/west{
-	name = "Chemistry Requests Console";
+	name = "Paramedic Requests Console";
 	department = "Chemistry"
 	},
 /turf/open/floor/iron/dark,
@@ -29883,9 +29882,8 @@
 /area/station/tcommsat/computer)
 "jdm" = (
 /obj/machinery/firealarm/directional/south,
-/obj/effect/turf_decal/siding/white/end,
-/obj/machinery/light/floor,
-/turf/open/floor/iron/white,
+/obj/machinery/vending/drugs,
+/turf/open/floor/iron/dark/small,
 /area/station/medical/storage)
 "jdq" = (
 /turf/closed/wall,
@@ -41525,6 +41523,7 @@
 	},
 /obj/effect/turf_decal/tile/red/half,
 /obj/machinery/power/apc/auto_name/directional/north,
+/obj/structure/cable,
 /turf/open/floor/iron/dark/smooth_half,
 /area/station/security/prison)
 "mvC" = (
@@ -43562,10 +43561,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/medical_doctor,
-/obj/effect/turf_decal/siding/white/corner,
-/obj/effect/turf_decal/siding/white/corner{
-	dir = 8
-	},
+/obj/effect/turf_decal/siding/white,
 /turf/open/floor/iron/white,
 /area/station/medical/storage)
 "ncI" = (
@@ -44088,6 +44084,7 @@
 	codes_txt = "patrol;next_patrol=HallFarWest";
 	location = "Vault"
 	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/hallway/fore/port)
 "nkn" = (
@@ -46303,9 +46300,12 @@
 /turf/open/floor/iron/white,
 /area/station/science/ordnance/office)
 "nUj" = (
-/obj/machinery/rnd/production/techfab/department/medical,
 /obj/machinery/status_display/ai/directional/south,
 /obj/machinery/light/directional/south,
+/obj/structure/table/reinforced,
+/obj/item/clothing/gloves/latex/nitrile,
+/obj/item/wrench/medical,
+/obj/machinery/cell_charger,
 /turf/open/floor/iron/dark/small,
 /area/station/medical/storage)
 "nUq" = (
@@ -46464,6 +46464,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/hallway/fore/port)
 "nXm" = (
@@ -53622,8 +53623,8 @@
 /turf/open/floor/iron,
 /area/station/commons/storage/tools)
 "qjM" = (
-/obj/machinery/recharge_station,
 /obj/machinery/newscaster/directional/south,
+/obj/machinery/vending/medical,
 /turf/open/floor/iron/dark/small,
 /area/station/medical/storage)
 "qjO" = (
@@ -63617,8 +63618,7 @@
 /turf/open/floor/iron,
 /area/station/security/brig)
 "tqD" = (
-/obj/structure/table/reinforced,
-/obj/machinery/cell_charger,
+/obj/machinery/rnd/production/techfab/department/medical,
 /turf/open/floor/iron/dark/small,
 /area/station/medical/storage)
 "tqH" = (
@@ -66666,6 +66666,7 @@
 /obj/effect/turf_decal/tile/dark_green{
 	dir = 1
 	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/hallway/fore/port)
 "uoy" = (
