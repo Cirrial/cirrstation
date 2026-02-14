@@ -9433,7 +9433,8 @@
 /area/station/cargo/miningdock)
 "cUq" = (
 /obj/machinery/conveyor{
-	speed = 10
+	speed = 10;
+	id = "pDeliv"
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/station/security/execution/transfer)
@@ -36975,7 +36976,8 @@
 /area/space/nearstation)
 "lep" = (
 /obj/machinery/conveyor_switch/oneway{
-	conveyor_speed = 10
+	conveyor_speed = 10;
+	id = "pDeliv"
 	},
 /obj/effect/turf_decal/tile/red/anticorner{
 	dir = 4
@@ -38831,7 +38833,8 @@
 "lFv" = (
 /obj/machinery/conveyor/inverted{
 	dir = 5;
-	speed = 10
+	speed = 10;
+	id = "pDeliv"
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/station/security/execution/transfer)
@@ -46397,7 +46400,8 @@
 "nVw" = (
 /obj/machinery/conveyor{
 	dir = 1;
-	speed = 10
+	speed = 10;
+	id = "pDeliv"
 	},
 /obj/machinery/door/window/brigdoor/left/directional/west{
 	name = "Delivery Conveyor Belt";
@@ -55082,7 +55086,8 @@
 "qGx" = (
 /obj/machinery/conveyor{
 	dir = 9;
-	speed = 10
+	speed = 10;
+	id = "pDeliv"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -57539,7 +57544,8 @@
 "ruX" = (
 /obj/machinery/conveyor/inverted{
 	dir = 6;
-	speed = 10
+	speed = 10;
+	id = "pDeliv"
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/station/security/execution/transfer)
@@ -65624,7 +65630,8 @@
 "tXW" = (
 /obj/machinery/conveyor{
 	dir = 10;
-	speed = 10
+	speed = 10;
+	id = "pDeliv"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -68854,7 +68861,8 @@
 "uUq" = (
 /obj/machinery/conveyor{
 	dir = 1;
-	speed = 10
+	speed = 10;
+	id = "pDeliv"
 	},
 /obj/structure/window/spawner/directional/west,
 /turf/open/floor/iron/white/smooth_large,
@@ -72346,7 +72354,8 @@
 "vZT" = (
 /obj/machinery/conveyor{
 	dir = 1;
-	speed = 10
+	speed = 10;
+	id = "pDeliv"
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/station/security/execution/transfer)
