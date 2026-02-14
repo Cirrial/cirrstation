@@ -18768,6 +18768,11 @@
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
+"fIM" = (
+/obj/machinery/door/airlock/security,
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/turf/open/floor/iron/dark/textured_large,
+/area/station/security/range)
 "fIN" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/landmark/navigate_destination,
@@ -31352,6 +31357,12 @@
 	},
 /turf/open/floor/iron,
 /area/station/engineering/break_room)
+"jvU" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/iron/kitchen/small,
+/area/station/security/mechbay)
 "jvX" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 4
@@ -32302,8 +32313,6 @@
 /turf/open/floor/grass,
 /area/station/medical/virology)
 "jKX" = (
-/obj/effect/landmark/secequipment,
-/obj/effect/turf_decal/bot_red,
 /obj/structure/reagent_dispensers/wall/peppertank/directional/east,
 /turf/open/floor/plastic,
 /area/station/security/lockers)
@@ -32420,6 +32429,14 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /turf/open/floor/iron/smooth_large,
 /area/station/security/execution/transfer)
+"jMI" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/cable,
+/obj/machinery/power/apc/auto_name/directional/east,
+/turf/open/floor/iron/small,
+/area/station/security/range)
 "jMM" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -34045,10 +34062,7 @@
 	},
 /area/station/security/prison)
 "klw" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/kitchen/small,
 /area/station/security/mechbay)
 "klC" = (
@@ -39470,6 +39484,10 @@
 /obj/structure/transit_tube/horizontal,
 /turf/open/space/basic,
 /area/space/nearstation)
+"lNQ" = (
+/obj/structure/tank_dispenser/oxygen,
+/turf/open/floor/iron,
+/area/station/security/mechbay)
 "lNT" = (
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
@@ -41671,7 +41689,6 @@
 	dir = 8
 	},
 /obj/structure/cable,
-/obj/machinery/power/apc/auto_name/directional/east,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/security/range)
 "mwE" = (
@@ -44269,11 +44286,6 @@
 "nmm" = (
 /turf/closed/wall/r_wall,
 /area/station/ai/upload/chamber)
-"nmp" = (
-/obj/effect/landmark/secequipment,
-/obj/effect/turf_decal/bot_red,
-/turf/open/floor/plastic,
-/area/station/security/lockers)
 "nmJ" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/effect/mapping_helpers/burnt_floor,
@@ -45688,6 +45700,15 @@
 /obj/machinery/recharge_station,
 /turf/open/floor/mineral/plastitanium/red,
 /area/station/security/armory)
+"nIS" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/airalarm/directional/east,
+/obj/machinery/light/directional/east,
+/turf/open/floor/iron/kitchen/small,
+/area/station/security/mechbay)
 "nIW" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -47483,6 +47504,8 @@
 /obj/structure/closet/secure_closet/security/sec,
 /obj/effect/turf_decal/bot_red,
 /obj/item/clothing/under/rank/security/officer/spacepol,
+/obj/machinery/light/directional/west,
+/obj/item/clothing/under/rank/security/officer/grey,
 /turf/open/floor/plastic,
 /area/station/security/lockers)
 "ooL" = (
@@ -51604,7 +51627,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/blood/oil/slippery,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /turf/open/floor/iron/kitchen/small,
@@ -51967,14 +51989,14 @@
 /turf/open/floor/iron/dark,
 /area/station/medical/break_room)
 "pHj" = (
-/obj/effect/landmark/secequipment,
-/obj/effect/turf_decal/bot_red,
 /obj/machinery/light/directional/east,
 /turf/open/floor/plastic,
 /area/station/security/lockers)
 "pHm" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/virology,
+/obj/machinery/door/airlock/virology{
+	id = "virology_airlock_exterior"
+	},
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door_buttons/access_button{
 	name = "Virology Access Button";
@@ -57641,14 +57663,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/medical/walkway)
-"rvq" = (
-/obj/structure/closet/secure_closet/security/sec,
-/obj/effect/turf_decal/bot_red,
-/obj/machinery/light/directional/west,
-/obj/item/clothing/under/rank/security/officer/blueshirt,
-/obj/item/clothing/under/rank/security/officer/grey,
-/turf/open/floor/plastic,
-/area/station/security/lockers)
 "rvw" = (
 /obj/machinery/door/airlock/security/glass,
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
@@ -69331,6 +69345,13 @@
 /obj/effect/landmark/navigate_destination,
 /turf/open/floor/iron,
 /area/station/commons/storage/tools)
+"vcD" = (
+/obj/structure/closet/secure_closet/security/sec,
+/obj/effect/turf_decal/bot_red,
+/obj/item/clothing/under/rank/security/constable,
+/obj/item/clothing/under/rank/security/officer/blueshirt,
+/turf/open/floor/plastic,
+/area/station/security/lockers)
 "vcN" = (
 /obj/effect/turf_decal/siding/yellow/corner{
 	dir = 4
@@ -70808,7 +70829,6 @@
 /area/station/security/prison/mess)
 "vzE" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 8
 	},
@@ -73656,7 +73676,9 @@
 /area/station/cargo/boutique)
 "wsY" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/virology,
+/obj/machinery/door/airlock/virology{
+	id = "virology_airlock_interior"
+	},
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door_buttons/access_button{
 	name = "Virology Access Button";
@@ -76228,13 +76250,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 8
 	},
-/obj/machinery/light/directional/east,
-/obj/machinery/airalarm/directional/east,
 /turf/open/floor/iron/kitchen/small,
 /area/station/security/mechbay)
 "xjX" = (
@@ -126688,7 +126707,7 @@ ohK
 sCG
 rOt
 fcc
-gWJ
+jMI
 gWJ
 cgK
 fTy
@@ -126950,7 +126969,7 @@ fXN
 fXN
 fXN
 fXN
-fXN
+fIM
 fXN
 fXN
 ewa
@@ -127206,8 +127225,8 @@ kYM
 fXN
 rqh
 ffN
-tsm
-rvq
+vcD
+osM
 ooz
 tsm
 kGH
@@ -127978,8 +127997,8 @@ fXN
 lPr
 uZT
 dtW
-nmp
-nmp
+osM
+osM
 jKX
 pHj
 ewa
@@ -130293,7 +130312,7 @@ ohK
 pis
 cMC
 xjQ
-bek
+jvU
 hGl
 qNi
 qkE
@@ -130548,9 +130567,9 @@ elN
 ohK
 ohK
 pis
-pis
-pis
-pis
+lNQ
+nIS
+bek
 pis
 qeO
 qeO
@@ -130804,11 +130823,11 @@ elN
 elN
 xeM
 ohK
-ohK
-ohK
-ohK
-ohK
-ohK
+pis
+pis
+pis
+pis
+pis
 ohK
 ohK
 ohK
