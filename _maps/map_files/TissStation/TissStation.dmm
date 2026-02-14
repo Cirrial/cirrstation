@@ -2787,6 +2787,18 @@
 	dir = 8
 	},
 /area/station/engineering/atmos)
+"aRT" = (
+/obj/structure/flora/bush/fullgrass/style_random,
+/obj/structure/flora/bush/grassy/style_random,
+/obj/structure/flora/grass/jungle/b/style_random,
+/obj/structure/flora/bush/lavendergrass/style_random,
+/obj/structure/flora/bush/leafy,
+/obj/structure/flora/bush/large/style_random{
+	pixel_y = 0
+	},
+/obj/effect/spawner/random/entertainment/toy,
+/turf/open/misc/grass/jungle/station,
+/area/station/security/prison)
 "aSa" = (
 /obj/machinery/disposal/bin,
 /obj/machinery/airalarm/directional/east,
@@ -3063,7 +3075,8 @@
 /turf/open/misc/grass/jungle/station,
 /area/station/escapepodbay)
 "aXs" = (
-/obj/effect/spawner/random/structure/closet_private,
+/obj/structure/closet/cabinet,
+/obj/effect/spawner/random/entertainment/musical_instrument,
 /turf/open/floor/carpet/black,
 /area/station/security/prison/safe)
 "aXu" = (
@@ -15163,6 +15176,16 @@
 	},
 /turf/open/floor/iron,
 /area/station/science/walkway)
+"eGv" = (
+/obj/structure/flora/bush/fullgrass/style_random,
+/obj/structure/flora/bush/grassy/style_random,
+/obj/structure/flora/grass/jungle/b/style_random,
+/obj/structure/flora/bush/lavendergrass/style_random,
+/obj/structure/flora/bush/leafy,
+/obj/structure/flora/bush/flowers_br/style_random,
+/obj/item/radio/off,
+/turf/open/misc/grass/jungle/station,
+/area/station/security/prison)
 "eGD" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/delivery/white{
@@ -27904,7 +27927,7 @@
 /turf/open/floor/iron,
 /area/station/medical/walkway)
 "ixi" = (
-/obj/effect/spawner/random/structure/closet_private,
+/obj/structure/closet/cabinet,
 /turf/open/floor/carpet/blue,
 /area/station/security/prison/safe)
 "ixm" = (
@@ -28134,6 +28157,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/any/service/library,
+/obj/effect/mapping_helpers/airlock/access/any/service/maintenance,
 /turf/open/floor/plating,
 /area/station/service/library/lounge)
 "iAV" = (
@@ -30527,7 +30551,8 @@
 /turf/open/floor/iron/white,
 /area/station/science/lobby)
 "jmP" = (
-/obj/effect/spawner/random/structure/closet_private,
+/obj/structure/closet/cabinet,
+/obj/effect/spawner/random/entertainment/musical_instrument,
 /turf/open/floor/carpet/red,
 /area/station/security/prison/safe)
 "jmY" = (
@@ -38611,6 +38636,7 @@
 /obj/structure/flora/bush/leafy,
 /obj/structure/flora/bush/flowers_br/style_random,
 /obj/machinery/light/directional/east,
+/obj/effect/spawner/random/entertainment/toy_figure,
 /turf/open/misc/grass/jungle/station,
 /area/station/security/prison)
 "lCP" = (
@@ -51818,6 +51844,7 @@
 /obj/effect/mapping_helpers/airlock/unres/delayed{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/airlock/access/any/service/maintenance,
 /turf/open/floor/plating,
 /area/station/maintenance/central/lesser)
 "pFO" = (
@@ -56440,6 +56467,18 @@
 	},
 /turf/open/floor/plating,
 /area/station/maintenance/central/greater)
+"raB" = (
+/obj/structure/flora/bush/fullgrass/style_random,
+/obj/structure/flora/bush/grassy/style_random,
+/obj/structure/flora/grass/jungle/b/style_random,
+/obj/structure/flora/bush/lavendergrass/style_random,
+/obj/structure/flora/bush/leafy,
+/obj/structure/flora/bush/large/style_random{
+	pixel_y = 0
+	},
+/obj/effect/spawner/random/entertainment/musical_instrument,
+/turf/open/misc/grass/jungle/station,
+/area/station/security/prison)
 "raS" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/purple{
@@ -57978,6 +58017,10 @@
 /obj/item/radio/intercom/prison/directional/north,
 /turf/open/floor/iron/dark/smooth_half,
 /area/station/security/prison)
+"rCq" = (
+/obj/effect/spawner/random/entertainment/colorful_grenades,
+/turf/open/floor/plating,
+/area/station/security/prison/shower)
 "rCW" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
@@ -75354,6 +75397,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/any/service/library,
+/obj/effect/mapping_helpers/airlock/access/any/service/maintenance,
 /turf/open/floor/plating,
 /area/station/service/library/artgallery)
 "wWX" = (
@@ -77591,7 +77635,7 @@
 /turf/open/floor/carpet/royalblack,
 /area/station/security/detectives_office)
 "xJr" = (
-/obj/effect/spawner/random/structure/closet_private,
+/obj/structure/closet/cabinet,
 /turf/open/floor/carpet,
 /area/station/security/prison/safe)
 "xJs" = (
@@ -77862,6 +77906,19 @@
 	},
 /obj/effect/turf_decal/tile/red/diagonal_edge,
 /turf/open/floor/iron/diagonal,
+/area/station/security/prison)
+"xMO" = (
+/obj/structure/flora/bush/fullgrass/style_random,
+/obj/structure/flora/bush/grassy/style_random,
+/obj/structure/flora/grass/jungle/b/style_random,
+/obj/structure/flora/bush/lavendergrass/style_random,
+/obj/structure/flora/bush/leafy,
+/obj/structure/flora/bush/large/style_random{
+	pixel_y = 0
+	},
+/obj/machinery/light/directional/south,
+/obj/effect/spawner/random/entertainment/musical_instrument,
+/turf/open/misc/grass/jungle/station,
 /area/station/security/prison)
 "xMS" = (
 /obj/effect/turf_decal/trimline/purple/filled/line{
@@ -136673,7 +136730,7 @@ ohK
 txw
 txw
 wtj
-buO
+aRT
 bdx
 buO
 fdE
@@ -137458,7 +137515,7 @@ mwE
 mwE
 pYB
 cAN
-vne
+xMO
 hqh
 bwS
 ctr
@@ -137958,7 +138015,7 @@ wcG
 qph
 cOI
 fOr
-buO
+raB
 ter
 lXw
 mwE
@@ -138755,7 +138812,7 @@ dJK
 dky
 vey
 iqu
-xZG
+rCq
 eup
 ohK
 ohK
@@ -140271,7 +140328,7 @@ vIf
 ntV
 kfv
 wtj
-bdx
+eGv
 buO
 koz
 qTB
