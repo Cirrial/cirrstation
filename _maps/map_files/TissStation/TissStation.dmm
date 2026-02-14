@@ -20725,6 +20725,20 @@
 /obj/structure/broken_flooring/pile/always_floorplane/directional/south,
 /turf/open/floor/plating,
 /area/station/maintenance/department/engine/atmos)
+"grm" = (
+/obj/structure/flora/bush/fullgrass/style_random,
+/obj/structure/flora/bush/grassy/style_random,
+/obj/structure/flora/grass/jungle/b/style_random,
+/obj/structure/flora/bush/lavendergrass/style_random,
+/obj/structure/flora/bush/leafy,
+/obj/structure/flora/bush/large/style_random{
+	pixel_y = 0
+	},
+/obj/effect/spawner/random/engineering/material_rare{
+	pixel_y = 14
+	},
+/turf/open/misc/grass/jungle/station,
+/area/station/security/prison)
 "grw" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 1
@@ -27677,6 +27691,8 @@
 "itM" = (
 /obj/structure/extinguisher_cabinet/directional/south,
 /obj/effect/turf_decal/trimline/yellow/filled/line,
+/obj/structure/closet/secure_closet/chemical,
+/obj/item/radio/headset/headset_med,
 /turf/open/floor/iron/white,
 /area/station/medical/pharmacy)
 "itU" = (
@@ -31155,6 +31171,7 @@
 /area/station/ai/satellite/chamber)
 "jti" = (
 /obj/item/door_seal,
+/obj/item/radio/headset/binary,
 /turf/open/floor/eighties,
 /area/station/security/prison/rec)
 "jtk" = (
@@ -136744,7 +136761,7 @@ hwR
 qmt
 hwR
 eNi
-buO
+grm
 hqh
 jrk
 ctr

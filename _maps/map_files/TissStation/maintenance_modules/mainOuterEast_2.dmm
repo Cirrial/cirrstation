@@ -302,6 +302,10 @@
 	dir = 10
 	},
 /obj/effect/landmark/generic_maintenance_landmark,
+/mob/living/basic/snail/angry{
+	name = "\improper Nine Inch Snail";
+	desc = "part of my christmas gift from my brother last year was a box with 9 individual nails hammered into it, each one inch long"
+	},
 /turf/open/floor/wood/large{
 	color = "#2a2a2a"
 	},
