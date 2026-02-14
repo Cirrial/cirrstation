@@ -15615,7 +15615,8 @@
 /area/station/engineering/storage)
 "eOK" = (
 /obj/structure/table,
-/obj/item/storage/bag/tray,
+/obj/item/storage/box/drinkingglasses,
+/obj/item/storage/box/drinkingglasses,
 /turf/open/floor/iron/cafeteria,
 /area/station/security/prison/mess)
 "eOO" = (
