@@ -3555,11 +3555,6 @@
 	dir = 4
 	},
 /area/station/cargo/lobby)
-"beV" = (
-/obj/structure/transit_tube/horizontal,
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space/nearstation)
 "beW" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "testlab";
@@ -4427,7 +4422,7 @@
 /area/station/engineering/break_room)
 "brG" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube,
+/obj/structure/transit_tube/crossing,
 /turf/open/space/basic,
 /area/space/nearstation)
 "brO" = (
@@ -5315,7 +5310,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/recreation)
 "bEP" = (
-/obj/structure/transit_tube/diagonal,
+/obj/structure/transit_tube/diagonal/crossing,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/airless,
 /area/station/asteroid)
@@ -5838,11 +5833,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/science/ordnance/testlab)
-"bQo" = (
-/obj/effect/turf_decal/sand/plating,
-/obj/structure/transit_tube,
-/turf/open/floor/plating/airless,
-/area/station/asteroid)
 "bQu" = (
 /turf/closed/wall/r_wall,
 /area/station/command/heads_quarters/qm)
@@ -22377,7 +22367,7 @@
 /area/station/engineering/lobby)
 "gPk" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/transit_tube/diagonal,
+/obj/structure/transit_tube/diagonal/crossing,
 /turf/open/space/basic,
 /area/space/nearstation)
 "gPG" = (
@@ -23601,7 +23591,7 @@
 /turf/open/floor/iron/white,
 /area/station/science/genetics)
 "hll" = (
-/obj/structure/transit_tube,
+/obj/structure/transit_tube/crossing,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/airless,
 /area/station/asteroid)
@@ -33155,11 +33145,6 @@
 /obj/structure/cable,
 /turf/open/floor/circuit/green,
 /area/station/command/vault)
-"jYI" = (
-/obj/effect/turf_decal/sand/plating,
-/obj/structure/transit_tube/horizontal,
-/turf/open/floor/plating/airless,
-/area/station/asteroid)
 "jYM" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/machinery/camera/motion/directional/west{
@@ -33566,7 +33551,7 @@
 /area/station/maintenance/disposal/incinerator)
 "key" = (
 /obj/effect/turf_decal/sand/plating,
-/obj/structure/transit_tube/diagonal,
+/obj/structure/transit_tube/diagonal/crossing,
 /turf/open/floor/plating/airless,
 /area/station/asteroid)
 "kez" = (
@@ -39483,7 +39468,7 @@
 /area/station/cargo/sorting)
 "lNN" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/transit_tube/horizontal,
+/obj/structure/transit_tube/crossing/horizontal,
 /turf/open/space/basic,
 /area/space/nearstation)
 "lNQ" = (
@@ -39702,10 +39687,6 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/open/floor/iron,
 /area/station/cargo/walkway)
-"lQE" = (
-/obj/structure/transit_tube/horizontal,
-/turf/open/space/basic,
-/area/space/nearstation)
 "lQR" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -39786,7 +39767,7 @@
 /turf/open/floor/grass,
 /area/station/hallway/secondary/entry)
 "lRL" = (
-/obj/structure/transit_tube/diagonal,
+/obj/structure/transit_tube/diagonal/crossing,
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -42550,7 +42531,7 @@
 /turf/open/floor/iron,
 /area/station/security/brig)
 "mLB" = (
-/obj/structure/transit_tube/diagonal/topleft,
+/obj/structure/transit_tube/diagonal/crossing/topleft,
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -48782,7 +48763,7 @@
 	},
 /area/station/hallway/secondary/exit/departure_lounge)
 "oJQ" = (
-/obj/structure/transit_tube,
+/obj/structure/transit_tube/crossing,
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -51512,7 +51493,7 @@
 /area/station/security/prison/garden)
 "pyG" = (
 /obj/effect/turf_decal/sand/plating,
-/obj/structure/transit_tube/diagonal/topleft,
+/obj/structure/transit_tube/diagonal/crossing/topleft,
 /turf/open/floor/plating/airless,
 /area/station/asteroid)
 "pyN" = (
@@ -63306,7 +63287,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/station/security/armory)
 "tiC" = (
-/obj/structure/transit_tube/diagonal/topleft,
+/obj/structure/transit_tube/diagonal/crossing/topleft,
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -65073,11 +65054,6 @@
 /obj/machinery/light/directional/west,
 /turf/open/floor/iron,
 /area/station/engineering/main)
-"tPr" = (
-/obj/structure/transit_tube/diagonal/topleft,
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/plating/airless,
-/area/station/asteroid)
 "tPw" = (
 /obj/effect/spawner/random/structure/closet_maintenance,
 /obj/effect/spawner/random/maintenance,
@@ -65374,10 +65350,6 @@
 /obj/machinery/firealarm/directional/west,
 /turf/open/floor/iron/grimy,
 /area/station/security/prison/rec)
-"tUj" = (
-/obj/structure/transit_tube/diagonal/topleft,
-/turf/open/space/basic,
-/area/space/nearstation)
 "tUu" = (
 /obj/structure/bed{
 	dir = 4
@@ -68405,7 +68377,7 @@
 /area/station/cargo/mining_breakroom)
 "uLt" = (
 /obj/effect/turf_decal/sand/plating,
-/obj/structure/transit_tube/horizontal,
+/obj/structure/transit_tube/crossing/horizontal,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "uLO" = (
@@ -69183,7 +69155,7 @@
 /turf/open/floor/iron/white,
 /area/station/science/ordnance/office)
 "uYp" = (
-/obj/structure/transit_tube/horizontal,
+/obj/structure/transit_tube/crossing/horizontal,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/airless,
 /area/station/asteroid)
@@ -78673,6 +78645,11 @@
 /obj/item/clothing/under/rank/civilian/purple_bartender,
 /turf/open/floor/wood,
 /area/station/service/bar/backroom)
+"xWQ" = (
+/obj/structure/lattice,
+/obj/structure/transit_tube/crossing/horizontal,
+/turf/open/space/basic,
+/area/space/nearstation)
 "xWV" = (
 /turf/closed/wall,
 /area/station/service/chapel/office)
@@ -90301,21 +90278,21 @@ mUY
 mUY
 mUY
 hll
-qKF
-qKF
-qKF
-qKF
-qKF
-qKF
-qKF
-qKF
+fIH
+fIH
+fIH
+fIH
+fIH
+fIH
+fIH
+fIH
 hll
 hll
-qKF
-qKF
-qKF
-qKF
-qKF
+fIH
+fIH
+fIH
+fIH
+fIH
 miV
 bfK
 elN
@@ -90557,21 +90534,21 @@ mUY
 mUY
 mUY
 mUY
-qKF
-qKF
-qKF
-qKF
-qKF
-qKF
-qKF
-qKF
-qKF
-qKF
-qKF
-qKF
-qKF
-qKF
-qKF
+fIH
+fIH
+fIH
+fIH
+fIH
+fIH
+fIH
+fIH
+fIH
+fIH
+fIH
+fIH
+fIH
+fIH
+fIH
 miV
 eYb
 xqw
@@ -90831,7 +90808,7 @@ elN
 elN
 eYb
 xqw
-beV
+kqo
 xeM
 xeM
 ohK
@@ -91087,8 +91064,8 @@ elN
 elN
 elN
 elN
-lQE
-beV
+kqo
+kqo
 xeM
 ohK
 ohK
@@ -91602,8 +91579,8 @@ elN
 elN
 elN
 elN
-tUj
-tUj
+ozV
+ozV
 elN
 ohK
 ohK
@@ -91860,8 +91837,8 @@ elN
 elN
 elN
 elN
-tUj
-tUj
+ozV
+ozV
 elN
 xeM
 qNU
@@ -92118,8 +92095,8 @@ elN
 elN
 elN
 elN
-tUj
-tUj
+ozV
+ozV
 elN
 bJg
 elN
@@ -92376,8 +92353,8 @@ elN
 elN
 elN
 elN
-tUj
-tUj
+ozV
+ozV
 bfK
 elN
 elN
@@ -92634,13 +92611,13 @@ elN
 elN
 elN
 elN
-tUj
+ozV
 tKu
-qKF
-qKF
-qKF
-qKF
-qKF
+fIH
+fIH
+fIH
+fIH
+fIH
 miV
 bfK
 elN
@@ -92893,10 +92870,10 @@ elN
 elN
 elN
 cZw
-qKF
-qKF
-qKF
-qKF
+fIH
+fIH
+fIH
+fIH
 miV
 eYb
 boD
@@ -93412,7 +93389,7 @@ elN
 elN
 elN
 elN
-beV
+kqo
 uYp
 ohK
 oCc
@@ -94441,9 +94418,9 @@ elN
 elN
 elN
 elN
-tPr
+apa
 vcO
-bQo
+uDT
 hll
 jLU
 ohK
@@ -94703,7 +94680,7 @@ vcO
 jLU
 kYM
 kYM
-tPr
+apa
 ohK
 ohK
 ohK
@@ -95215,13 +95192,13 @@ elN
 elN
 elN
 elN
-beV
+kqo
 elN
 elN
 elN
 elN
 elN
-tPr
+apa
 xim
 ibr
 ske
@@ -95472,7 +95449,7 @@ elN
 elN
 elN
 elN
-beV
+kqo
 elN
 elN
 elN
@@ -95729,7 +95706,7 @@ elN
 elN
 elN
 elN
-beV
+kqo
 elN
 elN
 elN
@@ -95986,7 +95963,7 @@ elN
 elN
 elN
 elN
-beV
+kqo
 elN
 elN
 elN
@@ -96243,7 +96220,7 @@ elN
 elN
 elN
 elN
-beV
+kqo
 elN
 elN
 elN
@@ -96500,7 +96477,7 @@ elN
 elN
 elN
 elN
-beV
+kqo
 elN
 elN
 elN
@@ -96757,7 +96734,7 @@ elN
 elN
 elN
 elN
-beV
+kqo
 elN
 elN
 elN
@@ -97014,7 +96991,7 @@ elN
 elN
 elN
 elN
-beV
+kqo
 elN
 elN
 elN
@@ -97210,13 +97187,13 @@ ccy
 ccy
 ccy
 fJA
-bQo
-bQo
-bQo
-bQo
-bQo
-bQo
-bQo
+uDT
+uDT
+uDT
+uDT
+uDT
+uDT
+uDT
 dAn
 key
 eYb
@@ -97271,7 +97248,7 @@ elN
 elN
 elN
 elN
-beV
+kqo
 elN
 elN
 elN
@@ -97285,7 +97262,7 @@ kSY
 uYA
 vIy
 jHq
-beV
+kqo
 elN
 jHq
 dSz
@@ -97467,13 +97444,13 @@ ccy
 ccy
 ccy
 fJA
-bQo
-bQo
-bQo
-bQo
-bQo
-bQo
-bQo
+uDT
+uDT
+uDT
+uDT
+uDT
+uDT
+uDT
 dAn
 kYM
 elN
@@ -97528,7 +97505,7 @@ elN
 elN
 elN
 elN
-beV
+kqo
 elN
 elN
 elN
@@ -97542,7 +97519,7 @@ qPP
 uYA
 vIy
 jHq
-beV
+kqo
 elN
 elN
 aNm
@@ -97785,7 +97762,7 @@ elN
 elN
 elN
 elN
-beV
+kqo
 elN
 elN
 elN
@@ -97799,7 +97776,7 @@ uYA
 uYA
 vIy
 jHq
-beV
+kqo
 elN
 elN
 ofv
@@ -98042,7 +98019,7 @@ elN
 elN
 elN
 elN
-beV
+kqo
 elN
 elN
 tIG
@@ -98056,7 +98033,7 @@ uYA
 vIy
 vIy
 jHq
-beV
+kqo
 elN
 elN
 elN
@@ -98299,7 +98276,7 @@ elN
 elN
 elN
 elN
-beV
+kqo
 elN
 tIG
 tIG
@@ -98313,7 +98290,7 @@ vIy
 vIy
 vIy
 jHq
-beV
+kqo
 elN
 elN
 elN
@@ -98556,7 +98533,7 @@ elN
 elN
 elN
 elN
-beV
+kqo
 tIG
 tIG
 lgC
@@ -98570,7 +98547,7 @@ vIy
 vIy
 vIy
 jHq
-beV
+kqo
 elN
 elN
 elN
@@ -98827,7 +98804,7 @@ vIy
 vIy
 jHq
 jHq
-beV
+kqo
 elN
 elN
 elN
@@ -98993,7 +98970,7 @@ egJ
 iuK
 eWe
 ohK
-jYI
+mAR
 ohK
 hQX
 jNX
@@ -99084,7 +99061,7 @@ vIy
 jHq
 jHq
 elN
-beV
+kqo
 elN
 elN
 elN
@@ -99250,7 +99227,7 @@ eYF
 vgQ
 eWe
 ohK
-jYI
+mAR
 ohK
 hQX
 jkB
@@ -99341,7 +99318,7 @@ jHq
 elN
 elN
 elN
-beV
+kqo
 elN
 elN
 elN
@@ -99507,7 +99484,7 @@ kFO
 hPt
 eWe
 ohK
-jYI
+mAR
 ohK
 hQX
 pDU
@@ -99764,7 +99741,7 @@ eWe
 eWe
 eWe
 kYM
-jYI
+mAR
 kYM
 ggm
 wFx
@@ -100021,7 +99998,7 @@ eWe
 ohK
 ohK
 kYM
-jYI
+mAR
 kYM
 ggm
 iXk
@@ -100369,7 +100346,7 @@ elN
 elN
 elN
 ohK
-beV
+kqo
 elN
 ohK
 elN
@@ -100619,14 +100596,14 @@ vIy
 vIy
 jHq
 jHq
-beV
+kqo
 elN
 elN
 elN
 elN
 elN
 elN
-beV
+kqo
 elN
 elN
 elN
@@ -100876,7 +100853,7 @@ ghK
 jHq
 jHq
 elN
-beV
+kqo
 elN
 elN
 elN
@@ -101392,16 +101369,16 @@ nkn
 nkn
 bJg
 tKu
-qKF
-qKF
-qKF
-qKF
-qKF
-qKF
-qKF
-qKF
+fIH
+fIH
+fIH
+fIH
+fIH
+fIH
+fIH
+fIH
 miV
-tUj
+ozV
 elN
 elN
 elN
@@ -101658,8 +101635,8 @@ ohK
 ohK
 elN
 eYb
-tUj
-tUj
+ozV
+ozV
 bfK
 elN
 elN
@@ -101916,7 +101893,7 @@ nkn
 ohK
 bJg
 elN
-tUj
+ozV
 mLB
 elN
 elN
@@ -102175,7 +102152,7 @@ nkn
 nkn
 elN
 mLB
-tUj
+ozV
 elN
 elN
 elN
@@ -102432,8 +102409,8 @@ eJd
 nkn
 ohK
 eYb
-tUj
-tUj
+ozV
+ozV
 elN
 elN
 elN
@@ -102690,8 +102667,8 @@ nkn
 ohK
 bJg
 elN
-tUj
-tUj
+ozV
+ozV
 elN
 elN
 elN
@@ -102948,8 +102925,8 @@ nkn
 nkn
 nkn
 nkn
-tUj
-tUj
+ozV
+ozV
 elN
 elN
 elN
@@ -106832,7 +106809,7 @@ ohK
 ohK
 ohK
 ohK
-jYI
+mAR
 sCZ
 lmq
 spD
@@ -119898,8 +119875,8 @@ ohK
 ohK
 kYM
 kYM
-jYI
-jYI
+mAR
+mAR
 kYM
 kYM
 xeM
@@ -120444,10 +120421,10 @@ elN
 elN
 seT
 hll
-qKF
-qKF
-qKF
-qKF
+fIH
+fIH
+fIH
+fIH
 bHT
 ofv
 elN
@@ -120924,8 +120901,8 @@ kqk
 fDC
 elN
 elN
-fWM
-fWM
+xWQ
+xWQ
 elN
 elN
 elN
@@ -121088,7 +121065,7 @@ xiu
 ohK
 ohK
 xeM
-jYI
+mAR
 elN
 elN
 elN
@@ -121181,8 +121158,8 @@ kqk
 fDC
 fDC
 elN
-beV
-beV
+kqo
+kqo
 elN
 elN
 elN
@@ -121345,7 +121322,7 @@ isi
 xiu
 xiu
 ohK
-jYI
+mAR
 xeM
 elN
 elN
@@ -121438,8 +121415,8 @@ kqk
 kqk
 fDC
 fDC
-beV
-beV
+kqo
+kqo
 elN
 elN
 elN
@@ -121703,7 +121680,7 @@ elN
 kYM
 kYM
 nKl
-bQo
+uDT
 hll
 hll
 gip
@@ -122215,7 +122192,7 @@ pyG
 kYM
 kYM
 kYM
-jYI
+mAR
 kYM
 kYM
 ohK
@@ -122472,7 +122449,7 @@ ohK
 ipe
 kYM
 ohK
-jYI
+mAR
 kYM
 ohK
 fDC
@@ -122726,7 +122703,7 @@ kqk
 kqk
 fDC
 fDC
-jYI
+mAR
 fDC
 fDC
 kHz
@@ -123483,7 +123460,7 @@ elN
 elN
 elN
 elN
-beV
+kqo
 elN
 xrp
 fDt
@@ -123740,7 +123717,7 @@ elN
 elN
 elN
 elN
-beV
+kqo
 elN
 xrp
 vtt
@@ -123927,16 +123904,16 @@ ibN
 ibN
 ibN
 rxx
-bQo
-bQo
-bQo
-bQo
-bQo
-qKF
-qKF
-qKF
-qKF
-qKF
+uDT
+uDT
+uDT
+uDT
+uDT
+fIH
+fIH
+fIH
+fIH
+fIH
 bHT
 lRL
 xeM
@@ -123946,7 +123923,7 @@ ohK
 ohK
 ohK
 xeM
-tPr
+apa
 tiC
 elN
 elN
@@ -123997,7 +123974,7 @@ elN
 elN
 elN
 elN
-beV
+kqo
 elN
 ohK
 bNF
@@ -124184,16 +124161,16 @@ ibN
 ibN
 ibN
 rxx
-bQo
-bQo
-bQo
-bQo
-bQo
-bQo
-qKF
-qKF
-qKF
-qKF
+uDT
+uDT
+uDT
+uDT
+uDT
+uDT
+fIH
+fIH
+fIH
+fIH
 bHT
 sWk
 xeM
@@ -124204,8 +124181,8 @@ tgQ
 tgQ
 tgQ
 ohK
-tPr
-tPr
+apa
+apa
 elN
 elN
 elN
@@ -124462,8 +124439,8 @@ qlC
 tgQ
 tgQ
 tgQ
-tPr
-tPr
+apa
+apa
 elN
 elN
 elN
@@ -124720,8 +124697,8 @@ qlC
 qlC
 tgQ
 tgQ
-tPr
-tUj
+apa
+ozV
 elN
 elN
 elN
@@ -124978,8 +124955,8 @@ qlC
 qlC
 tgQ
 ohK
-tPr
-tUj
+apa
+ozV
 elN
 elN
 bJg
@@ -125236,8 +125213,8 @@ qlC
 tgQ
 tgQ
 ohK
-tUj
-tUj
+ozV
+ozV
 elN
 bJg
 elN
@@ -125494,8 +125471,8 @@ qlC
 tgQ
 ohK
 elN
-tUj
-tUj
+ozV
+ozV
 gQL
 elN
 elN
@@ -126010,7 +125987,7 @@ tgQ
 ohK
 xeM
 uYp
-beV
+kqo
 elN
 elN
 elN
@@ -126267,7 +126244,7 @@ tgQ
 tgQ
 xeM
 uYp
-beV
+kqo
 elN
 elN
 elN
@@ -126307,9 +126284,9 @@ elN
 elN
 key
 nKl
-bQo
-bQo
-bQo
+uDT
+uDT
+uDT
 cAe
 tqc
 tqc
@@ -130672,7 +130649,7 @@ elN
 elN
 elN
 elN
-jYI
+mAR
 uYp
 xeM
 ohK
@@ -131442,7 +131419,7 @@ elN
 elN
 elN
 elN
-jYI
+mAR
 uYp
 xeM
 xeM
@@ -132212,7 +132189,7 @@ elN
 elN
 elN
 elN
-jYI
+mAR
 uYp
 xeM
 ohK
@@ -132469,7 +132446,7 @@ elN
 elN
 elN
 elN
-jYI
+mAR
 uYp
 ohK
 ohK
@@ -133239,7 +133216,7 @@ elN
 elN
 elN
 elN
-jYI
+mAR
 uYp
 xeM
 ohK
@@ -133496,7 +133473,7 @@ elN
 elN
 elN
 elN
-jYI
+mAR
 uYp
 xeM
 ohK
@@ -133753,7 +133730,7 @@ elN
 elN
 elN
 elN
-jYI
+mAR
 uYp
 xeM
 ohK
@@ -134010,7 +133987,7 @@ elN
 elN
 elN
 elN
-jYI
+mAR
 uYp
 xeM
 ohK
@@ -134267,7 +134244,7 @@ elN
 elN
 elN
 elN
-jYI
+mAR
 uYp
 xeM
 ohK
@@ -134524,7 +134501,7 @@ elN
 elN
 elN
 elN
-jYI
+mAR
 uYp
 xeM
 ohK
@@ -134781,7 +134758,7 @@ elN
 elN
 elN
 elN
-jYI
+mAR
 uYp
 xeM
 ohK
@@ -135038,7 +135015,7 @@ elN
 elN
 elN
 elN
-jYI
+mAR
 uYp
 ohK
 ohK
@@ -135295,7 +135272,7 @@ elN
 elN
 elN
 elN
-jYI
+mAR
 uYp
 ohK
 ohK
