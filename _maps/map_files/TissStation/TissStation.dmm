@@ -7793,7 +7793,9 @@
 /area/station/medical/virology)
 "cwa" = (
 /obj/structure/table/wood/fancy/purple,
-/obj/item/toy/plush/cyd,
+/obj/item/toy/plush/rufran{
+	pixel_y = 5
+	},
 /turf/open/floor/carpet/purple,
 /area/station/command/heads_quarters/rd)
 "cwq" = (
@@ -67699,10 +67701,10 @@
 	},
 /area/station/security/lobby)
 "uCc" = (
-/obj/item/toy/plush/rufran{
-	pixel_y = 5
-	},
 /obj/structure/table/wood/fancy/cyan,
+/obj/item/toy/plush/cyd{
+	pixel_y = 7
+	},
 /turf/open/floor/carpet/blue,
 /area/station/command/heads_quarters/cmo)
 "uCe" = (
