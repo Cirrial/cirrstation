@@ -51978,7 +51978,7 @@
 "pHm" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/virology{
-	id = "virology_airlock_exterior"
+	id_tag = "virology_airlock_exterior"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door_buttons/access_button{
@@ -73651,7 +73651,7 @@
 "wsY" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/virology{
-	id = "virology_airlock_interior"
+	id_tag = "virology_airlock_interior"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door_buttons/access_button{

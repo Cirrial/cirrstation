@@ -199,6 +199,15 @@
 /obj/effect/spawner/random/maintenance/no_decals/two,
 /turf/open/floor/plating,
 /area/station/maintenance/port/central)
+"uI" = (
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc/auto_name/directional/east,
+/turf/open/floor/plating,
+/area/station/maintenance/port/central)
 "vJ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
@@ -1001,7 +1010,7 @@ xP
 xP
 mq
 lE
-Di
+uI
 Di
 Di
 CV

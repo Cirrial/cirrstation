@@ -9,8 +9,8 @@
 	density = TRUE
 	deconstructible = FALSE
 	layer = EDGED_TURF_LAYER
-	light_power = 4
-	light_range = 4
+	light_power = 2
+	light_range = 2
 	light_color = COLOR_RED
 
 /obj/structure/fluff/orb_blue
@@ -24,6 +24,6 @@
 	density = TRUE
 	deconstructible = FALSE
 	layer = EDGED_TURF_LAYER
-	light_power = 4
-	light_range = 4
+	light_power = 2
+	light_range = 2
 	light_color = COLOR_BLUE
