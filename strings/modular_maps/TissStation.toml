@@ -31,7 +31,7 @@ modules = ["engUpperEast_1.dmm"]
 modules = ["engUpperWest_1.dmm"]
 
 [rooms.mainOuterWest]
-modules = ["mainOuterWest_1.dmm"]
+modules = ["mainOuterWest_1.dmm","mainOuterWest_2.dmm"]
 
 [rooms.mainOuterEast]
 modules = ["mainOuterEast_1.dmm","mainOuterEast_2.dmm"]
