@@ -298,7 +298,7 @@
 "yb" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/station/asteroid)
+/area/station/maintenance/port/central)
 "yf" = (
 /obj/effect/spawner/random/structure/closet_maintenance,
 /turf/open/floor/plating,
@@ -382,10 +382,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/station/maintenance/port/central)
-"DK" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/template_noop)
 "ET" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -784,11 +780,11 @@ Nt
 vL
 dG
 dG
-DK
+yb
 dG
-DK
+yb
 dG
-DK
+yb
 xP
 yb
 xP
