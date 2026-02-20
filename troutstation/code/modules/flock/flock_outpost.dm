@@ -412,7 +412,7 @@
 
 /obj/effect/landmark/flock_agent
 	icon = 'troutstation/icons/mob/simple/flock.dmi'
-	icon_state = "flock_agent"
+	icon_state = "agent"
 	var/position = 0 // ideally have 2 spawn positions
 
 #undef FLOCK_OUTPOST_LIGHT_COLOR
