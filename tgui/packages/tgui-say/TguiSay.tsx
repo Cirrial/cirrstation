@@ -199,6 +199,7 @@ export function TguiSay() {
       newPrefix !== ':f ' // Troutstation edit
     ) {
       messages.current.typingMsg();
+      messages.current.saveText(newValue, iterator.current());
     }
 
     setValue(newValue);
@@ -267,6 +268,7 @@ export function TguiSay() {
     Byond.subscribeTo('force', handleForceSay);
     Byond.subscribeTo('open', handleOpen);
     Byond.subscribeTo('save', handleSaveText);
+    Byond.subscribeTo('close', handleClose);
   }, []);
 
   /** Value has changed, we need to check if the size of the window is ok */
