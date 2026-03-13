@@ -10,7 +10,7 @@
 	var/resources_required = 0
 
 /datum/objective/flock_agent/get_resources/New(text)
-	resources_required = rand(10,20) * 100
+	resources_required = rand(2,5) * 100
 	update_explanation_text()
 
 /datum/objective/flock_agent/get_resources/update_explanation_text()

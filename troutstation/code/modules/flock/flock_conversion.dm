@@ -49,6 +49,5 @@ ADMIN_VERB(do_flock_act, R_DEBUG, "Do flock_act", "flock_act your current turf",
 	// temporary i hope hope hope
 	animate_flock_converted(src)
 
-
 #undef FLOCK_CONVERT_COLOR_MATRIX
 #undef FLOCK_END_ANIMATION_LENGTH
