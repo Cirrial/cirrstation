@@ -290,6 +290,7 @@
 	if(pad)
 		pad.drop_location = location
 		to_chat(user, span_notice("Location marked for drop point."))
+		pad.activate()
 		update_pod_drop_marker()
 
 /datum/action/innate/set_flockpod_point
@@ -322,6 +323,20 @@
 	icon = 'troutstation/icons/obj/flock_outpost.dmi'
 	icon_state = "pad"
 	var/turf/open/drop_location
+	var/activated = FALSE
+
+/obj/machinery/flock_outpost/pod_pad/proc/activate()
+	if(activated)
+		return
+	activated = TRUE
+	icon_state = "pad_on"
+	spawn_pod()
+
+/obj/machinery/flock_outpost/pod_pad/proc/spawn_pod()
+	var/obj/structure/closet/flockpod/pod = new(get_turf(src))
+	pod.drop_location = drop_location
+	pod.spawner_pad = src
+	pod.warp_in()
 
 /obj/machinery/flock_outpost/pod_pad/attack_hand(mob/living/user, list/modifiers)
 	if(locate(/obj/structure/closet/flockpod, loc))
@@ -330,15 +345,12 @@
 	if(!drop_location)
 		to_chat(user, span_warning("The pad is unresponsive. It has no destination set."))
 		return
-	to_chat(user, span_notice("Shaping pod. Climb into it once it's ready to deploy to the landing zone."))
-	icon_state = "pad_on"
-	var/obj/structure/closet/flockpod/pod = new(get_turf(src))
-	pod.drop_location = drop_location
-	pod.spawner_pad = src
-	pod.warp_in()
+	to_chat(user, span_notice("Shaping pod. Walk into it and close it by clicking it, once it's ready, to deploy to the landing zone."))
+	spawn_pod()
 
 /////
-#define FLOCKPOD_COLOR_MATRIX list(1,0,0,0,1,0,0,0,1,0.52,0.81,0.63)
+#define FLOCKPOD_COLOR_MATRIX list(1,0,0, 0,1,0, 0,0,1, 0,0,0, 0.52,0.81,0.63)
+#define FLOCKPOD_HIDE_COLOR_MATRIX list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,0, 0.52,0.81,0.63,0)
 #define FLOCKPOD_WARP_IN_TIME 3 SECONDS
 #define FLOCKPOD_TRANSIT_TIME 6 SECONDS
 #define FLOCKPOD_LEAVE_TIME 2 SECONDS
@@ -369,7 +381,7 @@
 
 /obj/structure/closet/flockpod/proc/warp_in()
 	playsound(get_turf(src), 'troutstation/sound/effects/flock/flock_pod_form.ogg', 50, TRUE)
-	animate(src, color = FLOCKPOD_COLOR_MATRIX, transform = matrix()*2, time = 0)
+	animate(src, color = FLOCKPOD_HIDE_COLOR_MATRIX, transform = matrix()*2, time = 0)
 	animate(color = null, transform = null, time = FLOCKPOD_WARP_IN_TIME, easing = SINE_EASING)
 
 /obj/structure/closet/flockpod/close(mob/living/user)
@@ -398,7 +410,7 @@
 /obj/structure/closet/flockpod/proc/warp_out()
 	playsound(get_turf(src), 'troutstation/sound/effects/flock/flock_pod_disappear.ogg', 50, TRUE)
 	animate(src, color = null, transform = null, transform = null, time = 0)
-	animate(color = FLOCKPOD_COLOR_MATRIX, transform = matrix()*2, time = FLOCKPOD_LEAVE_TIME, easing = SINE_EASING)
+	animate(color = FLOCKPOD_HIDE_COLOR_MATRIX, transform = matrix()*2, time = FLOCKPOD_LEAVE_TIME, easing = SINE_EASING)
 	addtimer(CALLBACK(src, PROC_REF(post_warp_out)), FLOCKPOD_LEAVE_TIME)
 
 /obj/structure/closet/flockpod/proc/post_warp_out()
@@ -406,6 +418,7 @@
 	qdel(src)
 
 #undef FLOCKPOD_COLOR_MATRIX
+#undef FLOCKPOD_HIDE_COLOR_MATRIX
 #undef FLOCKPOD_WARP_IN_TIME
 #undef FLOCKPOD_TRANSIT_TIME
 #undef FLOCKPOD_LEAVE_TIME

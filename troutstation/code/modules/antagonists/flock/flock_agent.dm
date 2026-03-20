@@ -61,7 +61,8 @@
 	return ..()
 
 /datum/antagonist/flock_agent/get_preview_icon()
-	return finish_preview_icon(icon('troutstation/icons/mob/simple/flock.dmi', "agent"))
+	var/datum/universal_icon/icon = uni_icon('troutstation/icons/mob/simple/flock.dmi', "agent")
+	return finish_preview_icon(icon)
 
 /datum/antagonist/flock_agent/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
