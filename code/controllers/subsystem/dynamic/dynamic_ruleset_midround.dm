@@ -1062,6 +1062,7 @@
 	weight = 5 // they're functional enough
 	min_pop = 0
 	max_antag_cap = 2
+	ruleset_lazy_templates = list(LAZY_TEMPLATE_KEY_FLOCK_OUTPOST)
 	signup_atom_appearance = /mob/living/basic/flock/agent
 
 /datum/dynamic_ruleset/midround/from_ghosts/morph/can_be_selected()
