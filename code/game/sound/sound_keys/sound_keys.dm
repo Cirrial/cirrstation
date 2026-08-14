@@ -1162,3 +1162,9 @@
 		'troutstation/sound/misc/gay4.ogg',
 		'troutstation/sound/misc/gay5.ogg',
 	)
+/datum/sound_effect/heavy_drop
+	key = SFX_HEAVY_DROP
+	file_paths = list(
+		'sound/effects/heavy_drop1.ogg',
+		'sound/effects/heavy_drop2.ogg',
+	)

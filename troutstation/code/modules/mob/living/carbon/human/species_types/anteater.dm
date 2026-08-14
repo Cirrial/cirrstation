@@ -16,10 +16,8 @@
 	mutanttongue = /obj/item/organ/tongue/anteater
 	mutantstomach = /obj/item/organ/stomach/anteater
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
-	death_sound = 'troutstation/sound/mobs/humanoids/anteater/anteater_death.ogg'
 	species_language_holder = /datum/language_holder/anteater
 	payday_modifier = 1.0
-
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/anteater,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/anteater,
@@ -58,81 +56,6 @@
 	features[FEATURE_ANTEATER_TAIL] = pick(SSaccessories.feature_list[FEATURE_ANTEATER_TAIL])
 	features[FEATURE_ANTEATER_MARKINGS] = pick(SSaccessories.feature_list[FEATURE_ANTEATER_MARKINGS])
 	return features
-
-// sounds
-
-/datum/species/anteater/get_scream_sound(mob/living/carbon/human/anteater)
-	return pick(
-		'troutstation/sound/mobs/humanoids/anteater/anteater_scream1.ogg',
-		'troutstation/sound/mobs/humanoids/anteater/anteater_scream2.ogg',
-		'troutstation/sound/mobs/humanoids/anteater/anteater_scream3.ogg',
-		'troutstation/sound/mobs/humanoids/anteater/anteater_scream4.ogg',
-		'troutstation/sound/mobs/humanoids/anteater/anteater_scream5.ogg',
-		'troutstation/sound/mobs/humanoids/anteater/anteater_scream6.ogg',
-		'troutstation/sound/mobs/humanoids/anteater/anteater_scream7.ogg',
-	)
-
-/datum/species/anteater/get_cough_sound(mob/living/carbon/human/anteater)
-	if(anteater.physique == FEMALE)
-		return pick(
-			'sound/mobs/humanoids/human/cough/female_cough1.ogg',
-			'sound/mobs/humanoids/human/cough/female_cough2.ogg',
-			'sound/mobs/humanoids/human/cough/female_cough3.ogg',
-			'sound/mobs/humanoids/human/cough/female_cough4.ogg',
-			'sound/mobs/humanoids/human/cough/female_cough5.ogg',
-			'sound/mobs/humanoids/human/cough/female_cough6.ogg',
-		)
-	return pick(
-		'sound/mobs/humanoids/human/cough/male_cough1.ogg',
-		'sound/mobs/humanoids/human/cough/male_cough2.ogg',
-		'sound/mobs/humanoids/human/cough/male_cough3.ogg',
-		'sound/mobs/humanoids/human/cough/male_cough4.ogg',
-		'sound/mobs/humanoids/human/cough/male_cough5.ogg',
-		'sound/mobs/humanoids/human/cough/male_cough6.ogg',
-	)
-
-/datum/species/anteater/get_cry_sound(mob/living/carbon/human/anteater)
-	if(anteater.physique == FEMALE)
-		return pick(
-			'sound/mobs/humanoids/human/cry/female_cry1.ogg',
-			'sound/mobs/humanoids/human/cry/female_cry2.ogg',
-		)
-	return pick(
-		'sound/mobs/humanoids/human/cry/male_cry1.ogg',
-		'sound/mobs/humanoids/human/cry/male_cry2.ogg',
-		'sound/mobs/humanoids/human/cry/male_cry3.ogg',
-	)
-
-
-/datum/species/anteater/get_sneeze_sound(mob/living/carbon/human/anteater)
-	if(anteater.physique == FEMALE)
-		return 'sound/mobs/humanoids/human/sneeze/female_sneeze1.ogg'
-	return 'sound/mobs/humanoids/human/sneeze/male_sneeze1.ogg'
-
-/datum/species/anteater/get_laugh_sound(mob/living/carbon/human/anteater)
-	return pick(
-		'troutstation/sound/mobs/humanoids/anteater/anteater_laugh1.ogg',
-		'troutstation/sound/mobs/humanoids/anteater/anteater_laugh2.ogg',
-		'troutstation/sound/mobs/humanoids/anteater/anteater_laugh3.ogg',
-	)
-
-/datum/species/anteater/get_sigh_sound(mob/living/carbon/human/anteater)
-	if(anteater.physique == FEMALE)
-		return SFX_FEMALE_SIGH
-	return SFX_MALE_SIGH
-
-/datum/species/anteater/get_sniff_sound(mob/living/carbon/human/anteater)
-	if(anteater.physique == FEMALE)
-		return 'sound/mobs/humanoids/human/sniff/female_sniff.ogg'
-	return 'sound/mobs/humanoids/human/sniff/male_sniff.ogg'
-
-/datum/species/anteater/get_snore_sound(mob/living/carbon/human/anteater)
-	if(anteater.physique == FEMALE)
-		return SFX_SNORE_FEMALE
-	return SFX_SNORE_MALE
-
-/datum/species/anteater/get_hiss_sound(mob/living/carbon/human/anteater)
-	return 'troutstation/sound/mobs/humanoids/anteater/anteater_hiss.ogg'
 
 // descriptions
 
