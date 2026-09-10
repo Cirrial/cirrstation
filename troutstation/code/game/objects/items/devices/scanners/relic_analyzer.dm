@@ -112,7 +112,7 @@ GLOBAL_LIST_EMPTY(relic_nodes_scanned)
 			scanned_relics[R] = scanned_relic_nodes
 		if (R.current_node && !scanned_relic_nodes.Find(R.current_node.node_id))
 			scanned_relic_nodes.Add(R.current_node.node_id)
-			linked_techweb.add_point_list(list(TECHWEB_POINT_TYPE_GENERIC = relic_node_scan_reward))
+			linked_techweb.adjust_points(TECHWEB_POINT_TYPE_GENERIC, relic_node_scan_reward)
 			to_chat(user, span_notice("The analyzer sends [relic_node_scan_reward] research points to the research server!"))
 			playsound(src, 'sound/machines/beep/beep.ogg', 50, 3, -1)
 
@@ -126,7 +126,6 @@ GLOBAL_LIST_EMPTY(relic_nodes_scanned)
 /datum/design/relic_analyzer
 	name = "Relic Analyzer"
 	desc = "A device to analyze relic activation states and add their contributions to research."
-	id = "relic_analyzer"
 	build_type = PROTOLATHE | AWAY_LATHE | AUTOLATHE
 	materials = list(/datum/material/iron = SHEET_MATERIAL_AMOUNT, /datum/material/glass = SMALL_MATERIAL_AMOUNT)
 	build_path = /obj/item/relicanalyzer

@@ -88,7 +88,6 @@
 /datum/design/relic_pinpointer
 	name = "Relic Pinpointer"
 	desc = "Makes a device to keep track of relics."
-	id = "relic_pinpointer"
 	build_type = PROTOLATHE | AWAY_LATHE | AUTOLATHE
 	materials = list(/datum/material/iron = SHEET_MATERIAL_AMOUNT, /datum/material/glass = SMALL_MATERIAL_AMOUNT)
 	build_path = /obj/item/pinpointer/relic
