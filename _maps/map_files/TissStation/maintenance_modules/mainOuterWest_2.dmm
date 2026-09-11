@@ -612,6 +612,7 @@
 /area/station/maintenance/port/central)
 "TD" = (
 /obj/modular_map_connector,
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/station/maintenance/port/central)
 "TU" = (

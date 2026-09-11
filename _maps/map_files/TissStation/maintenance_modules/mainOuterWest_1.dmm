@@ -4,6 +4,7 @@
 /area/station/maintenance/port/central)
 "bs" = (
 /obj/effect/spawner/random/decoration/glowstick/on,
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/station/maintenance/port/central)
 "bO" = (
@@ -18,6 +19,7 @@
 /area/station/maintenance/port/central)
 "cm" = (
 /obj/effect/spawner/random/trash/grime,
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/station/maintenance/port/central)
 "de" = (
@@ -120,6 +122,7 @@
 /obj/effect/mapping_helpers/airlock/unres/delayed{
 	dir = 8
 	},
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/station/commons/dorms)
 "nb" = (
@@ -352,6 +355,10 @@
 	},
 /turf/open/floor/plating,
 /area/station/maintenance/port/central)
+"Ij" = (
+/obj/structure/cable,
+/turf/open/floor/plating,
+/area/station/maintenance/port/central)
 "IL" = (
 /obj/machinery/door/airlock/external,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -435,6 +442,7 @@
 "UU" = (
 /obj/modular_map_connector,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/station/maintenance/port/central)
 "Vb" = (
@@ -689,7 +697,7 @@ Cf
 HY
 tx
 tx
-tx
+Ij
 tx
 tx
 tx
@@ -797,7 +805,7 @@ xt
 xt
 xt
 SB
-tx
+Ij
 SB
 xt
 xt

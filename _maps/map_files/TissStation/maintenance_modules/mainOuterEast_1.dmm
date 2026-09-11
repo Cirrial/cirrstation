@@ -467,6 +467,7 @@
 /area/station/commons/fitness/recreation/bowling)
 "sq" = (
 /obj/modular_map_connector,
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/central)
 "sr" = (
